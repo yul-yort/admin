@@ -5,7 +5,7 @@ import SentimentDissatisfiedOutlinedIcon from "@mui/icons-material/SentimentDiss
 import css from "./styles.module.scss";
 
 const LinkBehavior = React.forwardRef((props, ref) => {
-  return <RouterLink {...props} ref={ref} routeName="agency" />;
+  return <RouterLink {...props} ref={ref} routeName="dashboard  " />;
 });
 
 const NotFound: FC = () => {

@@ -20,7 +20,7 @@ export default function createAppRouter(
 
   router.usePlugin(browserPlugin());
 
-  router.useMiddleware(onActivate(routes));
+  router.useMiddleware(onActivate);
 
   return router;
 }

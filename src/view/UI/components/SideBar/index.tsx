@@ -1,6 +1,5 @@
 import {
   AppBar,
-  Divider,
   Drawer,
   IconButton,
   List,
@@ -11,36 +10,45 @@ import {
   Typography,
 } from "@mui/material";
 import { FC } from "react";
+import { ISideBar } from "./types";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import css from "./styles.module.scss";
+import routes from "../../../../router/routes";
+import { icons } from "./icons";
+import { useRouter } from "react-router5";
 
-export const SideBar: FC = () => {
+export const SideBar: FC<ISideBar> = ({ open, onClose }) => {
+  const { navigate } = useRouter();
+
   return (
-    <Drawer variant="temporary" anchor="left" open={true}>
+    <Drawer variant={"temporary"} anchor="left" open={open} onClose={onClose}>
       <AppBar position="relative">
         <Toolbar>
-          <Typography variant="h6" noWrap component="div">
+          <Typography variant="h6" noWrap component="div" className={css.title}>
             Yul-Yort Admin
           </Typography>
-          <IconButton>X</IconButton>
+
+          <IconButton onClick={onClose} color="inherit">
+            <CloseRoundedIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
-      <Divider />
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text) => (
-          <ListItem button key={text}>
-            <ListItemIcon>=</ListItemIcon>
-            <ListItemText primary={text} />
+
+      {routes.map((route) => (
+        <List key={route.name}>
+          <ListItem
+            button
+            onClick={() => {
+              //TODO вынести
+              navigate(route.name);
+              onClose();
+            }}
+          >
+            <ListItemIcon>{icons[route.name]}</ListItemIcon>
+            <ListItemText>{route.title}</ListItemText>
           </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text) => (
-          <ListItem button key={text}>
-            <ListItemIcon>=</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
+        </List>
+      ))}
     </Drawer>
   );
 };

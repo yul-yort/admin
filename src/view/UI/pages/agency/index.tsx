@@ -6,7 +6,7 @@ const Agency: FC = observer(() => {
 
   return (
     <div className={css.page}>
-
+      Agency
     </div>
   );
 });

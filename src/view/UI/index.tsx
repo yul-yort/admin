@@ -1,6 +1,5 @@
 import { StrictMode } from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
 import reportWebVitals from "../../reportWebVitals";
 import * as serviceWorkerRegistration from "../../serviceWorkerRegistration";
 import {
@@ -12,10 +11,8 @@ import { RouterProvider } from "react-router5";
 import { Router } from "router5/dist/types/router";
 import { IDependencies } from "../../router/types";
 import { Theme } from "@mui/material/styles/createTheme";
-import Body from "./components/Body";
 import { ErrorBoundary } from "./pages/errorBoundaryPage";
-import { Header } from "./components/Header";
-import { SideBar } from "./components/SideBar";
+import App from "./App";
 
 type IAppInitConfig = {
   router: Router<IDependencies>;
@@ -31,13 +28,7 @@ export const initApp = ({ router, theme }: IAppInitConfig) => {
           {/* @ts-ignore TODO */}
           <RouterProvider router={router}>
             <ErrorBoundary>
-              <Header/>
-
-              <SideBar/>
-
-              <Body>
-                <App />
-              </Body>
+              <App />
             </ErrorBoundary>
           </RouterProvider>
         </StyledEngineProvider>

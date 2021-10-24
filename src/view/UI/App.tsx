@@ -1,12 +1,17 @@
-import { FC, lazy, Suspense } from "react";
+import { FC, lazy, Suspense, useState } from "react";
 import { useRoute } from "react-router5";
 import { constants } from "router5";
 import { LoadingScreen } from "./components/LoadingScreen";
+import { Header } from "./components/Header";
+import { SideBar } from "./components/SideBar";
+import Body from "./components/Body";
 
 const AgencyPage = lazy(() => import("./pages/agency"));
+const DashboardPage = lazy(() => import("./pages/dashboard"));
 const NotFoundPage = lazy(() => import("./pages/notFound"));
 
 export const App: FC = () => {
+  const [open, setOpen] = useState<boolean>(false);
   const router = useRoute();
 
   let page: JSX.Element;
@@ -15,13 +20,37 @@ export const App: FC = () => {
     case "agency":
       page = <AgencyPage />;
       break;
+    case "dashboard":
+      page = <DashboardPage />;
+      break;
 
     case constants.UNKNOWN_ROUTE:
     default:
       page = <NotFoundPage />;
   }
 
-  return <Suspense fallback={<LoadingScreen />}>{page}</Suspense>;
+  const handleOpenSidebar = () => {
+    setOpen(true);
+  };
+
+  const handleCloseSidebar = () => {
+    setOpen(false);
+  };
+
+  return (
+    <>
+      <Header onOpen={handleOpenSidebar} />
+
+      <SideBar
+        open={open}
+        onClose={handleCloseSidebar}
+      />
+
+      <Body>
+        <Suspense fallback={<LoadingScreen />}>{page}</Suspense>
+      </Body>
+    </>
+  );
 };
 
 export default App;
