@@ -1,0 +1,9 @@
+:root {
+  --yy-base: 4px;
+
+  --yy-media-query-mobile: 767px;
+
+  --yy-default-background: #e0e0e0;
+  --yy-error-color: #ff0000;
+  --yy-white-color: #ffffff;
+}

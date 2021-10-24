@@ -1,0 +1,78 @@
+.input {
+  margin: calc(var(--yy-base) * 2);
+  width: 100%;
+}
+
+.formWrapper {
+  display: inline-flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.wrapper {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: calc(var(--yy-base) * 4);
+}
+
+.minifiedRouteWrapper {
+  display: inline-flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: calc(var(--yy-base) * 4);
+
+  .title,
+  .icon {
+    word-break: break-word;
+    margin: calc(var(--yy-base) * 2);
+  }
+
+  .route {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.formButton {
+  margin: calc(var(--yy-base) * 2);
+  min-width: calc(var(--yy-base) * 22);
+}
+
+.rollUpButtonIcon {
+  transform: rotate(90deg);
+}
+
+.arrows {
+  transform: rotate(90deg);
+  align-self: flex-end;
+}
+
+.actions {
+  display: flex;
+}
+
+@media screen and (min-width: 767px) {
+  .wrapper,
+  .minifiedRouteWrapper {
+    flex-direction: row;
+  }
+
+  .arrows {
+    transform: rotate(0deg);
+    align-self: center;
+  }
+
+  .input {
+    width: auto;
+  }
+
+  .rollUpButtonIcon {
+    transform: rotate(0deg);
+  }
+}
