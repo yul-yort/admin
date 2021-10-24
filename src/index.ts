@@ -14,7 +14,7 @@ try {
 
   const router = createAppRouter({ store: viewModels, routes });
 
-  router.start("/agency");
+  router.start("/dashboard");
 
   initApp({
     router,

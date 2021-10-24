@@ -24,6 +24,7 @@ export const App: FC = () => {
       page = <DashboardPage />;
       break;
 
+      // TODO не работает
     case constants.UNKNOWN_ROUTE:
     default:
       page = <NotFoundPage />;
