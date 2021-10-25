@@ -1,4 +1,4 @@
 /**
  * Возвращает заголовок страницы.
  */
-export const useRouteTitle = (): string => document.title;
+export const useTitle = (): string => document.title;

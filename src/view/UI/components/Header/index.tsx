@@ -3,10 +3,10 @@ import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
 import { IAppBar } from "./types";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import css from "./styles.module.scss";
-import { useRouteTitle } from "../../hooks/useRouteTitle";
+import { useTitle } from "../../hooks/useTitle";
 
 export const Header: FC<IAppBar> = ({ onOpen }) => {
-  const title = useRouteTitle();
+  const title = useTitle();
 
   return (
     <AppBar position="fixed">
