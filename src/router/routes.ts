@@ -1,7 +1,7 @@
 import { IRoutes } from "./types";
 
 const routes: IRoutes = [
-  { name: "dashboard", path: "/dashboard", title: "Dashboard" },
+  { name: "dashboard", path: "/", title: "Dashboard" },
   { name: "agency", path: "/agency", title: "Агенства" },
 ];
 

@@ -7,6 +7,7 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 
 // TODO вынести компоненты
+// TODO плашка находится за шапкой
 export class ErrorBoundary extends React.Component<IProps, IState> {
   constructor(props: any) {
     super(props);

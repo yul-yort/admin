@@ -2,16 +2,11 @@ import { FC } from "react";
 import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
 import { IAppBar } from "./types";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
-import { useRoute } from "react-router5";
-import { IRoute } from "../../../../router/types";
 import css from "./styles.module.scss";
+import { useRouteTitle } from "../../hooks/useRouteTitle";
 
 export const Header: FC<IAppBar> = ({ onOpen }) => {
-  const router = useRoute();
-
-  const title = router.router
-    .getDependencies()
-    .routes.find((route: IRoute) => route.name === router.route.name).title;
+  const title = useRouteTitle();
 
   return (
     <AppBar position="fixed">
