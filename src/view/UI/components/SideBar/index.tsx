@@ -39,7 +39,7 @@ export const SideBar: FC<ISideBar> = ({ open, onClose }) => {
           <ListItem
             button
             onClick={() => {
-              //TODO вынести
+              //TODO вынести, а лучше переписать на ссылки
               navigate(route.name);
               onClose();
             }}

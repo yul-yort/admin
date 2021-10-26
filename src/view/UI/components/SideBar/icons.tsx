@@ -3,6 +3,6 @@ import EmojiTransportationRoundedIcon from "@mui/icons-material/EmojiTransportat
 import BarChartRoundedIcon from "@mui/icons-material/BarChartRounded";
 
 export const icons: Record<string, ReactNode> = {
-  agency: <EmojiTransportationRoundedIcon />,
+  agencies: <EmojiTransportationRoundedIcon />,
   dashboard: <BarChartRoundedIcon />,
 };

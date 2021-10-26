@@ -7,6 +7,7 @@ import { SideBar } from "./components/SideBar";
 import Body from "./components/Body";
 
 const AgencyPage = lazy(() => import("./pages/agency"));
+const AgencyListPage = lazy(() => import("./pages/agencies"));
 const DashboardPage = lazy(() => import("./pages/dashboard"));
 const NotFoundPage = lazy(() => import("./pages/notFound"));
 
@@ -17,14 +18,16 @@ export const App: FC = () => {
   let page: JSX.Element;
 
   switch (router.route.name) {
-    case "agency":
+    case "agencies":
+      page = <AgencyListPage />;
+      break;
+    case "agencies.agency":
       page = <AgencyPage />;
       break;
     case "dashboard":
       page = <DashboardPage />;
       break;
 
-      // TODO не работает
     case constants.UNKNOWN_ROUTE:
     default:
       page = <NotFoundPage />;
@@ -42,10 +45,7 @@ export const App: FC = () => {
     <>
       <Header onOpen={handleOpenSidebar} />
 
-      <SideBar
-        open={open}
-        onClose={handleCloseSidebar}
-      />
+      <SideBar open={open} onClose={handleCloseSidebar} />
 
       <Body>
         <Suspense fallback={<LoadingScreen />}>{page}</Suspense>

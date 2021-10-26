@@ -4,7 +4,7 @@ import { orders } from "./data/orders";
 import { getTimeout } from "./utils/getTimeout";
 
 export const handlers = [
-  rest.get("/agency", (req, res, ctx) => {
+  rest.get("/agencies", (req, res, ctx) => {
     return res(
       ctx.json<IOrderResponseDTO[]>(orders),
       ctx.delay(getTimeout()),

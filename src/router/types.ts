@@ -7,6 +7,7 @@ export interface IRoute<P = Record<string, string>>
   extends Route<IDependencies> {
   title: string;
   onActivate?: (store: IStoreViewModels, params?: P) => Promise<void>;
+  children?: IRoute<P>[];
 }
 
 export interface IDependencies extends DefaultDependencies {
