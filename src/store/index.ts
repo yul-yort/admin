@@ -4,9 +4,9 @@ import {
   IStoreServices,
   IStoreViewModels,
 } from "./types";
-import { OrderService } from "../data/services/Order";
-import { OrderRepository } from "../data/repositories/Order";
-import { OrderVM } from "../view/viewModels/Order";
+import { AgencyVM } from "../view/viewModels/Agency";
+import { AgencyService } from "../data/services/Agency";
+import { AgencyRepository } from "../data/repositories/Agency";
 import { Api } from "../libs/api";
 
 const libs: ILibs = {
@@ -14,13 +14,13 @@ const libs: ILibs = {
 };
 
 const repositories: IStoreRepositories = {
-  order: new OrderRepository(libs.api),
+  agency: new AgencyRepository(libs.api),
 };
 
 const services: IStoreServices = {
-  order: new OrderService(repositories.order),
+  agency: new AgencyService(repositories.agency),
 };
 
 export const viewModels: IStoreViewModels = {
-  agency: new OrderVM(services.order),
+  agency: new AgencyVM(services.agency),
 };

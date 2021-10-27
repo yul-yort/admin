@@ -1,23 +1,23 @@
-import { IOrderService } from "../data/services/Order/types";
-import { IOrderRepository } from "../data/repositories/Order/types";
-import { IAgencyVM } from "../view/viewModels/Order/types";
+import { IAgencyService } from "../data/services/Agency/types";
+import { IAgencyRepository } from "../data/repositories/Agency/types";
+import { IAgencyVM } from "../view/viewModels/Agency/types";
 import { IApi } from "../libs/api/types";
-import { OrderDomain } from "../data/domainModels/Order";
+import { AgencyDomain } from "../data/domainModels/Agency";
 
 export interface ILibs {
   api: IApi;
 }
 
 export interface IStoreDomains {
-  order: OrderDomain;
+  agency: AgencyDomain;
 }
 
 export interface IStoreServices {
-  order: IOrderService;
+  agency: IAgencyService;
 }
 
 export interface IStoreRepositories {
-  order: IOrderRepository;
+  agency: IAgencyRepository;
 }
 
 export interface IStoreViewModels {

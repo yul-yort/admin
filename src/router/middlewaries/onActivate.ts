@@ -6,7 +6,7 @@ export const onActivate: MiddlewareFactory<IDependencies> =
   (toState): boolean => {
     const nameSplit = toState.name.split(".");
 
-    let route: IRoute | undefined;
+    let route: IRoute<any> | undefined;
 
     nameSplit.forEach((name, index) => {
       if (index === 0) {

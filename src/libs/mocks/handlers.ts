@@ -1,12 +1,12 @@
 import { rest } from "msw";
-import { IOrderResponseDTO } from "../../data/domainModels/Order/types";
-import { orders } from "./data/orders";
+import { IAgencyResponseDTO } from "../../data/domainModels/Agency/types";
+import { agencies } from "./data/agencies";
 import { getTimeout } from "./utils/getTimeout";
 
 export const handlers = [
-  rest.get("/agencies", (req, res, ctx) => {
+  rest.get("/agency", (req, res, ctx) => {
     return res(
-      ctx.json<IOrderResponseDTO[]>(orders),
+      ctx.json<IAgencyResponseDTO>(agencies[0]),
       ctx.delay(getTimeout()),
       ctx.status(200)
     );
