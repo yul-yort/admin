@@ -21,19 +21,19 @@ const theme = createTheme({
         },
       },
     },
-    MuiAppBar:{
-      styleOverrides:{
+    MuiAppBar: {
+      styleOverrides: {
         root: {
           borderRadius: 0,
-        }
-      }
+        },
+      },
     },
-    MuiDrawer:{
-      styleOverrides:{
+    MuiDrawer: {
+      styleOverrides: {
         paper: {
           borderRadius: 0,
-        }
-      }
+        },
+      },
     },
     MuiFormHelperText: {
       styleOverrides: {
@@ -42,6 +42,13 @@ const theme = createTheme({
           top: 40,
           marginLeft: 0,
           marginTop: 0,
+        },
+      },
+    },
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          backgroundColor: getCssVar("--yy-divider-color"),
         },
       },
     },

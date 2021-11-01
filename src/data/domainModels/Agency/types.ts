@@ -4,6 +4,7 @@ export interface IAgencyDomain {
   agencyPhones?: string[];
   createDate: Date;
   description?: string;
+  editedDate?: Date;
 
   phoneValues?: string[];
 }
@@ -11,7 +12,7 @@ export interface IAgencyDomain {
 export interface IAgencyResponseDTO
   extends Pick<
     IAgencyDomain,
-    "id" | "agencyName" | "agencyPhones" | "createDate" | "description"
+    "id" | "agencyName" | "agencyPhones" | "createDate" | "description" | "editedDate"
   > {}
 
 export interface IAgencyRequestParams {

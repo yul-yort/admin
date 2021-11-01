@@ -5,16 +5,18 @@ const routes: IRoutes = [
   {
     name: "agencies",
     path: "/agencies",
-    title: "Агенства",
+    title: "Список агентств",
     children: [
       {
         name: "agency",
         path: "/:id",
         title: "Агенство",
-        onActivate: ({ agency }, params) => {
+        onActivate: async ({ agency }, params) => {
           if (!params) return;
 
-          return agency.getAgency(params);
+          await agency.getAgency(params);
+
+          document.title = agency.agency?.agencyName || document.title;
         },
       },
     ],

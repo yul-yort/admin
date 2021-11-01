@@ -6,6 +6,7 @@ export class AgencyDomain implements IAgencyDomain {
   agencyName: string = "";
   agencyPhones?: string[];
   createDate: Date;
+  editedDate: Date | undefined;
   description: string | undefined = "";
 
   constructor(dto: IAgencyResponseDTO) {
@@ -14,6 +15,7 @@ export class AgencyDomain implements IAgencyDomain {
     this.agencyPhones = dto.agencyPhones;
     this.createDate = dto.createDate;
     this.description = dto.description;
+    this.editedDate = dto.editedDate;
 
     makeObservable(this, {
       id: observable,
