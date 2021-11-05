@@ -20,20 +20,38 @@ export const Detail: FC<IDetail> = ({
 
         <div className={css.row}>
           <Typography variant="subtitle2">Дата создания:</Typography>
-          {/* TODO date-fns*/}
-          <Typography variant="body2">{createDate.toString()}</Typography>
+          <Typography variant="body2">
+            {createDate.toLocaleDateString("default", {
+              day: "numeric",
+              month: "numeric",
+              year: "numeric",
+              hour: "numeric",
+              minute: "numeric",
+              second: "numeric",
+            })}
+          </Typography>
         </div>
 
         {editedDate && (
           <div className={css.row}>
             <Typography variant="subtitle2">Дата редактирвоания:</Typography>
-            {/* TODO date-fns*/}
-            <Typography variant="body2">{editedDate.toString()}</Typography>
+
+            <Typography variant="body2">
+              {editedDate.toLocaleDateString("default", {
+                day: "numeric",
+                month: "numeric",
+                year: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+                second: "numeric",
+              })}
+            </Typography>
           </div>
         )}
 
         <div className={css.row}>
           <Typography variant="subtitle2">Телефоны:</Typography>
+
           <div className={css.phones}>
             {phoneValues && phoneValues.length ? (
               phoneValues.map((phone, index) => (
@@ -50,7 +68,7 @@ export const Detail: FC<IDetail> = ({
               ))
             ) : (
               <Typography
-                className={css.orderPhone}
+                className={css.phone}
                 variant="subtitle2"
                 align="left"
                 color="text.secondary"

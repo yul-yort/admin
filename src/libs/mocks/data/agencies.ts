@@ -4,8 +4,8 @@ export const agencies: IAgencyResponseDTO[] = [
   {
     id: "123444",
     agencyPhones: ["9999999999", "0000000000"],
-    createDate: new Date(1),
-    editedDate: new Date(),
+    createDate: new Date(1).toString(),
+    editedDate: new Date().toString(),
     description:
       "Ехал Грека через реку.\n" +
       "Видит Грека в реке рак.\n" +

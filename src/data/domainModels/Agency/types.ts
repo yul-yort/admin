@@ -12,8 +12,11 @@ export interface IAgencyDomain {
 export interface IAgencyResponseDTO
   extends Pick<
     IAgencyDomain,
-    "id" | "agencyName" | "agencyPhones" | "createDate" | "description" | "editedDate"
-  > {}
+    "id" | "agencyName" | "agencyPhones" | "description"
+  > {
+  createDate: string;
+  editedDate: string;
+}
 
 export interface IAgencyRequestParams {
   id: string;

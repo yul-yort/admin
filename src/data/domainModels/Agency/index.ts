@@ -13,9 +13,9 @@ export class AgencyDomain implements IAgencyDomain {
     this.id = dto.id;
     this.agencyName = dto.agencyName;
     this.agencyPhones = dto.agencyPhones;
-    this.createDate = dto.createDate;
+    this.createDate = new Date(dto.createDate);
     this.description = dto.description;
-    this.editedDate = dto.editedDate;
+    this.editedDate = new Date(dto.editedDate);
 
     makeObservable(this, {
       id: observable,
