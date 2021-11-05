@@ -1,3 +1,18 @@
+.wrapper {
+  padding: calc(var(--yy-base) * 3);
+}
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: calc(var(--yy-base) * 3);
+
+  .headerTitle {
+    margin-right: calc(var(--yy-base) * 2);
+  }
+}
+
 .detail {
   display: flex;
   width: 100%;
@@ -18,12 +33,17 @@
   display: flex;
   width: 100%;
   justify-content: space-between;
+  align-items: center;
 }
 
-.row{
+.row {
   margin-bottom: calc(var(--yy-base) * 2);
 
-  &:last-child{
+  pre {
+    white-space: break-spaces;
+  }
+
+  &:last-child {
     margin: 0;
   }
 }
