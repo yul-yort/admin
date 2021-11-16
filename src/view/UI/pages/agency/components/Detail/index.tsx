@@ -1,26 +1,42 @@
 import { FC, useState } from "react";
 import css from "./styles.module.scss";
 import { IDetail } from "./types";
-import { Button, IconButton, Link, Paper, Typography } from "@mui/material";
+import { Button, IconButton, Paper, Typography } from "@mui/material";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import { ConfirmModal } from "../../../../components/ConfirmModal";
+import { DetailModal } from "../DetailModal";
+import { Phones } from "./Phones";
+import { formatDate } from "./formatDate";
 
 export const Detail: FC<IDetail> = ({
   agency: { agencyName, phoneValues, createDate, description, editedDate },
 }) => {
-  const [modal, setModal] = useState<boolean>(false);
-
-  const handleOpen = () => {
-    setModal(true);
-  };
-
-  const handleClose = () => {
-    setModal(false);
-  };
+  const [deleteModal, setOpenDeleteModal] = useState<boolean>(false);
+  const [editModal, setOpenEditModal] = useState<boolean>(false);
 
   const handleDelete = () => {
-    setModal(false);
+    setOpenDeleteModal(true);
+  };
+
+  const handleEdit = () => {
+    setOpenEditModal(true);
+  };
+
+  const handleCancelDelete = () => {
+    setOpenDeleteModal(false);
+  };
+
+  const handleConfirmDelete = () => {
+    setOpenDeleteModal(false);
+  };
+
+  // const handleSaveEdit = () => {
+  //   setOpenEditModal(false);
+  // };
+
+  const handleCancelEdit = () => {
+    setOpenEditModal(false);
   };
 
   return (
@@ -30,7 +46,7 @@ export const Detail: FC<IDetail> = ({
           <Typography variant="h6" className={css.headerTitle}>
             {agencyName}
           </Typography>
-          <Button variant="text" color="error" onClick={handleOpen}>
+          <Button variant="text" color="error" onClick={handleDelete}>
             Удалить
           </Button>
         </div>
@@ -39,7 +55,7 @@ export const Detail: FC<IDetail> = ({
           <Paper className={css.block} variant="outlined">
             <div className={css.header}>
               <Typography variant="h6">Общая информация</Typography>
-              <IconButton aria-label="edit">
+              <IconButton aria-label="edit" onClick={handleEdit}>
                 <EditRoundedIcon fontSize="small" />
               </IconButton>
             </div>
@@ -51,16 +67,7 @@ export const Detail: FC<IDetail> = ({
 
             <div className={css.row}>
               <Typography variant="subtitle2">Дата создания:</Typography>
-              <Typography variant="body2">
-                {createDate.toLocaleDateString("default", {
-                  day: "numeric",
-                  month: "numeric",
-                  year: "numeric",
-                  hour: "numeric",
-                  minute: "numeric",
-                  second: "numeric",
-                })}
-              </Typography>
+              <Typography variant="body2">{formatDate(createDate)}</Typography>
             </div>
 
             {editedDate && (
@@ -70,14 +77,7 @@ export const Detail: FC<IDetail> = ({
                 </Typography>
 
                 <Typography variant="body2">
-                  {editedDate.toLocaleDateString("default", {
-                    day: "numeric",
-                    month: "numeric",
-                    year: "numeric",
-                    hour: "numeric",
-                    minute: "numeric",
-                    second: "numeric",
-                  })}
+                  {formatDate(editedDate)}
                 </Typography>
               </div>
             )}
@@ -86,29 +86,7 @@ export const Detail: FC<IDetail> = ({
               <Typography variant="subtitle2">Телефоны:</Typography>
 
               <div className={css.phones}>
-                {phoneValues && phoneValues.length ? (
-                  phoneValues.map((phone, index) => (
-                    <Link
-                      className={css.phone}
-                      key={phone + index}
-                      href={`tel:${phone}`}
-                      underline="none"
-                      variant="subtitle2"
-                      align="left"
-                    >
-                      {phone}
-                    </Link>
-                  ))
-                ) : (
-                  <Typography
-                    className={css.phone}
-                    variant="subtitle2"
-                    align="left"
-                    color="text.secondary"
-                  >
-                    Телефон не указан
-                  </Typography>
-                )}
+                <Phones phones={phoneValues} />
               </div>
             </div>
 
@@ -134,11 +112,13 @@ export const Detail: FC<IDetail> = ({
       </Paper>
 
       <ConfirmModal
-        open={modal}
-        onCancel={handleClose}
-        onConfirm={handleDelete}
-        title="Вы уверены, что хотите удалить данное агенство?"
+        open={deleteModal}
+        onCancel={handleCancelDelete}
+        onConfirm={handleConfirmDelete}
+        title="Подтвердите удаление агентства."
       />
+
+      <DetailModal open={editModal} onClose={handleCancelEdit} />
     </>
   );
 };

@@ -1,0 +1,32 @@
+.modalWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: calc(var(--yy-base) * 8);
+}
+
+.modalContentWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--yy-base) * 4);
+  max-width: calc(var(--yy-base) * 150);
+}
+
+.titleWrapper {
+  margin-right: calc(var(--yy-base) * 9);
+  margin-bottom: calc(var(--yy-base) * 3);
+}
+
+.closeButton {
+  position: absolute;
+  top: calc(var(--yy-base) * 2);
+  right: calc(var(--yy-base) * 2);
+}
+
+.footerWrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: calc(var(--yy-base) * 3);
+}

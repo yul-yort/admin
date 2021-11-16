@@ -8,7 +8,7 @@ export const ConfirmModal: FC<IConfirmModal> = ({
   onCancel,
   onConfirm,
   text,
-  title = "Выполнить действие?",
+  title = "Подтвердить выполнение действия?",
 }) => {
   return (
     <Modal
@@ -29,11 +29,11 @@ export const ConfirmModal: FC<IConfirmModal> = ({
         </div>
 
         <div className={css.actions}>
-          <Button variant="text" onClick={onCancel}>
-            Отмена
+          <Button variant="text" color="info" onClick={onCancel}>
+            Отменить
           </Button>
-          <Button variant="text" onClick={onConfirm}>
-            Да
+          <Button variant="text" color="success" onClick={onConfirm}>
+            Подтвердить
           </Button>
         </div>
       </Paper>
