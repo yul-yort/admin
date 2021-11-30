@@ -9,6 +9,14 @@ export class AgencyDomain implements IAgencyDomain {
   editedDate: Date | undefined;
   description: string | undefined = "";
 
+  get phoneValues(): string[] | undefined {
+    if (!this.agencyPhones || !this.agencyPhones.length) {
+      return void 0;
+    }
+
+    return this.agencyPhones.map((phone) => `+7 ${phone}`);
+  }
+
   constructor(dto: IAgencyResponseDTO) {
     this.id = dto.id;
     this.agencyName = dto.agencyName;
@@ -23,13 +31,5 @@ export class AgencyDomain implements IAgencyDomain {
       agencyPhones: observable,
       phoneValues: computed,
     });
-  }
-
-  get phoneValues(): string[] | undefined {
-    if (!this.agencyPhones || !this.agencyPhones.length) {
-      return void 0;
-    }
-
-    return this.agencyPhones.map((phone) => `+7 ${phone}`);
   }
 }

@@ -15,6 +15,7 @@ export const Modal: FC<IModal> = ({
   title,
   children,
   footer,
+  dividers = false,
 }) => (
   <MuiModal
     open={open}

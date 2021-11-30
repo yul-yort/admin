@@ -1,3 +1,4 @@
 export interface IAppBar {
-  onOpen: () => void;
+  openDrawer: () => void;
+  title?: string;
 }

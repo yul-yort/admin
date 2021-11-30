@@ -5,6 +5,7 @@ import { LoadingScreen } from "./components/LoadingScreen";
 import { Header } from "./components/Header";
 import { SideBar } from "./components/SideBar";
 import Body from "./components/Body";
+import { useTitle } from "./hooks/useTitle";
 
 const AgencyPage = lazy(() => import("./pages/agency"));
 const AgencyListPage = lazy(() => import("./pages/agencies"));
@@ -14,6 +15,7 @@ const NotFoundPage = lazy(() => import("./pages/notFound"));
 export const App: FC = () => {
   const [open, setOpen] = useState<boolean>(false);
   const router = useRoute();
+  const title = useTitle();
 
   let page: JSX.Element;
 
@@ -43,7 +45,7 @@ export const App: FC = () => {
 
   return (
     <>
-      <Header onOpen={handleOpenSidebar} />
+      <Header openDrawer={handleOpenSidebar} title={title} />
 
       <SideBar open={open} onClose={handleCloseSidebar} />
 
