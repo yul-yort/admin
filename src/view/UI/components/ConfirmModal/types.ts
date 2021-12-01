@@ -1,7 +1,5 @@
-export interface IConfirmModal {
+import { IConfirmBody } from "../ConfirmBody/types";
+
+export interface IConfirmModal extends IConfirmBody {
   open: boolean;
-  onCancel: () => void;
-  onConfirm: () => void;
-  title?: string;
-  text?: string;  
 }

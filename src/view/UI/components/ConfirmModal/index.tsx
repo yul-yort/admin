@@ -1,14 +1,13 @@
 import { FC } from "react";
-import { Button, Modal, Paper, Typography } from "@mui/material";
+import { Modal } from "@mui/material";
 import { IConfirmModal } from "./types";
 import css from "./styles.module.scss";
+import { ConfirmBody } from "../ConfirmBody/ConfirmBody";
 
 export const ConfirmModal: FC<IConfirmModal> = ({
   open,
   onCancel,
-  onConfirm,
-  text,
-  title = "Подтвердить выполнение действия?",
+  ...rest
 }) => {
   return (
     <Modal
@@ -19,24 +18,7 @@ export const ConfirmModal: FC<IConfirmModal> = ({
       disableEnforceFocus={true}
       disableAutoFocus={true}
     >
-      <Paper elevation={0} className={css.modalContentWrapper}>
-        <div>
-          <Typography variant="h6" component="h2">
-            {title}
-          </Typography>
-
-          {text && <Typography>{text}</Typography>}
-        </div>
-
-        <div className={css.actions}>
-          <Button variant="text" color="info" onClick={onCancel}>
-            Отменить
-          </Button>
-          <Button variant="text" color="success" onClick={onConfirm}>
-            Подтвердить
-          </Button>
-        </div>
-      </Paper>
+      <ConfirmBody {...rest} onCancel={onCancel} />
     </Modal>
   );
 };

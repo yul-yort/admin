@@ -12,6 +12,7 @@
   flex-direction: column;
   padding: calc(var(--yy-base) * 4);
   max-width: calc(var(--yy-base) * 150);
+  overflow: hidden;
 }
 
 .titleWrapper {
@@ -29,4 +30,40 @@
   display: flex;
   justify-content: flex-end;
   margin-top: calc(var(--yy-base) * 3);
+}
+
+.confirmWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.25);
+  animation: fadeIn 0.3s both;
+}
+
+.confirmContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  animation: slideIn 0.3s both;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

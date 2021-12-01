@@ -14,6 +14,7 @@ export const Detail: FC<IDetail> = ({
 }) => {
   const [deleteModal, setOpenDeleteModal] = useState<boolean>(false);
   const [editModal, setOpenEditModal] = useState<boolean>(false);
+  const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
   const handleDelete = () => {
     setOpenDeleteModal(true);
@@ -36,7 +37,7 @@ export const Detail: FC<IDetail> = ({
   // };
 
   const handleCancelEdit = () => {
-    setOpenEditModal(false);
+    setShowConfirm(true);
   };
 
   return (
@@ -118,7 +119,11 @@ export const Detail: FC<IDetail> = ({
         title="Подтвердите удаление агентства."
       />
 
-      <DetailModal open={editModal} onClose={handleCancelEdit} />
+      <DetailModal
+        open={editModal}
+        onClose={handleCancelEdit}
+        showConfirm={showConfirm}
+      />
     </>
   );
 };

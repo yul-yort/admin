@@ -8,6 +8,7 @@ import {
 import { IModal } from "./types";
 import css from "./styles.module.scss";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import { ConfirmBody } from "../ConfirmBody/ConfirmBody";
 
 export const Modal: FC<IModal> = ({
   open,
@@ -16,6 +17,8 @@ export const Modal: FC<IModal> = ({
   children,
   footer,
   dividers = false,
+  showConfirm = false,
+  confirmProps,
 }) => (
   <MuiModal
     open={open}
@@ -43,6 +46,12 @@ export const Modal: FC<IModal> = ({
       <div>{children}</div>
 
       {footer && <div className={css.footerWrapper}>footer</div>}
+
+      {showConfirm && (
+        <div className={css.confirmWrapper}>
+          <ConfirmBody className={css.confirmContainer} {...confirmProps} />
+        </div>
+      )}
     </Paper>
   </MuiModal>
 );
