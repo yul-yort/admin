@@ -1,11 +1,14 @@
+import { Button } from "@mui/material";
 import { FC } from "react";
 import { Modal } from "../../../../components/Modal";
-import { IDetailModal } from "./types";
+import { EditForm } from "../EditForm";
+import { IDetailEditModal } from "./types";
 
-export const DetailModal: FC<IDetailModal> = ({
+export const DetailEditModal: FC<IDetailEditModal> = ({
   open,
   onClose,
   showConfirm,
+  ...rest
 }) => {
   return (
     <Modal
@@ -14,8 +17,8 @@ export const DetailModal: FC<IDetailModal> = ({
       title="Редактировать агентство"
       footer={
         <div>
-          <button>Cancel</button>
-          <button>ok</button>
+          <Button onClick={onClose}>Отмена</Button>
+          <Button>Сохранить</Button>
         </div>
       }
       showConfirm={showConfirm}
@@ -28,9 +31,7 @@ export const DetailModal: FC<IDetailModal> = ({
         text: "Вы уверены, что хотите закрыть окно, не сохранив данные?",
       }}
     >
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime, commodi
-      odio animi qui quas assumenda neque voluptate illo tempore nam aperiam
-      iusto laboriosam, nisi, hic earum consequuntur ipsa optio aspernatur.
+      <EditForm {...rest} />
     </Modal>
   );
 };

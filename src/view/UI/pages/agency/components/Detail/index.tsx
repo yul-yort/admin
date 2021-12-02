@@ -1,20 +1,41 @@
 import { FC, useState } from "react";
 import css from "./styles.module.scss";
 import { IDetail } from "./types";
-import { Button, IconButton, Paper, Typography } from "@mui/material";
-import EditRoundedIcon from "@mui/icons-material/EditRounded";
-import AddRoundedIcon from "@mui/icons-material/AddRounded";
+import { Button, Paper, Typography } from "@mui/material";
 import { ConfirmModal } from "../../../../components/ConfirmModal";
-import { DetailModal } from "../DetailModal";
-import { Phones } from "./Phones";
-import { formatDate } from "./formatDate";
+import { DetailEditModal } from "../DetailEditModal";
+import { DetailAdditionalInfo } from "../DetailAdditionalInfo";
+import { DetailRoutes } from "../DetailRoutes";
+import { useFieldArray, useForm } from "react-hook-form";
+import { formPhonesFormatter } from "./formPhonesFormatter";
+import { IFormFields } from "../shared/types";
 
 export const Detail: FC<IDetail> = ({
-  agency: { agencyName, phoneValues, createDate, description, editedDate },
+  agency: { agencyName, phoneValues = [], createDate, description, editedDate },
 }) => {
   const [deleteModal, setOpenDeleteModal] = useState<boolean>(false);
   const [editModal, setOpenEditModal] = useState<boolean>(false);
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
+
+  const {
+    control,
+    register,
+    handleSubmit,
+    setValue,
+    getValues,
+    formState: { errors, isSubmitting },
+  } = useForm<IFormFields>({
+    defaultValues: {
+      agencyName,
+      description,
+      phones: formPhonesFormatter(phoneValues),
+    },
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "phones",
+  });
 
   const handleDelete = () => {
     setOpenDeleteModal(true);
@@ -53,62 +74,16 @@ export const Detail: FC<IDetail> = ({
         </div>
 
         <div className={css.detail}>
-          <Paper className={css.block} variant="outlined">
-            <div className={css.header}>
-              <Typography variant="h6">Общая информация</Typography>
-              <IconButton aria-label="edit" onClick={handleEdit}>
-                <EditRoundedIcon fontSize="small" />
-              </IconButton>
-            </div>
+          <DetailAdditionalInfo
+            handleEdit={handleEdit}
+            agencyName={agencyName}
+            createDate={createDate}
+            editedDate={editedDate}
+            phoneValues={phoneValues}
+            description={description}
+          />
 
-            <div className={css.row}>
-              <Typography variant="subtitle2">Название:</Typography>
-              <Typography variant="body2">{agencyName}</Typography>
-            </div>
-
-            <div className={css.row}>
-              <Typography variant="subtitle2">Дата создания:</Typography>
-              <Typography variant="body2">{formatDate(createDate)}</Typography>
-            </div>
-
-            {editedDate && (
-              <div className={css.row}>
-                <Typography variant="subtitle2">
-                  Дата редактирвоания:
-                </Typography>
-
-                <Typography variant="body2">
-                  {formatDate(editedDate)}
-                </Typography>
-              </div>
-            )}
-
-            <div className={css.row}>
-              <Typography variant="subtitle2">Телефоны:</Typography>
-
-              <div className={css.phones}>
-                <Phones phones={phoneValues} />
-              </div>
-            </div>
-
-            {description && (
-              <div className={css.row}>
-                <Typography variant="subtitle2">Описание:</Typography>
-                <Typography component="pre" variant="body2">
-                  {description}
-                </Typography>
-              </div>
-            )}
-          </Paper>
-
-          <Paper className={css.block} variant="outlined">
-            <div className={css.header}>
-              <Typography variant="h6">Маршруты</Typography>
-              <IconButton aria-label="add">
-                <AddRoundedIcon />
-              </IconButton>
-            </div>
-          </Paper>
+          <DetailRoutes />
         </div>
       </Paper>
 
@@ -119,10 +94,17 @@ export const Detail: FC<IDetail> = ({
         title="Подтвердите удаление агентства."
       />
 
-      <DetailModal
+      {/* TODO использовать useFormContext() */}
+      <DetailEditModal
         open={editModal}
         onClose={handleCancelEdit}
         showConfirm={showConfirm}
+        isSubmitting={isSubmitting}
+        errors={errors}
+        register={register}
+        fields={fields}
+        remove={remove}
+        append={append}
       />
     </>
   );

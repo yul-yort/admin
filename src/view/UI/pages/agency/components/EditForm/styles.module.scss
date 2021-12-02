@@ -1,0 +1,12 @@
+.row {
+  display: flex;
+  align-items: center;
+  width: 500px;
+  margin-bottom: calc(var(--yy-base) * 3);
+}
+
+@media screen and (max-width: 767px) {
+  .row {
+    width: 100%;
+  }
+}

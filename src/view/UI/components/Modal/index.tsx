@@ -45,7 +45,7 @@ export const Modal: FC<IModal> = ({
 
       <div>{children}</div>
 
-      {footer && <div className={css.footerWrapper}>footer</div>}
+      {footer && <div className={css.footerWrapper}>{footer}</div>}
 
       {showConfirm && (
         <div className={css.confirmWrapper}>
