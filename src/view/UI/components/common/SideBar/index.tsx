@@ -13,7 +13,7 @@ import { FC } from "react";
 import { ISideBar } from "./types";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import css from "./styles.module.scss";
-import routes from "../../../../router/routes";
+import routes from "../../../../../router/routes";
 import { icons } from "./icons";
 import { useRouter } from "react-router5";
 

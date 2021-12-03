@@ -1,10 +1,10 @@
 import { FC, lazy, Suspense, useState } from "react";
 import { useRoute } from "react-router5";
 import { constants } from "router5";
-import { LoadingScreen } from "./components/LoadingScreen";
-import { Header } from "./components/Header";
-import { SideBar } from "./components/SideBar";
-import Body from "./components/Body";
+import { LoadingScreen } from "./components/common/LoadingScreen";
+import { Header } from "./components/common/Header";
+import { SideBar } from "./components/common/SideBar";
+import Body from "./components/common/Body";
 import { useTitle } from "./hooks/useTitle";
 
 const AgencyPage = lazy(() => import("./pages/agency"));

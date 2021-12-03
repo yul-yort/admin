@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { FC } from "react";
-import { Modal } from "../../../../components/Modal";
-import { AgencyCreateEditForm } from "../EditForm";
+import { Modal } from "../../common/Modal";
+import { AgencyCreateEditForm } from "../AgencyCreateEditForm";
 import { IAgencyCreateEditModal } from "./types";
 
 export const AgencyCreateEditModal: FC<IAgencyCreateEditModal> = ({
