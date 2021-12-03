@@ -1,19 +1,20 @@
 import { Button } from "@mui/material";
 import { FC } from "react";
 import { Modal } from "../../../../components/Modal";
-import { EditForm } from "../EditForm";
-import { IDetailEditModal } from "./types";
+import { AgencyCreateEditForm } from "../EditForm";
+import { IAgencyCreateEditModal } from "./types";
 
-export const DetailEditModal: FC<IDetailEditModal> = ({
+export const AgencyCreateEditModal: FC<IAgencyCreateEditModal> = ({
   open,
   onClose,
   showConfirm,
+  title,
 }) => {
   return (
     <Modal
       open={open}
       onClose={onClose}
-      title="Редактировать агентство"
+      title={title}
       footer={
         <div>
           <Button onClick={onClose}>Отмена</Button>
@@ -30,7 +31,7 @@ export const DetailEditModal: FC<IDetailEditModal> = ({
         text: "Вы уверены, что хотите закрыть окно, не сохранив данные?",
       }}
     >
-      <EditForm />
+      <AgencyCreateEditForm />
     </Modal>
   );
 };

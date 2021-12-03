@@ -3,7 +3,7 @@ import css from "./styles.module.scss";
 import { IDetail, IFormFields } from "./types";
 import { Button, Paper, Typography } from "@mui/material";
 import { ConfirmModal } from "../../../../components/ConfirmModal";
-import { DetailEditModal } from "../DetailEditModal";
+import { AgencyCreateEditModal } from "../DetailEditModal";
 import { DetailAdditionalInfo } from "../DetailAdditionalInfo";
 import { DetailRoutes } from "../DetailRoutes";
 import { FormProvider, useForm } from "react-hook-form";
@@ -82,10 +82,11 @@ export const Detail: FC<IDetail> = ({
       />
 
       <FormProvider {...methods}>
-        <DetailEditModal
+        <AgencyCreateEditModal
           open={editModal}
           onClose={handleCancelEdit}
           showConfirm={showConfirm}
+          title="Редактировать агенство"
         />
       </FormProvider>
     </>

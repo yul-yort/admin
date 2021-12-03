@@ -6,7 +6,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import css from "./styles.module.scss";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
-export const EditForm: FC = () => {
+export const AgencyCreateEditForm: FC = () => {
   const {
     control,
     register,

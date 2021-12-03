@@ -43,7 +43,7 @@ export const Modal: FC<IModal> = ({
         </Typography>
       </div>
 
-      <div>{children}</div>
+      <div className={css.contentWrapper}>{children}</div>
 
       {footer && <div className={css.footerWrapper}>{footer}</div>}
 
