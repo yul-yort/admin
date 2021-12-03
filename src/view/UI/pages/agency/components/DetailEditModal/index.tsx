@@ -8,7 +8,6 @@ export const DetailEditModal: FC<IDetailEditModal> = ({
   open,
   onClose,
   showConfirm,
-  ...rest
 }) => {
   return (
     <Modal
@@ -31,7 +30,7 @@ export const DetailEditModal: FC<IDetailEditModal> = ({
         text: "Вы уверены, что хотите закрыть окно, не сохранив данные?",
       }}
     >
-      <EditForm {...rest} />
+      <EditForm />
     </Modal>
   );
 };

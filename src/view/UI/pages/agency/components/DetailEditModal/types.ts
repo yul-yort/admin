@@ -1,6 +1,4 @@
-import { IFormData } from "../shared/types";
-
-export interface IDetailEditModal extends IFormData {
+export interface IDetailEditModal {
   open: boolean;
   onClose: () => void;
   showConfirm: boolean;

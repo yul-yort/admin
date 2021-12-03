@@ -4,16 +4,20 @@ import { FormErrorsDictionary } from "src/constants/FormErrorsDictionary";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import css from "./styles.module.scss";
-import { IFormData } from "../shared/types";
+import { useFieldArray, useFormContext } from "react-hook-form";
 
-export const EditForm: FC<IFormData> = ({
-  isSubmitting,
-  errors,
-  register,
-  fields,
-  remove,
-  append,
-}) => {
+export const EditForm: FC = () => {
+  const {
+    control,
+    register,
+    formState: { errors, isSubmitting },
+  } = useFormContext();
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "phones",
+  });
+
   return (
     <form>
       <div className={css.row}>
