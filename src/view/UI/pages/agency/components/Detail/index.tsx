@@ -3,7 +3,7 @@ import css from "./styles.module.scss";
 import { IDetail, IFormFields } from "./types";
 import { Button, Paper, Typography } from "@mui/material";
 import { ConfirmModal } from "../../../../components/common/ConfirmModal";
-import { AgencyCreateEditModal } from "../../../../components/sharedComponents/AgencyCreateEditModal";
+import { AgencyCreateEditModal } from "../../../../components/shared/AgencyCreateEditModal";
 import { DetailAdditionalInfo } from "../DetailAdditionalInfo";
 import { DetailRoutes } from "../DetailRoutes";
 import { FormProvider, useForm } from "react-hook-form";
