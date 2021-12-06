@@ -1,5 +1,5 @@
 import { rest } from "msw";
-import { IAgencyResponseDTO } from "../../data/domainModels/Agency/types";
+import { IAgencyResponseDTO } from "../../data/entities/Agency/types";
 import { agencies } from "./data/agencies";
 import { getTimeout } from "./utils/getTimeout";
 

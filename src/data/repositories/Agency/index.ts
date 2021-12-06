@@ -2,7 +2,7 @@ import { IAgencyRepository } from "./types";
 import {
   IAgencyRequestParams,
   IAgencyResponseDTO,
-} from "../../domainModels/Agency/types";
+} from "../../entities/Agency/types";
 import { EEndpoints } from "../../../constants/Endpoints";
 import { BaseRepository } from "../BaseRepository";
 

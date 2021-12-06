@@ -1,6 +1,6 @@
 import { DefaultDependencies, Route } from "router5/dist/types/router";
 import { IStoreViewModels } from "../store/types";
-import { IAgencyRequestParams } from "../data/domainModels/Agency/types";
+import { IAgencyRequestParams } from "../data/entities/Agency/types";
 
 export type IRoutes = [IDashboardRoute, IAgenciesRoute];
 
