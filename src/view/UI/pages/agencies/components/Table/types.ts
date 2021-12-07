@@ -9,8 +9,8 @@ export interface IAgenciesData {
 
 export interface ITableBodyTemplateProps {
   rows: any,
-  order: any,
-  orderBy: any,
+  order: TOrderAgencies,
+  orderBy: string,
   selected: any,
   handleClick: any,
 }
