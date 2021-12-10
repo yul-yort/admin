@@ -1,17 +1,18 @@
-export type TOrderAgencies = 'asc' | 'desc';
+import { IAgencyDomain } from "../../../../../../data/domainModels/Agency/types";
+import * as React from "react";
 
-export interface IAgenciesData {
-  name: string;
-  dateСreation: string;
-  rating: number;
-  phone: string;
-}
+export type TOrderAgencies = "asc" | "desc";
+
+export interface IAgenciesData
+  extends Pick<
+    IAgencyDomain,
+    "agencyName" | "phoneValues" | "createDate" | "id"
+  > {}
 
 export interface ITableBodyTemplateProps {
-  rows: any,
-  order: TOrderAgencies,
-  orderBy: string,
-  selected: any,
-  handleClick: any,
+  rows: IAgenciesData[];
+  order: TOrderAgencies;
+  orderBy: string;
+  selected: IAgenciesData[];
+  handleClick: (event: React.MouseEvent<unknown>, name: string) => void;
 }
-

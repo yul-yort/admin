@@ -1,8 +1,12 @@
+import React from "react";
 import { IAgenciesData, TOrderAgencies } from "../Table/types";
 
 export interface ITableHeaderProps {
   numSelected: number;
-  onRequestSort: (event: React.MouseEvent<unknown>, property: keyof IAgenciesData) => void;
+  onRequestSort: (
+    event: React.MouseEvent<unknown>,
+    property: keyof IAgenciesData
+  ) => void;
   onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
   order: TOrderAgencies;
   orderBy: string;
@@ -18,28 +22,27 @@ export interface ITableHeaderCell {
 
 export const TableHeaderCells: readonly ITableHeaderCell[] = [
   {
-    id: 'name',
+    id: "name",
     numeric: false,
     disablePadding: true,
-    label: 'Название',
+    label: "Название",
   },
   {
-    id: 'dateСreation',
+    id: "dateСreation",
     numeric: true,
     disablePadding: false,
-    label: 'Дата создания',
+    label: "Дата создания",
   },
   {
-    id: 'rating',
+    id: "rating",
     numeric: true,
     disablePadding: false,
-    label: 'Рейтинг',
+    label: "Рейтинг",
   },
   {
-    id: 'phone',
+    id: "phone",
     numeric: true,
     disablePadding: false,
-    label: 'Телефон',
-  }
+    label: "Телефон",
+  },
 ];
-
