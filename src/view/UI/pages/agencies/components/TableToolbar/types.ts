@@ -3,8 +3,8 @@ export interface ITableToolbarProps {
 }
 
 export interface IToolbarActionIconsProps {
-  numSelected: number,
-  deleteAgency: () => void,
-  addAgency: () => void,
-  editAgency: () => void,
+  numSelected: number;
+  deleteAgency: () => void;
+  addAgency: () => void;
+  editAgency: () => void;
 }

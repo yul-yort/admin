@@ -1,28 +1,13 @@
-import React from "react";
+import { FC } from "react";
 import TableHead from "@mui/material/TableHead";
-import TableSortLabel from "@mui/material/TableSortLabel";
-import { visuallyHidden } from "@mui/utils";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import Checkbox from "@mui/material/Checkbox";
-import Box from "@mui/material/Box";
-import { IAgenciesData } from "../Table/types";
-import { TableHeaderCells, ITableHeaderProps } from "./types";
+import { ITableHeaderProps } from "./types";
+import { TableHeaderCells } from "./config";
 
-function TableHeader(props: ITableHeaderProps) {
-  const {
-    onSelectAllClick,
-    order,
-    orderBy,
-    numSelected,
-    rowCount,
-    onRequestSort,
-  } = props;
-
-  const createSortHandler =
-    (property: keyof IAgenciesData) => (event: React.MouseEvent<unknown>) => {
-      onRequestSort(event, property);
-    };
+const TableHeader: FC<ITableHeaderProps> = (props) => {
+  const { onSelectAllClick, numSelected, rowCount } = props;
 
   return (
     <TableHead>
@@ -42,26 +27,13 @@ function TableHeader(props: ITableHeaderProps) {
           <TableCell
             key={headCell.id}
             align={headCell.numeric ? "right" : "left"}
-            padding={headCell.disablePadding ? "none" : "normal"}
-            sortDirection={orderBy === headCell.id ? order : false}
           >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : "asc"}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
-                </Box>
-              ) : null}
-            </TableSortLabel>
+            {headCell.label}
           </TableCell>
         ))}
       </TableRow>
     </TableHead>
   );
-}
+};
 
 export default TableHeader;
