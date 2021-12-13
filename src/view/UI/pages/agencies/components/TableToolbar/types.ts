@@ -1,9 +1,9 @@
 export interface ITableToolbarProps {
-  numSelected: number;
+  selected: string[];
 }
 
 export interface IToolbarActionIconsProps {
-  numSelected: number;
+  selected: string[];
   deleteAgency: () => void;
   addAgency: () => void;
   editAgency: () => void;

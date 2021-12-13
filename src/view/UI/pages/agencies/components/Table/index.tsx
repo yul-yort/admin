@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import React, { FC, useState } from "react";
 import Table from "@mui/material/Table";
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
@@ -9,7 +9,7 @@ import { ITable } from "./types";
 
 const AgencyTable: FC<ITable> = (props) => {
   const { listData } = props;
-  const [selected, setSelected] = useState<readonly string[]>([]);
+  const [selected, setSelected] = useState<string[]>([]);
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
@@ -22,7 +22,7 @@ const AgencyTable: FC<ITable> = (props) => {
 
   const handleSelect = (event: React.MouseEvent<unknown>, name: string) => {
     const selectedIndex = selected.indexOf(name);
-    let newSelected: readonly string[] = [];
+    let newSelected: string[] = [];
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, name);
@@ -42,7 +42,7 @@ const AgencyTable: FC<ITable> = (props) => {
 
   return (
     <Paper sx={{ width: "100%", mb: 2 }}>
-      <TableToolbar numSelected={selected.length} />
+      <TableToolbar selected={selected} />
       <TableContainer>
         <Table aria-labelledby="tableTitle">
           <TableHeader

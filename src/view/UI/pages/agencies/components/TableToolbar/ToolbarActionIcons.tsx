@@ -10,7 +10,7 @@ import { IToolbarActionIconsProps } from "./types";
 import { Link } from "react-router5";
 
 const ToolbarActionIcons: FC<IToolbarActionIconsProps> = ({
-  numSelected,
+  selected,
   deleteAgency,
   addAgency,
   editAgency,
@@ -18,22 +18,23 @@ const ToolbarActionIcons: FC<IToolbarActionIconsProps> = ({
   const AgencyActionIconsTemplate = () => {
     return (
       <Stack spacing={2} direction="row">
-        {numSelected === 1 ? (
+        {selected.length === 1 ? (
           <Stack spacing={2} direction="row">
             <nav>
               <Link routeName="agencies">
                 <Button variant="text">Подробнее</Button>
               </Link>
             </nav>
+
             <Tooltip title="Edit">
-              <IconButton onClick={() => editAgency()}>
+              <IconButton onClick={editAgency}>
                 <EditIcon />
               </IconButton>
             </Tooltip>
           </Stack>
         ) : null}
         <Tooltip title="Delete">
-          <IconButton onClick={() => deleteAgency()}>
+          <IconButton onClick={deleteAgency}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -42,11 +43,11 @@ const ToolbarActionIcons: FC<IToolbarActionIconsProps> = ({
   };
   return (
     <>
-      {numSelected > 0 ? (
+      {selected.length > 0 ? (
         <AgencyActionIconsTemplate />
       ) : (
         <Tooltip title="Добавить агенство">
-          <IconButton onClick={() => addAgency()}>
+          <IconButton onClick={addAgency}>
             <AddIcon fontSize="large" />
           </IconButton>
         </Tooltip>

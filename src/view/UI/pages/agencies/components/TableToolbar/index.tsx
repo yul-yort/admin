@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import ToolbarActionIcons from "./ToolbarActionIcons";
 
-const TableToolbar: FC<ITableToolbarProps> = ({ numSelected }) => {
+const TableToolbar: FC<ITableToolbarProps> = ({ selected }) => {
   const deleteAgency = () => {
     console.log("delete Agency");
   };
@@ -23,7 +23,7 @@ const TableToolbar: FC<ITableToolbarProps> = ({ numSelected }) => {
   const toolbarStyle = {
     pl: { sm: 2 },
     pr: { xs: 1, sm: 1 },
-    ...(numSelected > 0 && {
+    ...(selected.length > 0 && {
       bgcolor: (theme: any) =>
         alpha(
           theme.palette.primary.main,
@@ -34,19 +34,20 @@ const TableToolbar: FC<ITableToolbarProps> = ({ numSelected }) => {
 
   return (
     <Toolbar sx={toolbarStyle}>
-      {numSelected > 0 ? (
+      {selected.length > 0 ? (
         <Typography
           sx={{ flex: "1 1 100%" }}
           color="inherit"
           variant="subtitle1"
+          noWrap
         >
-          {numSelected} selected
+          {selected} selected
         </Typography>
       ) : (
         <Search />
       )}
       <ToolbarActionIcons
-        numSelected={numSelected}
+        selected={selected}
         deleteAgency={deleteAgency}
         addAgency={addAgency}
         editAgency={editAgency}

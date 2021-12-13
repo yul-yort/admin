@@ -5,6 +5,8 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import { ITableBodyTemplateProps } from "./types";
 import { IAgencyResponseDTO } from "src/data/domainModels/Agency/types";
+import { Phones } from "../../../agency/components/DetailAdditionalInfo/Phones";
+import css from "./styles.module.scss";
 
 const TableBodyTemplate: FC<ITableBodyTemplateProps> = (props) => {
   const { rows, selected, handleSelect } = props;
@@ -20,12 +22,13 @@ const TableBodyTemplate: FC<ITableBodyTemplateProps> = (props) => {
         return (
           <TableRow
             hover
-            onClick={(event) => handleSelect(event, row.agencyName)}
+            onClick={(event) => handleSelect(event, row.id)}
             role="checkbox"
             aria-checked={isItemSelected}
             tabIndex={-1}
-            key={row.agencyName}
+            key={row.id}
             selected={isItemSelected}
+            className={css.row}
           >
             <TableCell padding="checkbox">
               <Checkbox
@@ -41,9 +44,9 @@ const TableBodyTemplate: FC<ITableBodyTemplateProps> = (props) => {
             </TableCell>
             <TableCell align="right">{row.createDate}</TableCell>
             <TableCell align="right">
-              {row.agencyPhones?.map((item, index) => {
-                return <div key={index}>{item}</div>;
-              })}
+              <div className={css.phones}>
+                <Phones phones={row.agencyPhones} />
+              </div>
             </TableCell>
           </TableRow>
         );
