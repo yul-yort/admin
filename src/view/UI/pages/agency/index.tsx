@@ -16,7 +16,7 @@ const Agency: FC = observer(() => {
         </div>
       )}
 
-      {agencyVM.error && <Error error={agencyVM.error} />}
+      {agencyVM.error && !agencyVM.loading && <Error error={agencyVM.error} />}
 
       {!agencyVM.error && !agencyVM.loading && agencyVM.agency && (
         <Detail agency={agencyVM.agency} />

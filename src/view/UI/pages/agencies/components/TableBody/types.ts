@@ -1,5 +1,5 @@
 import React from "react";
-import { IAgencyResponseDTO } from "src/data/domainModels/Agency/types";
+import { IAgencyResponseDTO } from "src/data/entities/Agency/types";
 
 export interface ITableBodyTemplateProps {
   rows: IAgencyResponseDTO[];

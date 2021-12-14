@@ -1,7 +1,7 @@
 import { IconButton, Paper, Typography } from "@mui/material";
 import { FC } from "react";
 import { formatDate } from "./formatDate";
-import { Phones } from "./Phones";
+import { Phones } from "../../../../components/shared/Phones";
 import css from "./styles.module.scss";
 import sharedCss from "../shared/styles.module.scss";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
