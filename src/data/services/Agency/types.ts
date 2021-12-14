@@ -1,8 +1,8 @@
 import {
-  IAgencyDomain,
+  IAgencyEntity,
   IAgencyRequestParams,
-} from "../../domainModels/Agency/types";
+} from "../../entities/Agency/types";
 
 export interface IAgencyService {
-  getAgency(params: IAgencyRequestParams): Promise<IAgencyDomain>;
+  getAgency(params: IAgencyRequestParams): Promise<IAgencyEntity>;
 }

@@ -1,26 +1,18 @@
 import {
-  ILibs,
+  IStoreLibs,
   IStoreRepositories,
   IStoreServices,
   IStoreViewModels,
 } from "./types";
-import { AgencyVM } from "../view/viewModels/Agency";
-import { AgencyService } from "../data/services/Agency";
-import { AgencyRepository } from "../data/repositories/Agency";
-import { Api } from "../libs/api";
+import { LibsStore } from "./LibsStore";
+import { RepositoriesStore } from "./RepositoriesStore";
+import { ServicesStore } from "./ServicesStore";
+import { ViewModelsStore } from "./ViewModelsStore";
 
-const libs: ILibs = {
-  api: new Api(),
-};
+const libs: IStoreLibs = new LibsStore();
 
-const repositories: IStoreRepositories = {
-  agency: new AgencyRepository(libs.api),
-};
+const repositories: IStoreRepositories = new RepositoriesStore(libs);
 
-const services: IStoreServices = {
-  agency: new AgencyService(repositories.agency),
-};
+const services: IStoreServices = new ServicesStore(repositories);
 
-export const viewModels: IStoreViewModels = {
-  agency: new AgencyVM(services.agency),
-};
+export const viewModels: IStoreViewModels = new ViewModelsStore(services);

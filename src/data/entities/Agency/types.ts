@@ -1,4 +1,4 @@
-export interface IAgencyDomain {
+export interface IAgencyEntity {
   id: ID;
   agencyName: string;
   agencyPhones?: string[];
@@ -11,7 +11,7 @@ export interface IAgencyDomain {
 
 export interface IAgencyResponseDTO
   extends Pick<
-    IAgencyDomain,
+    IAgencyEntity,
     "id" | "agencyName" | "agencyPhones" | "description"
   > {
   createDate: string;

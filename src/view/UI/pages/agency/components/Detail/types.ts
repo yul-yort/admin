@@ -1,5 +1,5 @@
-import { IAgencyDomain } from "../../../../../../data/domainModels/Agency/types";
+import { IAgencyEntity } from "../../../../../../data/entities/Agency/types";
 
 export interface IDetail {
-  agency: IAgencyDomain;
+  agency: IAgencyEntity;
 }

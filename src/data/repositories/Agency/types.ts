@@ -1,7 +1,7 @@
 import {
   IAgencyRequestParams,
   IAgencyResponseDTO,
-} from "../../domainModels/Agency/types";
+} from "../../entities/Agency/types";
 
 export interface IAgencyRepository {
   getAgency: (params: IAgencyRequestParams) => Promise<IAgencyResponseDTO>;

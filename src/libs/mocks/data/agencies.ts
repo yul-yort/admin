@@ -1,4 +1,4 @@
-import { IAgencyResponseDTO } from "../../../data/domainModels/Agency/types";
+import { IAgencyResponseDTO } from "../../../data/entities/Agency/types";
 
 export const agencies: IAgencyResponseDTO[] = [
   {
@@ -7,7 +7,7 @@ export const agencies: IAgencyResponseDTO[] = [
     createDate: new Date(1).toString(),
     editedDate: new Date().toString(),
     description:
-      "О-о о-о, зеленоглазое такси, о-о о-о, притормози, притормози \n" + 
+      "О-о о-о, зеленоглазое такси, о-о о-о, притормози, притормози \n" +
       "О-о о-о, ты отвези меня туда, о-о о-о, где будут рады мне всегда, всегда, да, да.",
     agencyName: "Зеленоглазое такси",
   },
