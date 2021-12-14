@@ -1,6 +1,7 @@
 import { Link, Typography } from "@mui/material";
 import { FC } from "react";
 import css from "./styles.module.scss";
+
 interface IProps {
   phones?: string[];
 }
