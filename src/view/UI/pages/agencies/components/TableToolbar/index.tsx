@@ -41,7 +41,7 @@ const TableToolbar: FC<ITableToolbarProps> = ({ selected }) => {
           variant="subtitle1"
           noWrap
         >
-          {selected} selected
+          {selected.length} selected
         </Typography>
       ) : (
         <Search />
