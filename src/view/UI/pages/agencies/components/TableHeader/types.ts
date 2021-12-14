@@ -1,4 +1,5 @@
-import { IAgencyResponseDTO } from "../../../../../../data/domainModels/Agency/types";
+import React from "react";
+import { IAgencyResponseDTO } from "../../../../../../data/entities/Agency/types";
 
 export interface ITableHeaderProps {
   numSelected: number;

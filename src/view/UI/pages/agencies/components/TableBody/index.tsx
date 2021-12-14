@@ -4,9 +4,9 @@ import TableRow from "@mui/material/TableRow";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import { ITableBodyTemplateProps } from "./types";
-import { IAgencyResponseDTO } from "src/data/domainModels/Agency/types";
-import { Phones } from "../../../agency/components/DetailAdditionalInfo/Phones";
+import { IAgencyResponseDTO } from "src/data/entities/Agency/types";
 import css from "./styles.module.scss";
+import { Phones } from "../../../../components/shared/Phones";
 
 const TableBodyTemplate: FC<ITableBodyTemplateProps> = (props) => {
   const { rows, selected, handleSelect } = props;

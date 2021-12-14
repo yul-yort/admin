@@ -1,4 +1,4 @@
-import { IAgencyResponseDTO } from "src/data/domainModels/Agency/types";
+import { IAgencyResponseDTO } from "src/data/entities/Agency/types";
 
 export interface ITable {
   listData: IAgencyResponseDTO[];
