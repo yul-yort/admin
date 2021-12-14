@@ -1,14 +1,14 @@
 import { BaseVM } from "../BaseVM";
 import { IAgencyVM } from "./types";
 import {
-  IAgencyDomain,
+  IAgencyEntity,
   IAgencyRequestParams,
-} from "../../../data/domainModels/Agency/types";
+} from "../../../data/entities/Agency/types";
 import { IAgencyService } from "../../../data/services/Agency/types";
 import { action, makeObservable, observable } from "mobx";
 
 export class AgencyVM extends BaseVM implements IAgencyVM {
-  agency: IAgencyDomain | null = null;
+  agency: IAgencyEntity | null = null;
 
   constructor(private service: IAgencyService) {
     super();

@@ -1,11 +1,11 @@
 import { IBaseVM } from "../types";
 import {
-  IAgencyDomain,
+  IAgencyEntity,
   IAgencyRequestParams,
-} from "../../../data/domainModels/Agency/types";
+} from "../../../data/entities/Agency/types";
 
 export interface IAgencyVM extends IBaseVM {
-  agency: IAgencyDomain | null;
+  agency: IAgencyEntity | null;
 
   getAgency: (params: IAgencyRequestParams) => Promise<void>;
 }

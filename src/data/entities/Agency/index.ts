@@ -1,7 +1,7 @@
 import { computed, makeObservable, observable } from "mobx";
-import { IAgencyDomain, IAgencyResponseDTO } from "./types";
+import { IAgencyEntity, IAgencyResponseDTO } from "./types";
 
-export class AgencyDomain implements IAgencyDomain {
+export class Agency implements IAgencyEntity {
   id: ID = "";
   agencyName: string = "";
   agencyPhones?: string[];
