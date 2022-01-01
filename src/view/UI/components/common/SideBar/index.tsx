@@ -17,7 +17,7 @@ import routes from "../../../../../router/routes";
 import { icons } from "./icons";
 import { useRouter } from "react-router5";
 
-export const SideBar: FC<ISideBar> = ({ open, onClose }) => {
+export const SideBar: FC<ISideBar> = ({ open, onClose, isUnauthorized }) => {
   const { navigate } = useRouter();
 
   return (
@@ -34,21 +34,25 @@ export const SideBar: FC<ISideBar> = ({ open, onClose }) => {
         </Toolbar>
       </AppBar>
 
-      {routes.map((route) => (
-        <List key={route.name}>
-          <ListItem
-            button
-            onClick={() => {
-              //TODO вынести, а лучше переписать на ссылки
-              navigate(route.name);
-              onClose();
-            }}
-          >
-            <ListItemIcon>{icons[route.name]}</ListItemIcon>
-            <ListItemText>{route.title}</ListItemText>
-          </ListItem>
-        </List>
-      ))}
+      {!isUnauthorized ? (
+        routes.map((route) => (
+          <List key={route.name}>
+            <ListItem
+              button
+              onClick={() => {
+                //TODO вынести, а лучше переписать на ссылки
+                navigate(route.name);
+                onClose();
+              }}
+            >
+              <ListItemIcon>{icons[route.name]}</ListItemIcon>
+              <ListItemText>{route.title}</ListItemText>
+            </ListItem>
+          </List>
+        ))
+      ) : (
+        <div>Требуется авторизация</div>
+      )}
     </Drawer>
   );
 };

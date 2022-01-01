@@ -17,6 +17,8 @@ export const App: FC = () => {
   const router = useRoute();
   const title = useTitle();
 
+  const isUnauthorized = router.route.params.authorization === "false";
+
   let page: JSX.Element;
 
   switch (router.route.name) {
@@ -35,6 +37,10 @@ export const App: FC = () => {
       page = <NotFoundPage />;
   }
 
+  if (isUnauthorized) {
+    page = <div>Страница авторизации</div>;
+  }
+
   const handleOpenSidebar = () => {
     setOpen(true);
   };
@@ -47,7 +53,11 @@ export const App: FC = () => {
     <>
       <Header openDrawer={handleOpenSidebar} title={title} />
 
-      <SideBar open={open} onClose={handleCloseSidebar} />
+      <SideBar
+        isUnauthorized={isUnauthorized}
+        open={open}
+        onClose={handleCloseSidebar}
+      />
 
       <Body>
         <Suspense fallback={<LoadingScreen />}>{page}</Suspense>
