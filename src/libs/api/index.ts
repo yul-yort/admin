@@ -1,7 +1,11 @@
 import { baseUrl, EEndpoints } from "../../constants/Endpoints";
 import { IApi } from "./types";
+import { Router } from "router5/dist/types/router";
+import { IDependencies } from "../../router/types";
 
 export class Api implements IApi {
+  constructor(private router: Router<IDependencies>) {}
+
   async get<R, P = undefined>(path: EEndpoints, params?: P): Promise<R> {
     const url = new URL(path, baseUrl);
 
@@ -11,7 +15,7 @@ export class Api implements IApi {
     const response = await fetch(fullUrl);
 
     if (!response.ok) {
-      throw Error(response.status + " " + response.statusText);
+      this.errorHandler(response);
     }
 
     return await response.json();
@@ -26,9 +30,17 @@ export class Api implements IApi {
     });
 
     if (!response.ok) {
-      throw Error(response.status + " " + response.statusText);
+      this.errorHandler(response);
     }
 
     return await response.json();
+  }
+
+  errorHandler(response: Response) {
+    if (response.status === 401) {
+      this.router.navigate("login");
+    }
+
+    throw Error(response.status + " " + response.statusText);
   }
 }

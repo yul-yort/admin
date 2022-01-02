@@ -1,5 +1,6 @@
 import { MiddlewareFactory } from "router5/dist/types/router";
 import { IDependencies, IRoute } from "../types";
+import { CONSTANTS } from "../../constants/globalConstants";
 
 export const onActivate: MiddlewareFactory<IDependencies> =
   (router, dependencies) =>
@@ -20,8 +21,13 @@ export const onActivate: MiddlewareFactory<IDependencies> =
       }
     });
 
-    route?.onActivate && route?.onActivate(dependencies.store, toState.params);
-    document.title = route?.title || "Yul-Yort Admin";
+    route?.onActivate &&
+      route?.onActivate({
+        store: dependencies.store,
+        params: toState.params,
+        router,
+      });
+    document.title = route?.title || CONSTANTS.projectName;
 
     return true;
   };

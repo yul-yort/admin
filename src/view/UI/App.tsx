@@ -17,11 +17,12 @@ export const App: FC = () => {
   const router = useRoute();
   const title = useTitle();
 
-  const isUnauthorized = router.route.params.authorization === "false";
+  const routeName = router.route.name;
+  const isUnauthorized = routeName === "login";
 
   let page: JSX.Element;
 
-  switch (router.route.name) {
+  switch (routeName) {
     case "agencies":
       page = <AgencyListPage />;
       break;
@@ -32,13 +33,13 @@ export const App: FC = () => {
       page = <DashboardPage />;
       break;
 
+    case "login":
+      page = <div>Страница авторизации</div>;
+      break;
+
     case constants.UNKNOWN_ROUTE:
     default:
       page = <NotFoundPage />;
-  }
-
-  if (isUnauthorized) {
-    page = <div>Страница авторизации</div>;
   }
 
   const handleOpenSidebar = () => {

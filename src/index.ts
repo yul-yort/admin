@@ -1,5 +1,5 @@
 import createAppRouter from "./router";
-import { viewModels } from "./store";
+import { ViewModelsInitializer } from "./store";
 import { initApp } from "./view/UI";
 import theme from "./view/UI/theme";
 import { initErrorApp } from "./view/UI/initErrorApp";
@@ -12,8 +12,10 @@ try {
     onUnhandledRequest: "bypass",
   });
 
-  const router = createAppRouter({ store: viewModels, routes });
+  const router = createAppRouter();
+  const viewModels = new ViewModelsInitializer(router).viewModels;
 
+  router.setDependencies({ store: viewModels, routes });
   router.start();
 
   initApp({
