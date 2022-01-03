@@ -1,4 +1,3 @@
-import { Button } from "@mui/material";
 import { FC } from "react";
 import { Modal } from "../../common/Modal";
 import { AgencyCreateEditForm } from "../AgencyCreateEditForm";
@@ -6,24 +5,24 @@ import { IAgencyCreateEditModal } from "./types";
 
 export const AgencyCreateEditModal: FC<IAgencyCreateEditModal> = ({
   open,
+  loading,
   onClose,
+  onSave,
+  onConformClose,
+  onCancelClose,
   showConfirm,
   title,
 }) => {
   return (
     <Modal
       open={open}
+      loading={loading}
       onClose={onClose}
       title={title}
-      footer={
-        <div>
-          <Button onClick={onClose}>Отмена</Button>
-          <Button>Сохранить</Button>
-        </div>
-      }
       showConfirm={showConfirm}
       confirmProps={{
-        onConfirm: onClose,
+        onConfirm: onConformClose,
+        onCancel: onCancelClose,
         confirmText: "Да",
         cancelText: "Нет",
         confirmColor: "error",
@@ -31,7 +30,7 @@ export const AgencyCreateEditModal: FC<IAgencyCreateEditModal> = ({
         text: "Вы уверены, что хотите закрыть окно, не сохранив данные?",
       }}
     >
-      <AgencyCreateEditForm />
+      <AgencyCreateEditForm onSave={onSave} onClose={onClose} />
     </Modal>
   );
 };

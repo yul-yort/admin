@@ -45,7 +45,7 @@ const TableBodyTemplate: FC<ITableBodyTemplateProps> = (props) => {
             <TableCell align="right">{row.createDate}</TableCell>
             <TableCell align="right">
               <div className={css.phones}>
-                <Phones phones={row.agencyPhones} />
+                <Phones phones={row.phones} />
               </div>
             </TableCell>
           </TableRow>

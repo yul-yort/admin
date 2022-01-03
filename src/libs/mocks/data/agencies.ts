@@ -3,7 +3,7 @@ import { IAgencyResponseDTO } from "../../../data/entities/Agency/types";
 export const agencies: IAgencyResponseDTO[] = [
   {
     id: "123444",
-    agencyPhones: ["9999999999", "0000000000"],
+    phones: ["+79999999999", "80000000000"],
     createDate: new Date(1).toString(),
     editedDate: new Date().toString(),
     description:

@@ -1,19 +1,14 @@
 export interface IAgencyEntity {
   id: ID;
   agencyName: string;
-  agencyPhones?: string[];
+  phones?: string[];
   createDate: Date;
   description?: string;
   editedDate?: Date;
-
-  phoneValues?: string[];
 }
 
 export interface IAgencyResponseDTO
-  extends Pick<
-    IAgencyEntity,
-    "id" | "agencyName" | "agencyPhones" | "description"
-  > {
+  extends Pick<IAgencyEntity, "id" | "agencyName" | "phones" | "description"> {
   createDate: string;
   editedDate: string;
 }

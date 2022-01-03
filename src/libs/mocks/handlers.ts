@@ -7,7 +7,7 @@ export const handlers = [
   rest.get("/agency", (req, res, ctx) => {
     return res(
       ctx.json<IAgencyResponseDTO>(agencies[0]),
-      ctx.delay(getTimeout(0)),
+      ctx.delay(getTimeout()),
       ctx.status(200)
     );
   }),

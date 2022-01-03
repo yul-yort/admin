@@ -1,26 +1,18 @@
-import { computed, makeObservable, observable } from "mobx";
+import { makeObservable, observable } from "mobx";
 import { IAgencyEntity, IAgencyResponseDTO } from "./types";
 
 export class Agency implements IAgencyEntity {
   id: ID = "";
   agencyName: string = "";
-  agencyPhones?: string[];
+  phones?: string[];
   createDate: Date;
   editedDate: Date | undefined;
   description: string | undefined = "";
 
-  get phoneValues(): string[] | undefined {
-    if (!this.agencyPhones || !this.agencyPhones.length) {
-      return void 0;
-    }
-
-    return this.agencyPhones.map((phone) => `+7 ${phone}`);
-  }
-
   constructor(dto: IAgencyResponseDTO) {
     this.id = dto.id;
     this.agencyName = dto.agencyName;
-    this.agencyPhones = dto.agencyPhones;
+    this.phones = dto.phones;
     this.createDate = new Date(dto.createDate);
     this.description = dto.description;
     this.editedDate = new Date(dto.editedDate);
@@ -28,8 +20,7 @@ export class Agency implements IAgencyEntity {
     makeObservable(this, {
       id: observable,
       agencyName: observable,
-      agencyPhones: observable,
-      phoneValues: computed,
+      phones: observable,
     });
   }
 }

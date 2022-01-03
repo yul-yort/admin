@@ -10,7 +10,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { formPhonesFormatter } from "./formPhonesFormatter";
 
 export const Detail: FC<IDetail> = ({
-  agency: { agencyName, phoneValues = [], createDate, description, editedDate },
+  agency: { agencyName, phones = [], createDate, description, editedDate },
 }) => {
   const [deleteModal, setOpenDeleteModal] = useState<boolean>(false);
   const [editModal, setOpenEditModal] = useState<boolean>(false);
@@ -20,9 +20,14 @@ export const Detail: FC<IDetail> = ({
     defaultValues: {
       agencyName,
       description,
-      phones: formPhonesFormatter(phoneValues),
+      phones: formPhonesFormatter(phones),
     },
   });
+
+  const {
+    formState: { isDirty },
+    reset,
+  } = methods;
 
   const handleDelete = () => {
     setOpenDeleteModal(true);
@@ -40,12 +45,29 @@ export const Detail: FC<IDetail> = ({
     setOpenDeleteModal(false);
   };
 
-  // const handleSaveEdit = () => {
-  //   setOpenEditModal(false);
-  // };
+  const handleConfirmCloseEditModal = () => {
+    setShowConfirm(false);
+    setOpenEditModal(false);
+
+    reset();
+  };
+
+  const handleCancelCloseEditModal = () => {
+    setShowConfirm(false);
+  };
+
+  const handleSaveEdit = async (a: any) => {
+    console.log(a);
+    debugger;
+    setOpenEditModal(false);
+  };
 
   const handleCancelEdit = () => {
-    setShowConfirm(true);
+    if (isDirty) {
+      setShowConfirm(true);
+    } else {
+      setOpenEditModal(false);
+    }
   };
 
   return (
@@ -66,7 +88,7 @@ export const Detail: FC<IDetail> = ({
             agencyName={agencyName}
             createDate={createDate}
             editedDate={editedDate}
-            phoneValues={phoneValues}
+            phoneValues={phones}
             description={description}
           />
 
@@ -84,7 +106,11 @@ export const Detail: FC<IDetail> = ({
       <FormProvider {...methods}>
         <AgencyCreateEditModal
           open={editModal}
+          loading={false}
           onClose={handleCancelEdit}
+          onSave={handleSaveEdit}
+          onConformClose={handleConfirmCloseEditModal}
+          onCancelClose={handleCancelCloseEditModal}
           showConfirm={showConfirm}
           title="Редактировать агенство"
         />
