@@ -1,5 +1,6 @@
 export const baseUrl = window.location.origin;
 
 export enum EEndpoints {
-  agency = "/agency",
+  AGENCY = "/agency",
+  AGENCY_EDIT = "/agency-edit",
 }

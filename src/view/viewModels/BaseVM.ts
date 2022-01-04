@@ -1,5 +1,6 @@
 import { IBaseVM, IError } from "./types";
 import { action, makeObservable, observable } from "mobx";
+import { errorMapper } from "./mappers";
 
 // переименовать в Controller?
 export class BaseVM implements IBaseVM {
@@ -26,19 +27,8 @@ export class BaseVM implements IBaseVM {
   }
 
   setError(err: unknown): void {
-    if (err instanceof Error) {
-      this.error = {
-        name: err.name,
-        message: err.message,
-      };
-    } else if (typeof err === "string") {
-      this.error = {
-        name: "Неопределенная ошибка",
-        message: err,
-      };
-    } else {
-      throw new Error("Не удалось распознать ошибку");
-    }
+    this.error = errorMapper(err);
+    throw err;
   }
 
   unsetError(): void {

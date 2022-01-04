@@ -13,6 +13,10 @@ export interface IAgencyResponseDTO
   editedDate: string;
 }
 
-export interface IAgencyRequestParams {
-  id: string;
-}
+export interface IAgencyRequestParams extends Pick<IAgencyEntity, "id"> {}
+
+export interface IAgencyRequestEditParams
+  extends Pick<
+    IAgencyEntity,
+    "id" | "agencyName" | "phones" | "description" | "editedDate"
+  > {}

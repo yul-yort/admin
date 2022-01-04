@@ -15,7 +15,7 @@ export const AgencyCreateEditForm: FC<IAgencyCreateEditForm> = ({
     handleSubmit,
     control,
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isDirty },
   } = useFormContext();
 
   const { fields, append, remove } = useFieldArray({
@@ -109,8 +109,12 @@ export const AgencyCreateEditForm: FC<IAgencyCreateEditForm> = ({
         />
       </div>
       <div className={css.footerWrapper}>
-        <Button onClick={onClose}>Отмена</Button>
-        <Button type="submit">Сохранить</Button>
+        <Button disabled={isSubmitting} onClick={onClose}>
+          Отмена
+        </Button>
+        <Button disabled={isSubmitting || !isDirty} type="submit">
+          Сохранить
+        </Button>
       </div>
     </form>
   );

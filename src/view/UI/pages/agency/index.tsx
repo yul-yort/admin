@@ -14,8 +14,14 @@ const Agency: FC = observer(() => {
 
       {agencyVM.error && !agencyVM.loading && <Error error={agencyVM.error} />}
 
-      {!agencyVM.error && !agencyVM.loading && agencyVM.agency && (
-        <Detail agency={agencyVM.agency} />
+      {!agencyVM.error && agencyVM.agency && (
+        <Detail
+          agency={agencyVM.agency}
+          editAgency={agencyVM.editAgency}
+          editLoading={agencyVM.editLoading}
+          editError={agencyVM.editError}
+          unsetEditError={agencyVM.unsetEditError}
+        />
       )}
     </div>
   );

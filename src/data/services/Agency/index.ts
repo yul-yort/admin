@@ -1,5 +1,6 @@
 import { IAgencyService } from "./types";
 import {
+  IAgencyRequestEditParams,
   IAgencyEntity,
   IAgencyRequestParams,
 } from "../../entities/Agency/types";
@@ -11,6 +12,12 @@ export class AgencyService implements IAgencyService {
 
   async getAgency(params: IAgencyRequestParams): Promise<IAgencyEntity> {
     const agency = await this.repository.getAgency(params);
+
+    return new Agency(agency);
+  }
+
+  async editAgency(params: IAgencyRequestEditParams): Promise<IAgencyEntity> {
+    const agency = await this.repository.editAgency(params);
 
     return new Agency(agency);
   }

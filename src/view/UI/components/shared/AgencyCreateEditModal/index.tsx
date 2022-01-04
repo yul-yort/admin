@@ -5,7 +5,7 @@ import { IAgencyCreateEditModal } from "./types";
 
 export const AgencyCreateEditModal: FC<IAgencyCreateEditModal> = ({
   open,
-  loading,
+  loading = false,
   onClose,
   onSave,
   onConformClose,

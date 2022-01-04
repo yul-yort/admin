@@ -1,12 +1,16 @@
+import { IAgencyVM } from "../../../../../viewModels/Agency/types";
 import { IAgencyEntity } from "../../../../../../data/entities/Agency/types";
 
-export interface IDetail {
+export interface IDetail
+  extends Pick<
+    IAgencyVM,
+    "editAgency" | "editLoading" | "unsetEditError" | "editError"
+  > {
   agency: IAgencyEntity;
 }
 
-export interface IFormFields {
-  agencyName: string;
-  description: string;
+export interface IFormFields
+  extends Pick<IAgencyEntity, "id" | "agencyName" | "description"> {
   phones: IFormPhone[];
 }
 
