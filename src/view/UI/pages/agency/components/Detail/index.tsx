@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { Alert, Button, Paper, Snackbar, Typography } from "@mui/material";
 import css from "./styles.module.scss";
@@ -30,9 +30,17 @@ export const Detail: FC<IDetail> = ({
   });
 
   const {
-    formState: { isDirty },
+    formState,
+    formState: { isSubmitSuccessful, isDirty },
     reset,
+    getValues,
   } = methods;
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset(getValues());
+    }
+  }, [formState, getValues, isSubmitSuccessful, reset]);
 
   const handleDelete = () => {
     setOpenDeleteModal(true);
