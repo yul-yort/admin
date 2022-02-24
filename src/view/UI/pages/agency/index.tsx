@@ -18,6 +18,7 @@ const Agency: FC = observer(() => {
         <Detail
           agency={agencyVM.agency}
           editAgency={agencyVM.editAgency}
+          deleteAgency={agencyVM.deleteAgency}
           editLoading={agencyVM.editLoading}
           editError={agencyVM.editError}
           unsetEditError={agencyVM.unsetEditError}

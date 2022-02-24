@@ -4,6 +4,7 @@ import {
   IAgencyRequestEditParams,
   IAgencyEntity,
   IAgencyRequestParams,
+  IAgencyRequestDeleteParams,
 } from "../../../data/entities/Agency/types";
 import { IAgencyService } from "../../../data/services/Agency/types";
 import { action, makeObservable, observable } from "mobx";
@@ -49,6 +50,19 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
       this.setEditError(err);
     } finally {
       this.editLoading = false;
+    }
+  };
+
+  deleteAgency = async (params: IAgencyRequestDeleteParams) => {
+    this.setLoading();
+
+    try {
+      await this.service.deleteAgency(params);
+      this.agency = null;
+    } catch (err) {
+      this.setError(err);
+    } finally {
+      this.unsetLoading();
     }
   };
 

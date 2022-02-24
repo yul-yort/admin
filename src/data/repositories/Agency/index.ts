@@ -1,5 +1,6 @@
 import { IAgencyRepository } from "./types";
 import {
+  IAgencyRequestDeleteParams,
   IAgencyRequestEditParams,
   IAgencyRequestParams,
   IAgencyResponseDTO,
@@ -25,5 +26,14 @@ export class AgencyRepository
       EEndpoints.AGENCY_EDIT,
       params
     );
+  }
+
+  async deleteAgency(
+    params: IAgencyRequestDeleteParams
+  ): Promise<IAgencyResponseDTO> {
+    return await this.api.delete<
+      IAgencyResponseDTO,
+      IAgencyRequestDeleteParams
+    >(EEndpoints.AGENCY_DELETE, params);
   }
 }

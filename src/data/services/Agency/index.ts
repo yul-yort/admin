@@ -3,6 +3,7 @@ import {
   IAgencyRequestEditParams,
   IAgencyEntity,
   IAgencyRequestParams,
+  IAgencyRequestDeleteParams,
 } from "../../entities/Agency/types";
 import { IAgencyRepository } from "../../repositories/Agency/types";
 import { Agency } from "../../entities/Agency";
@@ -18,6 +19,14 @@ export class AgencyService implements IAgencyService {
 
   async editAgency(params: IAgencyRequestEditParams): Promise<IAgencyEntity> {
     const agency = await this.repository.editAgency(params);
+
+    return new Agency(agency);
+  }
+
+  async deleteAgency(
+    params: IAgencyRequestDeleteParams
+  ): Promise<IAgencyEntity> {
+    const agency = await this.repository.deleteAgency(params);
 
     return new Agency(agency);
   }
