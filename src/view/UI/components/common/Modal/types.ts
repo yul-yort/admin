@@ -3,6 +3,7 @@ import { IConfirmBody } from "../ConfirmBody/types";
 
 export interface IModal {
   open: boolean;
+  loading?: boolean;
   onClose: () => void;
   title: string;
   dividers?: boolean;

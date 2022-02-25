@@ -12,7 +12,7 @@ export const TableHeaderCells: readonly ITableHeaderCell[] = [
     label: "Дата создания",
   },
   {
-    id: "agencyPhones",
+    id: "phones",
     numeric: true,
     label: "Телефон",
   },

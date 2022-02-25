@@ -5,12 +5,17 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import css from "./styles.module.scss";
 import { useFieldArray, useFormContext } from "react-hook-form";
+import { IAgencyCreateEditForm } from "./types";
 
-export const AgencyCreateEditForm: FC = () => {
+export const AgencyCreateEditForm: FC<IAgencyCreateEditForm> = ({
+  onSave,
+  onClose,
+}) => {
   const {
+    handleSubmit,
     control,
     register,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isDirty },
   } = useFormContext();
 
   const { fields, append, remove } = useFieldArray({
@@ -19,7 +24,7 @@ export const AgencyCreateEditForm: FC = () => {
   });
 
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSave)}>
       <div className={css.row}>
         <TextField
           id="name"
@@ -102,6 +107,14 @@ export const AgencyCreateEditForm: FC = () => {
           }
           {...register("description")}
         />
+      </div>
+      <div className={css.footerWrapper}>
+        <Button disabled={isSubmitting} onClick={onClose}>
+          Отмена
+        </Button>
+        <Button disabled={isSubmitting || !isDirty} type="submit">
+          Сохранить
+        </Button>
       </div>
     </form>
   );

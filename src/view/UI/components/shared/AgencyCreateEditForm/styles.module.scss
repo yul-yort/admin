@@ -2,7 +2,13 @@
   display: flex;
   align-items: center;
   width: 500px;
-  margin-bottom: calc(var(--yy-base) * 3);
+  margin-bottom: calc(var(--yy-base) * 6);
+}
+
+.footerWrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: calc(var(--yy-base) * 2);
 }
 
 @media screen and (max-width: 767px) {
