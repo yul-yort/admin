@@ -6,8 +6,10 @@ import { useStore } from "./useStore";
  *
  * @param {keyof IStoreViewModels} key - ключ ViewModel-и в хранилище.
  */
-export const useViewModel = (key: keyof IStoreViewModels) => {
+export const useViewModel = <T extends unknown>(
+  key: keyof IStoreViewModels
+): T => {
   const store = useStore();
 
-  return store[key];
+  return store[key] as T;
 };

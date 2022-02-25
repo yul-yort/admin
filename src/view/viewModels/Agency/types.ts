@@ -1,4 +1,4 @@
-import { IBaseVM, IError } from "../types";
+import { IBaseVM } from "../types";
 import {
   IAgencyRequestEditParams,
   IAgencyEntity,
@@ -9,12 +9,8 @@ import {
 export interface IAgencyVM extends IBaseVM {
   agency: IAgencyEntity | null;
   editLoading: boolean;
-  editError: IError | null;
 
   getAgency: (params: IAgencyRequestParams) => Promise<void>;
   editAgency: (params: IAgencyRequestEditParams) => Promise<void>;
   deleteAgency: (params: IAgencyRequestDeleteParams) => Promise<void>;
-
-  setEditError: (err: unknown) => void;
-  unsetEditError: () => void;
 }

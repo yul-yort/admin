@@ -3,6 +3,7 @@ import { IAgencyRepository } from "../data/repositories/Agency/types";
 import { IAgencyVM } from "../view/viewModels/Agency/types";
 import { IApi } from "../libs/api/types";
 import { Agency } from "../data/entities/Agency";
+import { INotificationsVM } from "../view/viewModels/types";
 
 export interface ILibs {
   api?: IApi;
@@ -29,6 +30,7 @@ export interface IStoreRepositories extends Required<IRepositories> {}
 
 export interface IViewModels {
   agency?: IAgencyVM;
+  notifications?: INotificationsVM;
 }
 
 export interface IStoreViewModels extends Required<IViewModels> {}
