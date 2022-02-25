@@ -18,7 +18,9 @@ export const ConfirmModal: FC<IConfirmModal> = ({
       disableEnforceFocus={true}
       disableAutoFocus={true}
     >
-      <ConfirmBody {...rest} onCancel={onCancel} />
+      <>
+        <ConfirmBody {...rest} onCancel={onCancel} />
+      </>
     </Modal>
   );
 };
