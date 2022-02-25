@@ -96,13 +96,12 @@ export const Detail: FC<IDetail> = ({
         message: "Данные сохранены",
       });
     } catch (err) {
-      reset(fields);
+      // @ts-ignore
+      const message = `${err?.name} ${err?.message}`;
       addNotification({
         type: "error",
-        // @ts-ignore
-        message: `${err?.name} ${err?.message}`,
+        message,
       });
-      // TODO в случае ошибки кнопка "Сохранить не отсается активным". Нужно исправить.
       throw err;
     }
   };
