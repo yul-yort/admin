@@ -19,7 +19,6 @@ import { icons } from "./icons";
 import { CONSTANTS } from "../../../../../constants/globalConstants";
 
 export const SideBar: FC<ISideBar> = ({ open, onClose, isUnauthorized }) => {
-
   return (
     <Drawer variant={"temporary"} anchor="left" open={open} onClose={onClose}>
       <AppBar position="relative">
@@ -34,23 +33,29 @@ export const SideBar: FC<ISideBar> = ({ open, onClose, isUnauthorized }) => {
         </Toolbar>
       </AppBar>
 
-      <List>
-        { {!isUnauthorized ? (routes.map((route) => (
-        {icons[route.name] ? (<ListItem
-          button
-          key={route.name}
-          onClick={() => {
-          onClose();
-        }}
-          className={css.listItem}
-          >
-          <RouterLink routeName={route.name} className={css.link}>
-          <ListItemIcon>{icons[route.name]}</ListItemIcon>
-          <ListItemText>{route.title}</ListItemText>
-          </RouterLink>
-          </ListItem>) : null}
-        ))) : <div>Требуется авторизация</div>}
-      </List>
+      {!isUnauthorized ? (
+        <List>
+          {routes.map((route) =>
+            icons[route.name] ? (
+              <ListItem
+                button
+                key={route.name}
+                onClick={() => {
+                  onClose();
+                }}
+                className={css.listItem}
+              >
+                <RouterLink routeName={route.name} className={css.link}>
+                  <ListItemIcon>{icons[route.name]}</ListItemIcon>
+                  <ListItemText>{route.title}</ListItemText>
+                </RouterLink>
+              </ListItem>
+            ) : null
+          )}
+        </List>
+      ) : (
+        <div>Требуется авторизация</div>
+      )}
     </Drawer>
   );
 };
