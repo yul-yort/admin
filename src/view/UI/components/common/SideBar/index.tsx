@@ -1,3 +1,4 @@
+import { FC } from "react";
 import {
   AppBar,
   Drawer,
@@ -9,17 +10,15 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { FC } from "react";
-import { ISideBar } from "./types";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import { Link as RouterLink } from "react-router5";
+import { ISideBar } from "./types";
 import css from "./styles.module.scss";
 import routes from "../../../../../router/routes";
 import { icons } from "./icons";
-import { useRouter } from "react-router5";
 import { CONSTANTS } from "../../../../../constants/globalConstants";
 
 export const SideBar: FC<ISideBar> = ({ open, onClose, isUnauthorized }) => {
-  const { navigate } = useRouter();
 
   return (
     <Drawer variant={"temporary"} anchor="left" open={open} onClose={onClose}>
@@ -35,27 +34,23 @@ export const SideBar: FC<ISideBar> = ({ open, onClose, isUnauthorized }) => {
         </Toolbar>
       </AppBar>
 
-      {!isUnauthorized ? (
-        routes.map((route) =>
-          icons[route.name] ? (
-            <List key={route.name}>
-              <ListItem
-                button
-                onClick={() => {
-                  //TODO вынести, а лучше переписать на ссылки
-                  navigate(route.name);
-                  onClose();
-                }}
-              >
-                <ListItemIcon>{icons[route.name]}</ListItemIcon>
-                <ListItemText>{route.title}</ListItemText>
-              </ListItem>
-            </List>
-          ) : null
-        )
-      ) : (
-        <div>Требуется авторизация</div>
-      )}
+      <List>
+        { {!isUnauthorized ? (routes.map((route) => (
+        {icons[route.name] ? (<ListItem
+          button
+          key={route.name}
+          onClick={() => {
+          onClose();
+        }}
+          className={css.listItem}
+          >
+          <RouterLink routeName={route.name} className={css.link}>
+          <ListItemIcon>{icons[route.name]}</ListItemIcon>
+          <ListItemText>{route.title}</ListItemText>
+          </RouterLink>
+          </ListItem>) : null}
+        ))) : <div>Требуется авторизация</div>}
+      </List>
     </Drawer>
   );
 };
