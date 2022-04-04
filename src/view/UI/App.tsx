@@ -1,6 +1,7 @@
 import { FC, lazy, Suspense, useState } from "react";
 import { useRoute } from "react-router5";
 import { constants } from "router5";
+
 import { LoadingScreen } from "./components/common/LoadingScreen";
 import { Header } from "./components/common/Header";
 import { SideBar } from "./components/common/SideBar";
@@ -14,43 +15,32 @@ const NotFoundPage = lazy(() => import("./pages/notFound"));
 
 export const App: FC = () => {
   const [open, setOpen] = useState<boolean>(false);
-  const router = useRoute();
+  const {
+    route: { name },
+  } = useRoute();
   const title = useTitle();
 
-  let page: JSX.Element;
-
-  switch (router.route.name) {
-    case "agencies":
-      page = <AgencyListPage />;
-      break;
-    case "agencies.agency":
-      page = <AgencyPage />;
-      break;
-    case "dashboard":
-      page = <DashboardPage />;
-      break;
-
-    case constants.UNKNOWN_ROUTE:
-    default:
-      page = <NotFoundPage />;
-  }
-
-  const handleOpenSidebar = () => {
-    setOpen(true);
+  const pages = {
+    agencies: <AgencyListPage />,
+    "agencies.agency": <AgencyPage />,
+    dashboard: <DashboardPage />,
+    [constants.UNKNOWN_ROUTE]: <NotFoundPage />,
   };
 
-  const handleCloseSidebar = () => {
-    setOpen(false);
+  const handleOpenCloseSidebar = () => {
+    setOpen(!open);
   };
 
   return (
     <>
-      <Header openDrawer={handleOpenSidebar} title={title} />
+      <Header openDrawer={handleOpenCloseSidebar} title={title} />
 
-      <SideBar open={open} onClose={handleCloseSidebar} />
+      <SideBar open={open} onClose={handleOpenCloseSidebar} />
 
       <Body>
-        <Suspense fallback={<LoadingScreen />}>{page}</Suspense>
+        <Suspense fallback={<LoadingScreen />}>
+          {pages[name] || <NotFoundPage />}
+        </Suspense>
       </Body>
     </>
   );
