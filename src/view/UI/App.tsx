@@ -13,19 +13,19 @@ const AgencyListPage = lazy(() => import("./pages/agencies"));
 const DashboardPage = lazy(() => import("./pages/dashboard"));
 const NotFoundPage = lazy(() => import("./pages/notFound"));
 
+const pages = {
+  agencies: <AgencyListPage />,
+  "agencies.agency": <AgencyPage />,
+  dashboard: <DashboardPage />,
+  [constants.UNKNOWN_ROUTE]: <NotFoundPage />,
+};
+
 export const App: FC = () => {
+  const title = useTitle();
   const [open, setOpen] = useState<boolean>(false);
   const {
     route: { name },
   } = useRoute();
-  const title = useTitle();
-
-  const pages = {
-    agencies: <AgencyListPage />,
-    "agencies.agency": <AgencyPage />,
-    dashboard: <DashboardPage />,
-    [constants.UNKNOWN_ROUTE]: <NotFoundPage />,
-  };
 
   const handleOpenCloseSidebar = () => {
     setOpen(!open);
@@ -39,7 +39,7 @@ export const App: FC = () => {
 
       <Body>
         <Suspense fallback={<LoadingScreen />}>
-          {pages[name] || <NotFoundPage />}
+          {pages[name] || pages[constants.UNKNOWN_ROUTE]}
         </Suspense>
       </Body>
     </>
