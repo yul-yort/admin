@@ -4,6 +4,7 @@ import { initApp } from "./view/UI";
 import theme from "./view/UI/theme";
 import { initErrorApp } from "./view/UI/initErrorApp";
 import routes from "./router/routes";
+import { onActivate } from "./router/middlewaries/onActivate";
 
 try {
   const { worker } = require("./libs/mocks/browser");
@@ -12,7 +13,9 @@ try {
     onUnhandledRequest: "bypass",
   });
 
-  const router = createAppRouter({ store: viewModels, routes });
+  const router = createAppRouter(routes, { store: viewModels, routes }, [
+    onActivate,
+  ]);
 
   router.start();
 
