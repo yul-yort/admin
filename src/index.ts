@@ -13,7 +13,7 @@ try {
     onUnhandledRequest: "bypass",
   });
 
-  const router = createAppRouter({ store: viewModels, routes });
+  const router = createAppRouter(routes, [onActivate]);
   const viewModels = new ViewModelsInitializer(router).viewModels;
 
   router.setDependencies({ store: viewModels, routes });

@@ -17,6 +17,7 @@ const pages = {
   agencies: <AgencyListPage />,
   "agencies.agency": <AgencyPage />,
   dashboard: <DashboardPage />,
+  login: <span>авторизация</span>,
   [constants.UNKNOWN_ROUTE]: <NotFoundPage />,
 };
 
@@ -26,8 +27,8 @@ export const App: FC = () => {
   const {
     route: { name },
   } = useRoute();
-  const routeName = router.route.name;
-  const isUnauthorized = routeName === "login";
+
+  const isUnauthorized = name === "login";
 
   const handleOpenCloseSidebar = () => {
     setOpen(!open);
@@ -37,7 +38,11 @@ export const App: FC = () => {
     <>
       <Header openDrawer={handleOpenCloseSidebar} title={title} />
 
-      <SideBar isUnauthorized={isUnauthorized} open={open} onClose={handleOpenCloseSidebar} />
+      <SideBar
+        isUnauthorized={isUnauthorized}
+        open={open}
+        onClose={handleOpenCloseSidebar}
+      />
 
       <Body>
         <Suspense fallback={<LoadingScreen />}>

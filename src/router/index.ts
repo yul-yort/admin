@@ -4,7 +4,10 @@ import { MiddlewareFactory, Router } from "router5/dist/types/router";
 
 import { IDependencies, IRoutes } from "./types";
 
-export default function createAppRouter(): Router<IDependencies> {
+export default function createAppRouter(
+  routes: IRoutes,
+  middlewares: MiddlewareFactory<IDependencies>[]
+): Router<IDependencies> {
   const router = createRouter<IDependencies>(routes, {
     allowNotFound: true,
     queryParamsMode: "loose",
