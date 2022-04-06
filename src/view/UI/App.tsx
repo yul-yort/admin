@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { useRoute } from "react-router5";
 import AuthApp from "./AuthApp";
-
 import AuthorizedApp from "./AuthorizedApp";
 
 export const App: FC = () => {
