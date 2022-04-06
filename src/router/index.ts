@@ -1,11 +1,13 @@
 import createRouter from "router5";
 import browserPlugin from "router5-plugin-browser";
-import routes from "./routes";
-import { onActivate } from "./middlewaries/onActivate";
-import { IDependencies } from "./types";
-import { Router } from "router5/dist/types/router";
+import { MiddlewareFactory, Router } from "router5/dist/types/router";
 
-export default function createAppRouter(): Router<IDependencies> {
+import { IDependencies, IRoutes } from "./types";
+
+export default function createAppRouter(
+  routes: IRoutes,
+  middlewares: MiddlewareFactory<IDependencies>[]
+): Router<IDependencies> {
   const router = createRouter<IDependencies>(routes, {
     allowNotFound: true,
     queryParamsMode: "loose",
@@ -14,7 +16,7 @@ export default function createAppRouter(): Router<IDependencies> {
 
   router.usePlugin(browserPlugin());
 
-  router.useMiddleware(onActivate);
+  middlewares.forEach((middleware) => router.useMiddleware(middleware));
 
   return router;
 }

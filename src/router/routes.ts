@@ -2,6 +2,7 @@ import { IRoutes } from "./types";
 
 const routes: IRoutes = [
   { name: "dashboard", path: "/", title: "Dashboard" },
+  { name: "registration", path: "/registration", title: "Test" },
   {
     name: "login",
     path: "/login",

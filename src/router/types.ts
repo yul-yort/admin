@@ -2,7 +2,7 @@ import { DefaultDependencies, Route, Router } from "router5/dist/types/router";
 import { IStoreViewModels } from "../store/types";
 import { IAgencyRequestParams } from "../data/entities/Agency/types";
 
-export type IRoutes = [IDashboardRoute, ILoginRoute, IAgenciesRoute];
+export type IRoutes = [IDashboardRoute, IRegistrationRoute, ILoginRoute, IAgenciesRoute];
 
 export interface IRoute<P = Record<string, string>>
   extends Route<IDependencies> {
@@ -25,3 +25,4 @@ export interface IOnActivateArgs<P> {
 interface IAgenciesRoute extends IRoute<IAgencyRequestParams> {}
 interface IDashboardRoute extends IRoute {}
 interface ILoginRoute extends IRoute {}
+interface IRegistrationRoute extends IRoute {}
