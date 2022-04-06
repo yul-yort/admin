@@ -2,7 +2,7 @@ import createAppRouter from "./router";
 import { viewModels } from "./store";
 import { initApp } from "./view/UI";
 import theme from "./view/UI/theme";
-import { initErrorApp } from "./view/UI/initErrorApp";
+import { initErrorApp } from "./view/UI/InitErrorApp";
 import routes from "./router/routes";
 import { onActivate } from "./router/middlewaries/onActivate";
 
