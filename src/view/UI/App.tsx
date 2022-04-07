@@ -1,48 +1,24 @@
-import { FC, lazy, Suspense, useState } from "react";
+import { FC, lazy, Suspense } from "react";
 import { useRoute } from "react-router5";
-import { constants } from "router5";
 
 import { LoadingScreen } from "./components/common/LoadingScreen";
-import { Header } from "./components/common/Header";
-import { SideBar } from "./components/common/SideBar";
-import Body from "./components/common/Body";
-import { useTitle } from "./hooks/useTitle";
-
-const AgencyPage = lazy(() => import("./pages/agency"));
-const AgencyListPage = lazy(() => import("./pages/agencies"));
-const DashboardPage = lazy(() => import("./pages/dashboard"));
-const NotFoundPage = lazy(() => import("./pages/notFound"));
-
-const pages = {
-  agencies: <AgencyListPage />,
-  "agencies.agency": <AgencyPage />,
-  dashboard: <DashboardPage />,
-  [constants.UNKNOWN_ROUTE]: <NotFoundPage />,
-};
+const UnauthorizedApp = lazy(() => import("./UnauthorizedApp"));
+const AuthorizedApp = lazy(() => import("./AuthorizedApp"));
 
 export const App: FC = () => {
-  const title = useTitle();
-  const [open, setOpen] = useState<boolean>(false);
   const {
     route: { name },
   } = useRoute();
 
-  const handleOpenCloseSidebar = () => {
-    setOpen(!open);
-  };
+  // TODO: тут наверное проверять на наличие токена в localstorage или где то еще
+  // TODO нужен метод, проверяющий авторизацию. Предлагаю проверять куки.
+  const isUnauthorized = name === "login";
+  // const isUnauthorized = checkAuth();
 
   return (
-    <>
-      <Header openDrawer={handleOpenCloseSidebar} title={title} />
-
-      <SideBar open={open} onClose={handleOpenCloseSidebar} />
-
-      <Body>
-        <Suspense fallback={<LoadingScreen />}>
-          {pages[name] || pages[constants.UNKNOWN_ROUTE]}
-        </Suspense>
-      </Body>
-    </>
+    <Suspense fallback={<LoadingScreen />}>
+      {isUnauthorized ? <UnauthorizedApp /> : <AuthorizedApp />}
+    </Suspense>
   );
 };
 

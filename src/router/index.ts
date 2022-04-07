@@ -6,18 +6,13 @@ import { IDependencies, IRoutes } from "./types";
 
 export default function createAppRouter(
   routes: IRoutes,
-  dependencies: IDependencies,
-  middlewares: Array<MiddlewareFactory<IDependencies>>
+  middlewares: MiddlewareFactory<IDependencies>[]
 ): Router<IDependencies> {
-  const router = createRouter<IDependencies>(
-    routes,
-    {
-      allowNotFound: true,
-      queryParamsMode: "loose",
-      autoCleanUp: true,
-    },
-    dependencies
-  );
+  const router = createRouter<IDependencies>(routes, {
+    allowNotFound: true,
+    queryParamsMode: "loose",
+    autoCleanUp: true,
+  });
 
   router.usePlugin(browserPlugin());
 
