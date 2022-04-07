@@ -1,7 +1,11 @@
 import { FC, lazy, Suspense } from "react";
 import { useRoute } from "react-router5";
+import { observer } from "mobx-react-lite";
 
 import { LoadingScreen } from "./components/common/LoadingScreen";
+import { useNotification } from "./hooks/useNotification";
+import { Notify } from "./components/common/Notify";
+
 const UnauthorizedApp = lazy(() => import("./UnauthorizedApp"));
 const AuthorizedApp = lazy(() => import("./AuthorizedApp"));
 
@@ -19,27 +23,18 @@ export const App: FC = observer(() => {
 
   return (
     <>
-      {notification && (
-        <Snackbar
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
-          open={!!notification}
-          autoHideDuration={3000}
-          onClose={removeNotification}
-        >
-          <Alert
-            variant="filled"
-            severity={notification.type}
-            onClose={removeNotification}
-          >
-            {notification?.message}
-          </Alert>
-        </Snackbar>
-      )}
+      <Notify
+        open={!!notification}
+        type={notification?.type || "error"}
+        message={notification?.message || ""}
+        onClose={removeNotification}
+      />
+
       <Suspense fallback={<LoadingScreen />}>
         {isUnauthorized ? <UnauthorizedApp /> : <AuthorizedApp />}
       </Suspense>
     </>
   );
-}));
+});
 
 export default App;
