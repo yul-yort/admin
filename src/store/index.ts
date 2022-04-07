@@ -8,11 +8,17 @@ import { LibsStore } from "./LibsStore";
 import { RepositoriesStore } from "./RepositoriesStore";
 import { ServicesStore } from "./ServicesStore";
 import { ViewModelsStore } from "./ViewModelsStore";
+import { Router } from "router5/dist/types/router";
+import { IDependencies } from "../router/types";
 
-const libs: IStoreLibs = new LibsStore();
+export class ViewModelsInitializer {
+  viewModels: IStoreViewModels;
 
-const repositories: IStoreRepositories = new RepositoriesStore(libs);
+  constructor(router: Router<IDependencies>) {
+    const libs: IStoreLibs = new LibsStore(router);
+    const repositories: IStoreRepositories = new RepositoriesStore(libs);
+    const services: IStoreServices = new ServicesStore(repositories);
 
-const services: IStoreServices = new ServicesStore(repositories);
-
-export const viewModels: IStoreViewModels = new ViewModelsStore(services);
+    this.viewModels = new ViewModelsStore(services);
+  }
+}

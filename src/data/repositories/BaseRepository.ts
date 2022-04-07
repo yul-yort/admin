@@ -1,5 +1,5 @@
-import { Api } from "../../libs/api";
+import { IApi } from "../../libs/api/types";
 
 export class BaseRepository {
-  constructor(protected api: Api) {}
+  constructor(protected api: IApi) {}
 }
