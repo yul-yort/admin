@@ -4,7 +4,11 @@ import { IAgencyEntity } from "../../../../../../data/entities/Agency/types";
 export interface IDetail
   extends Pick<
     IAgencyVM,
-    "editAgency" | "editLoading" | "unsetEditError" | "editError"
+    | "editAgency"
+    | "editLoading"
+    | "unsetEditError"
+    | "editError"
+    | "deleteAgency"
   > {
   agency: IAgencyEntity;
 }

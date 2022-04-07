@@ -8,14 +8,18 @@ import { AgencyCreateEditModal } from "../../../../components/shared/AgencyCreat
 import { DetailAdditionalInfo } from "../DetailAdditionalInfo";
 import { DetailRoutes } from "../DetailRoutes";
 import { UIPhonesFormatter, VMPhonesRequestFormatter } from "./mappers";
+import { useRouter } from "react-router5";
 
 export const Detail: FC<IDetail> = ({
   agency: { id, agencyName, phones = [], createDate, description, editedDate },
   editAgency,
+  deleteAgency,
   editLoading,
   unsetEditError,
   editError,
 }) => {
+  const { navigate } = useRouter();
+
   const [deleteModal, setOpenDeleteModal] = useState<boolean>(false);
   const [editModal, setOpenEditModal] = useState<boolean>(false);
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
@@ -54,8 +58,10 @@ export const Detail: FC<IDetail> = ({
     setOpenDeleteModal(false);
   };
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
     setOpenDeleteModal(false);
+    await deleteAgency({ id });
+    navigate("agencies");
   };
 
   const handleConfirmCloseEditModal = () => {

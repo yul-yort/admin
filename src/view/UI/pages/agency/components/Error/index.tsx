@@ -5,7 +5,7 @@ import { IErrorProps } from "./types";
 const Error: FC<IErrorProps> = ({ error }) => (
   <div>
     <Typography variant="h6" align="center" color="error.main">
-      Произошла ошибка получении данных по агентству
+      Произошла ошибка при получении данных
     </Typography>
 
     <div>
