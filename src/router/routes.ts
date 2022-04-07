@@ -3,6 +3,14 @@ import { IRoutes } from "./types";
 const routes: IRoutes = [
   { name: "dashboard", path: "/", title: "Dashboard" },
   {
+    name: "login",
+    path: "/login",
+    title: "Авторизация",
+    onActivate: async () => {
+      // редирект на главную страницу
+    },
+  },
+  {
     name: "agencies",
     path: "/agencies",
     title: "Список агентств",
@@ -11,12 +19,13 @@ const routes: IRoutes = [
         name: "agency",
         path: "/:id",
         title: "Агенство",
-        onActivate: async ({ agency }, params) => {
+        // @ts-ignore TODO поправить типы
+        onActivate: async ({ store, params }) => {
           if (!params) return;
 
-          await agency.getAgency(params);
+          await store.agency.getAgency(params);
 
-          document.title = agency.agency?.agencyName || document.title;
+          document.title = store.agency.agency?.agencyName || document.title;
         },
       },
     ],
