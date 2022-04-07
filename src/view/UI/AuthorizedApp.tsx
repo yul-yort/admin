@@ -2,6 +2,7 @@ import { FC, lazy, Suspense, useState } from "react";
 import { constants } from "router5";
 import { useTitle } from "./hooks/useTitle";
 import { useRoute } from "react-router5";
+
 import { LoadingScreen } from "./components/common/LoadingScreen";
 import { Header } from "./components/common/Header";
 import { SideBar } from "./components/common/SideBar";
@@ -16,7 +17,6 @@ const pages = {
   agencies: <AgencyListPage />,
   "agencies.agency": <AgencyPage />,
   dashboard: <DashboardPage />,
-  login: <span>авторизация</span>,
   [constants.UNKNOWN_ROUTE]: <NotFoundPage />,
 };
 
@@ -36,10 +36,7 @@ export const AuthorizedApp: FC = () => {
     <>
       <Header openDrawer={handleOpenCloseSidebar} title={title} />
 
-      <SideBar
-        open={open}
-        onClose={handleOpenCloseSidebar}
-      />
+      <SideBar open={open} onClose={handleOpenCloseSidebar} />
 
       <Body>
         <Suspense fallback={<LoadingScreen />}>

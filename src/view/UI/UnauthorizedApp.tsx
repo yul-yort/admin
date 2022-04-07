@@ -1,19 +1,19 @@
 import { FC, lazy, Suspense } from "react";
 import { constants } from "router5";
 import { useRoute } from "react-router5";
+
 import { LoadingScreen } from "./components/common/LoadingScreen";
 import Body from "./components/common/Body";
+
 const NotFoundPage = lazy(() => import("./pages/notFound"));
-
-
-const RegistrationPage = lazy(() => import("./pages/registration"));
+const RegistrationPage = lazy(() => import("./pages/login"));
 
 const pages = {
-  registration: <RegistrationPage/>,
+  login: <RegistrationPage />,
   [constants.UNKNOWN_ROUTE]: <NotFoundPage />,
 };
 
-export const AuthApp: FC = () => {
+export const UnauthorizedApp: FC = () => {
   const {
     route: { name },
   } = useRoute();
@@ -29,4 +29,4 @@ export const AuthApp: FC = () => {
   );
 };
 
-export default AuthApp;
+export default UnauthorizedApp;
