@@ -7,9 +7,7 @@ const routes: IRoutes = [
     path: "/login",
     title: "Авторизация",
     onActivate: async () => {
-      // if (!store.user?.authorization) {
-      //   router.navigateToDefault();
-      // }
+      // редирект на главную страницу
     },
   },
   {
