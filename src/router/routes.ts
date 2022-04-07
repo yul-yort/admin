@@ -1,26 +1,25 @@
 import { IRoutes } from "./types";
 
 const routes: IRoutes = [
-  { name: "dashboard", path: "/", title: "Dashboard" },
   {
     name: "login",
     path: "/login",
     title: "Авторизация",
-    onActivate: async () => {
-      // редирект на главную страницу
-    },
   },
+  { name: "dashboard", path: "/", title: "Dashboard", auth: true },
   {
     name: "agencies",
     path: "/agencies",
     title: "Список агентств",
+    auth: true,
     children: [
       {
         name: "agency",
         path: "/:id",
         title: "Агенство",
+        auth: true,
         // @ts-ignore TODO поправить типы
-        onActivate: async ({ store, params }) => {
+        fetchData: async ({ store, params }) => {
           if (!params) return;
 
           await store.agency.getAgency(params);
