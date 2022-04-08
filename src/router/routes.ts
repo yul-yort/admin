@@ -7,7 +7,12 @@ const routes: IRoutes = [
     path: "/login",
     title: "Авторизация",
   },
-  { name: CONSTANTS.defaultRoute, path: "/", title: "Dashboard", auth: true },
+  {
+    name: CONSTANTS.defaultRoute,
+    path: "/",
+    title: "Dashboard",
+    auth: true,
+  },
   {
     name: "agencies",
     path: "/agencies",
