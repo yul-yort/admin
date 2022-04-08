@@ -1,10 +1,10 @@
 import { FC, lazy, Suspense } from "react";
 import { observer } from "mobx-react-lite";
+import { useRoute } from "react-router5";
 
 import { LoadingScreen } from "./components/common/LoadingScreen";
 import { useNotification } from "./hooks/useNotification";
 import { Notify } from "./components/common/Notify";
-import { checkToken } from "../../libs/utils/checkToken";
 
 const UnauthorizedApp = lazy(() => import("./UnauthorizedApp"));
 const AuthorizedApp = lazy(() => import("./AuthorizedApp"));
@@ -12,7 +12,11 @@ const AuthorizedApp = lazy(() => import("./AuthorizedApp"));
 export const App: FC = observer(() => {
   const { notification, removeNotification } = useNotification();
 
-  const isAuthorized = checkToken();
+  const {
+    route: { name },
+  } = useRoute();
+
+  const isUnauthorized = name === "login";
 
   return (
     <>
@@ -24,7 +28,7 @@ export const App: FC = observer(() => {
       />
 
       <Suspense fallback={<LoadingScreen />}>
-        {isAuthorized ? <AuthorizedApp /> : <UnauthorizedApp />}
+        {isUnauthorized ? <UnauthorizedApp /> : <AuthorizedApp />}
       </Suspense>
     </>
   );

@@ -16,13 +16,13 @@ export const checkAuthorization: MiddlewareFactory<IDependencies> =
     );
 
     const hasToken = checkToken();
-    const redirect = {
-      redirectName: toStateName,
-      redirectParams: toState.params,
-    };
 
     if (toStateName === "login" && hasToken) {
-      return done({ redirect: { name: CONSTANTS.defaultRoute } });
+      return done({
+        redirect: {
+          name: CONSTANTS.defaultRoute,
+        },
+      });
     }
 
     if (toStateName === constants.UNKNOWN_ROUTE && !hasToken) {
@@ -34,7 +34,15 @@ export const checkAuthorization: MiddlewareFactory<IDependencies> =
     }
 
     if (route?.auth && !hasToken) {
-      return done({ redirect: { name: "login", params: redirect } });
+      return done({
+        redirect: {
+          name: "login",
+          params: {
+            redirectName: toStateName,
+            redirectParams: toState.params,
+          },
+        },
+      });
     }
 
     return true;
