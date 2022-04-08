@@ -16,10 +16,7 @@ export const App: FC = observer(() => {
     route: { name },
   } = useRoute();
 
-  // TODO: тут наверное проверять на наличие токена в localstorage или где то еще
-  // TODO нужен метод, проверяющий авторизацию. Предлагаю проверять куки.
   const isUnauthorized = name === "login";
-  // const isUnauthorized = checkAuth();
 
   return (
     <>
