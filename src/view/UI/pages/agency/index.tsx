@@ -4,9 +4,10 @@ import { useViewModel } from "../../hooks/useViewModel";
 import { Detail } from "./components/Detail";
 import Error from "./components/Error";
 import Loading from "./components/Loading";
+import { IAgencyVM } from "../../../viewModels/Agency/types";
 
 const Agency: FC = observer(() => {
-  const agencyVM = useViewModel("agency");
+  const agencyVM = useViewModel<IAgencyVM>("agency");
 
   return (
     <div>
@@ -18,9 +19,8 @@ const Agency: FC = observer(() => {
         <Detail
           agency={agencyVM.agency}
           editAgency={agencyVM.editAgency}
+          deleteAgency={agencyVM.deleteAgency}
           editLoading={agencyVM.editLoading}
-          editError={agencyVM.editError}
-          unsetEditError={agencyVM.unsetEditError}
         />
       )}
     </div>

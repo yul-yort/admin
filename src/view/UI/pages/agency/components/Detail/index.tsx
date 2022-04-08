@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { Alert, Button, Paper, Snackbar, Typography } from "@mui/material";
+import { Button, Paper, Typography } from "@mui/material";
+import { useRouter } from "react-router5";
 import css from "./styles.module.scss";
 import { IDetail, IFormFields } from "./types";
 import { ConfirmModal } from "../../../../components/common/ConfirmModal";
@@ -8,14 +9,17 @@ import { AgencyCreateEditModal } from "../../../../components/shared/AgencyCreat
 import { DetailAdditionalInfo } from "../DetailAdditionalInfo";
 import { DetailRoutes } from "../DetailRoutes";
 import { UIPhonesFormatter, VMPhonesRequestFormatter } from "./mappers";
+import { useNotification } from "../../../../hooks/useNotification";
 
 export const Detail: FC<IDetail> = ({
   agency: { id, agencyName, phones = [], createDate, description, editedDate },
   editAgency,
+  deleteAgency,
   editLoading,
-  unsetEditError,
-  editError,
 }) => {
+  const { navigate } = useRouter();
+  const { addNotification } = useNotification();
+
   const [deleteModal, setOpenDeleteModal] = useState<boolean>(false);
   const [editModal, setOpenEditModal] = useState<boolean>(false);
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
@@ -54,8 +58,16 @@ export const Detail: FC<IDetail> = ({
     setOpenDeleteModal(false);
   };
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
     setOpenDeleteModal(false);
+
+    await deleteAgency({ id });
+    navigate("agencies");
+
+    addNotification({
+      type: "success",
+      message: `Агентство "${agencyName}" удалено`,
+    });
   };
 
   const handleConfirmCloseEditModal = () => {
@@ -70,13 +82,28 @@ export const Detail: FC<IDetail> = ({
   };
 
   const handleSaveEdit = async (fields: IFormFields) => {
-    await editAgency({
-      ...fields,
-      phones: VMPhonesRequestFormatter(fields.phones),
-      editedDate: new Date(),
-    });
+    try {
+      await editAgency({
+        ...fields,
+        phones: VMPhonesRequestFormatter(fields.phones),
+        editedDate: new Date(),
+      });
 
-    setOpenEditModal(false);
+      setOpenEditModal(false);
+
+      addNotification({
+        type: "success",
+        message: "Данные сохранены",
+      });
+    } catch (err) {
+      // @ts-ignore
+      const message = `${err?.name} ${err?.message}`;
+      addNotification({
+        type: "error",
+        message,
+      });
+      throw err;
+    }
   };
 
   const handleCancelEdit = () => {
@@ -136,17 +163,6 @@ export const Detail: FC<IDetail> = ({
           title="Редактировать агенство"
         />
       </FormProvider>
-
-      <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        open={!!editError}
-        autoHideDuration={6000}
-        onClose={unsetEditError}
-      >
-        <Alert variant="filled" severity="error" onClose={unsetEditError}>
-          {editError?.name} {editError?.message}
-        </Alert>
-      </Snackbar>
     </>
   );
 };

@@ -20,3 +20,5 @@ export interface IAgencyRequestEditParams
     IAgencyEntity,
     "id" | "agencyName" | "phones" | "description" | "editedDate"
   > {}
+
+export interface IAgencyRequestDeleteParams extends Pick<IAgencyEntity, "id"> {}

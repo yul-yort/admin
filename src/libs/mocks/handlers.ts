@@ -20,4 +20,12 @@ export const handlers = [
       ctx.status(200)
     );
   }),
+
+  rest.delete<string>(EEndpoints.AGENCY_DELETE, (req, res, ctx) => {
+    return res(
+      ctx.json<IAgencyResponseDTO>(agencies[0]),
+      ctx.delay(getTimeout()),
+      ctx.status(200)
+    );
+  }),
 ];
