@@ -20,7 +20,7 @@ const routes: IRoutes = [
         title: "Агенство",
         auth: true,
         // @ts-ignore TODO поправить типы
-        fetchData: async ({ store, params }) => {
+        onActivate: async ({ store, params }) => {
           if (!params) return;
 
           await store.agency.getAgency(params);

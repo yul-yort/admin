@@ -7,7 +7,7 @@ export type IRoutes = [ILoginRoute, IDashboardRoute, IAgenciesRoute];
 export interface IRoute<P = Record<string, string>>
   extends Route<IDependencies> {
   title: string;
-  fetchData?: (args?: IOnActivateArgs<P>) => void;
+  onActivate?: (args?: IOnActivateArgs<P>) => void;
   auth?: boolean;
   children?: IRoute<P>[];
 }
