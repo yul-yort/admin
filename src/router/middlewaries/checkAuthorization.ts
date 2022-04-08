@@ -4,6 +4,7 @@ import { Middleware, MiddlewareFactory } from "router5/dist/types/router";
 import { getRouteByToStateName } from "./utils";
 import { IDependencies, IRoute } from "../types";
 import { checkToken } from "../../libs/utils/checkToken";
+import { CONSTANTS } from "../../constants/globalConstants";
 
 export const checkAuthorization: MiddlewareFactory<IDependencies> =
   (router, dependencies): Middleware =>
@@ -14,10 +15,6 @@ export const checkAuthorization: MiddlewareFactory<IDependencies> =
       dependencies
     );
 
-    if (!route) {
-      return true;
-    }
-
     const hasToken = checkToken();
     const redirect = {
       redirectName: toStateName,
@@ -25,10 +22,18 @@ export const checkAuthorization: MiddlewareFactory<IDependencies> =
     };
 
     if (toStateName === "login" && hasToken) {
-      return done({ redirect: { name: "dashboard" } });
+      return done({ redirect: { name: CONSTANTS.defaultRoute } });
     }
 
-    if ((route.auth || toStateName === constants.UNKNOWN_ROUTE) && !hasToken) {
+    if (toStateName === constants.UNKNOWN_ROUTE && !hasToken) {
+      return done({
+        redirect: {
+          name: "login",
+        },
+      });
+    }
+
+    if (route?.auth && !hasToken) {
       return done({ redirect: { name: "login", params: redirect } });
     }
 

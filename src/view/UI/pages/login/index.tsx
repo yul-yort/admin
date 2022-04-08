@@ -4,9 +4,10 @@ import { useRoute } from "react-router5";
 import { Button, CircularProgress } from "@mui/material";
 
 import { useViewModel } from "../../hooks/useViewModel";
+import { useNotification } from "../../hooks/useNotification";
 import { IUserVM } from "../../../viewModels/User/types";
 import css from "./styles.module.scss";
-import { useNotification } from "../../hooks/useNotification";
+import { CONSTANTS } from "../../../../constants/globalConstants";
 
 const LoginPage: FC = observer(() => {
   const user = useViewModel<IUserVM>("user");
@@ -17,7 +18,7 @@ const LoginPage: FC = observer(() => {
     router: { navigate },
   } = useRoute();
 
-  const { redirectName = "dashboard", redirectParams = {} } = params;
+  const { redirectName = CONSTANTS.defaultRoute, redirectParams = {} } = params;
 
   const handleClick = async () => {
     try {
