@@ -21,6 +21,9 @@ export interface INotification {
 export interface INotificationsVM {
   notification: INotification | null;
 
+  successNotification(message: string): void;
+  errorNotification(message: string): void;
+
   addNotification(notification: INotification): void;
   removeNotification(): void;
 }
