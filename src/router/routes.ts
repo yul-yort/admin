@@ -1,24 +1,29 @@
 import { IRoutes } from "./types";
+import { CONSTANTS } from "../constants/globalConstants";
 
 const routes: IRoutes = [
-  { name: "dashboard", path: "/", title: "Dashboard" },
   {
     name: "login",
     path: "/login",
     title: "Авторизация",
-    onActivate: async () => {
-      // редирект на главную страницу
-    },
+  },
+  {
+    name: CONSTANTS.defaultRoute,
+    path: "/",
+    title: "Dashboard",
+    auth: true,
   },
   {
     name: "agencies",
     path: "/agencies",
     title: "Список агентств",
+    auth: true,
     children: [
       {
         name: "agency",
         path: "/:id",
         title: "Агенство",
+        auth: true,
         // @ts-ignore TODO поправить типы
         onActivate: async ({ store, params }) => {
           if (!params) return;

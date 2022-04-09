@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { Button, Paper, Typography } from "@mui/material";
 import { useRouter } from "react-router5";
+
 import css from "./styles.module.scss";
 import { IDetail, IFormFields } from "./types";
 import { ConfirmModal } from "../../../../components/common/ConfirmModal";
@@ -9,7 +10,6 @@ import { AgencyCreateEditModal } from "../../../../components/shared/AgencyCreat
 import { DetailAdditionalInfo } from "../DetailAdditionalInfo";
 import { DetailRoutes } from "../DetailRoutes";
 import { UIPhonesFormatter, VMPhonesRequestFormatter } from "./mappers";
-import { useNotification } from "../../../../hooks/useNotification";
 
 export const Detail: FC<IDetail> = ({
   agency: { id, agencyName, phones = [], createDate, description, editedDate },
@@ -18,7 +18,6 @@ export const Detail: FC<IDetail> = ({
   editLoading,
 }) => {
   const { navigate } = useRouter();
-  const { addNotification } = useNotification();
 
   const [deleteModal, setOpenDeleteModal] = useState<boolean>(false);
   const [editModal, setOpenEditModal] = useState<boolean>(false);
@@ -63,11 +62,6 @@ export const Detail: FC<IDetail> = ({
 
     await deleteAgency({ id });
     navigate("agencies");
-
-    addNotification({
-      type: "success",
-      message: `Агентство "${agencyName}" удалено`,
-    });
   };
 
   const handleConfirmCloseEditModal = () => {
@@ -82,28 +76,13 @@ export const Detail: FC<IDetail> = ({
   };
 
   const handleSaveEdit = async (fields: IFormFields) => {
-    try {
-      await editAgency({
-        ...fields,
-        phones: VMPhonesRequestFormatter(fields.phones),
-        editedDate: new Date(),
-      });
+    await editAgency({
+      ...fields,
+      phones: VMPhonesRequestFormatter(fields.phones),
+      editedDate: new Date(),
+    });
 
-      setOpenEditModal(false);
-
-      addNotification({
-        type: "success",
-        message: "Данные сохранены",
-      });
-    } catch (err) {
-      // @ts-ignore
-      const message = `${err?.name} ${err?.message}`;
-      addNotification({
-        type: "error",
-        message,
-      });
-      throw err;
-    }
+    setOpenEditModal(false);
   };
 
   const handleCancelEdit = () => {

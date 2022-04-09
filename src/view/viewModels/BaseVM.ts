@@ -1,4 +1,4 @@
-import { IBaseVM, IError } from "./types";
+import { IBaseVM, IError, INotificationsVM } from "./types";
 import { action, makeObservable, observable } from "mobx";
 import { errorMapper } from "./mappers";
 
@@ -7,7 +7,7 @@ export class BaseVM implements IBaseVM {
   loading: boolean = false;
   error: IError | null = null;
 
-  constructor() {
+  constructor(protected notify: INotificationsVM) {
     makeObservable(this, {
       loading: observable,
       error: observable,
@@ -28,6 +28,8 @@ export class BaseVM implements IBaseVM {
 
   setError(err: unknown): void {
     this.error = errorMapper(err);
+
+    this.notify.errorNotification(`${this.error.name} ${this.error.message}`);
     throw err;
   }
 
