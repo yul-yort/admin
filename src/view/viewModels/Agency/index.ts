@@ -8,13 +8,17 @@ import {
 } from "../../../data/entities/Agency/types";
 import { IAgencyService } from "../../../data/services/Agency/types";
 import { action, makeObservable, observable } from "mobx";
+import { INotificationsVM } from "../types";
 
 export class AgencyVM extends BaseVM implements IAgencyVM {
   editLoading: boolean = false;
   agency: IAgencyEntity | null = null;
 
-  constructor(private service: IAgencyService) {
-    super();
+  constructor(
+    notificationsVM: INotificationsVM,
+    private service: IAgencyService
+  ) {
+    super(notificationsVM);
     makeObservable(this, {
       agency: observable,
       editLoading: observable,
@@ -25,11 +29,12 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
 
   getAgency = async (params: IAgencyRequestParams) => {
     this.setLoading();
+    this.unsetError();
 
     try {
       this.agency = await this.service.getAgency(params);
     } catch (err) {
-      throw err;
+      this.setError(err);
     } finally {
       this.unsetLoading();
     }
@@ -40,7 +45,12 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
 
     try {
       this.agency = await this.service.editAgency(params);
+      this.notify.successNotification("Данные сохранены");
     } catch (err) {
+      // @ts-ignore
+      const message = `${err?.name} ${err?.message}`;
+      this.notify.errorNotification(message);
+
       throw err;
     } finally {
       this.editLoading = false;
@@ -52,6 +62,9 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
 
     try {
       await this.service.deleteAgency(params);
+      this.notify.successNotification(
+        `Агентство "${this.agency?.agencyName}" удалено`
+      );
       this.agency = null;
     } catch (err) {
       throw err;

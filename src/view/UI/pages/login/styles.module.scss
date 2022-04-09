@@ -1,0 +1,18 @@
+.page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+
+  &__form {
+    max-width: 360px;
+    width: 100%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__formItem {
+    margin: 12px 0;
+  }
+}
