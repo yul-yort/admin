@@ -8,5 +8,5 @@ export const getTimeout = (delay?: number): number => {
     return delay;
   }
 
-  return Math.floor(Math.random() * 10000);
+  return Math.floor(Math.random() * 3000);
 };

@@ -12,6 +12,20 @@ export class NotificationsVM implements INotificationsVM {
     });
   }
 
+  successNotification = (message: string): void => {
+    this.addNotification({
+      type: "success",
+      message: message,
+    });
+  };
+
+  errorNotification = (message: string): void => {
+    this.addNotification({
+      type: "error",
+      message: message,
+    });
+  };
+
   addNotification = (notification: INotification): void => {
     this.notification = notification;
   };
