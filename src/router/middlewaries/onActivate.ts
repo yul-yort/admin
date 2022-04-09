@@ -1,8 +1,13 @@
 import { MiddlewareFactory } from "router5/dist/types/router";
 import { IDependencies, IRoute } from "../types";
-import { CONSTANTS } from "../../constants/globalConstants";
 import { getRouteByToStateName } from "./utils";
 
+/**
+ * Плагин вызывает метод onActivate у текущего роута, если данный метод в нем прописан.
+ *
+ * @param router
+ * @param dependencies
+ */
 export const onActivate: MiddlewareFactory<IDependencies> =
   (router, dependencies) =>
   (toState): boolean => {
@@ -11,14 +16,12 @@ export const onActivate: MiddlewareFactory<IDependencies> =
       dependencies
     );
 
-    route?.fetchData &&
-      route?.fetchData({
+    route?.onActivate &&
+      route?.onActivate({
         store: dependencies.store,
         params: toState.params,
         router,
       });
-    // TODO перенести в плагины
-    document.title = route?.title || CONSTANTS.projectName;
 
     return true;
   };

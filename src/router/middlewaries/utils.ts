@@ -1,7 +1,7 @@
 import { IDependencies, IRoute } from "../types";
 
 /**
- * Кэшируем объекты роутов.
+ * Кэш роутов.
  */
 let cache: Record<string, IRoute> = {};
 
@@ -9,10 +9,8 @@ export const getRouteByToStateName = (
   toStateName: string,
   dependencies: IDependencies
 ): IRoute | undefined => {
-  if (toStateName in cache) {
-    // получаем из кэша
-    return cache[toStateName];
-  } else {
+  // роут не найдет в кэше
+  if (!(toStateName in cache)) {
     const nameSplit = toStateName.split(".");
 
     let route: IRoute<any> | undefined;
@@ -32,6 +30,7 @@ export const getRouteByToStateName = (
       // сохроняем в кэш, если роут найден
       cache[toStateName] = route;
     }
-    return route;
   }
+
+  return cache[toStateName];
 };

@@ -1,4 +1,5 @@
 import { IRoutes } from "./types";
+import { CONSTANTS } from "../constants/globalConstants";
 
 const routes: IRoutes = [
   {
@@ -6,7 +7,12 @@ const routes: IRoutes = [
     path: "/login",
     title: "Авторизация",
   },
-  { name: "dashboard", path: "/", title: "Dashboard", auth: true },
+  {
+    name: CONSTANTS.defaultRoute,
+    path: "/",
+    title: "Dashboard",
+    auth: true,
+  },
   {
     name: "agencies",
     path: "/agencies",
@@ -19,7 +25,7 @@ const routes: IRoutes = [
         title: "Агенство",
         auth: true,
         // @ts-ignore TODO поправить типы
-        fetchData: async ({ store, params }) => {
+        onActivate: async ({ store, params }) => {
           if (!params) return;
 
           await store.agency.getAgency(params);

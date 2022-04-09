@@ -1,5 +1,6 @@
 import { FC, lazy, Suspense } from "react";
 import { observer } from "mobx-react-lite";
+import { useRoute } from "react-router5";
 
 import { LoadingScreen } from "./components/common/LoadingScreen";
 import { useNotification } from "./hooks/useNotification";

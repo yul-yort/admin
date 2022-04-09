@@ -1,0 +1,10 @@
+import { IUserRepository } from "../../repositories/User/types";
+import { IUserService } from "./types";
+
+export class UserService implements IUserService {
+  constructor(private repository: IUserRepository) {}
+
+  async login(): Promise<void> {
+    await this.repository.login();
+  }
+}
