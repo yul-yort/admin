@@ -12,6 +12,7 @@ import LoginInput from "./components/LoginInput";
 import { TInputs } from "./types";
 
 import css from "./styles.module.scss";
+import { getErrorText } from "src/libs/utils";
 
 
 
@@ -31,19 +32,24 @@ const LoginPage: FC = observer(() => {
     await user.login();
     // navigate(redirectName, redirectParams);
   };
-  console.log(errors.login)
   
   return (
     <div className={css.page}>
       <form onSubmit={handleSubmit(onSubmit)} className={css.page__form}>
         <div className={css.page__formItem}>
           <LoginInput control={control} errorLogin={errors.login}/>
+          <span className={css.test}>
+          {getErrorText(errors, 'login')}
+          </span>
         </div>
         <div className={css.page__formItem}>
           <PasswordInput control={control}  errorPassword={errors.password}/>
+          <span className={css.test}>
+            {getErrorText(errors, 'password')}
+          </span>
         </div>
         <div className={css.page__formItem}>
-        <Button disabled={false}  fullWidth variant="outlined" onClick={handleSubmit(onSubmit)}>
+        <Button size="large" disabled={false}  fullWidth variant="outlined" onClick={handleSubmit(onSubmit)}>
           {user.loading ? <CircularProgress size={25} /> : "ВОЙТИ"}
         </Button>
         </div>
