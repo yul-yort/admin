@@ -1,0 +1,14 @@
+.icons {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.tableRow {
+  &:last-child td {
+    border: 0 
+  }
+  &:last-child th { 
+    border: 0 
+  }
+}

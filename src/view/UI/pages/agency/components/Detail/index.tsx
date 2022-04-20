@@ -109,6 +109,7 @@ export const Detail: FC<IDetail> = ({
           </Button>
         </div>
 
+        {/* FIXME: DetailAdditionalInfo сплющивается, нужно будет придумать решение */}
         <div className={css.detail}>
           <DetailAdditionalInfo
             handleEdit={handleEdit}
