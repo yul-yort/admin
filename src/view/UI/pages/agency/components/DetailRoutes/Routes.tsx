@@ -13,6 +13,7 @@ import css from "./styles.module.scss";
 import { createData } from "./types";
 
 //TODO: сделать получение из mocks
+//TODO: добавить получение валюты
 const rows = [
   createData("1", "Сибай", "Уфа", 1000),
   createData("2", "Баймак", "Магнитогорск", 1200),
