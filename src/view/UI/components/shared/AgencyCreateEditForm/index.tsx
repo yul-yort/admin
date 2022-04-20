@@ -1,11 +1,13 @@
 import { FC } from "react";
 import { Button, IconButton, TextField } from "@mui/material";
-import { FormErrorsDictionary } from "src/constants/FormErrorsDictionary";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import css from "./styles.module.scss";
 import { useFieldArray, useFormContext } from "react-hook-form";
+
+import { getErrorText } from "src/libs/utils";
+import css from "./styles.module.scss";
 import { IAgencyCreateEditForm } from "./types";
+import { IFormFields } from "../../../pages/agency/components/Detail/types";
 
 export const AgencyCreateEditForm: FC<IAgencyCreateEditForm> = ({
   onSave,
@@ -16,7 +18,7 @@ export const AgencyCreateEditForm: FC<IAgencyCreateEditForm> = ({
     control,
     register,
     formState: { errors, isSubmitting, isDirty },
-  } = useFormContext();
+  } = useFormContext<IFormFields>();
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -33,12 +35,9 @@ export const AgencyCreateEditForm: FC<IAgencyCreateEditForm> = ({
           variant="outlined"
           size="small"
           fullWidth
-          error={!!errors.agencyName}
+          error={!!getErrorText(errors, "agencyName")}
           disabled={isSubmitting}
-          helperText={
-            errors?.agencyName?.type &&
-            FormErrorsDictionary[errors.agencyName.type]
-          }
+          helperText={getErrorText(errors, "agencyName")}
           {...register("agencyName", {
             required: true,
           })}
@@ -55,8 +54,9 @@ export const AgencyCreateEditForm: FC<IAgencyCreateEditForm> = ({
               variant="outlined"
               size="small"
               fullWidth
-              error={errors.phones && !!errors.phones[index].value}
+              error={!!getErrorText(errors, "phones", index)}
               disabled={isSubmitting}
+              helperText={getErrorText(errors, "phones", index)}
               {...register(`phones.${index}.value`, {
                 required: true,
               })}
@@ -99,12 +99,9 @@ export const AgencyCreateEditForm: FC<IAgencyCreateEditForm> = ({
           variant="outlined"
           size="small"
           fullWidth
-          error={!!errors.description}
+          error={!!getErrorText(errors, "description")}
           disabled={isSubmitting}
-          helperText={
-            errors?.description?.type &&
-            FormErrorsDictionary[errors.description.type]
-          }
+          helperText={getErrorText(errors, "description")}
           {...register("description")}
         />
       </div>
