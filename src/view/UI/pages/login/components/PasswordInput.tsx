@@ -7,10 +7,10 @@ import {
   IconButton,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Controller} from "react-hook-form";
-import { IPasswordInput, IStatePasswordInput } from "../types";
+import { Controller } from "react-hook-form";
+import { IInput, IPasswordInput, IStatePasswordInput } from "../types";
 
-const PasswordInput: FC<IPasswordInput> = ({control, errorPassword}) => {
+const PasswordInput: FC<IInput> = ({ control, errorPassword }) => {
   const [values, setValues] = useState<IStatePasswordInput>({
     password: "",
     showPassword: false,
@@ -31,34 +31,39 @@ const PasswordInput: FC<IPasswordInput> = ({control, errorPassword}) => {
 
   return (
     <>
-    <Controller
+      <Controller
         name={"password"}
         control={control}
         rules={{ required: true, minLength: 6 }}
-        render={({ field: { onChange, value = '' } }) => (
+        render={({ field: { onChange, value = "" } }) => (
           <FormControl fullWidth variant="outlined">
-        <InputLabel error={Boolean(errorPassword)} htmlFor="outlined-adornment-password">Password</InputLabel>
-        <OutlinedInput
-          error={Boolean(errorPassword)}
-          id="outlined-adornment-password"
-          type={values.showPassword ? "text" : "password"}
-          value={value}
-          onChange={onChange}
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                edge="end"
-              >
-                {values.showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </InputAdornment>
-          }
-          label="Password"
-        />
-      </FormControl>
+            <InputLabel
+              error={Boolean(errorPassword)}
+              htmlFor="outlined-adornment-password"
+            >
+              Password
+            </InputLabel>
+            <OutlinedInput
+              error={Boolean(errorPassword)}
+              id="outlined-adornment-password"
+              type={values.showPassword ? "text" : "password"}
+              value={value}
+              onChange={onChange}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              label="Password"
+            />
+          </FormControl>
         )}
       />
     </>

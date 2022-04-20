@@ -1,20 +1,17 @@
-//FIXME: тип данных any заменить 
-export interface ILoginInput {
-  control: any,
-  errorLogin: any
+import { FieldErrors } from "react-hook-form/dist/types/errors";
+import { UseFormRegister } from "react-hook-form/dist/types/form";
+
+export interface IInput {
+  isSubmitting: boolean;
+  errors: FieldErrors<IFormValues>;
+  register: UseFormRegister<IFormValues>;
+}
+export interface IFormValues {
+  login: string;
+  password: string;
 }
 
 export interface IStatePasswordInput {
   password: string;
   showPassword: boolean;
 }
-
-export interface IPasswordInput {
-  control: any,
-  errorPassword: any,
-}
-
-export type TInputs = {
-  example: string;
-  exampleRequired: string;
-};

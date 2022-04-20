@@ -5,7 +5,7 @@
   height: 100%;
 
   &__form {
-    max-width: 360px;
+    max-width: calc(var(--yy-base) * 90);
     width: 100%;
     transform: translateY(-50%);
     display: flex;
@@ -13,14 +13,6 @@
   }
 
   &__formItem {
-    margin: 8px 0;
+    margin: var(--yy-base2X) 0;
   }
-}
-
-
-.test {
-  height: 15px;
-  font-size: 12px;
-  display: block;
-  margin-top: 8px;
 }
