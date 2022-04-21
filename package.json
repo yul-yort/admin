@@ -67,6 +67,16 @@
       }
     ]
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write"
+    ]
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -87,6 +97,8 @@
     "@storybook/preset-create-react-app": "^3.2.0",
     "@storybook/react": "^6.3.12",
     "@types/js-cookie": "^3.0.1",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.4.0",
     "msw": "^0.35.0",
     "prettier": "2.4.1",
     "storybook-addon-material-ui": "^0.9.0-alpha.24"
