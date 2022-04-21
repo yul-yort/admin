@@ -1,6 +1,6 @@
 import { FieldErrors } from "react-hook-form/dist/types/errors";
 
-const GetErrorText: Record<string, string> = {
+const ErrorsDictionary: Record<string, string> = {
   required: "Обязательное поле",
   min: "Превышена максимальная длина",
   max: "Превышено максимальное значение",
@@ -24,5 +24,5 @@ export const getErrorText = (
     return void 0;
   }
 
-  return GetErrorText[error.type] || error.type;
+  return ErrorsDictionary[error.type] || error.type;
 };

@@ -1,17 +1,17 @@
 import React, { FC } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useViewModel } from "../../hooks/useViewModel";
-import { IUserVM } from "../../../viewModels/User/types";
 import { useRoute } from "react-router5";
 import { observer } from "mobx-react-lite";
 
+import { IUserVM } from "../../../viewModels/User/types";
+import { useViewModel } from "../../hooks/useViewModel";
 import { CONSTANTS } from "../../../../constants/globalConstants";
 import { IFormValues } from "./types";
 import css from "./styles.module.scss";
 
 import LoginInput from "./components/LoginInput";
 import PasswordInput from "./components/PasswordInput";
-import { FormButton } from "./components/FormButton";
+import FormButton from "./components/FormButton";
 
 const LoginPage: FC = observer(() => {
   const {
@@ -27,18 +27,23 @@ const LoginPage: FC = observer(() => {
   } = useRoute();
   const { redirectName = CONSTANTS.defaultRoute, redirectParams = {} } = params;
 
-  const onSubmit: SubmitHandler<IFormValues> = async (data: any) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<IFormValues> = async (data: IFormValues) => {
     await user.login();
     navigate(redirectName, redirectParams);
   };
 
   return (
     <div className={css.page}>
-      <form onSubmit={handleSubmit(onSubmit)} className={css.page__form}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className={css.page__form}
+        autoComplete="on"
+        name="yul-yort-login-form"
+        id="yul-yort-login-form"
+      >
         <div className={css.page__formItem}>
           <LoginInput
-            isSubmitting={isSubmitting}
+            disabled={isSubmitting}
             errors={errors}
             register={register}
           />
@@ -46,14 +51,14 @@ const LoginPage: FC = observer(() => {
 
         <div className={css.page__formItem}>
           <PasswordInput
-            isSubmitting={isSubmitting}
+            disabled={isSubmitting}
             errors={errors}
             register={register}
           />
         </div>
 
         <div className={css.page__formItem}>
-          <FormButton user={user} isSubmitting={isSubmitting} />
+          <FormButton loading={user.loading} disabled={isSubmitting} />
         </div>
       </form>
     </div>
