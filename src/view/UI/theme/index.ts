@@ -38,8 +38,6 @@ const theme = createTheme({
     MuiFormHelperText: {
       styleOverrides: {
         root: {
-          position: "absolute",
-          top: 40,
           marginLeft: 0,
           marginTop: 0,
         },
