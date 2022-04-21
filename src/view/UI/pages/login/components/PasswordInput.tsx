@@ -1,16 +1,15 @@
 import React, { FC, useState } from "react";
 import {
-  FormControl,
-  InputLabel,
-  OutlinedInput,
   InputAdornment,
   IconButton,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Controller } from "react-hook-form";
-import { IInput, IPasswordInput, IStatePasswordInput } from "../types";
+import { IInput, IStatePasswordInput } from "../types";
+import { getErrorText } from "src/libs/utils";
+import { TextField } from "@mui/material";
 
-const PasswordInput: FC<IInput> = ({ control, errorPassword }) => {
+
+const PasswordInput: FC<IInput> = ({ isSubmitting, errors, register }) => {
   const [values, setValues] = useState<IStatePasswordInput>({
     password: "",
     showPassword: false,
@@ -30,26 +29,18 @@ const PasswordInput: FC<IInput> = ({ control, errorPassword }) => {
   };
 
   return (
-    <>
-      <Controller
-        name={"password"}
-        control={control}
-        rules={{ required: true, minLength: 6 }}
-        render={({ field: { onChange, value = "" } }) => (
-          <FormControl fullWidth variant="outlined">
-            <InputLabel
-              error={Boolean(errorPassword)}
-              htmlFor="outlined-adornment-password"
-            >
-              Password
-            </InputLabel>
-            <OutlinedInput
-              error={Boolean(errorPassword)}
-              id="outlined-adornment-password"
-              type={values.showPassword ? "text" : "password"}
-              value={value}
-              onChange={onChange}
-              endAdornment={
+    <TextField
+            id="password"
+            label="Password"
+            placeholder="Password"
+            variant="outlined"
+            fullWidth
+            type={values.showPassword ? "text" : "password"}
+            error={!!getErrorText(errors, "password")}
+            disabled={isSubmitting}
+            helperText={getErrorText(errors, "password")}
+            InputProps={{
+              endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
@@ -60,13 +51,12 @@ const PasswordInput: FC<IInput> = ({ control, errorPassword }) => {
                     {values.showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
-              }
-              label="Password"
-            />
-          </FormControl>
-        )}
-      />
-    </>
+              ),
+            }}
+            {...register("password", {
+              required: true,
+            })}
+          />
   );
 };
 

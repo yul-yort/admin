@@ -1,23 +1,17 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useViewModel } from "../../hooks/useViewModel";
 import { IUserVM } from "../../../viewModels/User/types";
 import { useRoute } from "react-router5";
 import { observer } from "mobx-react-lite";
-import {
-  Button,
-  CircularProgress,
-  IconButton,
-  InputAdornment,
-  TextField,
-} from "@mui/material";
 
 import { CONSTANTS } from "../../../../constants/globalConstants";
-import { IFormValues, IStatePasswordInput, TInputs } from "./types";
+import { IFormValues } from "./types";
 import css from "./styles.module.scss";
-import { getErrorText } from "src/libs/utils";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+
 import LoginInput from "./components/LoginInput";
+import PasswordInput from "./components/PasswordInput";
+import { FormButton } from "./components/FormButton";
 
 const LoginPage: FC = observer(() => {
   const {
@@ -33,27 +27,10 @@ const LoginPage: FC = observer(() => {
   } = useRoute();
   const { redirectName = CONSTANTS.defaultRoute, redirectParams = {} } = params;
 
-  const onSubmit: SubmitHandler<TInputs> = async (data: any) => {
+  const onSubmit: SubmitHandler<IFormValues> = async (data: any) => {
     console.log(data);
     await user.login();
-    // navigate(redirectName, redirectParams);
-  };
-  const [values, setValues] = useState<IStatePasswordInput>({
-    password: "",
-    showPassword: false,
-  });
-
-  const handleClickShowPassword = () => {
-    setValues({
-      ...values,
-      showPassword: !values.showPassword,
-    });
-  };
-
-  const handleMouseDownPassword = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
+    navigate(redirectName, redirectParams);
   };
 
   return (
@@ -68,47 +45,15 @@ const LoginPage: FC = observer(() => {
         </div>
 
         <div className={css.page__formItem}>
-          {/*<PasswordInput control={control} errorPassword={errors.password} />*/}
-          <TextField
-            id="password"
-            label="Password"
-            placeholder="Password"
-            variant="outlined"
-            fullWidth
-            type={values.showPassword ? "text" : "password"}
-            error={!!getErrorText(errors, "password")}
-            disabled={isSubmitting}
-            helperText={getErrorText(errors, "password")}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-            {...register("password", {
-              required: true,
-            })}
+          <PasswordInput
+            isSubmitting={isSubmitting}
+            errors={errors}
+            register={register}
           />
         </div>
 
         <div className={css.page__formItem}>
-          <Button
-            type="submit"
-            size="large"
-            disabled={isSubmitting}
-            fullWidth
-            variant="outlined"
-          >
-            {user.loading ? <CircularProgress size={25} /> : "ВОЙТИ"}
-          </Button>
+          <FormButton user={user} isSubmitting={isSubmitting} />
         </div>
       </form>
     </div>

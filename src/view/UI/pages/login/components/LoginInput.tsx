@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { TextField } from "@mui/material";
-import { IInput, ILoginInput } from "../types";
+import { IInput } from "../types";
 import { getErrorText } from "../../../../../libs/utils";
 
 const LoginInput: FC<IInput> = ({ isSubmitting, errors, register }) => {

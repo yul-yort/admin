@@ -1,5 +1,6 @@
 import { FieldErrors } from "react-hook-form/dist/types/errors";
 import { UseFormRegister } from "react-hook-form/dist/types/form";
+import { IUserVM } from "src/view/viewModels/User/types";
 
 export interface IInput {
   isSubmitting: boolean;
@@ -14,4 +15,9 @@ export interface IFormValues {
 export interface IStatePasswordInput {
   password: string;
   showPassword: boolean;
+}
+
+export interface IFormButton {
+  isSubmitting: boolean;
+  user: IUserVM;
 }
