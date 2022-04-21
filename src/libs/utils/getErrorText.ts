@@ -24,5 +24,5 @@ export const getErrorText = (
     return void 0;
   }
 
-  return ErrorsDictionary[error.type] || error.type;
+  return error.message || ErrorsDictionary[error.type] || error.type;
 };
