@@ -1,6 +1,10 @@
 :root {
-  --yy-base2X: calc(var(--yy-base) * 2);
   --yy-base: 4px;
+  --yy-base2X: calc(var(--yy-base) * 2);
+  --yy-base3X: calc(var(--yy-base) * 3);
+  --yy-base4X: calc(var(--yy-base) * 4);
+  --yy-base5X: calc(var(--yy-base) * 5);
+  --yy-base6X: calc(var(--yy-base) * 6);
 
   --yy-media-query-mobile: 767px;
 

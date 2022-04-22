@@ -3,6 +3,14 @@
   flex-direction: column;
 }
 
-.row {
-  cursor: pointer;
+.phones_cell {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.more_link {
+  display: flex;
+  margin-left: var(--yy-base6X);
 }

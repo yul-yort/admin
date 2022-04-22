@@ -7,7 +7,6 @@ import { IAgencyVM } from "../../../viewModels/Agency/types";
 import { useViewModel } from "../../hooks/useViewModel";
 import Loading from "../agency/components/Loading";
 
-//TODO избавиться от инлайновых стилей
 const AgencyList: FC = observer(() => {
   const agencyVM = useViewModel<IAgencyVM>("agency");
 
