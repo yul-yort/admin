@@ -3,7 +3,7 @@ export interface ITableToolbarProps {
 }
 
 export interface IToolbarActionIconsProps {
-  selected: string[];
+  selected: ID[];
   deleteAgency: () => void;
   addAgency: () => void;
   editAgency: () => void;

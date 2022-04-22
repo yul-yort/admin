@@ -3,20 +3,23 @@ import Checkbox from "@mui/material/Checkbox";
 import TableRow from "@mui/material/TableRow";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
+import { format } from "date-fns";
+
 import { ITableBodyTemplateProps } from "./types";
-import { IAgencyResponseDTO } from "src/data/entities/Agency/types";
 import css from "./styles.module.scss";
 import { Phones } from "../../../../components/shared/Phones";
 
-const TableBodyTemplate: FC<ITableBodyTemplateProps> = (props) => {
-  const { rows, selected, handleSelect } = props;
-
-  const isSelected = (name: string) => selected.indexOf(name) !== -1;
+const TableBodyTemplate: FC<ITableBodyTemplateProps> = ({
+  rows,
+  selected,
+  handleSelect,
+}) => {
+  const isSelected = (id: ID) => selected.indexOf(id) !== -1;
 
   return (
     <TableBody>
-      {rows.slice().map((row: IAgencyResponseDTO, index: number) => {
-        const isItemSelected = isSelected(row.agencyName);
+      {rows.slice().map((row, index: number) => {
+        const isItemSelected = isSelected(row.id);
         const labelId = `enhanced-table-checkbox-${index}`;
 
         return (
@@ -39,11 +42,9 @@ const TableBodyTemplate: FC<ITableBodyTemplateProps> = (props) => {
                 }}
               />
             </TableCell>
-            <TableCell component="th" id={labelId} scope="row" padding="none">
-              {row.agencyName}
-            </TableCell>
-            <TableCell align="right">{row.createDate}</TableCell>
-            <TableCell align="right">
+            <TableCell id={labelId}>{row.agencyName}</TableCell>
+            <TableCell>{format(row.createDate, "MM.dd.yyyy HH:mm")}</TableCell>
+            <TableCell>
               <div className={css.phones}>
                 <Phones phones={row.phones} />
               </div>

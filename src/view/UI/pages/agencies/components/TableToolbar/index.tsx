@@ -33,7 +33,7 @@ const TableToolbar: FC<ITableToolbarProps> = ({ selected }) => {
   };
 
   return (
-    <Toolbar sx={toolbarStyle}>
+    <Toolbar sx={toolbarStyle} variant="dense">
       {selected.length > 0 ? (
         <Typography
           sx={{ flex: "1 1 100%" }}

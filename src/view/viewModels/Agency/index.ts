@@ -5,25 +5,34 @@ import {
   IAgencyEntity,
   IAgencyRequestParams,
   IAgencyRequestDeleteParams,
+  IAgencyItemEntity,
 } from "../../../data/entities/Agency/types";
 import { IAgencyService } from "../../../data/services/Agency/types";
-import { action, makeObservable, observable } from "mobx";
+import { action, makeObservable, observable, runInAction } from "mobx";
 import { INotificationsVM } from "../types";
 
+// TODO очистка сущностей, при уходе со страницы?
 export class AgencyVM extends BaseVM implements IAgencyVM {
   editLoading: boolean = false;
+  loadingList: ID[] = [];
+
   agency: IAgencyEntity | null = null;
+  agencies: IAgencyItemEntity[] | null = null;
 
   constructor(
     notificationsVM: INotificationsVM,
     private service: IAgencyService
   ) {
     super(notificationsVM);
+
     makeObservable(this, {
       agency: observable,
+      agencies: observable,
       editLoading: observable,
+      loadingList: observable,
       getAgency: action,
       editAgency: action,
+      getList: action,
     });
   }
 
@@ -32,7 +41,11 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
     this.unsetError();
 
     try {
-      this.agency = await this.service.getAgency(params);
+      const agency = await this.service.getAgency(params);
+
+      runInAction(() => {
+        this.agency = agency;
+      });
     } catch (err) {
       this.setError(err);
     } finally {
@@ -68,6 +81,23 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
       this.agency = null;
     } catch (err) {
       throw err;
+    } finally {
+      this.unsetLoading();
+    }
+  };
+
+  getList = async () => {
+    this.setLoading();
+    this.unsetError();
+
+    try {
+      const agencies = await this.service.getList();
+
+      runInAction(() => {
+        this.agencies = agencies;
+      });
+    } catch (err) {
+      this.setError(err);
     } finally {
       this.unsetLoading();
     }

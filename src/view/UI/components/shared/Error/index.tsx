@@ -1,11 +1,11 @@
-import { FC } from "react";
+import { VFC } from "react";
 import { Typography } from "@mui/material";
 import { IErrorProps } from "./types";
 
-const Error: FC<IErrorProps> = ({ error }) => (
+const Error: VFC<IErrorProps> = ({ title, error }) => (
   <div>
     <Typography variant="h6" align="center" color="error.main">
-      Произошла ошибка при получении данных
+      {title}
     </Typography>
 
     <div>

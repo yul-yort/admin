@@ -6,10 +6,16 @@ import { EEndpoints } from "../../constants/Endpoints";
 
 export const handlers = [
   rest.get(EEndpoints.AGENCY, (req, res, ctx) => {
+    const url = new URL(req.url);
+    const id = url.searchParams.get("id");
+    const result: IAgencyResponseDTO | {} =
+      agencies.find((agency) => agency.id === id) || {};
+    let status = Object.keys(result).length ? 200 : 404;
+
     return res(
-      ctx.json<IAgencyResponseDTO>(agencies[0]),
+      ctx.json<IAgencyResponseDTO | {}>(result),
       ctx.delay(getTimeout()),
-      ctx.status(200)
+      ctx.status(status)
     );
   }),
 
@@ -24,6 +30,14 @@ export const handlers = [
   rest.delete<string>(EEndpoints.AGENCY_DELETE, (req, res, ctx) => {
     return res(
       ctx.json<IAgencyResponseDTO>(agencies[0]),
+      ctx.delay(getTimeout()),
+      ctx.status(200)
+    );
+  }),
+
+  rest.get(EEndpoints.AGENCY_LIST, (req, res, ctx) => {
+    return res(
+      ctx.json<IAgencyResponseDTO[]>(agencies),
       ctx.delay(getTimeout()),
       ctx.status(200)
     );

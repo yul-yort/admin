@@ -1,8 +1,8 @@
 import React from "react";
-import { IAgencyResponseDTO } from "src/data/entities/Agency/types";
+import { IAgencyEntity } from "src/data/entities/Agency/types";
 
 export interface ITableBodyTemplateProps {
-  rows: IAgencyResponseDTO[];
+  rows: IAgencyEntity[];
   selected: string[];
   handleSelect: (event: React.MouseEvent<unknown>, name: string) => void;
 }

@@ -24,12 +24,7 @@ const TableHeader: FC<ITableHeaderProps> = (props) => {
           />
         </TableCell>
         {TableHeaderCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            align={headCell.numeric ? "right" : "left"}
-          >
-            {headCell.label}
-          </TableCell>
+          <TableCell key={headCell.id}>{headCell.label}</TableCell>
         ))}
       </TableRow>
     </TableHead>
