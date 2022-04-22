@@ -13,7 +13,7 @@ export const getRouteByToStateName = (
   if (!(toStateName in cache)) {
     const nameSplit = toStateName.split(".");
 
-    let route: IRoute<any> | undefined;
+    let route: IRoute | undefined;
 
     nameSplit.forEach((name, index) => {
       if (index === 0) {
