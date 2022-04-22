@@ -5,7 +5,6 @@ import { IInput } from "../types";
 import { getErrorText } from "src/libs/utils";
 import { TextField } from "@mui/material";
 
-//TODO шифрование или сериализация пароля?
 const PasswordInput: VFC<IInput> = ({ disabled, errors, register }) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
