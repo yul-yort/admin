@@ -1,14 +1,6 @@
-import React from "react";
-import { IAgencyResponseDTO } from "../../../../../../data/entities/Agency/types";
-
-export interface ITableHeaderProps {
-  numSelected: number;
-  onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  rowCount: number;
-}
+import { IAgencyItemResponseDTO } from "src/data/entities/Agency/types";
 
 export interface ITableHeaderCell {
-  id: keyof IAgencyResponseDTO;
+  id: keyof IAgencyItemResponseDTO;
   label: string;
-  numeric: boolean;
 }

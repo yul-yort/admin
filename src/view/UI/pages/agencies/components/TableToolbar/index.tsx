@@ -1,74 +1,27 @@
-import { FC } from "react";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import { alpha } from "@mui/material/styles";
-import { ITableToolbarProps } from "./types";
-import Box from "@mui/material/Box";
+import { VFC } from "react";
 import TextField from "@mui/material/TextField";
-import ToolbarActionIcons from "./ToolbarActionIcons";
+import IconButton from "@mui/material/IconButton";
+import AddIcon from "@mui/icons-material/Add";
+import Tooltip from "@mui/material/Tooltip";
 
-const TableToolbar: FC<ITableToolbarProps> = ({ selected }) => {
-  const deleteAgency = () => {
-    console.log("delete Agency");
-  };
+import css from "./styles.module.scss";
 
-  const editAgency = () => {
-    console.log("edit Agency");
-  };
-
+const TableToolbar: VFC = () => {
   const addAgency = () => {
     console.log("add Agency");
   };
 
-  const toolbarStyle = {
-    pl: { sm: 2 },
-    pr: { xs: 1, sm: 1 },
-    ...(selected.length > 0 && {
-      bgcolor: (theme: any) =>
-        alpha(
-          theme.palette.primary.main,
-          theme.palette.action.activatedOpacity
-        ),
-    }),
-  };
-
   return (
-    <Toolbar sx={toolbarStyle} variant="dense">
-      {selected.length > 0 ? (
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          color="inherit"
-          variant="subtitle1"
-          noWrap
-        >
-          {selected.length} selected
-        </Typography>
-      ) : (
-        <Search />
-      )}
-      <ToolbarActionIcons
-        selected={selected}
-        deleteAgency={deleteAgency}
-        addAgency={addAgency}
-        editAgency={editAgency}
-      />
-    </Toolbar>
+    <div className={css.wrapper}>
+      <TextField label="Поиск по названию" variant="standard" size="small" />
+
+      <Tooltip title="Добавить агенство">
+        <IconButton onClick={addAgency}>
+          <AddIcon fontSize="medium" />
+        </IconButton>
+      </Tooltip>
+    </div>
   );
 };
 
 export default TableToolbar;
-
-//FIXME: common component
-function Search() {
-  return (
-    <Box sx={{ flex: "1 1 100%" }}>
-      <Box component="form" noValidate autoComplete="off">
-        <TextField
-          id="standard-basic"
-          label="Поиск по названию"
-          variant="standard"
-        />
-      </Box>
-    </Box>
-  );
-}
