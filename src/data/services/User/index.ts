@@ -7,4 +7,8 @@ export class UserService implements IUserService {
   async login(): Promise<void> {
     await this.repository.login();
   }
+
+  async logout(): Promise<void> {
+    await this.repository.logout();
+  }
 }

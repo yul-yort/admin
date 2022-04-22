@@ -32,4 +32,18 @@ export class UserVM extends BaseVM implements IUserVM {
       this.unsetLoading();
     }
   };
+
+  logout = async () => {
+    this.setLoading();
+    this.unsetError();
+
+    try {
+      await this.service.logout();
+      this.notify.successNotification("До скорых встреч!");
+    } catch (err) {
+      this.setError(err);
+    } finally {
+      this.unsetLoading();
+    }
+  };
 }
