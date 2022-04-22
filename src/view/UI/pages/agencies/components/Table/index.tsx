@@ -7,25 +7,24 @@ import TableToolbar from "../TableToolbar";
 import TableBodyTemplate from "../TableBody";
 import { ITable } from "./types";
 
-const AgencyTable: FC<ITable> = (props) => {
-  const { listData } = props;
-  const [selected, setSelected] = useState<string[]>([]);
+const AgencyTable: FC<ITable> = ({ agencies }) => {
+  const [selected, setSelected] = useState<ID[]>([]);
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelecteds = listData.map((n) => n.agencyName);
-      setSelected(newSelecteds);
+      const selectedAgencies = agencies.map((n) => n.id);
+      setSelected(selectedAgencies);
       return;
     }
     setSelected([]);
   };
 
-  const handleSelect = (event: React.MouseEvent<unknown>, name: string) => {
-    const selectedIndex = selected.indexOf(name);
+  const handleSelect = (event: React.MouseEvent<unknown>, id: ID) => {
+    const selectedIndex = selected.indexOf(id);
     let newSelected: string[] = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, id);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -41,17 +40,17 @@ const AgencyTable: FC<ITable> = (props) => {
   };
 
   return (
-    <Paper sx={{ width: "100%", mb: 2 }}>
+    <Paper sx={{ width: "100%", mb: 2, overflow: "hidden" }}>
       <TableToolbar selected={selected} />
       <TableContainer>
-        <Table aria-labelledby="tableTitle">
+        <Table aria-labelledby="tableTitle" size="small">
           <TableHeader
             numSelected={selected.length}
             onSelectAllClick={handleSelectAllClick}
-            rowCount={listData.length}
+            rowCount={agencies.length}
           />
           <TableBodyTemplate
-            rows={listData}
+            rows={agencies}
             selected={selected}
             handleSelect={handleSelect}
           />

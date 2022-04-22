@@ -1,5 +1,5 @@
-import { IAgencyResponseDTO } from "src/data/entities/Agency/types";
+import { IAgencyEntity } from "src/data/entities/Agency/types";
 
 export interface ITable {
-  listData: IAgencyResponseDTO[];
+  agencies: IAgencyEntity[];
 }

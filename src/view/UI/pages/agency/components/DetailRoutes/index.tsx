@@ -1,33 +1,26 @@
-import { FC, useState } from "react";
+import { FC, useState} from "react";
 import { Paper } from "@mui/material";
 import sharedCss from "../shared/styles.module.scss";
 import { Routes } from "./Routes";
 import { RoutesHeader } from "./RoutesHeader";
-import { RoutesCreateModal } from "./RoutesCreateModal";
+import { CreateRoutes } from "./CreateRoutes";
 
 export const DetailRoutes: FC = () => {
-  const [stateModal, setStateModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-  const changeStateModal = () => {
-    setStateModal(true);
+  const handleShowModal = () => {
+    setShowModal(true);
   };
 
-  const handleCancelCloseEditModal = () => {
-    setStateModal(false);
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
-  const handleSaveEdit = () => {
-    console.log("super");
-  };
   return (
     <Paper className={sharedCss.block} variant="outlined">
-      <RoutesHeader changeStateModal={changeStateModal} />
+      <RoutesHeader handleShowModal={handleShowModal} />
       <Routes />
-      <RoutesCreateModal
-        stateModal={stateModal}
-        handleCancelCloseEditModal={handleCancelCloseEditModal}
-        handleSaveEdit={handleSaveEdit}
-      />
+      <CreateRoutes showModal={showModal} handleCloseModal={handleCloseModal} />
     </Paper>
   );
 };

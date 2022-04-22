@@ -1,14 +1,14 @@
 .icons {
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .tableRow {
   &:last-child td {
-    border: 0
+    border: 0;
   }
   &:last-child th {
-    border: 0
+    border: 0;
   }
 }

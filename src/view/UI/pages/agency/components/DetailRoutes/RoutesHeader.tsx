@@ -4,11 +4,11 @@ import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import sharedCss from "../shared/styles.module.scss";
 import { IRoutesHeader } from "./types";
 
-export const RoutesHeader: FC<IRoutesHeader> = ({ changeStateModal }) => {
+export const RoutesHeader: FC<IRoutesHeader> = ({ handleShowModal }) => {
   return (
     <div className={sharedCss.header}>
       <Typography variant="h6">Маршруты</Typography>
-      <IconButton onClick={() => changeStateModal()} aria-label="add">
+      <IconButton onClick={handleShowModal} aria-label="add">
         <AddRoundedIcon />
       </IconButton>
     </div>

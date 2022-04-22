@@ -1,10 +1,11 @@
 import { IconButton, Paper, Typography } from "@mui/material";
 import { FC } from "react";
-import { formatDate } from "./formatDate";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import { format } from "date-fns";
+
 import { Phones } from "../../../../components/shared/Phones";
 import css from "./styles.module.scss";
 import sharedCss from "../shared/styles.module.scss";
-import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import { IAdditionalInfo } from "./types";
 
 export const DetailAdditionalInfo: FC<IAdditionalInfo> = ({
@@ -31,14 +32,18 @@ export const DetailAdditionalInfo: FC<IAdditionalInfo> = ({
 
       <div className={sharedCss.row}>
         <Typography variant="subtitle2">Дата создания:</Typography>
-        <Typography variant="body2">{formatDate(createDate)}</Typography>
+        <Typography variant="body2">
+          {format(createDate, "dd.MM.yyyy  HH:mm")}
+        </Typography>
       </div>
 
       {editedDate && (
         <div className={sharedCss.row}>
           <Typography variant="subtitle2">Дата редактирвоания:</Typography>
 
-          <Typography variant="body2">{formatDate(editedDate)}</Typography>
+          <Typography variant="body2">
+            {format(editedDate, "dd.MM.yyyy  HH:mm")}
+          </Typography>
         </div>
       )}
 

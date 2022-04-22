@@ -1,4 +1,5 @@
 :root {
+  --yy-base2X: calc(var(--yy-base) * 2);
   --yy-base: 4px;
 
   --yy-media-query-mobile: 767px;

@@ -4,9 +4,10 @@ import {
   IAgencyEntity,
   IAgencyRequestParams,
   IAgencyRequestDeleteParams,
+  IAgencyItemEntity,
 } from "../../entities/Agency/types";
 import { IAgencyRepository } from "../../repositories/Agency/types";
-import { Agency } from "../../entities/Agency";
+import { Agency, AgencyItem } from "../../entities/Agency";
 
 export class AgencyService implements IAgencyService {
   constructor(private repository: IAgencyRepository) {}
@@ -29,5 +30,11 @@ export class AgencyService implements IAgencyService {
     const agency = await this.repository.deleteAgency(params);
 
     return new Agency(agency);
+  }
+
+  async getList(): Promise<IAgencyItemEntity[]> {
+    const agencies = await this.repository.getList();
+
+    return agencies.map((agency) => new AgencyItem(agency));
   }
 }

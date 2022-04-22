@@ -5,7 +5,6 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import EditIcon from "@mui/icons-material/Edit";
 import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
 import { IToolbarActionIconsProps } from "./types";
 import { Link } from "react-router5";
 
@@ -19,22 +18,20 @@ const ToolbarActionIcons: FC<IToolbarActionIconsProps> = ({
     return (
       <Stack spacing={2} direction="row">
         {selected.length === 1 ? (
-          <Stack spacing={2} direction="row">
-            <nav>
-              <Link routeName="agencies">
-                <Button variant="text">Подробнее</Button>
-              </Link>
-            </nav>
+          <>
+            <Link routeName="agencies.agency" routeParams={{ id: selected[0] }}>
+              Подробнее
+            </Link>
 
-            <Tooltip title="Edit">
-              <IconButton onClick={editAgency}>
+            <Tooltip title="Редактировать">
+              <IconButton size="small" onClick={editAgency}>
                 <EditIcon />
               </IconButton>
             </Tooltip>
-          </Stack>
+          </>
         ) : null}
-        <Tooltip title="Delete">
-          <IconButton onClick={deleteAgency}>
+        <Tooltip title="Удалить">
+          <IconButton size="small" onClick={deleteAgency}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -47,8 +44,8 @@ const ToolbarActionIcons: FC<IToolbarActionIconsProps> = ({
         <AgencyActionIconsTemplate />
       ) : (
         <Tooltip title="Добавить агенство">
-          <IconButton onClick={addAgency}>
-            <AddIcon fontSize="large" />
+          <IconButton size="small" onClick={addAgency}>
+            <AddIcon />
           </IconButton>
         </Tooltip>
       )}
