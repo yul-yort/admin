@@ -25,7 +25,7 @@ const TableBodyTemplate: FC<ITableBodyTemplateProps> = ({ rows }) => (
               <Phones phones={phones} />
             </div>
 
-            <Tooltip title="Подроднее" disableInteractive>
+            <Tooltip title="Подробнее" disableInteractive>
               <span>
                 <Link
                   className={css.more_link}
