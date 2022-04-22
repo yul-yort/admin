@@ -16,7 +16,7 @@ const AgencyTable: VFC<ITable> = ({ agencies }) => {
 
       <TableContainer>
         <Table aria-labelledby="tableTitle" size="small">
-          <TableHeader rowCount={agencies.length} />
+          <TableHeader />
 
           <TableBodyTemplate rows={agencies} />
         </Table>
