@@ -24,5 +24,6 @@ export const agencies: IAgencyResponseDTO[] = [
     phones: ["+79999999999"],
     createDate: new Date().toString(),
     editedDate: new Date().toString(),
+    description: "Нам с Вами по пути!",
   },
 ];
