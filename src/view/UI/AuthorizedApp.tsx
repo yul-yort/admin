@@ -29,7 +29,7 @@ export const AuthorizedApp: FC = observer(() => {
   const title = useTitle();
   const user = useViewModel<IUserVM>("user");
   const {
-    route: { name },
+    route: { name, params },
     router: { navigate },
   } = useRoute();
 
@@ -40,7 +40,7 @@ export const AuthorizedApp: FC = observer(() => {
   const logout = async () => {
     await user.logout();
 
-    navigate("login");
+    navigate("login", { redirectName: name, redirectParams: params });
   };
 
   return (
