@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ErrorInfo } from "react";
 import { Collapse, IconButton, Typography } from "@mui/material";
 import css from "./styles.module.scss";
 import SentimentVeryDissatisfiedOutlinedIcon from "@mui/icons-material/SentimentVeryDissatisfiedOutlined";
@@ -38,11 +38,15 @@ export class ErrorBoundary extends React.Component<IProps, IState> {
     this.state.timerID && clearInterval(this.state.timerID);
   }
 
-  componentDidCatch(error: any, errorInfo: any) {
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     this.setState({
       error: error,
       errorInfo: errorInfo,
     });
+    // TODO логирование ошибок, автоматическая отправка данных об ошибке на сервер или на почту админов.
+    console.log(error.name);
+    console.log(error.message);
+    console.log(error.stack);
   }
 
   handleExpand = () => {

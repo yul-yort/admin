@@ -1,4 +1,5 @@
 import {
+  IAgencyItemResponseDTO,
   IAgencyRequestDeleteParams,
   IAgencyRequestEditParams,
   IAgencyRequestParams,
@@ -11,4 +12,6 @@ export interface IAgencyRepository {
   deleteAgency: (
     params: IAgencyRequestDeleteParams
   ) => Promise<IAgencyResponseDTO>;
+
+  getList: () => Promise<IAgencyItemResponseDTO[]>;
 }

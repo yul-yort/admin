@@ -4,5 +4,6 @@ export enum EEndpoints {
   AGENCY = "/agency",
   AGENCY_EDIT = "/agency-edit",
   AGENCY_DELETE = "/agency-delete",
+  AGENCY_LIST = "/agency-list",
   LOGIN = "/login",
 }

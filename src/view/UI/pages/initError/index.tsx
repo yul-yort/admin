@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { IInitErrorPageProps } from "./types";
 import { Collapse, IconButton, Typography } from "@mui/material";
 import css from "./styles.module.scss";
@@ -8,6 +8,12 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 
 const InitError: FC<IInitErrorPageProps> = ({ error }) => {
   const [expand, setExpand] = useState<boolean>(false);
+
+  useEffect(() => {
+    //TODO логирование ошибок, автоматическая отправка
+    // данных об ошибке на сервер или на почту админов.
+    console.log("InitError", error.toString());
+  });
 
   const handleExpand = () => {
     setExpand(!expand);

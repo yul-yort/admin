@@ -18,6 +18,10 @@ const routes: IRoutes = [
     path: "/agencies",
     title: "Список агентств",
     auth: true,
+    // @ts-ignore TODO поправить типы
+    onActivate: async ({ store }) => {
+      await store.agency.getList();
+    },
     children: [
       {
         name: "agency",
