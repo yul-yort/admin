@@ -2,7 +2,6 @@ import { FC } from "react";
 import TableRow from "@mui/material/TableRow";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
-import { format } from "date-fns";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import { Link } from "react-router5";
 import { Tooltip } from "@mui/material";
@@ -17,7 +16,7 @@ const TableBodyTemplate: FC<ITableBodyTemplateProps> = ({ rows }) => (
       <TableRow key={id} tabIndex={-1}>
         <TableCell>{agencyName}</TableCell>
 
-        <TableCell>{format(createDate, "MM.dd.yyyy HH:mm")}</TableCell>
+        <TableCell>{createDate}</TableCell>
 
         <TableCell>
           <div className={css.phones_cell}>

@@ -6,7 +6,7 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 
 import { getErrorText } from "src/libs/utils";
 import css from "./styles.module.scss";
-import { IAgencyCreateEditForm, IFormFields } from "./types";
+import { IAgencyCreateEditForm, ICreateOrEditAgencyFormFields } from "./types";
 
 export const AgencyCreateEditForm: FC<IAgencyCreateEditForm> = ({
   onSave,
@@ -17,7 +17,7 @@ export const AgencyCreateEditForm: FC<IAgencyCreateEditForm> = ({
     control,
     register,
     formState: { errors, isSubmitting, isDirty },
-  } = useFormContext<IFormFields>();
+  } = useFormContext<ICreateOrEditAgencyFormFields>();
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -34,6 +34,7 @@ export const AgencyCreateEditForm: FC<IAgencyCreateEditForm> = ({
           variant="outlined"
           size="small"
           fullWidth
+          autoFocus
           error={!!getErrorText(errors, "agencyName")}
           disabled={isSubmitting}
           helperText={getErrorText(errors, "agencyName")}

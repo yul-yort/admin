@@ -5,8 +5,11 @@ export interface IAgencyCreateEditForm {
   onSave: () => Promise<void>;
 }
 
-export interface IFormFields
-  extends Pick<IAgencyEntity, "id" | "agencyName" | "description"> {
+export interface ICreateOrEditAgencyFormFields
+  extends Pick<
+    IAgencyEntity,
+    "id" | "agencyName" | "description" | "createDate"
+  > {
   phones: IFormPhone[];
 }
 
