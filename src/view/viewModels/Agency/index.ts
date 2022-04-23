@@ -36,8 +36,34 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
       editAgency: action,
       getList: action,
       createAgency: action,
+      setLoadingItem: action,
+      unsetLoadingItem: action,
+      setEditLoading: action,
+      unsetEditLoading: action,
     });
   }
+
+  isLoadingItem = (id: ID) => this.loadingList.indexOf(id) !== -1;
+
+  setLoadingItem = (id: ID) => {
+    this.loadingList.push(id);
+  };
+
+  unsetLoadingItem = (id: ID) => {
+    const index = this.loadingList.indexOf(id);
+
+    if (index >= 0) {
+      this.loadingList.splice(index, 1);
+    }
+  };
+
+  setEditLoading = () => {
+    this.editLoading = true;
+  };
+
+  unsetEditLoading = () => {
+    this.editLoading = false;
+  };
 
   getAgency = async (params: IAgencyRequestParams) => {
     this.setLoading();
@@ -57,7 +83,7 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
   };
 
   editAgency = async (fields: ICreateOrEditAgencyFormFields) => {
-    this.editLoading = true;
+    this.setEditLoading();
 
     try {
       this.agency = await this.service.editAgency(fields);
@@ -69,7 +95,7 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
 
       throw err;
     } finally {
-      this.editLoading = false;
+      this.unsetEditLoading();
     }
   };
 
@@ -107,7 +133,7 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
   };
 
   createAgency = async (fields: ICreateOrEditAgencyFormFields) => {
-    this.editLoading = true;
+    this.setEditLoading();
 
     const newAgency = {
       ...fields,
@@ -116,8 +142,8 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
       phones: VMPhonesRequestFormatter(fields.phones),
     };
 
+    this.setLoadingItem(newAgency.id);
     const agenciesCopy = this.agencies ? [...this.agencies] : [];
-
     runInAction(() => {
       this.agencies = [newAgency, ...agenciesCopy];
     });
@@ -135,7 +161,8 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
     } catch (err) {
       this.setError(err);
     } finally {
-      this.editLoading = false;
+      this.unsetEditLoading();
+      this.unsetLoadingItem(newAgency.id);
     }
   };
 }

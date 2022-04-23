@@ -23,7 +23,8 @@ const AgencyList: FC = observer(() => {
 
       {!agencyVM.loading && !agencyVM.error && agencyVM.agencies && (
         <AgencyTable
-          loading={agencyVM.loading}
+          modalLoading={agencyVM.editLoading}
+          isLoadingItem={agencyVM.isLoadingItem}
           agencies={agencyVM.agencies || []}
           createAgency={agencyVM.createAgency}
         />

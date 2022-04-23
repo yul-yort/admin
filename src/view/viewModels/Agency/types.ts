@@ -13,6 +13,10 @@ export interface IAgencyVM extends IBaseVM {
   editLoading: boolean;
   loadingList: ID[];
 
+  isLoadingItem: (id: ID) => boolean;
+  setLoadingItem: (id: ID) => void;
+  unsetLoadingItem: (id: ID) => void;
+
   getAgency: (params: IAgencyRequestParams) => Promise<void>;
   editAgency: (params: ICreateOrEditAgencyFormFields) => Promise<void>;
   deleteAgency: (params: IAgencyRequestDeleteParams) => Promise<void>;
