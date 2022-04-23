@@ -1,10 +1,10 @@
 import { VFC } from "react";
-import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
 import Tooltip from "@mui/material/Tooltip";
 
 import css from "./styles.module.scss";
+import { SearchAgencies } from "../SearchAgencies";
 
 const TableToolbar: VFC = () => {
   const addAgency = () => {
@@ -13,8 +13,7 @@ const TableToolbar: VFC = () => {
 
   return (
     <div className={css.wrapper}>
-      <TextField label="Поиск по названию" variant="standard" size="small" />
-
+      <SearchAgencies />
       <Tooltip title="Добавить агенство">
         <IconButton onClick={addAgency}>
           <AddIcon fontSize="medium" />

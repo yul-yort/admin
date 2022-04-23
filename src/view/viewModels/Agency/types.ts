@@ -16,6 +16,6 @@ export interface IAgencyVM extends IBaseVM {
   getAgency: (params: IAgencyRequestParams) => Promise<void>;
   editAgency: (params: IAgencyRequestEditParams) => Promise<void>;
   deleteAgency: (params: IAgencyRequestDeleteParams) => Promise<void>;
-
+  searchAgency: (value:string) => void;
   getList: () => Promise<void>;
 }

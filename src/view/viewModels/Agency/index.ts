@@ -36,6 +36,15 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
     });
   }
 
+  searchAgency = (value:string) => {
+    try {
+      console.log(value);
+
+    } catch (err) {
+      console.log("ERROR");
+    }
+  };
+
   getAgency = async (params: IAgencyRequestParams) => {
     this.setLoading();
     this.unsetError();
