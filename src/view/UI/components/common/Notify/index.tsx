@@ -15,7 +15,12 @@ export const Notify: FC<INotify> = ({ open, onClose, type, message }) => {
       autoHideDuration={3000}
       onClose={onClose}
     >
-      <Alert variant="filled" severity={type} onClose={onClose}>
+      <Alert
+        variant="filled"
+        severity={type}
+        onClose={onClose}
+        closeText="Закрыть"
+      >
         {message}
       </Alert>
     </Snackbar>

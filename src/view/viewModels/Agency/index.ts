@@ -80,7 +80,7 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
       );
       this.agency = null;
     } catch (err) {
-      throw err;
+      this.setError(err);
     } finally {
       this.unsetLoading();
     }

@@ -1,6 +1,8 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import {
   AppBar,
+  Button,
+  CircularProgress,
   Drawer,
   IconButton,
   List,
@@ -18,7 +20,7 @@ import routes from "../../../../../router/routes";
 import { icons } from "./icons";
 import { CONSTANTS } from "../../../../../constants/globalConstants";
 
-export const SideBar: FC<ISideBar> = ({ open, onClose}) => {
+export const SideBar: FC<ISideBar> = ({ open, onClose, onLogout, loading }) => {
   return (
     <Drawer variant={"temporary"} anchor="left" open={open} onClose={onClose}>
       <AppBar position="relative">
@@ -33,26 +35,34 @@ export const SideBar: FC<ISideBar> = ({ open, onClose}) => {
         </Toolbar>
       </AppBar>
 
-      <List>
-        {routes.map((route) =>
-          icons[route.name] ? (
-            <ListItem
-              button
-              key={route.name}
-              onClick={() => {
-                onClose();
-              }}
-              className={css.listItem}
-            >
-              <RouterLink routeName={route.name} className={css.link}>
-                <ListItemIcon>{icons[route.name]}</ListItemIcon>
-                <ListItemText>{route.title}</ListItemText>
-              </RouterLink>
-            </ListItem>
-          ) : null
-        )}
-      </List>
-      
+      <div className={css.menuWrapper}>
+        <List>
+          {routes.map((route) =>
+            icons[route.name] ? (
+              <ListItem
+                key={route.name}
+                onClick={() => {
+                  onClose();
+                }}
+                className={css.listItem}
+              >
+                <RouterLink routeName={route.name} className={css.link}>
+                  <ListItemIcon>{icons[route.name]}</ListItemIcon>
+                  <ListItemText>{route.title}</ListItemText>
+                </RouterLink>
+              </ListItem>
+            ) : null
+          )}
+        </List>
+
+        <Button
+          variant="outlined"
+          className={css.logoutButton}
+          onClick={onLogout}
+        >
+          {loading ? <CircularProgress size={25} /> : "Выйти"}
+        </Button>
+      </div>
     </Drawer>
   );
 };
