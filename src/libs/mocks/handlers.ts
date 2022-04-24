@@ -6,6 +6,7 @@ import {
 import { agencies } from "./data";
 import { getTimeout } from "./utils/getTimeout";
 import { EEndpoints } from "../../constants/Endpoints";
+import { getAuthCookie } from "./utils/getAuthCookie";
 import { v4 as uuid } from "uuid";
 
 export const handlers = [
@@ -83,17 +84,20 @@ export const handlers = [
   }),
 
   rest.post<string>(EEndpoints.LOGIN, (req, res, ctx) => {
-    let expiresDate: Date = new Date();
-    expiresDate.setDate(new Date().getDate() + 1);
-
     return res(
       ctx.json({}),
       ctx.delay(getTimeout()),
       ctx.status(200),
-      ctx.cookie("auth-token", "abc-123", {
-        expires: expiresDate,
-        path: "/",
-      })
+      ctx.cookie(...getAuthCookie("login"))
+    );
+  }),
+
+  rest.post<string>(EEndpoints.LOGOUT, (req, res, ctx) => {
+    return res(
+      ctx.json({}),
+      ctx.delay(getTimeout()),
+      ctx.status(200),
+      ctx.cookie(...getAuthCookie("logout"))
     );
   }),
 ];

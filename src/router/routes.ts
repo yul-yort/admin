@@ -18,8 +18,10 @@ const routes: IRoutes = [
     path: "/agencies",
     title: "Список агентств",
     auth: true,
-    // @ts-ignore TODO поправить типы
-    onActivate: async ({ store }) => {
+    onActivate: async (props) => {
+      if (!props) return;
+
+      const { store } = props;
       await store.agency.getList();
     },
     children: [
@@ -28,9 +30,10 @@ const routes: IRoutes = [
         path: "/:id",
         title: "Агенство",
         auth: true,
-        // @ts-ignore TODO поправить типы
-        onActivate: async ({ store, params }) => {
-          if (!params) return;
+        onActivate: async (props) => {
+          if (!props || !props.params) return;
+
+          const { store, params } = props;
 
           await store.agency.getAgency(params);
 
