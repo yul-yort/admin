@@ -4,12 +4,16 @@ import { Button, Paper, Typography } from "@mui/material";
 import { useRouter } from "react-router5";
 
 import css from "./styles.module.scss";
-import { IDetail, IFormFields } from "./types";
+import { IDetail } from "./types";
 import { ConfirmModal } from "../../../../components/common/ConfirmModal";
 import { AgencyCreateEditModal } from "../../../../components/shared/AgencyCreateEditModal";
 import { DetailAdditionalInfo } from "../DetailAdditionalInfo";
 import { DetailRoutes } from "../DetailRoutes";
-import { UIPhonesFormatter, VMPhonesRequestFormatter } from "./mappers";
+import {
+  UIPhonesFormatter,
+  VMPhonesRequestFormatter,
+} from "../../../../components/shared/AgencyCreateEditForm/mappers";
+import { IFormFields } from "../../../../components/shared/AgencyCreateEditForm/types";
 
 export const Detail: FC<IDetail> = ({
   agency: { id, agencyName, phones = [], createDate, description, editedDate },

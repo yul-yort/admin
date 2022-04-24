@@ -6,8 +6,7 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 
 import { getErrorText } from "src/libs/utils";
 import css from "./styles.module.scss";
-import { IAgencyCreateEditForm } from "./types";
-import { IFormFields } from "../../../pages/agency/components/Detail/types";
+import { IAgencyCreateEditForm, IFormFields } from "./types";
 
 export const AgencyCreateEditForm: FC<IAgencyCreateEditForm> = ({
   onSave,
