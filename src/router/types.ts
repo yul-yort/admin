@@ -4,25 +4,34 @@ import { IAgencyRequestParams } from "../data/entities/Agency/types";
 
 export type IRoutes = [ILoginRoute, IDashboardRoute, IAgenciesRoute];
 
-export interface IRoute<P = Record<string, string>>
-  extends Route<IDependencies> {
-  title: string;
-  onActivate?: (args?: IOnActivateArgs<P>) => void;
-  auth?: boolean;
-  children?: IRoute<P>[];
-}
-
 export interface IDependencies extends DefaultDependencies {
   store: IStoreViewModels;
   routes: IRoutes;
 }
 
-export interface IOnActivateArgs<P> {
+export interface IRoute extends Route<IDependencies> {
+  title: string;
+  onActivate?: (args?: IOnActivateArgs) => Promise<void>;
+  auth?: boolean;
+  children?: IRoute[];
+}
+
+export interface IRouteWithParams<P = {}> extends IRoute {
+  onActivate?: (args?: IOnActivateArgsWithParams<P>) => Promise<void>;
+}
+
+export interface IOnActivateArgs {
   store: IStoreViewModels;
   router: Router;
+}
+
+export interface IOnActivateArgsWithParams<P> extends IOnActivateArgs {
   params?: P;
 }
 
-interface IAgenciesRoute extends IRoute<IAgencyRequestParams> {}
+interface IAgencyRoute extends IRouteWithParams<IAgencyRequestParams> {}
+interface IAgenciesRoute extends IRoute {
+  children: [IAgencyRoute];
+}
 interface IDashboardRoute extends IRoute {}
 interface ILoginRoute extends IRoute {}

@@ -25,7 +25,7 @@ export const initApp = ({ router, theme }: IAppInitConfig) => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <StyledEngineProvider injectFirst>
-          {/* @ts-ignore TODO */}
+          {/* @ts-ignore */}
           <RouterProvider router={router}>
             <ErrorBoundary>
               <App />
