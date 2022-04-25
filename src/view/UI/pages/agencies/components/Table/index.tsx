@@ -11,8 +11,14 @@ import { ITable } from "./types";
 import css from "./styles.module.scss";
 import { ICreateOrEditAgencyFormFields } from "../../../../components/shared/AgencyCreateEditForm/types";
 import { AgencyCreateEditModal } from "../../../../components/shared/AgencyCreateEditModal";
+import { EmptyList } from "../EmptyList";
 
-const AgencyTable: VFC<ITable> = ({ agencies, createAgency, loading }) => {
+const AgencyTable: VFC<ITable> = ({
+  agencies,
+  createAgency,
+  isLoadingItem,
+  modalLoading,
+}) => {
   const [createModal, setOpenCreateModal] = useState<boolean>(false);
 
   const methods = useForm<ICreateOrEditAgencyFormFields>({
@@ -27,37 +33,44 @@ const AgencyTable: VFC<ITable> = ({ agencies, createAgency, loading }) => {
     setOpenCreateModal(true);
   };
 
-  const handleCancelEdit = () => {
+  const handleCancelCreate = () => {
     setOpenCreateModal(false);
 
     reset();
   };
 
-  const handleSaveEdit = async (fields: ICreateOrEditAgencyFormFields) => {
+  const handleCreate = async (fields: ICreateOrEditAgencyFormFields) => {
     await createAgency(fields);
-    setOpenCreateModal(false);
+    handleCancelCreate();
   };
 
   return (
     <>
-      <Paper className={css.wrapper}>
-        <TableToolbar onAddAgency={handleOpenModal} />
+      {!agencies.length ? (
+        <EmptyList onAddAgency={handleOpenModal} />
+      ) : (
+        <Paper className={css.wrapper}>
+          <TableToolbar onAddAgency={handleOpenModal} />
 
-        <TableContainer>
-          <Table aria-labelledby="tableTitle" size="small">
-            <TableHeader />
+          <TableContainer>
+            <Table aria-labelledby="tableTitle" size="small">
+              <TableHeader />
 
-            <TableBodyTemplate rows={agencies} />
-          </Table>
-        </TableContainer>
-      </Paper>
+              <TableBodyTemplate
+                rows={agencies}
+                isLoadingItem={isLoadingItem}
+              />
+            </Table>
+          </TableContainer>
+        </Paper>
+      )}
 
       <FormProvider {...methods}>
         <AgencyCreateEditModal
-          loading={loading}
+          loading={modalLoading}
           open={createModal}
-          onClose={handleCancelEdit}
-          onSave={handleSaveEdit}
+          onClose={handleCancelCreate}
+          onSave={handleCreate}
           title="Создать агенство"
         />
       </FormProvider>
