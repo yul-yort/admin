@@ -1,6 +1,7 @@
 import { IAgencyRepository } from "./types";
 import {
   IAgencyItemResponseDTO,
+  IAgencyRequestCreateParams,
   IAgencyRequestDeleteParams,
   IAgencyRequestEditParams,
   IAgencyRequestParams,
@@ -40,5 +41,14 @@ export class AgencyRepository
 
   async getList(): Promise<IAgencyItemResponseDTO[]> {
     return await this.api.get<IAgencyItemResponseDTO[]>(EEndpoints.AGENCY_LIST);
+  }
+
+  async createAgency(
+    params: IAgencyRequestCreateParams
+  ): Promise<IAgencyItemResponseDTO> {
+    return await this.api.post<
+      IAgencyItemResponseDTO,
+      IAgencyRequestCreateParams
+    >(EEndpoints.AGENCY_CREATE, params);
   }
 }

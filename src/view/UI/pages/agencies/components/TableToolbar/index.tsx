@@ -5,22 +5,17 @@ import Tooltip from "@mui/material/Tooltip";
 
 import css from "./styles.module.scss";
 import { SearchAgencies } from "../SearchAgencies";
+import { ITableToolbar } from "./types";
 
-const TableToolbar: VFC = () => {
-  const addAgency = () => {
-    console.log("add Agency");
-  };
-
-  return (
-    <div className={css.wrapper}>
-      <SearchAgencies />
-      <Tooltip title="Добавить агенство">
-        <IconButton onClick={addAgency}>
-          <AddIcon fontSize="medium" />
-        </IconButton>
-      </Tooltip>
-    </div>
-  );
-};
+const TableToolbar: VFC<ITableToolbar> = ({ onAddAgency,  searchAgency}) => (
+  <div className={css.wrapper}>
+    <SearchAgencies searchAgency={searchAgency}/>
+    <Tooltip title="Добавить агенство">
+      <IconButton onClick={onAddAgency}>
+        <AddIcon fontSize="medium" />
+      </IconButton>
+    </Tooltip>
+  </div>
+);
 
 export default TableToolbar;

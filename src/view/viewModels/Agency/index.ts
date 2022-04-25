@@ -1,23 +1,26 @@
+import { action, makeObservable, observable, runInAction } from "mobx";
+import { v4 as uuid } from "uuid";
+import { format } from "date-fns";
 import { BaseVM } from "../BaseVM";
 import { IAgencyVM } from "./types";
 import {
-  IAgencyRequestEditParams,
   IAgencyEntity,
   IAgencyRequestParams,
   IAgencyRequestDeleteParams,
   IAgencyItemEntity,
 } from "../../../data/entities/Agency/types";
 import { IAgencyService } from "../../../data/services/Agency/types";
-import { action, makeObservable, observable, runInAction } from "mobx";
 import { INotificationsVM } from "../types";
+import { ICreateOrEditAgencyFormFields } from "../../UI/components/shared/AgencyCreateEditForm/types";
+import { VMPhonesRequestFormatter } from "src/view/UI/components/shared/AgencyCreateEditForm/mappers";
 
-// TODO очистка сущностей, при уходе со страницы?
 export class AgencyVM extends BaseVM implements IAgencyVM {
   editLoading: boolean = false;
   loadingList: ID[] = [];
 
   agency: IAgencyEntity | null = null;
-  agencies: IAgencyItemEntity[] | null = null;
+  private _agencies: IAgencyItemEntity[] | null = null;
+  searchValue: string = "";
 
   constructor(
     notificationsVM: INotificationsVM,
@@ -27,22 +30,55 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
 
     makeObservable(this, {
       agency: observable,
-      agencies: observable,
       editLoading: observable,
       loadingList: observable,
       getAgency: action,
       editAgency: action,
       getList: action,
+      createAgency: action,
+      setLoadingItem: action,
+      unsetLoadingItem: action,
+      setEditLoading: action,
+      unsetEditLoading: action,
+      searchValue: observable,
     });
   }
 
-  searchAgency = (value:string) => {
-    try {
-      console.log(value);
+  get agencies() {
+    return (
+      this._agencies &&
+      this._agencies.filter(
+        (agency) =>
+          agency.agencyName.includes(this.searchValue) ||
+          agency.phones?.some((phone) => phone.includes(this.searchValue))
+      )
+    );
+  }
 
-    } catch (err) {
-      console.log("ERROR");
+  searchAgency = (value: string) => {
+    this.searchValue = value;
+  };
+
+  isLoadingItem = (id: ID) => this.loadingList.indexOf(id) !== -1;
+
+  setLoadingItem = (id: ID) => {
+    this.loadingList.push(id);
+  };
+
+  unsetLoadingItem = (id: ID) => {
+    const index = this.loadingList.indexOf(id);
+
+    if (index >= 0) {
+      this.loadingList.splice(index, 1);
     }
+  };
+
+  setEditLoading = () => {
+    this.editLoading = true;
+  };
+
+  unsetEditLoading = () => {
+    this.editLoading = false;
   };
 
   getAgency = async (params: IAgencyRequestParams) => {
@@ -62,11 +98,11 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
     }
   };
 
-  editAgency = async (params: IAgencyRequestEditParams) => {
-    this.editLoading = true;
+  editAgency = async (fields: ICreateOrEditAgencyFormFields) => {
+    this.setEditLoading();
 
     try {
-      this.agency = await this.service.editAgency(params);
+      this.agency = await this.service.editAgency(fields);
       this.notify.successNotification("Данные сохранены");
     } catch (err) {
       // @ts-ignore
@@ -75,7 +111,7 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
 
       throw err;
     } finally {
-      this.editLoading = false;
+      this.unsetEditLoading();
     }
   };
 
@@ -103,12 +139,46 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
       const agencies = await this.service.getList();
 
       runInAction(() => {
-        this.agencies = agencies;
+        this._agencies = agencies;
       });
     } catch (err) {
       this.setError(err);
     } finally {
       this.unsetLoading();
+    }
+  };
+
+  createAgency = async (fields: ICreateOrEditAgencyFormFields) => {
+    this.setEditLoading();
+
+    const newAgency = {
+      ...fields,
+      id: uuid(),
+      createDate: format(new Date(), "dd.MM.yyyy  HH:mm"),
+      phones: VMPhonesRequestFormatter(fields.phones),
+    };
+
+    this.setLoadingItem(newAgency.id);
+    const agenciesCopy = this.agencies ? [...this.agencies] : [];
+    runInAction(() => {
+      this._agencies = [newAgency, ...agenciesCopy];
+    });
+
+    try {
+      const agencyItem = await this.service.createAgency(fields);
+
+      runInAction(() => {
+        this._agencies = [agencyItem, ...agenciesCopy];
+      });
+
+      this.notify.successNotification(
+        `Агенство ${agencyItem.agencyName} создано`
+      );
+    } catch (err) {
+      this.setError(err);
+    } finally {
+      this.unsetEditLoading();
+      this.unsetLoadingItem(newAgency.id);
     }
   };
 }

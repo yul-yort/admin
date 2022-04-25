@@ -4,12 +4,13 @@ import { Button, Paper, Typography } from "@mui/material";
 import { useRouter } from "react-router5";
 
 import css from "./styles.module.scss";
-import { IDetail, IFormFields } from "./types";
+import { IDetail } from "./types";
 import { ConfirmModal } from "../../../../components/common/ConfirmModal";
 import { AgencyCreateEditModal } from "../../../../components/shared/AgencyCreateEditModal";
 import { DetailAdditionalInfo } from "../DetailAdditionalInfo";
 import { DetailRoutes } from "../DetailRoutes";
-import { UIPhonesFormatter, VMPhonesRequestFormatter } from "./mappers";
+import { UIPhonesFormatter } from "../../../../components/shared/AgencyCreateEditForm/mappers";
+import { ICreateOrEditAgencyFormFields } from "../../../../components/shared/AgencyCreateEditForm/types";
 
 export const Detail: FC<IDetail> = ({
   agency: { id, agencyName, phones = [], createDate, description, editedDate },
@@ -23,7 +24,7 @@ export const Detail: FC<IDetail> = ({
   const [editModal, setOpenEditModal] = useState<boolean>(false);
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
-  const methods = useForm<IFormFields>({
+  const methods = useForm<ICreateOrEditAgencyFormFields>({
     defaultValues: {
       id,
       agencyName,
@@ -75,12 +76,12 @@ export const Detail: FC<IDetail> = ({
     setShowConfirm(false);
   };
 
-  const handleSaveEdit = async (fields: IFormFields) => {
+  const handleSaveEdit = async (fields: ICreateOrEditAgencyFormFields) => {
     await editAgency({
       ...fields,
-      phones: VMPhonesRequestFormatter(fields.phones),
-      editedDate: new Date(),
     });
+
+    document.title = fields.agencyName;
 
     setOpenEditModal(false);
   };
@@ -116,7 +117,7 @@ export const Detail: FC<IDetail> = ({
             agencyName={agencyName}
             createDate={createDate}
             editedDate={editedDate}
-            phoneValues={phones}
+            phones={phones}
             description={description}
           />
 

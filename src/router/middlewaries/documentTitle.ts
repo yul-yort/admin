@@ -5,7 +5,7 @@ import { getRouteByToStateName } from "./utils";
 
 /**
  * Плагин синхронно меняет заголовок документа.
- * Для асинхронной или отложенной замены используйте onActivate.
+ * Для асинхронной или отложенной замены используйте onActivate в src/router/routes.ts.
  *
  * @param router: Router
  * @param dependencies: IDependencies
