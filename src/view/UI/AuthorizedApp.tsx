@@ -26,7 +26,7 @@ const pages = {
 export const AuthorizedApp: FC = observer(() => {
   const [open, setOpen] = useState<boolean>(false);
 
-  const title = useTitle();
+  const { title } = useTitle();
   const user = useViewModel<IUserVM>("user");
   const {
     route: { name, params },
