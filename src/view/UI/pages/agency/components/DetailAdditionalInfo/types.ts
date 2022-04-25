@@ -1,8 +1,5 @@
-export interface IAdditionalInfo {
+import { IAgencyEntity } from "../../../../../../data/entities/Agency/types";
+
+export interface IAdditionalInfo extends Omit<IAgencyEntity, "id"> {
   handleEdit: () => void;
-  agencyName: string;
-  createDate: Date;
-  editedDate?: Date;
-  phoneValues?: string[];
-  description?: string;
 }

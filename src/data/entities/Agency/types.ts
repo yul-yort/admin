@@ -5,12 +5,13 @@ export interface IAgencyItemEntity {
   id: ID;
   agencyName: string;
   phones?: string[];
-  createDate: Date;
+  createDate: string;
+  editedDate?: string;
 }
 
 export interface IAgencyItemResponseDTO
   extends Pick<IAgencyItemEntity, "id" | "agencyName" | "phones"> {
-  createDate: string;
+  createDate: number;
 }
 /**
  * Типы элементов списка. Конец.
@@ -21,22 +22,25 @@ export interface IAgencyItemResponseDTO
  */
 export interface IAgencyEntity extends IAgencyItemEntity {
   description?: string;
-  editedDate?: Date;
 }
 
 export interface IAgencyResponseDTO
-  extends Pick<IAgencyEntity, "id" | "agencyName" | "phones" | "description"> {
-  createDate: string;
-  editedDate: string;
+  extends Omit<IAgencyEntity, "createDate" | "editedDate"> {
+  createDate: number;
+  editedDate?: number;
 }
 
 export interface IAgencyRequestParams extends Pick<IAgencyEntity, "id"> {}
 
 export interface IAgencyRequestEditParams
-  extends Pick<
-    IAgencyEntity,
-    "id" | "agencyName" | "phones" | "description" | "editedDate"
-  > {}
+  extends Pick<IAgencyEntity, "id" | "agencyName" | "phones" | "description"> {
+  editedDate: number;
+}
+
+export interface IAgencyRequestCreateParams
+  extends Pick<IAgencyEntity, "agencyName" | "phones" | "description"> {
+  createDate: number;
+}
 
 export interface IAgencyRequestDeleteParams extends Pick<IAgencyEntity, "id"> {}
 /**

@@ -9,13 +9,13 @@ import TableToolbar from "../TableToolbar";
 import TableBodyTemplate from "../TableBody";
 import { ITable } from "./types";
 import css from "./styles.module.scss";
+import { ICreateOrEditAgencyFormFields } from "../../../../components/shared/AgencyCreateEditForm/types";
 import { AgencyCreateEditModal } from "../../../../components/shared/AgencyCreateEditModal";
-import { IFormFields } from "../../../../components/shared/AgencyCreateEditForm/types";
 
-const AgencyTable: VFC<ITable> = ({ agencies }) => {
+const AgencyTable: VFC<ITable> = ({ agencies, createAgency, loading }) => {
   const [createModal, setOpenCreateModal] = useState<boolean>(false);
 
-  const methods = useForm<IFormFields>({
+  const methods = useForm<ICreateOrEditAgencyFormFields>({
     defaultValues: {
       phones: [{ value: "" }],
     },
@@ -33,7 +33,8 @@ const AgencyTable: VFC<ITable> = ({ agencies }) => {
     reset();
   };
 
-  const handleSaveEdit = async (fields: IFormFields) => {
+  const handleSaveEdit = async (fields: ICreateOrEditAgencyFormFields) => {
+    await createAgency(fields);
     setOpenCreateModal(false);
   };
 
@@ -53,6 +54,7 @@ const AgencyTable: VFC<ITable> = ({ agencies }) => {
 
       <FormProvider {...methods}>
         <AgencyCreateEditModal
+          loading={loading}
           open={createModal}
           onClose={handleCancelEdit}
           onSave={handleSaveEdit}
