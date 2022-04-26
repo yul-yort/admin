@@ -34,22 +34,24 @@ const TableBodyTemplate: FC<ITableBodyTemplateProps> = ({
                   <Phones phones={phones} />
                 </div>
 
-            <Tooltip title="Подробнее" disableInteractive>
-              <span>
-                <Link
-                  className={css.more_link}
-                  routeName="agencies.agency"
-                  routeParams={{ id }}
-                >
-                  <ReadMoreIcon />
-                </Link>
-              </span>
-            </Tooltip>
-          </div>
-        </TableCell>
-      </TableRow>
-    ))}
-  </TableBody>
-);
+                <Tooltip title="Подробнее" disableInteractive>
+                  <span>
+                    <Link
+                      className={css.more_link}
+                      routeName="agencies.agency"
+                      routeParams={{ id }}
+                    >
+                      <ReadMoreIcon />
+                    </Link>
+                  </span>
+                </Tooltip>
+              </div>
+            </TableCell>
+          </TableRow>
+        );
+      })}
+    </TableBody>
+  );
+};
 
 export default TableBodyTemplate;

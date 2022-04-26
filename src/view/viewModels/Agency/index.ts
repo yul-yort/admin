@@ -19,7 +19,8 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
   loadingList: ID[] = [];
 
   agency: IAgencyEntity | null = null;
-  agencies: IAgencyItemEntity[] | null = null;
+  private _agencies: IAgencyItemEntity[] | null = null;
+  searchValue: string = "";
 
   constructor(
     notificationsVM: INotificationsVM,
@@ -29,7 +30,6 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
 
     makeObservable(this, {
       agency: observable,
-      agencies: observable,
       editLoading: observable,
       loadingList: observable,
       getAgency: action,
@@ -40,8 +40,24 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
       unsetLoadingItem: action,
       setEditLoading: action,
       unsetEditLoading: action,
+      searchValue: observable,
     });
   }
+
+  get agencies() {
+    return (
+      this._agencies &&
+      this._agencies.filter(
+        (agency) =>
+          agency.agencyName.includes(this.searchValue) ||
+          agency.phones?.some((phone) => phone.includes(this.searchValue))
+      )
+    );
+  }
+
+  searchAgency = (value: string) => {
+    this.searchValue = value;
+  };
 
   isLoadingItem = (id: ID) => this.loadingList.indexOf(id) !== -1;
 
@@ -123,7 +139,7 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
       const agencies = await this.service.getList();
 
       runInAction(() => {
-        this.agencies = agencies;
+        this._agencies = agencies;
       });
     } catch (err) {
       this.setError(err);
@@ -145,14 +161,14 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
     this.setLoadingItem(newAgency.id);
     const agenciesCopy = this.agencies ? [...this.agencies] : [];
     runInAction(() => {
-      this.agencies = [newAgency, ...agenciesCopy];
+      this._agencies = [newAgency, ...agenciesCopy];
     });
 
     try {
       const agencyItem = await this.service.createAgency(fields);
 
       runInAction(() => {
-        this.agencies = [agencyItem, ...agenciesCopy];
+        this._agencies = [agencyItem, ...agenciesCopy];
       });
 
       this.notify.successNotification(

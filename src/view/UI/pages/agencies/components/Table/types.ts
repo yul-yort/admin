@@ -6,4 +6,5 @@ export interface ITable {
   isLoadingItem: (id: ID) => boolean;
   agencies: IAgencyItemEntity[];
   createAgency: IAgencyVM["createAgency"];
+  searchAgency: (value: string) => void;
 }

@@ -18,6 +18,7 @@ const AgencyTable: VFC<ITable> = ({
   createAgency,
   isLoadingItem,
   modalLoading,
+  searchAgency,
 }) => {
   const [createModal, setOpenCreateModal] = useState<boolean>(false);
 
@@ -46,12 +47,14 @@ const AgencyTable: VFC<ITable> = ({
 
   return (
     <>
-      {!agencies.length ? (
-        <EmptyList onAddAgency={handleOpenModal} />
-      ) : (
-        <Paper className={css.wrapper}>
-          <TableToolbar onAddAgency={handleOpenModal} />
-
+      <Paper className={css.wrapper}>
+        <TableToolbar
+          onAddAgency={handleOpenModal}
+          searchAgency={searchAgency}
+        />
+        {!agencies.length ? (
+          <EmptyList onAddAgency={handleOpenModal} />
+        ) : (
           <TableContainer>
             <Table aria-labelledby="tableTitle" size="small">
               <TableHeader />
@@ -62,8 +65,8 @@ const AgencyTable: VFC<ITable> = ({
               />
             </Table>
           </TableContainer>
-        </Paper>
-      )}
+        )}
+      </Paper>
 
       <FormProvider {...methods}>
         <AgencyCreateEditModal
