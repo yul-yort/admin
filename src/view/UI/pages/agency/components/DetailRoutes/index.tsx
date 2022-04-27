@@ -1,4 +1,4 @@
-import { FC, useState} from "react";
+import { FC, useState } from "react";
 import { Paper } from "@mui/material";
 import sharedCss from "../shared/styles.module.scss";
 import { Routes } from "./Routes";

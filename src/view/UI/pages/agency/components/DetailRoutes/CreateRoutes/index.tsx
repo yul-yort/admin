@@ -1,7 +1,7 @@
 import { FC, useState, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { RoutesCreateModal } from "./RoutesCreateModal";
-import { ICreateRoutes } from "./types";
+import { ICreateRoutes, IRoutesCreateFormFields } from "./types";
 
 export const CreateRoutes: FC<ICreateRoutes> = ({
   showModal,
@@ -9,8 +9,7 @@ export const CreateRoutes: FC<ICreateRoutes> = ({
 }) => {
   //FIXME: добавить loading
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
-  //FIXME: добавить IFormFields
-  const methods = useForm();
+  const methods = useForm<IRoutesCreateFormFields>();
 
   const {
     formState,
@@ -48,8 +47,7 @@ export const CreateRoutes: FC<ICreateRoutes> = ({
     setShowConfirm(false);
   };
 
-  //FIXME: добавить IFormFields
-  const handleRouteCreate = async (fields: any) => {
+  const handleRouteCreate = async (fields: IRoutesCreateFormFields) => {
     console.log("получение данных:", fields);
     reset();
     handleCloseModal();
