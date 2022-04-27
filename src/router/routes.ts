@@ -1,5 +1,6 @@
 import { IRoutes } from "./types";
 import { CONSTANTS } from "../constants/globalConstants";
+import { setDocumentTitle } from "../libs/utils";
 
 const routes: IRoutes = [
   {
@@ -37,7 +38,7 @@ const routes: IRoutes = [
 
           await store.agency.getAgency(params);
 
-          document.title = store.agency.agency?.agencyName || document.title;
+          setDocumentTitle(store.agency.agency?.agencyName);
         },
       },
     ],

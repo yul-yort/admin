@@ -11,6 +11,7 @@ import { DetailAdditionalInfo } from "../DetailAdditionalInfo";
 import { DetailRoutes } from "../DetailRoutes";
 import { UIPhonesFormatter } from "../../../../components/shared/AgencyCreateEditForm/mappers";
 import { ICreateOrEditAgencyFormFields } from "../../../../components/shared/AgencyCreateEditForm/types";
+import { useTitle } from "../../../../hooks/useTitle";
 
 export const Detail: FC<IDetail> = ({
   agency: { id, agencyName, phones = [], createDate, description, editedDate },
@@ -23,6 +24,7 @@ export const Detail: FC<IDetail> = ({
   const [deleteModal, setOpenDeleteModal] = useState<boolean>(false);
   const [editModal, setOpenEditModal] = useState<boolean>(false);
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
+  const { setTitle } = useTitle();
 
   const methods = useForm<ICreateOrEditAgencyFormFields>({
     defaultValues: {
@@ -81,8 +83,7 @@ export const Detail: FC<IDetail> = ({
       ...fields,
     });
 
-    document.title = fields.agencyName;
-
+    setTitle(fields.agencyName);
     setOpenEditModal(false);
   };
 

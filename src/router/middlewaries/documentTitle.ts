@@ -2,6 +2,7 @@ import { MiddlewareFactory } from "router5/dist/types/router";
 import { IDependencies, IRoute } from "../types";
 import { CONSTANTS } from "../../constants/globalConstants";
 import { getRouteByToStateName } from "./utils";
+import { setDocumentTitle } from "../../libs/utils";
 
 /**
  * Плагин синхронно меняет заголовок документа.
@@ -18,7 +19,7 @@ export const documentTitle: MiddlewareFactory<IDependencies> =
       dependencies
     );
 
-    document.title = route?.title || CONSTANTS.projectName;
+    setDocumentTitle(route?.title || CONSTANTS.projectName);
 
     return true;
   };
