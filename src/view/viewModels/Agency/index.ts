@@ -136,10 +136,10 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
     this.unsetError();
 
     try {
-      const agencies = await this.service.getList();
+      const list = await this.service.getList();
 
       runInAction(() => {
-        this._agencies = agencies;
+        this._agencies = list;
       });
     } catch (err) {
       this.setError(err);
@@ -159,7 +159,7 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
     };
 
     this.setLoadingItem(newAgency.id);
-    const agenciesCopy = this.agencies ? [...this.agencies] : [];
+    const agenciesCopy = this._agencies ? [...this._agencies] : [];
     runInAction(() => {
       this._agencies = [newAgency, ...agenciesCopy];
     });
