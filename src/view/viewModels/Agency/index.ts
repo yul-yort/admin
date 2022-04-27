@@ -19,8 +19,20 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
   loadingList: ID[] = [];
 
   agency: IAgencyEntity | null = null;
-  private _agencies: IAgencyItemEntity[] | null = null;
   searchValue: string = "";
+
+  private _agencies: IAgencyItemEntity[] | null = null;
+
+  get agencies() {
+    return (
+      this._agencies &&
+      this._agencies.filter(
+        (agency) =>
+          agency.agencyName.includes(this.searchValue) ||
+          agency.phones?.some((phone) => phone.includes(this.searchValue))
+      )
+    );
+  }
 
   constructor(
     notificationsVM: INotificationsVM,
@@ -32,6 +44,7 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
       agency: observable,
       editLoading: observable,
       loadingList: observable,
+      searchValue: observable,
       getAgency: action,
       editAgency: action,
       getList: action,
@@ -40,19 +53,7 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
       unsetLoadingItem: action,
       setEditLoading: action,
       unsetEditLoading: action,
-      searchValue: observable,
     });
-  }
-
-  get agencies() {
-    return (
-      this._agencies &&
-      this._agencies.filter(
-        (agency) =>
-          agency.agencyName.includes(this.searchValue) ||
-          agency.phones?.some((phone) => phone.includes(this.searchValue))
-      )
-    );
   }
 
   searchAgency = (value: string) => {

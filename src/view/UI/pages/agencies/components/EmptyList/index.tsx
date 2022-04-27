@@ -10,7 +10,8 @@ export const EmptyList: VFC<IEmpty> = ({ onAddAgency }) => {
   return (
     <Paper className={css.wrapper}>
       <Typography className={css.title}>
-        Список агенств пока пуст, но вы можете добавить новое агенство сами!
+        Агенства не найдены! Поменяйте параметры поиска или добавьте новое
+        агенство.
       </Typography>
 
       <Button
