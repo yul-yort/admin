@@ -46,11 +46,13 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "serve": "npm run serve-build && node server.js",
+    "serve-build": "cross-env REACT_APP_BUILD_MODE=serve BUILD_PATH='serve-build' npm run build",
     "build": "react-scripts build",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "test": "react-scripts test",
-    "testCoverage": "npm test -- --coverage",
+    "testCoverage": "npm test --coverage",
     "eject": "react-scripts eject",
     "prepare": "husky install"
   },
@@ -101,6 +103,7 @@
     "@storybook/react": "^6.3.12",
     "@types/js-cookie": "^3.0.1",
     "@types/uuid": "^8.3.4",
+    "cross-env": "^7.0.3",
     "husky": "^7.0.0",
     "lint-staged": "^12.4.0",
     "msw": "^0.35.0",

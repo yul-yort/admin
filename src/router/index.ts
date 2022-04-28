@@ -14,7 +14,11 @@ export default function createAppRouter(
     autoCleanUp: true,
   });
 
-  router.usePlugin(browserPlugin());
+  router.usePlugin(
+    browserPlugin({
+      useHash: process.env.REACT_APP_BUILD_MODE === "serve",
+    })
+  );
 
   middlewares.forEach((middleware) => router.useMiddleware(middleware));
 

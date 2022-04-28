@@ -8,11 +8,16 @@ import { checkAuthorization, onActivate } from "./router/middlewaries";
 import { documentTitle } from "./router/middlewaries/documentTitle";
 
 try {
-  const { worker } = require("./libs/mocks/browser");
+  if (
+    process.env.REACT_APP_BUILD_MODE === "serve" ||
+    process.env.NODE_ENV === "development"
+  ) {
+    const { worker } = require("./libs/mocks/browser");
 
-  worker.start({
-    onUnhandledRequest: "bypass",
-  });
+    worker.start({
+      onUnhandledRequest: "bypass",
+    });
+  }
 
   const router = createAppRouter(routes, [
     onActivate,
