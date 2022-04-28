@@ -10,12 +10,13 @@ export const RoutesCreateModal: FC<IRoutesCreateModal> = ({
   onSave,
   onConformClose,
   onCancelClose,
+  titleModal,
 }) => {
   return (
     <Modal
       open={showModal}
       onClose={onClose}
-      title="Добавить новый маршрут"
+      title={titleModal}
       showConfirm={showConfirm}
       confirmProps={{
         onConfirm: onConformClose,

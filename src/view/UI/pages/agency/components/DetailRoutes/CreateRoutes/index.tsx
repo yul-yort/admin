@@ -1,15 +1,17 @@
 import { FC, useState, useEffect } from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider } from "react-hook-form";
 import { RoutesCreateModal } from "./RoutesCreateModal";
 import { ICreateRoutes, IRoutesCreateFormFields } from "./types";
 
 export const CreateRoutes: FC<ICreateRoutes> = ({
   showModal,
   handleCloseModal,
+  titleModal,
+  methods,
+  routeID,
 }) => {
   //FIXME: добавить loading
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
-  const methods = useForm<IRoutesCreateFormFields>();
 
   const {
     formState,
@@ -48,7 +50,11 @@ export const CreateRoutes: FC<ICreateRoutes> = ({
   };
 
   const handleRouteCreate = async (fields: IRoutesCreateFormFields) => {
-    console.log("получение данных:", fields);
+    if (routeID) {
+      console.log("edit");
+    } else {
+      console.log("create");
+    }
     reset();
     handleCloseModal();
   };
@@ -56,6 +62,7 @@ export const CreateRoutes: FC<ICreateRoutes> = ({
   return (
     <FormProvider {...methods}>
       <RoutesCreateModal
+        titleModal={titleModal}
         showModal={showModal}
         onClose={onClose}
         onSave={handleRouteCreate}
