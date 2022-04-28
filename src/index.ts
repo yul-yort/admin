@@ -21,6 +21,7 @@ try {
     console.log(worker);
 
     worker.start({
+      waitUntilReady: true,
       onUnhandledRequest: "bypass",
     });
   }
