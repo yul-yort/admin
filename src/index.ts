@@ -6,7 +6,6 @@ import { initErrorApp } from "./view/UI/InitErrorApp";
 import routes from "./router/routes";
 import { checkAuthorization, onActivate } from "./router/middlewaries";
 import { documentTitle } from "./router/middlewaries/documentTitle";
-import { worker } from "./libs/mocks/browser";
 
 // TODO
 console.log("REACT_APP_BUILD_MODE", process.env.REACT_APP_BUILD_MODE);
