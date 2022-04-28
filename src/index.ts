@@ -6,6 +6,11 @@ import { initErrorApp } from "./view/UI/InitErrorApp";
 import routes from "./router/routes";
 import { checkAuthorization, onActivate } from "./router/middlewaries";
 import { documentTitle } from "./router/middlewaries/documentTitle";
+import { worker } from "./libs/mocks/browser";
+
+// TODO
+console.log("REACT_APP_BUILD_MODE", process.env.REACT_APP_BUILD_MODE);
+console.log("NODE_ENV", process.env.NODE_ENV);
 
 try {
   if (
@@ -13,6 +18,8 @@ try {
     process.env.NODE_ENV === "development"
   ) {
     const { worker } = require("./libs/mocks/browser");
+
+    console.log(worker);
 
     worker.start({
       onUnhandledRequest: "bypass",
