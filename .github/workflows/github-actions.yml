@@ -23,3 +23,5 @@ jobs:
         run: npm install
       - name: Generate build
         run: npm run build
+      - name: Deploy on gh-pages
+        run: npm run deploy
