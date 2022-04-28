@@ -5,10 +5,6 @@ on:
   pull_request:
     branches: [main]
 
-permissions:
-  id-token: write
-  contents: read
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -28,12 +24,3 @@ jobs:
         run: npm install
       - name: Build project
         run: npm run build
-      - name: Deploy to gh-pages
-        run: |
-          git config --global user.name gaisdav
-          git config --global user.email gais.davletkildin@gmail.com
-          git remote set-url origin https://${github_token}@github.com/${repository}
-          npm run deploy
-          env:
-          github_token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
-          repository: ${{ github.repository }}
