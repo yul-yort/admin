@@ -26,6 +26,8 @@ jobs:
         run: npm run build
       - name: Serve build for gh-pages
         run: npm run serve-build
+      - name: Init msw
+        run: npx msw init ./serve-build
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
