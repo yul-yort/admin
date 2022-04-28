@@ -25,7 +25,6 @@ jobs:
       - name: Build project
         run: npm run build
       - name: Deploy to gh-pages
-        run: npm run serve-build
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
