@@ -47,14 +47,14 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "serve-build": " npm run build && serve -s build",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "start-build": "serve -s build",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public",
     "test": "react-scripts test",
     "testCoverage": "npm test -- --coverage",
     "eject": "react-scripts eject",
-    "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public",
     "prepare": "husky install"
   },
   "eslintConfig": {
