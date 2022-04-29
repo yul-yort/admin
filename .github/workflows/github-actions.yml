@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Init msw
-        run: npx msw init ./public --no-save
+        run: npx msw init ./public/yul-yort-admin --no-save
       - name: Build project
         run: npm run build
       - name: Serve build for gh-pages
