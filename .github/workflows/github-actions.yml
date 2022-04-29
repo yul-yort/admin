@@ -22,12 +22,12 @@ jobs:
           node-version: 16.x
       - name: Install dependencies
         run: npm install
+      - name: Init msw
+        run: npx msw init ./public --no-save
       - name: Build project
         run: npm run build
       - name: Serve build for gh-pages
         run: npm run serve-build
-      - name: Init msw
-        run: npx msw init ./yul-yort-admin --no-save
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
