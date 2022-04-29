@@ -1,7 +1,7 @@
 {
   "name": "yul-yort-admin",
   "version": "0.1.0",
-  "homepage": "https://gaisdav.github.io/yul-yort-admin",
+  "homepage": "https://gaisdav.github.io/yul-yort-admin/",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
