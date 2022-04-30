@@ -1,37 +1,26 @@
+$notconnecttextheight: calc(var(--yy-base) * 6);
+
 .appWrapper {
   overflow: hidden;
-}
 
-.errorBoundary {
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: calc(var(--yy-base) * 4);
-}
+  .notConnectText {
+    position: relative;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: $notconnecttextheight;
+    text-align: center;
+    color: var(--yy-white-color);
+    background-color: var(--yy-error-color);
+    z-index: 1101; // костыль, чтобы плашка оказывалась над шапкой.
+  }
 
-.icon {
-  line-height: 0;
-  font-size: calc(var(--yy-base) * 50);
-}
+  &__offline {
+    padding-top: $notconnecttextheight;
 
-.collapse {
-  max-width: 100%;
-  word-break: break-word;
-}
-
-.collapseTitle {
-  cursor: pointer;
-}
-
-.notConnectText {
-  position: relative;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: calc(var(--yy-base) * 6);
-  text-align: center;
-  color: var(--yy-white-color);
-  background-color: var(--yy-error-color);
+    .notConnectText {
+      display: block;
+    }
+  }
 }

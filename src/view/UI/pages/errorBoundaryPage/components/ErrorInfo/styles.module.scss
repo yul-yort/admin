@@ -1,0 +1,22 @@
+.errorBoundary {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: calc(var(--yy-base) * 4);
+}
+
+.icon {
+  line-height: 0;
+  font-size: calc(var(--yy-base) * 50);
+}
+
+.collapse {
+  max-width: 100%;
+  word-break: break-word;
+}
+
+.collapseTitle {
+  cursor: pointer;
+}
