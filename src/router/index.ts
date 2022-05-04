@@ -14,9 +14,11 @@ export default function createAppRouter(
     autoCleanUp: true,
   });
 
+  const BUILD_MODE = process.env.REACT_APP_BUILD_MODE;
+
   router.usePlugin(
     browserPlugin({
-      useHash: process.env.REACT_APP_BUILD_MODE === "serve",
+      useHash: BUILD_MODE === "serve" || BUILD_MODE === "gh-pages",
     })
   );
 

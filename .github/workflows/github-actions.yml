@@ -24,11 +24,11 @@ jobs:
         run: npm install
       - name: Build project
         run: npm run build
-      - name: Serve build for gh-pages
-        run: npm run serve-build
+      - name: Build for github pages
+        run: npm run gh-pages-build
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
-          publish_dir: ./serve-build
+          publish_dir: ./gh-pages
           enable_jekyll: true

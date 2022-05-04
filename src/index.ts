@@ -8,18 +8,21 @@ import { checkAuthorization, onActivate } from "./router/middlewaries";
 import { documentTitle } from "./router/middlewaries/documentTitle";
 
 try {
+  const BUILD_MODE = process.env.REACT_APP_BUILD_MODE;
+  const NODE_ENV = process.env.NODE_ENV;
+
   if (
-    process.env.REACT_APP_BUILD_MODE === "serve" ||
-    process.env.NODE_ENV === "development"
+    BUILD_MODE === "serve" ||
+    BUILD_MODE === "gh-pages" ||
+    NODE_ENV === "development"
   ) {
     const { worker } = require("./libs/mocks/browser");
 
     worker.start({
       onUnhandledRequest: "bypass",
       serviceWorker: {
-        // TODO
         url: `/${
-          process.env.REACT_APP_BUILD_MODE === "serve" ? "yul-yort-admin/" : ""
+          BUILD_MODE === "gh-pages" ? "yul-yort-admin/" : ""
         }mockServiceWorker.js`,
       },
     });
