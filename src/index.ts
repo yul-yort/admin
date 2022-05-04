@@ -17,7 +17,10 @@ try {
     worker.start({
       onUnhandledRequest: "bypass",
       serviceWorker: {
-        url: "/yul-yort-admin/mockServiceWorker.js",
+        // TODO
+        url: `/${
+          process.env.REACT_APP_BUILD_MODE === "serve" ? "yul-yort-admin/" : ""
+        }mockServiceWorker.js`,
       },
     });
   }
