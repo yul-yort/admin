@@ -16,6 +16,9 @@ try {
 
     worker.start({
       onUnhandledRequest: "bypass",
+      serviceWorker: {
+        url: "/yul-yort-admin/mockServiceWorker.js",
+      },
     });
   }
 
