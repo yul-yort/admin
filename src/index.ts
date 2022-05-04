@@ -7,10 +7,6 @@ import routes from "./router/routes";
 import { checkAuthorization, onActivate } from "./router/middlewaries";
 import { documentTitle } from "./router/middlewaries/documentTitle";
 
-// TODO
-console.log("REACT_APP_BUILD_MODE", process.env.REACT_APP_BUILD_MODE);
-console.log("NODE_ENV", process.env.NODE_ENV);
-
 try {
   if (
     process.env.REACT_APP_BUILD_MODE === "serve" ||
@@ -18,14 +14,8 @@ try {
   ) {
     const { worker } = require("./libs/mocks/browser");
 
-    console.log(worker);
-
     worker.start({
-      waitUntilReady: true,
       onUnhandledRequest: "bypass",
-      serviceWorker: {
-        url: "/yul-yort-admin/mockServiceWorker.js",
-      },
     });
   }
 
