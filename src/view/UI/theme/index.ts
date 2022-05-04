@@ -50,6 +50,18 @@ const theme = createTheme({
         },
       },
     },
+    MuiSnackbar: {
+      styleOverrides: {
+        anchorOriginTopRight: {
+          left: "auto",
+          marginLeft: 8,
+
+          ".MuiAlert-message": {
+            wordBreak: "break-word",
+          },
+        },
+      },
+    },
   },
   typography: {
     button: {
