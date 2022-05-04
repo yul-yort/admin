@@ -1,7 +1,5 @@
 name: GitHub Actions
 on:
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
 
@@ -24,11 +22,7 @@ jobs:
         run: npm install
       - name: Build project
         run: npm run build
+      - name: Build for local serve test
+        run: npm run serve-build
       - name: Build for github pages
         run: npm run gh-pages-build
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
-          publish_dir: ./gh-pages
-          enable_jekyll: true
