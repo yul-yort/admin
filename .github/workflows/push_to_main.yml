@@ -1,10 +1,10 @@
-name: GitHub Actions for builds test
+name: GitHub Actions for deploy to github pages
 on:
-  pull_request:
+  push:
     branches: [main]
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     strategy:
@@ -20,9 +20,11 @@ jobs:
           node-version: 16.x
       - name: Install dependencies
         run: npm install
-      - name: Build production
-        run: npm run build
-      - name: Build for local serve
-        run: npm run serve-build
       - name: Build for github pages
         run: npm run gh-pages-build
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
+          publish_dir: ./gh-pages
+          enable_jekyll: true

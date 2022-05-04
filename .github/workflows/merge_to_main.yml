@@ -1,7 +1,5 @@
-name: GitHub Actions
+name: GitHub Actions for deploy to github pages
 on:
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
     types:
@@ -28,7 +26,7 @@ jobs:
         run: npm install
       - name: Build for github pages
         run: npm run gh-pages-build
-      - name: Deploy to github pages
+      - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
