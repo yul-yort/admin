@@ -11,6 +11,12 @@
 # production
 /build
 
+#local server test
+/serve-build
+
+#gh-pages
+/gh-pages
+
 # misc
 .DS_Store
 .env.local

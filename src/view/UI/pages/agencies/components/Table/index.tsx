@@ -35,6 +35,10 @@ const AgencyTable: VFC<ITable> = ({
   };
 
   const handleCancelCreate = () => {
+    if (modalLoading) {
+      return;
+    }
+
     setOpenCreateModal(false);
 
     reset();
