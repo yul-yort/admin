@@ -10,15 +10,13 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: calc(var(--yy-base) * 4) 0;
+  padding: calc(var(--yy-base) * 4) calc(var(--yy-base) * 4);
   max-width: calc(var(--yy-base) * 150);
   overflow: hidden;
 }
 
 .titleWrapper {
-  margin-right: calc(var(--yy-base) * 9);
-  margin-bottom: calc(var(--yy-base) * 3);
-  padding: 0 calc(var(--yy-base) * 4);
+  margin-bottom: calc(var(--yy-base) * 2);
 }
 
 .closeButton {
@@ -29,8 +27,8 @@
 
 .contentWrapper {
   height: 100%;
-  padding: var(--yy-base) calc(var(--yy-base) * 4);
   overflow: auto;
+  padding-top: calc(var(--yy-base) * 2);
 }
 
 .footerWrapper {
