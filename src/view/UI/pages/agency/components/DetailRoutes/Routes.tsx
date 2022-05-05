@@ -9,20 +9,23 @@ import {
   IconButton,
 } from "@mui/material";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import css from "./styles.module.scss";
-import { createData } from "./types";
+import { IAgencyRoutes } from "./types";
 
-//TODO: сделать получение из mocks
-//TODO: добавить получение валюты
-const rows = [
-  createData("1", "Сибай", "Уфа", 1000),
-  createData("2", "Баймак", "Магнитогорск", 1200),
-  createData("3", "Учалы", "Уфа", 1300),
-  createData("4", "Бирск", "Уфа", 900),
-  createData("5", "Красноусольск", "Стерлитамак", 950),
-];
+export const Routes: FC<IAgencyRoutes> = ({
+  handleEditRouteClick,
+  agencyRoutes,
+  handleDeleteRouteClick,
+}) => {
+  //TODO: any
+  const handleClickRow = (event: any) => {
+    const $editButton = event.target.closest("[data-edit-id]");
+    const $deleteButton = event.target.closest("[data-delete-id]");
 
-export const Routes: FC = () => {
+    $editButton && handleEditRouteClick($editButton.dataset.editId);
+    $deleteButton && handleDeleteRouteClick($deleteButton.dataset.deleteId);
+  };
   return (
     <TableContainer>
       <Table size="small">
@@ -34,16 +37,23 @@ export const Routes: FC = () => {
             <TableCell></TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
-          {rows.map((row) => (
+        <TableBody onClick={handleClickRow}>
+          {agencyRoutes.map((row) => (
             <TableRow key={row.id} className={css.tableRow}>
               <TableCell>{row.origin}</TableCell>
               <TableCell>{row.destination}</TableCell>
               <TableCell>{row.price}</TableCell>
               <TableCell>
                 <div className={css.icons}>
-                  <IconButton aria-label="edit route">
+                  <IconButton aria-label="edit route" data-edit-id={row.id}>
                     <EditRoundedIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton
+                    aria-label="delete route"
+                    data-delete-id={row.id}
+                    color="error"
+                  >
+                    <DeleteForeverIcon fontSize="small" />
                   </IconButton>
                 </div>
               </TableCell>
@@ -54,7 +64,3 @@ export const Routes: FC = () => {
     </TableContainer>
   );
 };
-
-//TODO: ЗАДАЧИ
-//1) Реализовать функционал удаления + редактирования (Добавить данные rows в agencies)
-//3) Придумать и реализовать, как показывать информацию вывода даты и времени
