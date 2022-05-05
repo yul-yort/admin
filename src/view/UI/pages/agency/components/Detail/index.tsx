@@ -106,7 +106,12 @@ export const Detail: FC<IDetail> = ({
           <Typography variant="h6" className={css.headerTitle}>
             {agencyName}
           </Typography>
-          <Button variant="text" color="error" onClick={handleDelete}>
+          <Button
+            variant="outlined"
+            color="error"
+            onClick={handleDelete}
+            aria-label="delete"
+          >
             Удалить
           </Button>
         </div>

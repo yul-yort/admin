@@ -35,14 +35,14 @@ export const Routes: FC = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, index) => (
+          {rows.map((row) => (
             <TableRow key={row.id} className={css.tableRow}>
               <TableCell>{row.origin}</TableCell>
               <TableCell>{row.destination}</TableCell>
               <TableCell>{row.price}</TableCell>
               <TableCell>
                 <div className={css.icons}>
-                  <IconButton>
+                  <IconButton aria-label="edit route">
                     <EditRoundedIcon fontSize="small" />
                   </IconButton>
                 </div>

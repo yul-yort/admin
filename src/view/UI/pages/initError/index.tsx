@@ -41,7 +41,9 @@ const InitError: FC<IInitErrorPageProps> = ({ error }) => {
             className={css.title}
           >
             {error.message}{" "}
-            <IconButton>{expand ? <ExpandLess /> : <ExpandMore />}</IconButton>
+            <IconButton aria-label="expand">
+              {expand ? <ExpandLess /> : <ExpandMore />}
+            </IconButton>
           </Typography>
 
           <Collapse in={expand} timeout="auto" unmountOnExit>

@@ -8,7 +8,7 @@ export const RoutesHeader: FC<IRoutesHeader> = ({ handleShowModal }) => {
   return (
     <div className={sharedCss.header}>
       <Typography variant="h6">Маршруты</Typography>
-      <IconButton onClick={handleShowModal} aria-label="add">
+      <IconButton onClick={handleShowModal} aria-label="add route">
         <AddRoundedIcon />
       </IconButton>
     </div>
