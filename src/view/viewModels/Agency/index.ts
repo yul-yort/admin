@@ -28,7 +28,7 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
       this._agencies &&
       this._agencies.filter(
         (agency) =>
-          agency.agencyName.includes(this.searchValue) ||
+          agency.agencyName.toLocaleLowerCase().includes(this.searchValue) ||
           agency.phones?.some((phone) => phone.includes(this.searchValue))
       )
     );
@@ -57,7 +57,7 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
   }
 
   searchAgency = (value: string) => {
-    this.searchValue = value;
+    this.searchValue = value.toLocaleLowerCase();
   };
 
   isLoadingItem = (id: ID) => this.loadingList.indexOf(id) !== -1;

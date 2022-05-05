@@ -74,10 +74,14 @@ export const RoutesCreateForm: FC<IRoutesCreateForm> = ({
       </div>
 
       <div className={css.footerWrapper}>
-        <Button disabled={isSubmitting} onClick={onClose}>
+        <Button disabled={isSubmitting} onClick={onClose} aria-label="cancel">
           Отмена
         </Button>
-        <Button disabled={isSubmitting || !isDirty} type="submit">
+        <Button
+          disabled={isSubmitting || !isDirty}
+          type="submit"
+          aria-label="save"
+        >
           Сохранить
         </Button>
       </div>

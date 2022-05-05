@@ -36,10 +36,20 @@ export const ConfirmBody = forwardRef<HTMLDivElement, IConfirmBody>(
         </div>
 
         <div className={css.actions}>
-          <Button variant="text" color={cancelColor} onClick={onCancel}>
+          <Button
+            variant="text"
+            color={cancelColor}
+            onClick={onCancel}
+            aria-label="cancel"
+          >
             {cancelText}
           </Button>
-          <Button variant="text" color={confirmColor} onClick={onConfirm}>
+          <Button
+            variant="text"
+            color={confirmColor}
+            onClick={onConfirm}
+            aria-label="confirm"
+          >
             {confirmText}
           </Button>
         </div>

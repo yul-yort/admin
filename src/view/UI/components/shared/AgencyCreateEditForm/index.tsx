@@ -64,7 +64,7 @@ export const AgencyCreateEditForm: FC<IAgencyCreateEditForm> = ({
 
             <IconButton
               disabled={isSubmitting}
-              aria-label="delete"
+              aria-label="delete phone"
               color="error"
               size="small"
               onClick={() => {
@@ -79,6 +79,7 @@ export const AgencyCreateEditForm: FC<IAgencyCreateEditForm> = ({
 
       <div className={css.row}>
         <Button
+          aria-label="add phone"
           disabled={isSubmitting}
           size="small"
           variant="text"
@@ -106,10 +107,14 @@ export const AgencyCreateEditForm: FC<IAgencyCreateEditForm> = ({
         />
       </div>
       <div className={css.footerWrapper}>
-        <Button disabled={isSubmitting} onClick={onClose}>
+        <Button disabled={isSubmitting} onClick={onClose} aria-label="cancel">
           Отмена
         </Button>
-        <Button disabled={isSubmitting || !isDirty} type="submit">
+        <Button
+          disabled={isSubmitting || !isDirty}
+          type="submit"
+          aria-label="save"
+        >
           Сохранить
         </Button>
       </div>

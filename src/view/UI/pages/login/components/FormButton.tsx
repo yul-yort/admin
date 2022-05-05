@@ -10,6 +10,7 @@ const FormButton: VFC<IFormButton> = ({ disabled, loading }) => {
       disabled={disabled}
       fullWidth
       variant="outlined"
+      aria-label="login"
     >
       {loading ? <CircularProgress size={25} /> : "ВОЙТИ"}
     </Button>

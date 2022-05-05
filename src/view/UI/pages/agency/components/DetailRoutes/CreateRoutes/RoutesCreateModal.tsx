@@ -28,10 +28,7 @@ export const RoutesCreateModal: FC<IRoutesCreateModal> = ({
         text: "Вы уверены, что хотите закрыть окно, не сохранив данные?",
       }}
     >
-      <RoutesCreateForm
-        onSave={onSave}
-        onClose={onClose}
-      />
+      <RoutesCreateForm onSave={onSave} onClose={onClose} />
     </Modal>
   );
 };

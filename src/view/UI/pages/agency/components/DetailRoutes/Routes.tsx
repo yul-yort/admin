@@ -45,10 +45,14 @@ export const Routes: FC<IAgencyRoutes> = ({
               <TableCell>{row.price}</TableCell>
               <TableCell>
                 <div className={css.icons}>
-                  <IconButton data-edit-id={row.id}>
+                  <IconButton aria-label="edit route" data-edit-id={row.id}>
                     <EditRoundedIcon fontSize="small" />
                   </IconButton>
-                  <IconButton data-delete-id={row.id} color="error">
+                  <IconButton
+                    aria-label="delete route"
+                    data-delete-id={row.id}
+                    color="error"
+                  >
                     <DeleteForeverIcon fontSize="small" />
                   </IconButton>
                 </div>

@@ -73,7 +73,7 @@ export class ErrorBoundary extends React.Component<IProps, IState> {
             className={css.collapseTitle}
           >
             {this.state.error && this.state.error.toString()}{" "}
-            <IconButton>
+            <IconButton aria-label="expand">
               {this.state.expanded ? <ExpandLess /> : <ExpandMore />}
             </IconButton>
           </Typography>

@@ -7,11 +7,11 @@ import css from "./styles.module.scss";
 import { SearchAgencies } from "../SearchAgencies";
 import { ITableToolbar } from "./types";
 
-const TableToolbar: VFC<ITableToolbar> = ({ onAddAgency,  searchAgency}) => (
+const TableToolbar: VFC<ITableToolbar> = ({ onAddAgency, searchAgency }) => (
   <div className={css.wrapper}>
-    <SearchAgencies searchAgency={searchAgency}/>
+    <SearchAgencies searchAgency={searchAgency} />
     <Tooltip title="Добавить агенство">
-      <IconButton onClick={onAddAgency}>
+      <IconButton onClick={onAddAgency} aria-label="add agency">
         <AddIcon fontSize="medium" />
       </IconButton>
     </Tooltip>
