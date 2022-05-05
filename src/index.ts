@@ -12,8 +12,8 @@ try {
   const NODE_ENV = process.env.NODE_ENV;
 
   if (
-    BUILD_MODE === "serve" ||
     BUILD_MODE === "gh-pages" ||
+    BUILD_MODE === "serve" ||
     NODE_ENV === "development"
   ) {
     const { worker } = require("./libs/mocks/browser");
