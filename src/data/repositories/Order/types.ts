@@ -5,6 +5,6 @@ import {
 
 export interface IOrderRepository {
   getList: (
-    params: IOrderItemRequestParams
+    params?: IOrderItemRequestParams
   ) => Promise<IOrderItemResponseDTO[]>;
 }

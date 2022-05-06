@@ -21,6 +21,6 @@ export enum ECurrencyISO {
 export interface IOrderItemResponseDTO extends IOrderItemEntity {}
 
 export interface IOrderItemRequestParams {
-  origin: string;
-  destination: string;
+  origin?: string;
+  destination?: string;
 }

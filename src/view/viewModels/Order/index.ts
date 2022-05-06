@@ -28,11 +28,6 @@ export class OrderVM extends BaseVM implements IOrderVM {
     this.unsetError();
 
     try {
-      if (!params || !params.origin || !params.destination) {
-        this.setError(new Error("Неверно указан маршрут поиска"));
-        return;
-      }
-
       const list = await this.service.getList(params);
 
       runInAction(() => {
