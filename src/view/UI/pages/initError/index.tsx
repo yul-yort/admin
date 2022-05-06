@@ -38,7 +38,7 @@ const InitError: FC<IInitErrorPageProps> = ({ error }) => {
             >
               {error.message}
 
-              <IconButton>
+              <IconButton aria-label="expand">
                 {expand ? <ExpandLess /> : <ExpandMore />}
               </IconButton>
             </Typography>

@@ -4,6 +4,7 @@ import { useFormContext } from "react-hook-form";
 import { IRoutesCreateForm, IRoutesCreateFormFields } from "./types";
 import { getErrorText } from "src/libs/utils";
 import { CONSTANTS } from "src/constants/globalConstants";
+import css from "./styles.module.scss";
 
 export const RoutesCreateForm: FC<IRoutesCreateForm> = ({
   onSave,
@@ -17,7 +18,7 @@ export const RoutesCreateForm: FC<IRoutesCreateForm> = ({
 
   return (
     <form onSubmit={handleSubmit(onSave)}>
-      <div>
+      <div className={css.row}>
         <TextField
           id="origin"
           label="Откуда"
@@ -25,6 +26,7 @@ export const RoutesCreateForm: FC<IRoutesCreateForm> = ({
           variant="outlined"
           size="small"
           fullWidth
+          autoFocus
           error={!!getErrorText(errors, "origin")}
           disabled={isSubmitting}
           helperText={getErrorText(errors, "origin")}
@@ -33,7 +35,7 @@ export const RoutesCreateForm: FC<IRoutesCreateForm> = ({
           })}
         />
       </div>
-      <div>
+      <div className={css.row}>
         <TextField
           id="destination"
           label="Куда"
@@ -50,7 +52,7 @@ export const RoutesCreateForm: FC<IRoutesCreateForm> = ({
         />
       </div>
 
-      <div>
+      <div className={css.row}>
         <TextField
           id="price"
           label="Цена"
@@ -71,11 +73,15 @@ export const RoutesCreateForm: FC<IRoutesCreateForm> = ({
         />
       </div>
 
-      <div>
-        <Button disabled={isSubmitting} onClick={onClose}>
+      <div className={css.footerWrapper}>
+        <Button disabled={isSubmitting} onClick={onClose} aria-label="cancel">
           Отмена
         </Button>
-        <Button disabled={isSubmitting || !isDirty} type="submit">
+        <Button
+          disabled={isSubmitting || !isDirty}
+          type="submit"
+          aria-label="save"
+        >
           Сохранить
         </Button>
       </div>

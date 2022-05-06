@@ -19,6 +19,7 @@ export const EmptyList: VFC<IEmpty> = ({ onAddAgency }) => {
         className={css.button}
         onClick={onAddAgency}
         startIcon={<AddRoundedIcon />}
+        aria-label="add agency"
       >
         Добавить
       </Button>

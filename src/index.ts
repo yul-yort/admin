@@ -8,11 +8,25 @@ import { checkAuthorization, onActivate } from "./router/middlewaries";
 import { documentTitle } from "./router/middlewaries/documentTitle";
 
 try {
-  const { worker } = require("./libs/mocks/browser");
+  const BUILD_MODE = process.env.REACT_APP_BUILD_MODE;
+  const NODE_ENV = process.env.NODE_ENV;
 
-  worker.start({
-    onUnhandledRequest: "bypass",
-  });
+  if (
+    BUILD_MODE === "serve" ||
+    BUILD_MODE === "gh-pages" ||
+    NODE_ENV === "development"
+  ) {
+    const { worker } = require("./libs/mocks/browser");
+
+    worker.start({
+      onUnhandledRequest: "bypass",
+      serviceWorker: {
+        url: `/${
+          BUILD_MODE === "gh-pages" ? "yul-yort-admin/" : ""
+        }mockServiceWorker.js`,
+      },
+    });
+  }
 
   const router = createAppRouter(routes, [
     onActivate,

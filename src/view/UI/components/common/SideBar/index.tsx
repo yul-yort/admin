@@ -29,7 +29,11 @@ export const SideBar: FC<ISideBar> = ({ open, onClose, onLogout, loading }) => {
             {CONSTANTS.projectName}
           </Typography>
 
-          <IconButton onClick={onClose} color="inherit">
+          <IconButton
+            onClick={onClose}
+            color="inherit"
+            aria-label="close drawer"
+          >
             <CloseRoundedIcon />
           </IconButton>
         </Toolbar>
@@ -56,6 +60,7 @@ export const SideBar: FC<ISideBar> = ({ open, onClose, onLogout, loading }) => {
         </List>
 
         <Button
+          aria-label="logout"
           variant="outlined"
           className={css.logoutButton}
           onClick={onLogout}
