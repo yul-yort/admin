@@ -3,11 +3,12 @@ import {
   IAgencyItemResponseDTO,
   IAgencyResponseDTO,
 } from "../../data/entities/Agency/types";
-import { agencies } from "./data";
+import { agencies, orders } from "./data";
 import { getTimeout } from "./utils/getTimeout";
 import { EEndpoints } from "../../constants/Endpoints";
 import { getAuthCookie } from "./utils/getAuthCookie";
 import { v4 as uuid } from "uuid";
+import { IOrderItemResponseDTO } from "../../data/entities/Order/types";
 
 export const handlers = [
   rest.get(EEndpoints.AGENCY, (req, res, ctx) => {
@@ -98,6 +99,14 @@ export const handlers = [
       ctx.delay(getTimeout()),
       ctx.status(200),
       ctx.cookie(...getAuthCookie("logout"))
+    );
+  }),
+
+  rest.get(EEndpoints.ORDERS_LIST, (req, res, ctx) => {
+    return res(
+      ctx.json<IOrderItemResponseDTO[]>(orders),
+      ctx.delay(getTimeout()),
+      ctx.status(200)
     );
   }),
 ];

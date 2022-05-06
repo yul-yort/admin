@@ -23,7 +23,12 @@ export class OrderVM extends BaseVM implements IOrderVM {
     });
   }
 
-  getList = async (params: IOrderItemRequestParams): Promise<void> => {
+  getList = async (params?: IOrderItemRequestParams): Promise<void> => {
+    if (!params) {
+      // TODO показ ошибки https://trello.com/c/j49tbAlr
+      return;
+    }
+
     await this.service.getList(params);
   };
 }
