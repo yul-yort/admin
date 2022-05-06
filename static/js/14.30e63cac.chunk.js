@@ -1,2 +1,0 @@
-(this["webpackJsonpyul-yort-admin"]=this["webpackJsonpyul-yort-admin"]||[]).push([[14],{262:function(a,s,t){a.exports={page:"styles_page__3Ts_k"}},303:function(a,s,t){"use strict";t.r(s);t(0);var e=t(101),n=t(262),c=t.n(n),i=t(1),r=Object(e.a)((function(){return Object(i.jsx)("div",{className:c.a.page,children:"dashboard"})}));s.default=r}}]);
-//# sourceMappingURL=14.30e63cac.chunk.js.map
