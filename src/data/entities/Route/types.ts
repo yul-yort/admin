@@ -1,7 +1,7 @@
 import { ILocalityEntity } from "../Locality/types";
 
 /**
- * Сущность населенного пункта.
+ * Сущность маршрута.
  */
 export interface IRouteEntity {
   /**
