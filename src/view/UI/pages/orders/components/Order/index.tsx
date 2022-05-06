@@ -7,7 +7,7 @@ import { IOrderProps } from "./types";
 import { Phones } from "../../../../components/shared/Phones";
 
 export const Order: FC<IOrderProps> = ({ agency, price }) => (
-  <Paper elevation={3} className={css.order}>
+  <Paper elevation={1} className={css.order}>
     <div className={css.columnLeft}>
       <Link
         className={css.orderTitle}
