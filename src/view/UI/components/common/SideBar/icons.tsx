@@ -1,8 +1,10 @@
 import { ReactNode } from "react";
-import EmojiTransportationRoundedIcon from "@mui/icons-material/EmojiTransportationRounded";
 import BarChartRoundedIcon from "@mui/icons-material/BarChartRounded";
+import FormatListBulletedRoundedIcon from "@mui/icons-material/FormatListBulletedRounded";
+import LuggageRoundedIcon from "@mui/icons-material/LuggageRounded";
 
 export const icons: Record<string, ReactNode> = {
-  agencies: <EmojiTransportationRoundedIcon />,
   dashboard: <BarChartRoundedIcon />,
+  agencies: <FormatListBulletedRoundedIcon />,
+  orders: <LuggageRoundedIcon />,
 };

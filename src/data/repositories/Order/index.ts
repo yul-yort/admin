@@ -14,8 +14,7 @@ export class OrderRepository
     params: IOrderItemRequestParams
   ): Promise<IOrderItemResponseDTO[]> {
     return await this.api.get<IOrderItemResponseDTO[], IOrderItemRequestParams>(
-      // TODO заменить на нужный endpoint
-      EEndpoints.AGENCY_LIST,
+      EEndpoints.ORDERS_LIST,
       params
     );
   }

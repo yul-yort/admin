@@ -43,6 +43,21 @@ const routes: IRoutes = [
       },
     ],
   },
+  {
+    name: "orders",
+    path: "/orders",
+    title: "Поездки",
+    auth: true,
+    onActivate: async (props) => {
+      if (!props) {
+        return;
+      }
+
+      const { store, params } = props;
+
+      await store.order.getList(params);
+    },
+  },
 ];
 
 export default routes;

@@ -8,4 +8,5 @@ export enum EEndpoints {
   AGENCY_CREATE = "/agency-create",
   LOGIN = "/login",
   LOGOUT = "/logout",
+  ORDERS_LIST = "/order-list",
 }

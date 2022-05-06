@@ -17,7 +17,7 @@ export const onActivate: MiddlewareFactory<IDependencies> =
     );
 
     route?.onActivate &&
-      route?.onActivate({
+      route.onActivate({
         store: dependencies.store,
         params: toState.params,
         router,
