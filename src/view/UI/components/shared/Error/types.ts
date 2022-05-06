@@ -1,6 +1,6 @@
 import { IError } from "../../../../viewModels/types";
 
 export interface IErrorProps {
-  title: string;
+  title?: string;
   error: IError;
 }
