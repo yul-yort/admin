@@ -4,5 +4,5 @@ import {
 } from "../../entities/Order/types";
 
 export interface IOrderService {
-  getList: (params: IOrderItemRequestParams) => Promise<IOrderItemEntity[]>;
+  getList: (params?: IOrderItemRequestParams) => Promise<IOrderItemEntity[]>;
 }

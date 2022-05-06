@@ -9,7 +9,7 @@ export class OrderService implements IOrderService {
   constructor(private repository: IOrderRepository) {}
 
   getList = async (
-    params: IOrderItemRequestParams
+    params?: IOrderItemRequestParams
   ): Promise<IOrderItemEntity[]> => {
     return this.repository.getList(params);
   };

@@ -11,7 +11,7 @@ export class OrderRepository
   implements IOrderRepository
 {
   async getList(
-    params: IOrderItemRequestParams
+    params?: IOrderItemRequestParams
   ): Promise<IOrderItemResponseDTO[]> {
     return await this.api.get<IOrderItemResponseDTO[], IOrderItemRequestParams>(
       EEndpoints.ORDERS_LIST,
