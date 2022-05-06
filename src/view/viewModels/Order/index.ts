@@ -1,7 +1,7 @@
 import { BaseVM } from "../BaseVM";
 import { IOrderVM } from "./types";
 import { INotificationsVM } from "../types";
-import { action, makeObservable, observable } from "mobx";
+import { action, makeObservable, observable, runInAction } from "mobx";
 import {
   IOrderItemEntity,
   IOrderItemRequestParams,
@@ -24,11 +24,24 @@ export class OrderVM extends BaseVM implements IOrderVM {
   }
 
   getList = async (params?: IOrderItemRequestParams): Promise<void> => {
-    if (!params) {
-      // TODO показ ошибки https://trello.com/c/j49tbAlr
-      return;
-    }
+    this.setLoading();
+    this.unsetError();
 
-    await this.service.getList(params);
+    try {
+      if (!params || !params.origin || !params.destination) {
+        this.setError(new Error("Неверно указан маршрут поиска"));
+        return;
+      }
+
+      const list = await this.service.getList(params);
+
+      runInAction(() => {
+        this.orders = list;
+      });
+    } catch (err) {
+      this.setError(err);
+    } finally {
+      this.unsetLoading();
+    }
   };
 }

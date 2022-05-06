@@ -2,7 +2,7 @@ import { VFC } from "react";
 import { Typography } from "@mui/material";
 import { IErrorProps } from "./types";
 
-const Error: VFC<IErrorProps> = ({ title, error }) => (
+const Error: VFC<IErrorProps> = ({ title = "Ошибка", error }) => (
   <div>
     <Typography variant="h6" align="center" color="error.main">
       {title}

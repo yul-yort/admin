@@ -11,15 +11,17 @@ import Body from "./components/common/Body";
 import { useViewModel } from "./hooks/useViewModel";
 import { IUserVM } from "../viewModels/User/types";
 
+const NotFoundPage = lazy(() => import("./pages/notFound"));
 const AgencyPage = lazy(() => import("./pages/agency"));
 const AgencyListPage = lazy(() => import("./pages/agencies"));
 const DashboardPage = lazy(() => import("./pages/dashboard"));
-const NotFoundPage = lazy(() => import("./pages/notFound"));
+const OrdersPage = lazy(() => import("./pages/orders"));
 
 const pages = {
   agencies: <AgencyListPage />,
   "agencies.agency": <AgencyPage />,
   dashboard: <DashboardPage />,
+  orders: <OrdersPage />,
   [constants.UNKNOWN_ROUTE]: <NotFoundPage />,
 };
 
