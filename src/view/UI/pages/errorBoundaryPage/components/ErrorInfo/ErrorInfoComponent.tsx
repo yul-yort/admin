@@ -34,7 +34,9 @@ export const ErrorInfoComponent: VFC<IErrorInfo> = ({
         className={css.collapseTitle}
       >
         {error && error.toString()}
-        <IconButton>{expanded ? <ExpandLess /> : <ExpandMore />}</IconButton>
+        <IconButton aria-label="expand">
+          {expanded ? <ExpandLess /> : <ExpandMore />}
+        </IconButton>
       </Typography>
 
       <Collapse
