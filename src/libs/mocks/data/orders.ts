@@ -58,4 +58,36 @@ export const orders: IOrderItemResponseDTO[] = [
     price: 1500,
     currencyISO: ECurrencyISO.RUB,
   },
+
+  {
+    id: "234l23234l2",
+    route: {
+      id: "8789as9df8",
+      origin: {
+        id: "asdf",
+        name: "origin 1",
+        description: "7da9sdf79abfasf as98d7f9 asdf97asd9f a7",
+      },
+      destination: {
+        id: "asdfasf",
+        name: "destination 1",
+      },
+      waypoints: [
+        {
+          id: "098",
+          name: "waypoints 1",
+        },
+        {
+          id: "677",
+          name: "waypoints 2",
+        },
+      ],
+    },
+    agency: {
+      id: "3",
+      agencyName: "По пути!",
+      phones: ["+79999999999"],
+    },
+    currencyISO: ECurrencyISO.RUB,
+  },
 ];
