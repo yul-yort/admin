@@ -1,11 +1,10 @@
 import { FC } from "react";
 import { Typography } from "@mui/material";
-import { Link } from "react-router5";
 
-import { IListProps } from "./types";
 import css from "./styles.module.scss";
-import { Phones } from "../../../../components/shared/Phones";
+import { IListProps } from "./types";
 import { EmptyList } from "../EmptyList";
+import { Order } from "../Order";
 
 const List: FC<IListProps> = ({ list }) => {
   if (!list.length) {
@@ -18,19 +17,8 @@ const List: FC<IListProps> = ({ list }) => {
         Найдено {list.length} вариантов
       </Typography>
 
-      {list.map(({ id, agency }) => (
-        <div key={id}>
-          <Link
-            className={css.more_link}
-            routeName="agencies.agency"
-            routeParams={{ id: agency.id }}
-          >
-            {agency.agencyName}
-          </Link>
-          <div className={css.phones}>
-            <Phones phones={agency.phones} />
-          </div>
-        </div>
+      {list.map(({ id, price, agency }) => (
+        <Order key={id} price={price} agency={agency} />
       ))}
     </>
   );
