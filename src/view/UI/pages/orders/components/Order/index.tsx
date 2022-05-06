@@ -5,8 +5,9 @@ import { Link } from "react-router5";
 import css from "./styles.module.scss";
 import { IOrderProps } from "./types";
 import { Phones } from "../../../../components/shared/Phones";
+import { getCurrency } from "src/libs/utils/getCurrency";
 
-export const Order: FC<IOrderProps> = ({ agency, price }) => (
+export const Order: FC<IOrderProps> = ({ agency, price, currencyISO }) => (
   <Paper elevation={1} className={css.order}>
     <div className={css.columnLeft}>
       <Link
@@ -26,7 +27,9 @@ export const Order: FC<IOrderProps> = ({ agency, price }) => (
 
     <div className={css.columnRight}>
       {price !== undefined ? (
-        <Typography variant="h6">{price}</Typography>
+        <Typography variant="h6">
+          {price} {getCurrency(currencyISO)}
+        </Typography>
       ) : (
         <Typography variant="subtitle2" color="text.secondary">
           Цена не указана
