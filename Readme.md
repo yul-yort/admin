@@ -15,3 +15,7 @@
 7. `npm run build-storybook` - сборка storybook.
 8. `npm run test` - запуск тестов.
 9. `npm run testCoverage` - проверка покрытия тестами.
+
+## Страница на github pages
+
+https://gaisdav.github.io/yul-yort-admin/#/
