@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 import { IInitErrorPageProps } from "./types";
 import { Collapse, IconButton, Typography } from "@mui/material";
 import css from "./styles.module.scss";
@@ -8,12 +8,6 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 
 const InitError: FC<IInitErrorPageProps> = ({ error }) => {
   const [expand, setExpand] = useState<boolean>(false);
-
-  useEffect(() => {
-    //TODO логирование ошибок, автоматическая отправка
-    // данных об ошибке на сервер или на почту админов.
-    console.log("InitError", error.toString());
-  });
 
   const handleExpand = () => {
     setExpand(!expand);
@@ -30,28 +24,32 @@ const InitError: FC<IInitErrorPageProps> = ({ error }) => {
           Произошла ошибка при инициализации приложения
         </Typography>
 
-        <div>
-          <Typography align="center" color="error.main">
-            {error.name}
-          </Typography>
-          <Typography
-            align="center"
-            color="error.main"
-            onClick={handleExpand}
-            className={css.title}
-          >
-            {error.message}{" "}
-            <IconButton aria-label="expand">
-              {expand ? <ExpandLess /> : <ExpandMore />}
-            </IconButton>
-          </Typography>
+        {error instanceof Error && (
+          <div>
+            <Typography align="center" color="error.main">
+              {error.name}
+            </Typography>
 
-          <Collapse in={expand} timeout="auto" unmountOnExit>
-            <Typography align="center">{error.toString()}</Typography>
-            <br />
-            <Typography align="center">{error.stack}</Typography>
-          </Collapse>
-        </div>
+            <Typography
+              align="center"
+              color="error.main"
+              onClick={handleExpand}
+              className={css.title}
+            >
+              {error.message}
+
+              <IconButton aria-label="expand">
+                {expand ? <ExpandLess /> : <ExpandMore />}
+              </IconButton>
+            </Typography>
+
+            <Collapse in={expand} timeout="auto" unmountOnExit>
+              <Typography align="center">{error.toString()}</Typography>
+              <br />
+              <Typography align="center">{error.stack}</Typography>
+            </Collapse>
+          </div>
+        )}
       </div>
     </div>
   );

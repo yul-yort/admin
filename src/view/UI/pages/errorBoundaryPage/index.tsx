@@ -1,13 +1,10 @@
 import React, { ErrorInfo } from "react";
-import { Collapse, IconButton, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import css from "./styles.module.scss";
-import SentimentVeryDissatisfiedOutlinedIcon from "@mui/icons-material/SentimentVeryDissatisfiedOutlined";
 import { IProps, IState } from "./types";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
+import { ErrorInfoComponent } from "./components/ErrorInfo/ErrorInfoComponent";
+import cn from "classnames";
 
-// TODO вынести компоненты
-// TODO плашка находится за шапкой
 export class ErrorBoundary extends React.Component<IProps, IState> {
   constructor(props: any) {
     super(props);
@@ -43,10 +40,10 @@ export class ErrorBoundary extends React.Component<IProps, IState> {
       error: error,
       errorInfo: errorInfo,
     });
-    // TODO логирование ошибок, автоматическая отправка данных об ошибке на сервер или на почту админов.
-    console.log(error.name);
-    console.log(error.message);
-    console.log(error.stack);
+    // TODO логирование ошибок (сервер или google analytics) + в InitError тоже
+    console.error(error.name);
+    console.error(error.message);
+    console.error(error.stack);
   }
 
   handleExpand = () => {
@@ -54,58 +51,26 @@ export class ErrorBoundary extends React.Component<IProps, IState> {
   };
 
   render() {
-    if (this.state.errorInfo) {
-      return (
-        <div className={css.errorBoundary}>
-          <Typography align="center" className={css.icon} color="error.main">
-            <SentimentVeryDissatisfiedOutlinedIcon fontSize="inherit" />
-          </Typography>
-
-          <Typography variant="h6" align="center" color="error.main">
-            Произошла ошибка при работе с приложением
-          </Typography>
-
-          <Typography
-            variant="subtitle1"
-            align="center"
-            color="error.main"
-            onClick={this.handleExpand}
-            className={css.collapseTitle}
-          >
-            {this.state.error && this.state.error.toString()}{" "}
-            <IconButton aria-label="expand">
-              {this.state.expanded ? <ExpandLess /> : <ExpandMore />}
-            </IconButton>
-          </Typography>
-
-          <Collapse
-            in={this.state.expanded}
-            timeout="auto"
-            unmountOnExit
-            className={css.collapse}
-          >
-            <Typography align="center">
-              {this.state.error && this.state.error.toString()}
-            </Typography>
-
-            <br />
-
-            <Typography align="center">
-              {this.state.errorInfo.componentStack}
-            </Typography>
-          </Collapse>
-        </div>
-      );
-    }
-
     return (
-      <span className={css.appWrapper}>
-        {this.state.offline && (
-          <Typography className={css.notConnectText}>
-            Отсутствует интернет соединение
-          </Typography>
+      <span
+        className={cn(css.appWrapper, {
+          [css.appWrapper__offline]: this.state.offline,
+        })}
+      >
+        <Typography className={css.notConnectText}>
+          Отсутствует интернет соединение
+        </Typography>
+
+        {this.state.errorInfo ? (
+          <ErrorInfoComponent
+            handleExpand={this.handleExpand}
+            error={this.state.error}
+            errorInfo={this.state.errorInfo}
+            expanded={this.state.expanded}
+          />
+        ) : (
+          this.props.children
         )}
-        {this.props.children}
       </span>
     );
   }
