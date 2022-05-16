@@ -17,8 +17,13 @@ const List: FC<IListProps> = ({ list }) => {
         Найдено {list.length} вариантов
       </Typography>
 
-      {list.map(({ id, price, agency }) => (
-        <Order key={id} price={price} agency={agency} />
+      {list.map(({ id, price, agency, currencyISO }) => (
+        <Order
+          key={id}
+          price={price}
+          agency={agency}
+          currencyISO={currencyISO}
+        />
       ))}
     </>
   );
