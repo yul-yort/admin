@@ -8,4 +8,5 @@ export interface IOrderVM extends IBaseVM {
   orders: IOrderItemEntity[] | null;
 
   getList: (params?: IOrderItemRequestParams) => Promise<void>;
+  getAgencyRoutesList: (id: ID) => void;
 }

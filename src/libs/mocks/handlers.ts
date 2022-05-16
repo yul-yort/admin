@@ -109,4 +109,8 @@ export const handlers = [
       ctx.status(200)
     );
   }),
+
+  rest.get(EEndpoints.AGENCY_ROUTER_LIST, (req, res, ctx) => {
+    return res(ctx.json({ test: "test" }));
+  }),
 ];

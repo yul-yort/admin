@@ -9,4 +9,5 @@ export enum EEndpoints {
   LOGIN = "/login",
   LOGOUT = "/logout",
   ORDERS_LIST = "/order-list",
+  AGENCY_ROUTER_LIST = "/agency-router-list",
 }

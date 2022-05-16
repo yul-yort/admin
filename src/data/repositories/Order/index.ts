@@ -18,4 +18,8 @@ export class OrderRepository
       params
     );
   }
+
+  async getAgencyRoutesList(id: ID) {
+    return await this.api.get(EEndpoints.AGENCY_ROUTER_LIST, id);
+  }
 }

@@ -39,4 +39,13 @@ export class OrderVM extends BaseVM implements IOrderVM {
       this.unsetLoading();
     }
   };
+
+  //TEST
+  getAgencyRoutesList = async (id: ID) => {
+    try {
+      console.log(id);
+      const list = await this.service.getAgencyRoutesList(id);
+      console.log("list", list);
+    } catch {}
+  };
 }
