@@ -59,6 +59,7 @@ export const orders: IOrderItemResponseDTO[] = [
 
   {
     id: "234l23234l2",
+    price: 1,
     route: {
       id: "8789as9df8",
       origin: {

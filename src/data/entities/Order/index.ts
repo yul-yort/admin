@@ -12,7 +12,7 @@ export class OrderItem implements IOrderItemEntity {
   agency: IOrderAgency;
   currencyISO: ECurrencyISO;
   route: IOrderRoute;
-  price?: number;
+  price: number;
 
   constructor(dto: IOrderItemResponseDTO) {
     this.id = dto.id;

@@ -1,12 +1,13 @@
 import { FC } from "react";
 import { TextField, Button } from "@mui/material";
 import { useFormContext } from "react-hook-form";
-import { IRoutesCreateForm, IRoutesCreateFormFields } from "./types";
+import { IOrdersCreateForm, IOrdersCreateFormFields } from "./types";
 import { getErrorText } from "src/libs/utils";
 import { CONSTANTS } from "src/constants/globalConstants";
 import css from "./styles.module.scss";
 
-export const RoutesCreateForm: FC<IRoutesCreateForm> = ({
+//TODO нужно сделать обязательное поле "Выбор валюты". (https://trello.com/c/wXEG7n0j)
+export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
   onSave,
   onClose,
 }) => {
@@ -14,7 +15,7 @@ export const RoutesCreateForm: FC<IRoutesCreateForm> = ({
     handleSubmit,
     register,
     formState: { errors, isSubmitting, isDirty },
-  } = useFormContext<IRoutesCreateFormFields>();
+  } = useFormContext<IOrdersCreateFormFields>();
 
   return (
     <form onSubmit={handleSubmit(onSave)}>

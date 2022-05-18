@@ -13,12 +13,15 @@ import { IAgencyService } from "../../../data/services/Agency/types";
 import { INotificationsVM } from "../types";
 import { ICreateOrEditAgencyFormFields } from "../../UI/components/shared/AgencyCreateEditForm/types";
 import { VMPhonesRequestFormatter } from "src/view/UI/components/shared/AgencyCreateEditForm/mappers";
+import { IOrderService } from "../../../data/services/Order/types";
+import { IOrderItemEntity } from "../../../data/entities/Order/types";
 
 export class AgencyVM extends BaseVM implements IAgencyVM {
   editLoading: boolean = false;
   loadingList: ID[] = [];
 
   agency: IAgencyEntity | null = null;
+  agencyOrders: IOrderItemEntity[] | null = null;
   searchValue: string = "";
 
   private _agencies: IAgencyItemEntity[] | null = null;
@@ -36,12 +39,14 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
 
   constructor(
     notificationsVM: INotificationsVM,
-    private service: IAgencyService
+    private service: IAgencyService,
+    private orderService: IOrderService
   ) {
     super(notificationsVM);
 
     makeObservable(this, {
       agency: observable,
+      agencyOrders: observable,
       editLoading: observable,
       loadingList: observable,
       searchValue: observable,
@@ -88,9 +93,13 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
 
     try {
       const agency = await this.service.getAgency(params);
+      const orders = await this.orderService.getList({
+        agencyId: params.id,
+      });
 
       runInAction(() => {
         this.agency = agency;
+        this.agencyOrders = orders;
       });
     } catch (err) {
       this.setError(err);

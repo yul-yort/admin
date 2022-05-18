@@ -6,9 +6,11 @@ import {
   IAgencyItemEntity,
 } from "../../../data/entities/Agency/types";
 import { ICreateOrEditAgencyFormFields } from "../../UI/components/shared/AgencyCreateEditForm/types";
+import { IOrderItemEntity } from "../../../data/entities/Order/types";
 
 export interface IAgencyVM extends IBaseVM {
   agency: IAgencyEntity | null;
+  agencyOrders: IOrderItemEntity[] | null;
   agencies: IAgencyItemEntity[] | null;
   editLoading: boolean;
   loadingList: ID[];
@@ -20,7 +22,7 @@ export interface IAgencyVM extends IBaseVM {
   getAgency: (params: IAgencyRequestParams) => Promise<void>;
   editAgency: (params: ICreateOrEditAgencyFormFields) => Promise<void>;
   deleteAgency: (params: IAgencyRequestDeleteParams) => Promise<void>;
-  searchAgency: (value:string) => void;
+  searchAgency: (value: string) => void;
   getList: () => Promise<void>;
 
   createAgency: (params: ICreateOrEditAgencyFormFields) => Promise<void>;

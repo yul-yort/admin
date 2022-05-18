@@ -21,14 +21,18 @@ const Agency: FC = observer(() => {
         />
       )}
 
-      {!agencyVM.loading && !agencyVM.error && agencyVM.agency && (
-        <Detail
-          agency={agencyVM.agency}
-          editAgency={agencyVM.editAgency}
-          deleteAgency={agencyVM.deleteAgency}
-          editLoading={agencyVM.editLoading}
-        />
-      )}
+      {!agencyVM.loading &&
+        !agencyVM.error &&
+        agencyVM.agency &&
+        agencyVM.agencyOrders && (
+          <Detail
+            agency={agencyVM.agency}
+            editAgency={agencyVM.editAgency}
+            deleteAgency={agencyVM.deleteAgency}
+            editLoading={agencyVM.editLoading}
+            agencyOrders={agencyVM.agencyOrders}
+          />
+        )}
     </div>
   );
 });
