@@ -6,7 +6,7 @@ export interface IOrderItemEntity {
   id: ID;
   agency: IOrderAgency;
   route: IOrderRoute;
-  price?: number;
+  price: number;
   currencyISO: ECurrencyISO;
 }
 

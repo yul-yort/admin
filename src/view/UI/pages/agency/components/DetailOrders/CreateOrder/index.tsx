@@ -1,14 +1,14 @@
 import { FC, useState, useEffect } from "react";
 import { FormProvider } from "react-hook-form";
-import { RoutesCreateModal } from "./RoutesCreateModal";
-import { ICreateRoutes, IRoutesCreateFormFields } from "./types";
+import { OrdersCreateModal } from "./OrdersCreateModal";
+import { ICreateOrders, IOrdersCreateFormFields } from "./types";
 
-export const CreateRoutes: FC<ICreateRoutes> = ({
+export const CreateOrder: FC<ICreateOrders> = ({
   showModal,
   handleCloseModal,
   titleModal,
   methods,
-  routeID,
+  orderID,
 }) => {
   //FIXME: добавить loading
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
@@ -49,9 +49,9 @@ export const CreateRoutes: FC<ICreateRoutes> = ({
     setShowConfirm(false);
   };
 
-  const handleRouteCreate = async (fields: IRoutesCreateFormFields) => {
-    if (routeID) {
-      console.log("edit");
+  const handleOrderCreate = async (fields: IOrdersCreateFormFields) => {
+    if (orderID) {
+      console.log("edit", fields);
     } else {
       console.log("create");
     }
@@ -61,11 +61,11 @@ export const CreateRoutes: FC<ICreateRoutes> = ({
 
   return (
     <FormProvider {...methods}>
-      <RoutesCreateModal
+      <OrdersCreateModal
         titleModal={titleModal}
         showModal={showModal}
         onClose={onClose}
-        onSave={handleRouteCreate}
+        onSave={handleOrderCreate}
         showConfirm={showConfirm}
         onConformClose={handleConfirmCloseModal}
         onCancelClose={handleCancelCloseModal}

@@ -1,20 +1,20 @@
-import { IOrderItemEntity } from "../../../../../../data/entities/Order/types";
+import { IOrderItemEntity } from "src/data/entities/Order/types";
 
-export interface IRoutesHeader {
-  handleCreateRouteClick: () => void;
+export interface IOrdersHeader {
+  handleCreateOrder: () => void;
 }
 
-export interface IRoute {
+export interface IOrder {
   id: string;
   origin: string;
   destination: string;
   price?: number;
 }
 
-export interface IAgencyRoutes {
-  handleEditRouteClick: (id: string) => void;
+export interface IAgencyOrders {
+  handleEditOrder: (id: string) => void;
   agencyOrders: IOrderItemEntity[];
-  handleDeleteRouteClick: (id: string) => void;
+  handleDeleteOrder: (id: string) => void;
 }
 
 export interface IDetailOrders {

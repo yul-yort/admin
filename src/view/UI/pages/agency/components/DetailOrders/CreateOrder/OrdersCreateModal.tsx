@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { Modal } from "src/view/UI/components/common/Modal";
-import { RoutesCreateForm } from "./RoutesCreateForm";
-import { IRoutesCreateModal } from "./types";
+import { OrdersCreateForm } from "./OrdersCreateForm";
+import { IOrdersCreateModal } from "./types";
 
-export const RoutesCreateModal: FC<IRoutesCreateModal> = ({
+export const OrdersCreateModal: FC<IOrdersCreateModal> = ({
   showModal,
   showConfirm,
   onClose,
@@ -28,7 +28,7 @@ export const RoutesCreateModal: FC<IRoutesCreateModal> = ({
         text: "Вы уверены, что хотите закрыть окно, не сохранив данные?",
       }}
     >
-      <RoutesCreateForm onSave={onSave} onClose={onClose} />
+      <OrdersCreateForm onSave={onSave} onClose={onClose} />
     </Modal>
   );
 };
