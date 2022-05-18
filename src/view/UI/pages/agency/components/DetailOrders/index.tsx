@@ -56,9 +56,8 @@ export const DetailOrders: FC<IDetailOrders> = ({ agencyOrders }) => {
       setDefaultValues({
         origin: order.route.origin.name,
         destination: order.route.destination.name,
-        price: order.price ? order.price : 0,
+        price: order.price,
       });
-      //FIXME: что выводить если цена не указана?
     }
   };
 
