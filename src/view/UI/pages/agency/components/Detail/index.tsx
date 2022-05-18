@@ -8,7 +8,7 @@ import { IDetail } from "./types";
 import { ConfirmModal } from "../../../../components/common/ConfirmModal";
 import { AgencyCreateEditModal } from "../../../../components/shared/AgencyCreateEditModal";
 import { DetailAdditionalInfo } from "../DetailAdditionalInfo";
-import { DetailRoutes } from "../DetailRoutes";
+import { DetailOrders } from "../DetailOrders";
 import { UIPhonesFormatter } from "../../../../components/shared/AgencyCreateEditForm/mappers";
 import { ICreateOrEditAgencyFormFields } from "../../../../components/shared/AgencyCreateEditForm/types";
 import { useTitle } from "../../../../hooks/useTitle";
@@ -128,7 +128,7 @@ export const Detail: FC<IDetail> = ({
             description={description}
           />
 
-          <DetailRoutes agencyOrders={agencyOrders} />
+          <DetailOrders agencyOrders={agencyOrders} />
         </div>
       </Paper>
 

@@ -8,7 +8,7 @@ export interface IRoute {
   id: string;
   origin: string;
   destination: string;
-  price: number;
+  price?: number;
 }
 
 export interface IAgencyRoutes {

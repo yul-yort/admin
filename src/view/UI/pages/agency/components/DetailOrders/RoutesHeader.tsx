@@ -7,7 +7,7 @@ import { IRoutesHeader } from "./types";
 export const RoutesHeader: FC<IRoutesHeader> = ({ handleCreateRouteClick }) => {
   return (
     <div className={sharedCss.header}>
-      <Typography variant="h6">Маршруты</Typography>
+      <Typography variant="h6">Поездки</Typography>
       <IconButton onClick={handleCreateRouteClick} aria-label="add route">
         <AddRoundedIcon />
       </IconButton>

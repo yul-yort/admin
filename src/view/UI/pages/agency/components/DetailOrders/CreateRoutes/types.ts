@@ -1,5 +1,5 @@
 import { UseFormReturn } from "react-hook-form";
-import { IRoute } from "..//types";
+import { IRoute } from "../types";
 
 export interface ICreateRoutes {
   showModal: boolean;

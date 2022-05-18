@@ -6,33 +6,9 @@ import { RoutesHeader } from "./RoutesHeader";
 import { CreateRoutes } from "./CreateRoutes";
 import { useForm } from "react-hook-form";
 import { IRoutesCreateFormFields } from "./CreateRoutes/types";
-import { IDetailOrders, IRoute } from "./types";
+import { IDetailOrders } from "./types";
 
-//TODO: сделать получение из mocks
-//TODO: добавить получение валюты
-const agencyRoutes = [
-  {
-    id: "1",
-    origin: "Сибай",
-    destination: "Уфа",
-    price: 1000,
-  },
-  {
-    id: "2",
-    origin: "Акъяр",
-    destination: "Уфа",
-    price: 1000,
-  },
-  {
-    id: "3",
-    origin: "Бирск",
-    destination: "Уфа",
-    price: 1000,
-  },
-];
-
-// TODO переименовать на DetailOrders.
-export const DetailRoutes: FC<IDetailOrders> = ({ agencyOrders }) => {
+export const DetailOrders: FC<IDetailOrders> = ({ agencyOrders }) => {
   const [showModal, setShowModal] = useState(false);
   const [titleModal, setTitleModal] = useState("");
   const [defaultValues, setDefaultValues] =
@@ -53,7 +29,7 @@ export const DetailRoutes: FC<IDetailOrders> = ({ agencyOrders }) => {
   const handleCreateRouteClick = () => {
     setShowModal(true);
     setDefaultValues(null);
-    setTitleModal("Добавить новый маршрут");
+    setTitleModal("Добавить новую поездку");
     setRouteID("");
   };
 
@@ -64,7 +40,7 @@ export const DetailRoutes: FC<IDetailOrders> = ({ agencyOrders }) => {
   const handleEditRouteClick = (id: string) => {
     setShowModal(true);
     changeDefaultValues(id);
-    setTitleModal("Редактировать маршрут");
+    setTitleModal("Редактировать поездку");
   };
 
   const handleDeleteRouteClick = (id: string) => {
@@ -73,16 +49,16 @@ export const DetailRoutes: FC<IDetailOrders> = ({ agencyOrders }) => {
   };
 
   const changeDefaultValues = (id: string) => {
-    const route = agencyRoutes.find((item) => item.id === id);
+    const route = agencyOrders.find((item) => item.id === id);
 
     if (route) {
-      const { id, origin, destination, price }: IRoute = route;
-      setRouteID(id);
+      setRouteID(route.id);
       setDefaultValues({
-        origin,
-        destination,
-        price,
+        origin: route.route.origin.name,
+        destination: route.route.destination.name,
+        price: route.price ? route.price : 0,
       });
+      //FIXME: что выводить если цена не указана
     }
   };
 
