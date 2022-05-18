@@ -6,7 +6,7 @@ import { RoutesHeader } from "./RoutesHeader";
 import { CreateRoutes } from "./CreateRoutes";
 import { useForm } from "react-hook-form";
 import { IRoutesCreateFormFields } from "./CreateRoutes/types";
-import { IRoute } from "./types";
+import { IDetailOrders, IRoute } from "./types";
 
 //TODO: сделать получение из mocks
 //TODO: добавить получение валюты
@@ -31,7 +31,8 @@ const agencyRoutes = [
   },
 ];
 
-export const DetailRoutes: FC = () => {
+// TODO переименовать на DetailOrders.
+export const DetailRoutes: FC<IDetailOrders> = ({ agencyOrders }) => {
   const [showModal, setShowModal] = useState(false);
   const [titleModal, setTitleModal] = useState("");
   const [defaultValues, setDefaultValues] =
@@ -90,7 +91,7 @@ export const DetailRoutes: FC = () => {
       <RoutesHeader handleCreateRouteClick={handleCreateRouteClick} />
       <Routes
         handleEditRouteClick={handleEditRouteClick}
-        agencyRoutes={agencyRoutes}
+        agencyOrders={agencyOrders}
         handleDeleteRouteClick={handleDeleteRouteClick}
       />
       <CreateRoutes

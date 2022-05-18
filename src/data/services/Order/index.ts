@@ -13,8 +13,4 @@ export class OrderService implements IOrderService {
   ): Promise<IOrderItemEntity[]> => {
     return this.repository.getList(params);
   };
-
-  getAgencyRoutesList = async (id: ID) => {
-    return this.repository.getAgencyRoutesList(id);
-  };
 }

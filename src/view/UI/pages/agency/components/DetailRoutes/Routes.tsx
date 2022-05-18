@@ -15,7 +15,7 @@ import { IAgencyRoutes } from "./types";
 
 export const Routes: FC<IAgencyRoutes> = ({
   handleEditRouteClick,
-  agencyRoutes,
+  agencyOrders,
   handleDeleteRouteClick,
 }) => {
   //TODO: any
@@ -38,10 +38,10 @@ export const Routes: FC<IAgencyRoutes> = ({
           </TableRow>
         </TableHead>
         <TableBody onClick={handleClickRow}>
-          {agencyRoutes.map((row) => (
+          {agencyOrders.map((row) => (
             <TableRow key={row.id} className={css.tableRow}>
-              <TableCell>{row.origin}</TableCell>
-              <TableCell>{row.destination}</TableCell>
+              <TableCell>{row.route.origin.name}</TableCell>
+              <TableCell>{row.route.destination.name}</TableCell>
               <TableCell>{row.price}</TableCell>
               <TableCell>
                 <div className={css.icons}>

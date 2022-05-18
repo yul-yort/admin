@@ -18,6 +18,7 @@ export interface IOrderAgency
 export interface IOrderItemResponseDTO extends IOrderItemEntity {}
 
 export interface IOrderItemRequestParams {
+  agencyId?: ID;
   origin?: string;
   destination?: string;
 }

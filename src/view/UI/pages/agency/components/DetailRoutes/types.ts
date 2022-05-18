@@ -1,3 +1,5 @@
+import { IOrderItemEntity } from "../../../../../../data/entities/Order/types";
+
 export interface IRoutesHeader {
   handleCreateRouteClick: () => void;
 }
@@ -9,9 +11,12 @@ export interface IRoute {
   price: number;
 }
 
-//TODO: исправить any
 export interface IAgencyRoutes {
   handleEditRouteClick: (id: string) => void;
-  agencyRoutes: Array<IRoute>;
+  agencyOrders: IOrderItemEntity[];
   handleDeleteRouteClick: (id: string) => void;
+}
+
+export interface IDetailOrders {
+  agencyOrders: IOrderItemEntity[];
 }

@@ -5,5 +5,4 @@ import {
 
 export interface IOrderService {
   getList: (params?: IOrderItemRequestParams) => Promise<IOrderItemEntity[]>;
-  getAgencyRoutesList: (id: ID) => void;
 }

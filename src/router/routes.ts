@@ -37,8 +37,6 @@ const routes: IRoutes = [
           const { store, params } = props;
 
           await store.agency.getAgency(params);
-          // получить маршруты
-          console.log(store.order.getAgencyRoutesList("1"));
 
           setDocumentTitle(store.agency.agency?.agencyName);
         },

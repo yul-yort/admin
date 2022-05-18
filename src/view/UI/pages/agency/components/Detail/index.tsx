@@ -15,6 +15,7 @@ import { useTitle } from "../../../../hooks/useTitle";
 
 export const Detail: FC<IDetail> = ({
   agency: { id, agencyName, phones = [], createDate, description, editedDate },
+  agencyOrders,
   editAgency,
   deleteAgency,
   editLoading,
@@ -127,7 +128,7 @@ export const Detail: FC<IDetail> = ({
             description={description}
           />
 
-          <DetailRoutes />
+          <DetailRoutes agencyOrders={agencyOrders} />
         </div>
       </Paper>
 
