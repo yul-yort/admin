@@ -8,7 +8,10 @@ import { useForm } from "react-hook-form";
 import { IOrdersCreateFormFields } from "./CreateOrder/types";
 import { IDetailOrders } from "./types";
 
-export const DetailOrders: FC<IDetailOrders> = ({ agencyOrders }) => {
+export const DetailOrders: FC<IDetailOrders> = ({
+  agencyOrders,
+  deleteOrder,
+}) => {
   const [showModal, setShowModal] = useState(false);
   const [titleModal, setTitleModal] = useState("");
   const [defaultValues, setDefaultValues] =
@@ -43,9 +46,8 @@ export const DetailOrders: FC<IDetailOrders> = ({ agencyOrders }) => {
     setTitleModal("Редактировать поездку");
   };
 
-  const handleDeleteOrderClick = (id: string) => {
-    //TODO:  удаление агенства
-    console.log(id);
+  const handleDeleteOrderClick = async (id: string) => {
+    await deleteOrder(id);
   };
 
   const changeDefaultValues = (id: string) => {

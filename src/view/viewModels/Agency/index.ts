@@ -58,6 +58,7 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
       unsetLoadingItem: action,
       setEditLoading: action,
       unsetEditLoading: action,
+      deleteOrder: action,
     });
   }
 
@@ -150,6 +151,21 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
 
       runInAction(() => {
         this._agencies = list;
+      });
+    } catch (err) {
+      this.setError(err);
+    } finally {
+      this.unsetLoading();
+    }
+  };
+
+  deleteOrder = async (id: ID) => {
+    this.setLoading();
+    try {
+      const orders = await this.orderService.deleteOrder(id);
+      this.notify.successNotification(`Поездка удалена`);
+      runInAction(() => {
+        this.agencyOrders = orders;
       });
     } catch (err) {
       this.setError(err);

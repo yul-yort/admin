@@ -13,4 +13,8 @@ export class OrderService implements IOrderService {
   ): Promise<IOrderItemEntity[]> => {
     return this.repository.getList(params);
   };
+
+  async deleteOrder(id: ID): Promise<IOrderItemEntity[]> {
+    return await this.repository.deleteOrder(id);
+  }
 }

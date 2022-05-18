@@ -31,6 +31,7 @@ const Agency: FC = observer(() => {
             deleteAgency={agencyVM.deleteAgency}
             editLoading={agencyVM.editLoading}
             agencyOrders={agencyVM.agencyOrders}
+            deleteOrder={agencyVM.deleteOrder}
           />
         )}
     </div>

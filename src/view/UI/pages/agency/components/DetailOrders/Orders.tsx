@@ -28,42 +28,51 @@ export const Orders: FC<IAgencyOrders> = ({
     $deleteButton && handleDeleteOrder($deleteButton.dataset.deleteId);
   };
   return (
-    <TableContainer>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell>ОТКУДА</TableCell>
-            <TableCell>КУДА</TableCell>
-            <TableCell>ЦЕНА</TableCell>
-            <TableCell />
-          </TableRow>
-        </TableHead>
-        <TableBody onClick={handleClickRow}>
-          {agencyOrders.map(({ id, route, price, currencyISO }) => (
-            <TableRow key={id} className={css.tableRow}>
-              <TableCell>{route.origin.name}</TableCell>
-              <TableCell>{route.destination.name}</TableCell>
-              <TableCell>
-                {price} {getCurrency(currencyISO)}
-              </TableCell>
-              <TableCell>
-                <div className={css.icons}>
-                  <IconButton aria-label="edit order" data-edit-id={id}>
-                    <EditRoundedIcon fontSize="small" />
-                  </IconButton>
-                  <IconButton
-                    aria-label="delete order"
-                    data-delete-id={id}
-                    color="error"
-                  >
-                    <DeleteForeverIcon fontSize="small" />
-                  </IconButton>
-                </div>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <>
+      {agencyOrders.length ? (
+        <TableContainer>
+          <Table size="small">
+            <TableHead>
+              <TableRow>
+                <TableCell>ОТКУДА</TableCell>
+                <TableCell>КУДА</TableCell>
+                <TableCell>ЦЕНА</TableCell>
+                <TableCell />
+              </TableRow>
+            </TableHead>
+
+            <TableBody onClick={handleClickRow}>
+              {agencyOrders.map(({ id, route, price, currencyISO }) => (
+                <TableRow key={id} className={css.tableRow}>
+                  <TableCell>{route.origin.name}</TableCell>
+                  <TableCell>{route.destination.name}</TableCell>
+                  <TableCell>
+                    {price} {getCurrency(currencyISO)}
+                  </TableCell>
+                  <TableCell>
+                    <div className={css.icons}>
+                      <IconButton aria-label="edit order" data-edit-id={id}>
+                        <EditRoundedIcon fontSize="small" />
+                      </IconButton>
+                      <IconButton
+                        aria-label="delete order"
+                        data-delete-id={id}
+                        color="error"
+                      >
+                        <DeleteForeverIcon fontSize="small" />
+                      </IconButton>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      ) : (
+        <div>
+          <h1>Поездки не найдены!</h1>
+        </div>
+      )}
+    </>
   );
 };

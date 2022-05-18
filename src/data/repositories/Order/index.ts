@@ -18,4 +18,8 @@ export class OrderRepository
       params
     );
   }
+
+  async deleteOrder(id: ID): Promise<IOrderItemResponseDTO[]> {
+    return await this.api.delete(EEndpoints.DELETE_ORDER, id);
+  }
 }
