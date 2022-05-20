@@ -70,7 +70,7 @@ export const Orders: FC<IAgencyOrders> = ({
         </TableContainer>
       ) : (
         <div>
-          <h1>Поездки не найдены!</h1>
+          <h3>Поездки не найдены!</h3>
         </div>
       )}
     </>

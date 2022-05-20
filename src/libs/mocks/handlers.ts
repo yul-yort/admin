@@ -112,10 +112,13 @@ export const handlers = [
 
   rest.delete<string>(EEndpoints.DELETE_ORDER, (req, res, ctx) => {
     const id = JSON.parse(req.body);
-
     const result = orders.filter((order) => order.id !== id);
+    const status = result.length !== orders.length ? 200 : 404;
 
-    const status = Object.keys(result).length ? 200 : 404;
-    return res(ctx.json(result), ctx.delay(getTimeout()), ctx.status(status));
+    return res(
+      ctx.json<IOrderItemResponseDTO[]>(result),
+      ctx.delay(getTimeout()),
+      ctx.status(status)
+    );
   }),
 ];
