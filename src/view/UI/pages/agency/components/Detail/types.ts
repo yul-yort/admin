@@ -7,4 +7,5 @@ export interface IDetail
   agency: IAgencyEntity;
   agencyOrders: IOrderItemEntity[];
   deleteOrder: (id: ID) => Promise<void>;
+  ordersLoading: boolean;
 }

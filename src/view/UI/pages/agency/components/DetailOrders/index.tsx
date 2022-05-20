@@ -7,10 +7,12 @@ import { CreateOrder } from "./CreateOrder";
 import { useForm } from "react-hook-form";
 import { IOrdersCreateFormFields } from "./CreateOrder/types";
 import { IDetailOrders } from "./types";
+import Loading from "../../../../components/common/Loading";
 
 export const DetailOrders: FC<IDetailOrders> = ({
   agencyOrders,
   deleteOrder,
+  ordersLoading,
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [titleModal, setTitleModal] = useState("");
@@ -65,12 +67,19 @@ export const DetailOrders: FC<IDetailOrders> = ({
 
   return (
     <Paper className={sharedCss.block} variant="outlined">
-      <OrdersHeader handleCreateOrder={handleCreateOrderClick} />
-      <Orders
-        handleEditOrder={handleEditOrderClick}
-        agencyOrders={agencyOrders}
-        handleDeleteOrder={handleDeleteOrderClick}
+      <OrdersHeader
+        handleCreateOrder={handleCreateOrderClick}
+        ordersLoading={ordersLoading}
       />
+      {!ordersLoading ? (
+        <Orders
+          handleEditOrder={handleEditOrderClick}
+          agencyOrders={agencyOrders}
+          handleDeleteOrder={handleDeleteOrderClick}
+        />
+      ) : (
+        <Loading />
+      )}
       <CreateOrder
         orderID={orderID}
         methods={methods}

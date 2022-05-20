@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite";
 import { useViewModel } from "../../hooks/useViewModel";
 import { Detail } from "./components/Detail";
 import Error from "../../components/shared/Error";
-import Loading from "./components/Loading";
+import Loading from "../../components/common/Loading";
 import { IAgencyVM } from "../../../viewModels/Agency/types";
 
 const Agency: FC = observer(() => {
@@ -32,6 +32,7 @@ const Agency: FC = observer(() => {
             editLoading={agencyVM.editLoading}
             agencyOrders={agencyVM.agencyOrders}
             deleteOrder={agencyVM.deleteOrder}
+            ordersLoading={agencyVM.ordersLoading}
           />
         )}
     </div>
