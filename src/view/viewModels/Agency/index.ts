@@ -15,9 +15,11 @@ import { ICreateOrEditAgencyFormFields } from "../../UI/components/shared/Agency
 import { VMPhonesRequestFormatter } from "src/view/UI/components/shared/AgencyCreateEditForm/mappers";
 import { IOrderService } from "../../../data/services/Order/types";
 import { IOrderItemEntity } from "../../../data/entities/Order/types";
+import { errorMapper } from "../mappers";
 
 export class AgencyVM extends BaseVM implements IAgencyVM {
   editLoading: boolean = false;
+  ordersLoading: boolean = false;
   loadingList: ID[] = [];
 
   agency: IAgencyEntity | null = null;
@@ -54,24 +56,15 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
       editAgency: action,
       getList: action,
       createAgency: action,
-      setLoadingItem: action,
-      unsetLoadingItem: action,
-      setEditLoading: action,
-      unsetEditLoading: action,
+      deleteOrder: action,
     });
   }
 
-  searchAgency = (value: string) => {
-    this.searchValue = value.toLocaleLowerCase();
-  };
-
-  isLoadingItem = (id: ID) => this.loadingList.indexOf(id) !== -1;
-
-  setLoadingItem = (id: ID) => {
+  private setLoadingItem = (id: ID) => {
     this.loadingList.push(id);
   };
 
-  unsetLoadingItem = (id: ID) => {
+  private unsetLoadingItem = (id: ID) => {
     const index = this.loadingList.indexOf(id);
 
     if (index >= 0) {
@@ -79,12 +72,18 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
     }
   };
 
-  setEditLoading = () => {
+  private setEditLoading = () => {
     this.editLoading = true;
   };
 
-  unsetEditLoading = () => {
+  private unsetEditLoading = () => {
     this.editLoading = false;
+  };
+
+  isLoadingItem = (id: ID) => this.loadingList.indexOf(id) !== -1;
+
+  searchAgency = (value: string) => {
+    this.searchValue = value.toLocaleLowerCase();
   };
 
   getAgency = async (params: IAgencyRequestParams) => {
@@ -115,8 +114,9 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
       this.agency = await this.service.editAgency(fields);
       this.notify.successNotification("Данные сохранены");
     } catch (err) {
-      // @ts-ignore
-      const message = `${err?.name} ${err?.message}`;
+      const error = errorMapper(err);
+
+      const message = `${error?.name} ${error?.message}`;
       this.notify.errorNotification(message);
 
       throw err;
@@ -153,6 +153,28 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
       });
     } catch (err) {
       this.setError(err);
+    } finally {
+      this.unsetLoading();
+    }
+  };
+
+  // TODO отдельный loading для списка поездок. Сделать по примеру editAgency с 110 строки.
+  // TODO не устанавливать ошибку на всю view model. Сделать по примеру editAgency с 110 строки.
+  deleteOrder = async (id: ID) => {
+    this.setLoading();
+
+    try {
+      const orders = await this.orderService.deleteOrder(id);
+      this.notify.successNotification(`Поездка удалена`);
+      runInAction(() => {
+        this.agencyOrders = orders;
+      });
+    } catch (err) {
+      // @ts-ignore
+      const message = `${err?.name} ${err?.message}`;
+      this.notify.errorNotification(message);
+
+      throw err;
     } finally {
       this.unsetLoading();
     }

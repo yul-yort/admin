@@ -1,10 +1,7 @@
 import { IError } from "../types";
 
 export const errorMapper = (err: unknown): IError => {
-  let error: IError = {
-    name: "",
-    message: "",
-  };
+  let error: IError;
 
   if (err instanceof Error) {
     error = {
@@ -13,11 +10,16 @@ export const errorMapper = (err: unknown): IError => {
     };
   } else if (typeof err === "string") {
     error = {
-      name: "Неопределенная ошибка",
+      name: "Неопознанная ошибка",
       message: err,
     };
   } else {
-    throw new Error("Не удалось распознать ошибку");
+    const newError = new Error("Неопознанная ошибка");
+
+    error = {
+      name: newError.name,
+      message: newError.message,
+    };
   }
 
   return error;

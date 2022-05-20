@@ -9,4 +9,5 @@ export enum EEndpoints {
   LOGIN = "/login",
   LOGOUT = "/logout",
   ORDERS_LIST = "/order-list",
+  DELETE_ORDER = "/delete-order",
 }

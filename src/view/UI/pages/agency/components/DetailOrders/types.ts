@@ -19,4 +19,5 @@ export interface IAgencyOrders {
 
 export interface IDetailOrders {
   agencyOrders: IOrderItemEntity[];
+  deleteOrder: (id: ID) => Promise<void>;
 }

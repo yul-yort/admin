@@ -6,4 +6,5 @@ export interface IDetail
   extends Pick<IAgencyVM, "editAgency" | "editLoading" | "deleteAgency"> {
   agency: IAgencyEntity;
   agencyOrders: IOrderItemEntity[];
+  deleteOrder: (id: ID) => Promise<void>;
 }
