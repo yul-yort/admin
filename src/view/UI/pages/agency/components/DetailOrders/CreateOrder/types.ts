@@ -7,7 +7,7 @@ export interface ICreateOrders {
   titleModal: string;
   methods: UseFormReturn<IOrdersCreateFormFields>;
   orderID: string;
-  addOrder: (fields: IOrdersCreateFormFields) => void;
+  createOrder: (fields: IOrdersCreateFormFields) => void;
 }
 
 export interface IOrdersCreateModal {

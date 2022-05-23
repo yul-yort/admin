@@ -9,7 +9,7 @@ export const CreateOrder: FC<ICreateOrders> = ({
   titleModal,
   methods,
   orderID,
-  addOrder,
+  createOrder,
 }) => {
   //FIXME: добавить loading
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
@@ -51,12 +51,13 @@ export const CreateOrder: FC<ICreateOrders> = ({
   };
 
   //handleOrderEdit
-  const handleOrderCreate = async (fields: IOrdersCreateFormFields) => {
+  const handleOrderEdit = async (fields: IOrdersCreateFormFields) => {
     if (orderID) {
       console.log("edit", fields);
-    } else {
-      await addOrder(fields);
     }
+  };
+  const handleOrderCreate = async (fields: IOrdersCreateFormFields) => {
+    await createOrder(fields);
     reset();
     handleCloseModal();
   };

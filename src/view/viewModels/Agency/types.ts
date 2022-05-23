@@ -29,5 +29,5 @@ export interface IAgencyVM extends IBaseVM {
   searchAgency: (value: string) => void;
   getList: () => Promise<void>;
   deleteOrder: (id: ID) => Promise<void>;
-  addOrder: (fields: IOrdersCreateFormFields) => void;
+  createOrder: (fields: IOrdersCreateFormFields) => void;
 }

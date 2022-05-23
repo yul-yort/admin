@@ -9,5 +9,5 @@ export interface IDetail
   agencyOrders: IOrderItemEntity[];
   deleteOrder: (id: ID) => Promise<void>;
   ordersLoading: boolean;
-  addOrder: (fields: IOrdersCreateFormFields) => void;
+  createOrder: (fields: IOrdersCreateFormFields) => void;
 }
