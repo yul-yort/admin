@@ -169,12 +169,15 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
 
   deleteOrder = async (id: ID) => {
     this.setOrdersLoading();
+
     try {
       const orders = await this.orderService.deleteOrder(id);
-      this.notify.successNotification(`Поездка удалена`);
+
       runInAction(() => {
         this.agencyOrders = orders;
       });
+
+      this.notify.successNotification(`Поездка удалена`);
     } catch (err) {
       const error = errorMapper(err);
       const message = `${error?.name} ${error?.message}`;
