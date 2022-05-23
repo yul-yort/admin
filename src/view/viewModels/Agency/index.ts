@@ -16,6 +16,7 @@ import { VMPhonesRequestFormatter } from "src/view/UI/components/shared/AgencyCr
 import { IOrderService } from "../../../data/services/Order/types";
 import { IOrderItemEntity } from "../../../data/entities/Order/types";
 import { errorMapper } from "../mappers";
+import { IOrdersCreateFormFields } from "src/view/UI/pages/agency/components/DetailOrders/CreateOrder/types";
 
 export class AgencyVM extends BaseVM implements IAgencyVM {
   editLoading: boolean = false;
@@ -165,6 +166,12 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
     } finally {
       this.unsetLoading();
     }
+  };
+
+  addOrder = async (fields: IOrdersCreateFormFields) => {
+    try {
+      console.log("super", fields);
+    } catch (err) {}
   };
 
   deleteOrder = async (id: ID) => {
