@@ -6,7 +6,7 @@ import { ILocalityService } from "src/data/services/Locality/types";
 import { ILocalityVM } from "./types";
 
 export class LocalityVM extends BaseVM implements ILocalityVM {
-  localities: ILocalityEntity[] | null = [];
+  localities: ILocalityEntity[] | null = null;
 
   constructor(
     notificationsVM: INotificationsVM,
