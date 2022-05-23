@@ -51,11 +51,12 @@ export const CreateOrder: FC<ICreateOrders> = ({
   };
 
   //handleOrderEdit
-  const handleOrderEdit = async (fields: IOrdersCreateFormFields) => {
-    if (orderID) {
-      console.log("edit", fields);
-    }
-  };
+  // const handleOrderEdit = async (fields: IOrdersCreateFormFields) => {
+  //   if (orderID) {
+  //     console.log("edit", fields);
+  //   }
+  // };
+
   const handleOrderCreate = async (fields: IOrdersCreateFormFields) => {
     await createOrder(fields);
     reset();

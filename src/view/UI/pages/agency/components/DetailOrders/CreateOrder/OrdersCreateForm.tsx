@@ -1,11 +1,11 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { TextField, Button } from "@mui/material";
-import Autocomplete from "@mui/material/Autocomplete";
 import { useFormContext } from "react-hook-form";
 import { IOrdersCreateForm, IOrdersCreateFormFields } from "./types";
 import { getErrorText } from "src/libs/utils";
 import { CONSTANTS } from "src/constants/globalConstants";
 import css from "./styles.module.scss";
+import Autocomplete from "@mui/material/Autocomplete";
 
 const pointsData = [
   {
@@ -13,18 +13,19 @@ const pointsData = [
     name: "Уфа",
   },
   {
-    id: "1",
+    id: "2",
     name: "Сибай",
   },
   {
-    id: "1",
+    id: "3",
     name: "Акъяр",
   },
   {
-    id: "1",
+    id: "4",
     name: "Ишембай",
   },
 ];
+
 //TODO нужно сделать обязательное поле "Выбор валюты". (https://trello.com/c/wXEG7n0j)
 export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
   onSave,
@@ -36,49 +37,59 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
     formState: { errors, isSubmitting, isDirty },
   } = useFormContext<IOrdersCreateFormFields>();
 
-  const [value, setValue] = useState(null);
   return (
     <form onSubmit={handleSubmit(onSave)}>
       <div className={css.row}>
         <Autocomplete
-          value={value}
           size="small"
           fullWidth
           disablePortal
-          id="combo-box-demo"
+          id="origin"
           options={pointsData}
           getOptionLabel={(option) => {
-            // Value selected with enter, right from the input
-            if (typeof option === "string") {
-              return option;
-            }
-            // Add "xxx" option created dynamically
-            // if (option.inputValue) {
-            //   return option.inputValue;
-            // }
-            // Regular option
             return option.name;
           }}
           renderOption={(props, option) => <li {...props}>{option.name}</li>}
-          sx={{ width: 300 }}
-          renderInput={(params) => <TextField {...params} label="Movie" />}
+          noOptionsText={"К сожалению ничего не найдено"}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              {...register("origin", {
+                required: true,
+              })}
+              error={!!getErrorText(errors, "origin")}
+              helperText={getErrorText(errors, "origin")}
+              label="Откуда"
+              placeholder="Откуда"
+            />
+          )}
         />
       </div>
 
       <div className={css.row}>
-        <TextField
-          id="destination"
-          label="Куда"
-          placeholder="Куда"
-          variant="outlined"
+        <Autocomplete
           size="small"
           fullWidth
-          error={!!getErrorText(errors, "destination")}
-          disabled={isSubmitting}
-          helperText={getErrorText(errors, "destination")}
-          {...register("destination", {
-            required: true,
-          })}
+          disablePortal
+          id="destination"
+          options={pointsData}
+          getOptionLabel={(option) => {
+            return option.name;
+          }}
+          renderOption={(props, option) => <li {...props}>{option.name}</li>}
+          noOptionsText={"К сожалению ничего не найдено"}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              {...register("destination", {
+                required: true,
+              })}
+              error={!!getErrorText(errors, "destination")}
+              helperText={getErrorText(errors, "destination")}
+              label="Куда"
+              placeholder="Куда"
+            />
+          )}
         />
       </div>
 
