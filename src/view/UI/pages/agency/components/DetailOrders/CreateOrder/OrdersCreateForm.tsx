@@ -24,6 +24,18 @@ const pointsData = [
     id: "4",
     name: "Ишембай",
   },
+  {
+    id: "20",
+    name: "Сибай 1",
+  },
+  {
+    id: "30",
+    name: "Акъяр 2",
+  },
+  {
+    id: "40",
+    name: "Ишембай 3",
+  },
 ];
 
 //TODO нужно сделать обязательное поле "Выбор валюты". (https://trello.com/c/wXEG7n0j)
@@ -45,13 +57,14 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
         <Autocomplete
           size="small"
           fullWidth
-          disablePortal
           id="origin"
           options={pointsData}
-          getOptionLabel={(option) => {
-            return option.name;
-          }}
-          renderOption={(props, option) => <li {...props}>{option.name}</li>}
+          getOptionLabel={(option) => option.name}
+          renderOption={(props, option) => (
+            <li {...props} key={option.id}>
+              {option.name}
+            </li>
+          )}
           noOptionsText={noOptionsText}
           renderInput={(params) => (
             <TextField
@@ -72,13 +85,14 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
         <Autocomplete
           size="small"
           fullWidth
-          disablePortal
           id="destination"
           options={pointsData}
-          getOptionLabel={(option) => {
-            return option.name;
-          }}
-          renderOption={(props, option) => <li {...props}>{option.name}</li>}
+          getOptionLabel={(option) => option.name}
+          renderOption={(props, option) => (
+            <li {...props} key={option.id}>
+              {option.name}
+            </li>
+          )}
           noOptionsText={noOptionsText}
           renderInput={(params) => (
             <TextField
