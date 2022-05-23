@@ -37,6 +37,8 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
     formState: { errors, isSubmitting, isDirty },
   } = useFormContext<IOrdersCreateFormFields>();
 
+  const noOptionsText: string = "Не найдено";
+
   return (
     <form onSubmit={handleSubmit(onSave)}>
       <div className={css.row}>
@@ -50,7 +52,7 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
             return option.name;
           }}
           renderOption={(props, option) => <li {...props}>{option.name}</li>}
-          noOptionsText={"К сожалению ничего не найдено"}
+          noOptionsText={noOptionsText}
           renderInput={(params) => (
             <TextField
               {...params}
@@ -77,7 +79,7 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
             return option.name;
           }}
           renderOption={(props, option) => <li {...props}>{option.name}</li>}
-          noOptionsText={"К сожалению ничего не найдено"}
+          noOptionsText={noOptionsText}
           renderInput={(params) => (
             <TextField
               {...params}
