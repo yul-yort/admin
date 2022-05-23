@@ -3,12 +3,13 @@ import {
   IAgencyItemResponseDTO,
   IAgencyResponseDTO,
 } from "../../data/entities/Agency/types";
-import { agencies, orders } from "./data";
+import { agencies, localities, orders } from "./data";
 import { getTimeout } from "./utils/getTimeout";
 import { EEndpoints } from "../../constants/Endpoints";
 import { getAuthCookie } from "./utils/getAuthCookie";
 import { v4 as uuid } from "uuid";
 import { IOrderItemResponseDTO } from "../../data/entities/Order/types";
+import { ILocalityDTO } from "../../data/entities/Locality/types";
 
 export const handlers = [
   rest.get(EEndpoints.AGENCY, (req, res, ctx) => {
@@ -110,7 +111,7 @@ export const handlers = [
     );
   }),
 
-  rest.delete<string>(EEndpoints.DELETE_ORDER, (req, res, ctx) => {
+  rest.delete<string>(EEndpoints.ORDER_DELETE, (req, res, ctx) => {
     const id = JSON.parse(req.body);
     const result = orders.filter((order) => order.id !== id);
     const status = result.length !== orders.length ? 200 : 404;
@@ -119,6 +120,14 @@ export const handlers = [
       ctx.json<IOrderItemResponseDTO[]>(result),
       ctx.delay(getTimeout()),
       ctx.status(status)
+    );
+  }),
+
+  rest.get(EEndpoints.LOCALITY_LIST, (req, res, ctx) => {
+    return res(
+      ctx.json<ILocalityDTO[]>(localities),
+      ctx.delay(getTimeout()),
+      ctx.status(200)
     );
   }),
 ];

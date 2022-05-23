@@ -2,6 +2,7 @@ import { IServices, IStoreRepositories, IStoreServices } from "./types";
 import { AgencyService } from "../data/services/Agency";
 import { UserService } from "../data/services/User";
 import { OrderService } from "../data/services/Order";
+import { LocalityService } from "../data/services/Locality";
 
 export class ServicesStore implements IStoreServices {
   private services: IServices = {};
@@ -28,6 +29,14 @@ export class ServicesStore implements IStoreServices {
     }
 
     return this.services.order;
+  }
+
+  get locality() {
+    if (!this.services.locality) {
+      this.services.locality = new LocalityService(this.repositories.locality);
+    }
+
+    return this.services.locality;
   }
 
   constructor(private repositories: IStoreRepositories) {}
