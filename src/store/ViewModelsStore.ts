@@ -3,6 +3,7 @@ import { AgencyVM } from "../view/viewModels/Agency";
 import { UserVM } from "../view/viewModels/User";
 import { NotificationsVM } from "../view/viewModels/NotificationsVM";
 import { OrderVM } from "../view/viewModels/Order";
+import { LocalityVM } from "../view/viewModels/Locality";
 
 export class ViewModelsStore implements IStoreViewModels {
   private store: IViewModels = {};
@@ -41,6 +42,17 @@ export class ViewModelsStore implements IStoreViewModels {
     }
 
     return this.store.order;
+  }
+
+  get locality() {
+    if (!this.store.locality) {
+      this.store.locality = new LocalityVM(
+        this.notifications,
+        this.services.locality
+      );
+    }
+
+    return this.store.locality;
   }
 
   constructor(private services: IStoreServices) {}

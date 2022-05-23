@@ -20,6 +20,6 @@ export class OrderRepository
   }
 
   async deleteOrder(id: ID): Promise<IOrderItemResponseDTO[]> {
-    return await this.api.delete(EEndpoints.DELETE_ORDER, id);
+    return await this.api.delete(EEndpoints.ORDER_DELETE, id);
   }
 }
