@@ -52,6 +52,7 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
       editLoading: observable,
       loadingList: observable,
       searchValue: observable,
+      ordersLoading: observable,
       getAgency: action,
       editAgency: action,
       getList: action,
@@ -78,6 +79,14 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
 
   private unsetEditLoading = () => {
     this.editLoading = false;
+  };
+
+  private setOrdersLoading = () => {
+    this.ordersLoading = true;
+  };
+
+  private unsetOrdersLoading = () => {
+    this.ordersLoading = false;
   };
 
   isLoadingItem = (id: ID) => this.loadingList.indexOf(id) !== -1;
@@ -158,25 +167,23 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
     }
   };
 
-  // TODO отдельный loading для списка поездок. Сделать по примеру editAgency с 110 строки.
-  // TODO не устанавливать ошибку на всю view model. Сделать по примеру editAgency с 110 строки.
   deleteOrder = async (id: ID) => {
-    this.setLoading();
+    this.setOrdersLoading();
 
     try {
       const orders = await this.orderService.deleteOrder(id);
-      this.notify.successNotification(`Поездка удалена`);
+
       runInAction(() => {
         this.agencyOrders = orders;
       });
-    } catch (err) {
-      // @ts-ignore
-      const message = `${err?.name} ${err?.message}`;
-      this.notify.errorNotification(message);
 
-      throw err;
+      this.notify.successNotification(`Поездка удалена`);
+    } catch (err) {
+      const error = errorMapper(err);
+      const message = `${error?.name} ${error?.message}`;
+      this.notify.errorNotification(message);
     } finally {
-      this.unsetLoading();
+      this.unsetOrdersLoading();
     }
   };
 

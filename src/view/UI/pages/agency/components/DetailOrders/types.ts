@@ -2,6 +2,7 @@ import { IOrderItemEntity } from "src/data/entities/Order/types";
 
 export interface IOrdersHeader {
   handleCreateOrder: () => void;
+  ordersLoading: boolean;
 }
 
 export interface IOrder {
@@ -20,4 +21,5 @@ export interface IAgencyOrders {
 export interface IDetailOrders {
   agencyOrders: IOrderItemEntity[];
   deleteOrder: (id: ID) => Promise<void>;
+  ordersLoading: boolean;
 }

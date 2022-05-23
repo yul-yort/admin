@@ -20,6 +20,7 @@ export const Detail: FC<IDetail> = ({
   deleteAgency,
   editLoading,
   deleteOrder,
+  ordersLoading,
 }) => {
   const { navigate } = useRouter();
 
@@ -129,7 +130,11 @@ export const Detail: FC<IDetail> = ({
             description={description}
           />
 
-          <DetailOrders deleteOrder={deleteOrder} agencyOrders={agencyOrders} />
+          <DetailOrders
+            ordersLoading={ordersLoading}
+            deleteOrder={deleteOrder}
+            agencyOrders={agencyOrders}
+          />
         </div>
       </Paper>
 
