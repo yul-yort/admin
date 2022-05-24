@@ -25,9 +25,3 @@ export interface IOrdersCreateForm
 
 export interface IOrdersCreateFormFields
   extends Pick<IOrder, "origin" | "destination" | "price"> {}
-
-export interface IOrderOptionPoint {
-  inputValue?: string;
-  name: string;
-  id: string;
-}

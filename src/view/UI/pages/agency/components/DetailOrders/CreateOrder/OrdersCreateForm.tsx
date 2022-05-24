@@ -1,11 +1,7 @@
 import { FC, useState } from "react";
 import { TextField, Button } from "@mui/material";
 import { useFormContext } from "react-hook-form";
-import {
-  IOrderOptionPoint,
-  IOrdersCreateForm,
-  IOrdersCreateFormFields,
-} from "./types";
+import { IOrdersCreateForm, IOrdersCreateFormFields } from "./types";
 import { getErrorText } from "src/libs/utils";
 import { CONSTANTS } from "src/constants/globalConstants";
 import css from "./styles.module.scss";
@@ -54,11 +50,6 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
   } = useFormContext<IOrdersCreateFormFields>();
 
   const noOptionsText: string = "Не найдено";
-  const [originValue, setOriginValue] = useState<IOrderOptionPoint | null>(
-    null
-  );
-  const [destinatioValue, setDestinatioValue] =
-    useState<IOrderOptionPoint | null>(null);
   const [originID, setOriginID] = useState("");
   const [destinationID, setDestinationID] = useState("");
 
@@ -78,7 +69,6 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
     <form onSubmit={handleSubmit(onSave)}>
       <div className={css.row}>
         <Autocomplete
-          value={originValue}
           size="small"
           fullWidth
           id="origin"
@@ -91,7 +81,6 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
           )}
           noOptionsText={noOptionsText}
           onChange={(event, newValue) => {
-            setOriginValue(newValue);
             if (newValue && newValue.id) {
               const originID = newValue.id;
               setOriginID(originID);
@@ -101,6 +90,7 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
           }}
           renderInput={(params) => (
             <TextField
+              autoFocus
               {...params}
               {...register("origin", {
                 required: true,
@@ -117,7 +107,6 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
 
       <div className={css.row}>
         <Autocomplete
-          value={destinatioValue}
           size="small"
           fullWidth
           id="destination"
@@ -130,7 +119,6 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
           )}
           noOptionsText={noOptionsText}
           onChange={(event, newValue) => {
-            setDestinatioValue(newValue);
             if (newValue && newValue.id) {
               const destinationID = newValue.id;
               setDestinationID(destinationID);
