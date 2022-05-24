@@ -1,7 +1,11 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { TextField, Button } from "@mui/material";
 import { useFormContext } from "react-hook-form";
-import { IOrdersCreateForm, IOrdersCreateFormFields } from "./types";
+import {
+  IOrderOptionPoint,
+  IOrdersCreateForm,
+  IOrdersCreateFormFields,
+} from "./types";
 import { getErrorText } from "src/libs/utils";
 import { CONSTANTS } from "src/constants/globalConstants";
 import css from "./styles.module.scss";
@@ -49,14 +53,32 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
     formState: { errors, isSubmitting, isDirty },
   } = useFormContext<IOrdersCreateFormFields>();
 
+  const noOptionsText: string = "Не найдено";
+  const [originValue, setOriginValue] = useState<IOrderOptionPoint | null>(
+    null
+  );
+  const [destinatioValue, setDestinatioValue] =
+    useState<IOrderOptionPoint | null>(null);
   const [originID, setOriginID] = useState("");
   const [destinationID, setDestinationID] = useState("");
 
-  const noOptionsText: string = "Не найдено";
+  if (originID) {
+    if (errors.origin) {
+      delete errors.origin;
+    }
+  }
+
+  if (destinationID) {
+    if (errors.destination) {
+      delete errors.destination;
+    }
+  }
+
   return (
     <form onSubmit={handleSubmit(onSave)}>
       <div className={css.row}>
         <Autocomplete
+          value={originValue}
           size="small"
           fullWidth
           id="origin"
@@ -69,9 +91,12 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
           )}
           noOptionsText={noOptionsText}
           onChange={(event, newValue) => {
+            setOriginValue(newValue);
             if (newValue && newValue.id) {
               const originID = newValue.id;
               setOriginID(originID);
+            } else {
+              setOriginID("");
             }
           }}
           renderInput={(params) => (
@@ -92,6 +117,7 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
 
       <div className={css.row}>
         <Autocomplete
+          value={destinatioValue}
           size="small"
           fullWidth
           id="destination"
@@ -104,9 +130,12 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
           )}
           noOptionsText={noOptionsText}
           onChange={(event, newValue) => {
+            setDestinatioValue(newValue);
             if (newValue && newValue.id) {
               const destinationID = newValue.id;
               setDestinationID(destinationID);
+            } else {
+              setDestinationID("");
             }
           }}
           renderInput={(params) => (
