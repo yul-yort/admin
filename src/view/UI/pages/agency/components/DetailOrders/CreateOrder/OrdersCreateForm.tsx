@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { TextField, Button } from "@mui/material";
 import { useFormContext } from "react-hook-form";
 import { IOrdersCreateForm, IOrdersCreateFormFields } from "./types";
@@ -49,8 +49,10 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
     formState: { errors, isSubmitting, isDirty },
   } = useFormContext<IOrdersCreateFormFields>();
 
-  const noOptionsText: string = "Не найдено";
+  const [originID, setOriginID] = useState("");
+  const [destinationID, setDestinationID] = useState("");
 
+  const noOptionsText: string = "Не найдено";
   return (
     <form onSubmit={handleSubmit(onSave)}>
       <div className={css.row}>
@@ -66,11 +68,18 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
             </li>
           )}
           noOptionsText={noOptionsText}
+          onChange={(event, newValue) => {
+            if (newValue && newValue.id) {
+              const originID = newValue.id;
+              setOriginID(originID);
+            }
+          }}
           renderInput={(params) => (
             <TextField
               {...params}
               {...register("origin", {
                 required: true,
+                value: originID,
               })}
               error={!!getErrorText(errors, "origin")}
               helperText={getErrorText(errors, "origin")}
@@ -94,11 +103,18 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
             </li>
           )}
           noOptionsText={noOptionsText}
+          onChange={(event, newValue) => {
+            if (newValue && newValue.id) {
+              const destinationID = newValue.id;
+              setDestinationID(destinationID);
+            }
+          }}
           renderInput={(params) => (
             <TextField
               {...params}
               {...register("destination", {
                 required: true,
+                value: destinationID,
               })}
               error={!!getErrorText(errors, "destination")}
               helperText={getErrorText(errors, "destination")}
