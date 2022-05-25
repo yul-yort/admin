@@ -11,13 +11,20 @@
   display: flex;
   flex-direction: column;
   padding: calc(var(--yy-base) * 4) calc(var(--yy-base) * 4);
-  max-width: calc(var(--yy-base) * 150);
+  width: 40%;
   overflow: hidden;
+
+  @media (max-width: 767px) {
+    width: 100%;
+  }
 }
 
 .titleWrapper {
   margin-bottom: calc(var(--yy-base) * 2);
-  margin-right: calc(var(--yy-base4X) * 2);
+  h2 {
+    word-wrap: break-word;
+    margin-right: calc(var(--yy-base3X) * 3);
+  }
 }
 
 .closeButton {
