@@ -1,10 +1,42 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { TextField, Button } from "@mui/material";
 import { useFormContext } from "react-hook-form";
 import { IOrdersCreateForm, IOrdersCreateFormFields } from "./types";
 import { getErrorText } from "src/libs/utils";
 import { CONSTANTS } from "src/constants/globalConstants";
 import css from "./styles.module.scss";
+import Autocomplete from "@mui/material/Autocomplete";
+
+const pointsData = [
+  {
+    id: "1",
+    name: "Уфа",
+  },
+  {
+    id: "2",
+    name: "Сибай",
+  },
+  {
+    id: "3",
+    name: "Акъяр",
+  },
+  {
+    id: "4",
+    name: "Ишембай",
+  },
+  {
+    id: "20",
+    name: "Сибай 1",
+  },
+  {
+    id: "30",
+    name: "Акъяр 2",
+  },
+  {
+    id: "40",
+    name: "Ишембай 3",
+  },
+];
 
 //TODO нужно сделать обязательное поле "Выбор валюты". (https://trello.com/c/wXEG7n0j)
 export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
@@ -14,42 +46,85 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
   const {
     handleSubmit,
     register,
+    clearErrors,
     formState: { errors, isSubmitting, isDirty },
   } = useFormContext<IOrdersCreateFormFields>();
+
+  const noOptionsText: string = "Не найдено";
+  const [originID, setOriginID] = useState("");
+  const [destinationID, setDestinationID] = useState("");
+
+  useEffect(() => {
+    originID && clearErrors("origin");
+    destinationID && clearErrors("destination");
+  }, [originID, destinationID, clearErrors]);
 
   return (
     <form onSubmit={handleSubmit(onSave)}>
       <div className={css.row}>
-        <TextField
-          id="origin"
-          label="Откуда"
-          placeholder="Откуда"
-          variant="outlined"
+        <Autocomplete
           size="small"
           fullWidth
-          autoFocus
-          error={!!getErrorText(errors, "origin")}
-          disabled={isSubmitting}
-          helperText={getErrorText(errors, "origin")}
-          {...register("origin", {
-            required: true,
-          })}
+          id="origin"
+          options={pointsData}
+          getOptionLabel={(option) => option.name}
+          renderOption={(props, option) => (
+            <li {...props} key={option.id}>
+              {option.name}
+            </li>
+          )}
+          noOptionsText={noOptionsText}
+          onChange={(_, newValue) => {
+            const originID = newValue?.id || "";
+            setOriginID(originID);
+          }}
+          renderInput={(params) => (
+            <TextField
+              autoFocus
+              {...params}
+              {...register("origin", {
+                required: true,
+                value: originID,
+              })}
+              error={!!getErrorText(errors, "origin")}
+              helperText={getErrorText(errors, "origin")}
+              label="Откуда"
+              placeholder="Откуда"
+            />
+          )}
         />
       </div>
+
       <div className={css.row}>
-        <TextField
-          id="destination"
-          label="Куда"
-          placeholder="Куда"
-          variant="outlined"
+        <Autocomplete
           size="small"
           fullWidth
-          error={!!getErrorText(errors, "destination")}
-          disabled={isSubmitting}
-          helperText={getErrorText(errors, "destination")}
-          {...register("destination", {
-            required: true,
-          })}
+          id="destination"
+          options={pointsData}
+          getOptionLabel={(option) => option.name}
+          renderOption={(props, option) => (
+            <li {...props} key={option.id}>
+              {option.name}
+            </li>
+          )}
+          noOptionsText={noOptionsText}
+          onChange={(_, newValue) => {
+            const destinationID = newValue?.id || "";
+            setDestinationID(destinationID);
+          }}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              {...register("destination", {
+                required: true,
+                value: destinationID,
+              })}
+              error={!!getErrorText(errors, "destination")}
+              helperText={getErrorText(errors, "destination")}
+              label="Куда"
+              placeholder="Куда"
+            />
+          )}
         />
       </div>
 

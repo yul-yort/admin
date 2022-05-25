@@ -1,4 +1,5 @@
 import { IOrderItemEntity } from "src/data/entities/Order/types";
+import { IOrdersCreateFormFields } from "./CreateOrder/types";
 
 export interface IOrdersHeader {
   handleCreateOrder: () => void;
@@ -22,4 +23,5 @@ export interface IDetailOrders {
   agencyOrders: IOrderItemEntity[];
   deleteOrder: (id: ID) => Promise<void>;
   ordersLoading: boolean;
+  createOrder: (fields: IOrdersCreateFormFields) => void;
 }

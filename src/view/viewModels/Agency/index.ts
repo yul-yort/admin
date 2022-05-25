@@ -16,6 +16,7 @@ import { VMPhonesRequestFormatter } from "src/view/UI/components/shared/AgencyCr
 import { IOrderService } from "../../../data/services/Order/types";
 import { IOrderItemEntity } from "../../../data/entities/Order/types";
 import { errorMapper } from "../mappers";
+import { IOrdersCreateFormFields } from "src/view/UI/pages/agency/components/DetailOrders/CreateOrder/types";
 
 export class AgencyVM extends BaseVM implements IAgencyVM {
   editLoading: boolean = false;
@@ -167,16 +168,19 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
     }
   };
 
+  createOrder = async (fields: IOrdersCreateFormFields) => {
+    try {
+      console.log("super", fields);
+    } catch (error) {}
+  };
+
   deleteOrder = async (id: ID) => {
     this.setOrdersLoading();
-
     try {
       const orders = await this.orderService.deleteOrder(id);
-
       runInAction(() => {
         this.agencyOrders = orders;
       });
-
       this.notify.successNotification(`Поездка удалена`);
     } catch (err) {
       const error = errorMapper(err);

@@ -13,6 +13,7 @@ export const DetailOrders: FC<IDetailOrders> = ({
   agencyOrders,
   deleteOrder,
   ordersLoading,
+  createOrder,
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [titleModal, setTitleModal] = useState("");
@@ -86,6 +87,7 @@ export const DetailOrders: FC<IDetailOrders> = ({
         titleModal={titleModal}
         showModal={showModal}
         handleCloseModal={handleCloseModal}
+        createOrder={createOrder}
       />
     </Paper>
   );
