@@ -7,7 +7,7 @@ export const EmptyList = () => {
     <div className={css.wrapper}>
       <SearchOffRoundedIcon fontSize="large" />
       <Typography variant="h6" align="center">
-        По данному маршруту предложений не найдено
+        Поездки не найдены
       </Typography>
     </div>
   );

@@ -1,0 +1,9 @@
+.phones {
+  display: inline-flex;
+  max-width: calc(var(--yy-base) * 39);
+  flex-direction: column;
+}
+
+.price_cell {
+  white-space: nowrap;
+}
