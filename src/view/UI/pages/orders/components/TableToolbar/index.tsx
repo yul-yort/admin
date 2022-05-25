@@ -28,16 +28,21 @@ const TableToolbar: VFC<ITableToolbar> = ({
     filterByPhone(event.target.value);
   };
 
+  const autocompleteProps = {
+    onOpen: handleOpen,
+    loading: localitiesLoading,
+    options: localitiesLoading ? [] : localities,
+    noOptionsText: "Не найдено",
+  };
+
   return (
     <TableRow>
       <TableCell>
         <Autocomplete
+          {...autocompleteProps}
           id="origin"
-          onOpen={handleOpen}
-          loading={localitiesLoading}
-          options={localitiesLoading ? [] : localities}
           getOptionLabel={(option) => option.name}
-          clearOnEscape
+          isOptionEqualToValue={(option, value) => option.name === value.name}
           renderOption={(props, option) => (
             <li {...props} key={option.id}>
               {option.name}
@@ -50,11 +55,10 @@ const TableToolbar: VFC<ITableToolbar> = ({
       </TableCell>
       <TableCell>
         <Autocomplete
+          {...autocompleteProps}
           id="destination"
-          onOpen={handleOpen}
-          loading={localitiesLoading}
-          options={localitiesLoading ? [] : localities}
           getOptionLabel={(option) => option.name}
+          isOptionEqualToValue={(option, value) => option.name === value.name}
           clearOnEscape
           renderOption={(props, option) => (
             <li {...props} key={option.id}>
