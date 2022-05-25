@@ -10,4 +10,5 @@ export interface IDetail
   deleteOrder: (id: ID) => Promise<void>;
   ordersLoading: boolean;
   createOrder: (fields: IOrdersCreateFormFields) => void;
+  localities: any;
 }

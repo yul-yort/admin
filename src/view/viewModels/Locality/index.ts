@@ -23,7 +23,7 @@ export class LocalityVM extends BaseVM implements ILocalityVM {
   getList = async (): Promise<void> => {
     this.setLoading();
     this.unsetError();
-
+    console.log("test");
     try {
       const list = await this.service.getList();
 
