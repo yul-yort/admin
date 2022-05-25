@@ -1,8 +1,7 @@
-.contentContentWrapper {
+.contentWrapper {
   display: flex;
   flex-direction: column;
   padding: calc(var(--yy-base) * 4);
-  max-width: calc(var(--yy-base) * 150);
 }
 
 .actions {
