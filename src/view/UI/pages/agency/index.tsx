@@ -9,7 +9,6 @@ import { IAgencyVM } from "../../../viewModels/Agency/types";
 import { ILocalityVM } from "src/view/viewModels/Locality/types";
 
 const Agency: FC = observer(() => {
-  //TODO: посмотреть как работает
   const agencyVM = useViewModel<IAgencyVM>("agency");
   const localityVM = useViewModel<ILocalityVM>("locality");
 
@@ -37,7 +36,7 @@ const Agency: FC = observer(() => {
             deleteOrder={agencyVM.deleteOrder}
             ordersLoading={agencyVM.ordersLoading}
             createOrder={agencyVM.createOrder}
-            localities={localityVM.localities}
+            localities={localityVM.localities || []}
           />
         )}
     </div>

@@ -104,7 +104,6 @@ export const Detail: FC<IDetail> = ({
     }
   };
 
-  console.log("", localities);
   return (
     <>
       <Paper className={css.wrapper}>
@@ -138,7 +137,7 @@ export const Detail: FC<IDetail> = ({
             deleteOrder={deleteOrder}
             agencyOrders={agencyOrders}
             createOrder={createOrder}
-            localities={localities}
+            localities={localities || []}
           />
         </div>
       </Paper>

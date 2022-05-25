@@ -10,6 +10,7 @@ export const CreateOrder: FC<ICreateOrders> = ({
   methods,
   orderID,
   createOrder,
+  localities,
 }) => {
   //FIXME: добавить loading
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
@@ -73,6 +74,7 @@ export const CreateOrder: FC<ICreateOrders> = ({
         showConfirm={showConfirm}
         onConformClose={handleConfirmCloseModal}
         onCancelClose={handleCancelCloseModal}
+        localities={localities || []}
       />
     </FormProvider>
   );

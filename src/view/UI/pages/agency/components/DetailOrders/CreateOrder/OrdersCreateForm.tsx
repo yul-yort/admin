@@ -7,41 +7,11 @@ import { CONSTANTS } from "src/constants/globalConstants";
 import css from "./styles.module.scss";
 import Autocomplete from "@mui/material/Autocomplete";
 
-const pointsData = [
-  {
-    id: "1",
-    name: "Уфа",
-  },
-  {
-    id: "2",
-    name: "Сибай",
-  },
-  {
-    id: "3",
-    name: "Акъяр",
-  },
-  {
-    id: "4",
-    name: "Ишембай",
-  },
-  {
-    id: "20",
-    name: "Сибай 1",
-  },
-  {
-    id: "30",
-    name: "Акъяр 2",
-  },
-  {
-    id: "40",
-    name: "Ишембай 3",
-  },
-];
-
 //TODO нужно сделать обязательное поле "Выбор валюты". (https://trello.com/c/wXEG7n0j)
 export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
   onSave,
   onClose,
+  localities,
 }) => {
   const {
     handleSubmit,
@@ -66,7 +36,7 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
           size="small"
           fullWidth
           id="origin"
-          options={pointsData}
+          options={localities}
           getOptionLabel={(option) => option.name}
           renderOption={(props, option) => (
             <li {...props} key={option.id}>
@@ -100,7 +70,7 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
           size="small"
           fullWidth
           id="destination"
-          options={pointsData}
+          options={localities}
           getOptionLabel={(option) => option.name}
           renderOption={(props, option) => (
             <li {...props} key={option.id}>

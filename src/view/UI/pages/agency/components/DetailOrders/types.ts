@@ -1,3 +1,4 @@
+import { ILocalityEntity } from "src/data/entities/Locality/types";
 import { IOrderItemEntity } from "src/data/entities/Order/types";
 import { IOrdersCreateFormFields } from "./CreateOrder/types";
 
@@ -24,5 +25,5 @@ export interface IDetailOrders {
   deleteOrder: (id: ID) => Promise<void>;
   ordersLoading: boolean;
   createOrder: (fields: IOrdersCreateFormFields) => void;
-  localities: any;
+  localities: ILocalityEntity[];
 }
