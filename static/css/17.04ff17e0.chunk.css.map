@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/view/UI/pages/dashboard/styles.module.scss"],"names":[],"mappings":"AAAA,oBACE,YAAa,CACb,qBAAsB,CACtB,kBAAmB","file":"17.04ff17e0.chunk.css","sourcesContent":[".page {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n}\n"]}
