@@ -18,7 +18,6 @@ export const Modal: FC<IModal> = ({
   title,
   children,
   footer,
-  dividers = false,
   showConfirm = false,
   confirmProps,
 }) => {
@@ -35,15 +34,14 @@ export const Modal: FC<IModal> = ({
         <div className={css.titleWrapper}>
           <Typography variant="h6" component="h2">
             {title}
-
-            <IconButton
-              aria-label="close"
-              className={css.closeButton}
-              onClick={onClose}
-            >
-              <CloseRoundedIcon fontSize="small" />
-            </IconButton>
           </Typography>
+          <IconButton
+            aria-label="close modal"
+            className={css.closeButton}
+            onClick={onClose}
+          >
+            <CloseRoundedIcon fontSize="small" />
+          </IconButton>
         </div>
 
         <div className={css.contentWrapper}>{children}</div>
