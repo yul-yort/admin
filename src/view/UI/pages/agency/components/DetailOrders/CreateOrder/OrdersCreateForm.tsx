@@ -57,7 +57,7 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
   useEffect(() => {
     originID && clearErrors("origin");
     destinationID && clearErrors("destination");
-  }, [originID, destinationID]);
+  }, [originID, destinationID, clearErrors]);
 
   return (
     <form onSubmit={handleSubmit(onSave)}>
