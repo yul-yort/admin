@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { TextField, Button } from "@mui/material";
 import { useFormContext } from "react-hook-form";
 import { IOrdersCreateForm, IOrdersCreateFormFields } from "./types";
@@ -46,6 +46,7 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
   const {
     handleSubmit,
     register,
+    clearErrors,
     formState: { errors, isSubmitting, isDirty },
   } = useFormContext<IOrdersCreateFormFields>();
 
@@ -53,17 +54,10 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
   const [originID, setOriginID] = useState("");
   const [destinationID, setDestinationID] = useState("");
 
-  if (originID) {
-    if (errors.origin) {
-      delete errors.origin;
-    }
-  }
-
-  if (destinationID) {
-    if (errors.destination) {
-      delete errors.destination;
-    }
-  }
+  useEffect(() => {
+    originID && clearErrors("origin");
+    destinationID && clearErrors("destination");
+  }, [originID, destinationID]);
 
   return (
     <form onSubmit={handleSubmit(onSave)}>
@@ -80,13 +74,9 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
             </li>
           )}
           noOptionsText={noOptionsText}
-          onChange={(event, newValue) => {
-            if (newValue && newValue.id) {
-              const originID = newValue.id;
-              setOriginID(originID);
-            } else {
-              setOriginID("");
-            }
+          onChange={(_, newValue) => {
+            const originID = newValue?.id || "";
+            setOriginID(originID);
           }}
           renderInput={(params) => (
             <TextField
@@ -118,13 +108,9 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
             </li>
           )}
           noOptionsText={noOptionsText}
-          onChange={(event, newValue) => {
-            if (newValue && newValue.id) {
-              const destinationID = newValue.id;
-              setDestinationID(destinationID);
-            } else {
-              setDestinationID("");
-            }
+          onChange={(_, newValue) => {
+            const destinationID = newValue?.id || "";
+            setDestinationID(destinationID);
           }}
           renderInput={(params) => (
             <TextField
