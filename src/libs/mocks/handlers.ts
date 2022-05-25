@@ -130,4 +130,12 @@ export const handlers = [
       ctx.status(200)
     );
   }),
+
+  rest.post<string>(EEndpoints.ORDER_CREATE, (req, res, ctx) => {
+    const body = JSON.parse(req.body);
+    const { price, origin, destination } = body;
+    orders.unshift({ id: uuid(), ...JSON.parse(req.body) });
+
+    return res(ctx.json(orders), ctx.delay(getTimeout()), ctx.status(200));
+  }),
 ];

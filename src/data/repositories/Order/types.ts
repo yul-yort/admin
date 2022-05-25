@@ -1,3 +1,4 @@
+import { IOrdersCreateFormFields } from "src/view/UI/pages/agency/components/DetailOrders/CreateOrder/types";
 import {
   IOrderItemRequestParams,
   IOrderItemResponseDTO,
@@ -9,4 +10,5 @@ export interface IOrderRepository {
   ) => Promise<IOrderItemResponseDTO[]>;
 
   deleteOrder: (id: ID) => Promise<IOrderItemResponseDTO[]>;
+  createOrder: (fields: IOrdersCreateFormFields) => void;
 }

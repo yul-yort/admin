@@ -169,9 +169,13 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
   };
 
   createOrder = async (fields: IOrdersCreateFormFields) => {
+    //loading
     try {
-      console.log("super", fields);
-    } catch (error) {}
+      // console.log(this.agency)
+      const orders = await this.orderService.createOrder(fields);
+    } catch (error) {
+    } finally {
+    }
   };
 
   deleteOrder = async (id: ID) => {
