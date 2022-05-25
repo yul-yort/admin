@@ -135,6 +135,8 @@ export const handlers = [
     const body = JSON.parse(req.body);
     const { price, origin, destination } = body;
     orders.unshift({ id: uuid(), ...JSON.parse(req.body) });
+    //доступ к location
+    console.log(localities);
 
     return res(ctx.json(orders), ctx.delay(getTimeout()), ctx.status(200));
   }),

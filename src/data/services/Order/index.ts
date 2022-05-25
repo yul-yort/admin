@@ -25,8 +25,21 @@ export class OrderService implements IOrderService {
   }
 
   async createOrder(fields: IOrdersCreateFormFields) {
+    // как сделать объект???
     const order = {
       price: fields.price,
+      route: {
+        id: "1",
+        origin: {
+          id: "asdf",
+          name: "origin",
+        },
+        destination: {
+          id: "asdfasf",
+          name: "destination",
+          description: "description description description",
+        },
+      },
     };
     const orders = await this.repository.createOrder(fields);
   }

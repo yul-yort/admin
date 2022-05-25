@@ -9,32 +9,18 @@ import Autocomplete from "@mui/material/Autocomplete";
 
 const pointsData = [
   {
-    id: "1",
-    name: "Уфа",
+    id: "asdf",
+    name: "Баймак",
+    description: "баймакский р-н",
   },
   {
-    id: "2",
+    id: "223m2",
     name: "Сибай",
   },
   {
-    id: "3",
-    name: "Акъяр",
-  },
-  {
-    id: "4",
-    name: "Ишембай",
-  },
-  {
-    id: "20",
-    name: "Сибай 1",
-  },
-  {
-    id: "30",
-    name: "Акъяр 2",
-  },
-  {
-    id: "40",
-    name: "Ишембай 3",
+    id: "5k6764k5",
+    name: "Уфа",
+    description: "Уфа - столица RNB!",
   },
 ];
 
