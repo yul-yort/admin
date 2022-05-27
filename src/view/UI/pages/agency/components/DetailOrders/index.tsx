@@ -14,6 +14,9 @@ export const DetailOrders: FC<IDetailOrders> = ({
   deleteOrder,
   ordersLoading,
   createOrder,
+  localities,
+  getLocality,
+  localitiesLoading,
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [titleModal, setTitleModal] = useState("");
@@ -88,6 +91,9 @@ export const DetailOrders: FC<IDetailOrders> = ({
         showModal={showModal}
         handleCloseModal={handleCloseModal}
         createOrder={createOrder}
+        localities={localities || []}
+        getLocality={getLocality}
+        localitiesLoading={localitiesLoading}
       />
     </Paper>
   );

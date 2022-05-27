@@ -6,9 +6,11 @@ import { Detail } from "./components/Detail";
 import Error from "../../components/shared/Error";
 import Loading from "../../components/common/Loading";
 import { IAgencyVM } from "../../../viewModels/Agency/types";
+import { ILocalityVM } from "src/view/viewModels/Locality/types";
 
 const Agency: FC = observer(() => {
   const agencyVM = useViewModel<IAgencyVM>("agency");
+  const localityVM = useViewModel<ILocalityVM>("locality");
 
   return (
     <div>
@@ -34,6 +36,9 @@ const Agency: FC = observer(() => {
             deleteOrder={agencyVM.deleteOrder}
             ordersLoading={agencyVM.ordersLoading}
             createOrder={agencyVM.createOrder}
+            localities={localityVM.localities || []}
+            getLocality={localityVM.getList}
+            localitiesLoading={localityVM.loading}
           />
         )}
     </div>

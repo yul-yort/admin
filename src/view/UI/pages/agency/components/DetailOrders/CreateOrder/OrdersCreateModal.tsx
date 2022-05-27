@@ -11,6 +11,9 @@ export const OrdersCreateModal: FC<IOrdersCreateModal> = ({
   onConformClose,
   onCancelClose,
   titleModal,
+  localities,
+  getLocality,
+  localitiesLoading,
 }) => {
   return (
     <Modal
@@ -28,7 +31,13 @@ export const OrdersCreateModal: FC<IOrdersCreateModal> = ({
         text: "Вы уверены, что хотите закрыть окно, не сохранив данные?",
       }}
     >
-      <OrdersCreateForm onSave={onSave} onClose={onClose} />
+      <OrdersCreateForm
+        onSave={onSave}
+        onClose={onClose}
+        localities={localities}
+        getLocality={getLocality}
+        localitiesLoading={localitiesLoading}
+      />
     </Modal>
   );
 };
