@@ -1,7 +1,5 @@
 import React, { ChangeEventHandler, VFC } from "react";
-import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
-import { TextField } from "@mui/material";
+import { Paper, TextField } from "@mui/material";
 
 import css from "./styles.module.scss";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -31,73 +29,64 @@ const TableToolbar: VFC<ITableToolbar> = ({
   const autocompleteProps = {
     onOpen: handleOpen,
     loading: localitiesLoading,
-    options: localitiesLoading ? [] : localities,
+    options: localities,
     noOptionsText: "Не найдено",
+    loadingText: "Загрузка",
+    clearOnEscape: true,
+    className: css.inputWrapper,
   };
 
   return (
-    <TableRow>
-      <TableCell>
-        <Autocomplete
-          {...autocompleteProps}
-          id="origin"
-          getOptionLabel={(option) => option.name}
-          isOptionEqualToValue={(option, value) => option.name === value.name}
-          renderOption={(props, option) => (
-            <li {...props} key={option.id}>
-              {option.name}
-            </li>
-          )}
-          renderInput={(params) => (
+    <Paper className={css.toolbarWrapper}>
+      <Autocomplete
+        {...autocompleteProps}
+        id="origin"
+        getOptionLabel={(option) => option.name}
+        isOptionEqualToValue={(option, value) => option.name === value.name}
+        renderOption={(props, option) => (
+          <li {...props} key={option.id}>
+            {option.name}
+          </li>
+        )}
+        renderInput={(params) => {
+          return (
             <TextField {...params} placeholder="Откуда" variant="standard" />
-          )}
-        />
-      </TableCell>
-      <TableCell>
-        <Autocomplete
-          {...autocompleteProps}
-          id="destination"
-          getOptionLabel={(option) => option.name}
-          isOptionEqualToValue={(option, value) => option.name === value.name}
-          clearOnEscape
-          renderOption={(props, option) => (
-            <li {...props} key={option.id}>
-              {option.name}
-            </li>
-          )}
-          renderInput={(params) => (
-            <TextField {...params} placeholder="Куда" variant="standard" />
-          )}
-        />
-      </TableCell>
-      <TableCell />
-      <TableCell>
-        <TextField
-          inputProps={{
-            className: css.input,
-          }}
-          onChange={handleFilterByAgency}
-          id="agencyName"
-          placeholder="Агенство"
-          variant="standard"
-          size="small"
-          type="search"
-        />
-      </TableCell>
-      <TableCell>
-        <TextField
-          inputProps={{
-            className: css.input,
-          }}
-          onChange={handleFilterByPhone}
-          id="phone"
-          placeholder="Телефон"
-          variant="standard"
-          size="small"
-          type="search"
-        />
-      </TableCell>
-    </TableRow>
+          );
+        }}
+      />
+      <Autocomplete
+        {...autocompleteProps}
+        id="destination"
+        getOptionLabel={(option) => option.name}
+        isOptionEqualToValue={(option, value) => option.name === value.name}
+        renderOption={(props, option) => (
+          <li {...props} key={option.id}>
+            {option.name}
+          </li>
+        )}
+        renderInput={(params) => (
+          <TextField {...params} placeholder="Куда" variant="standard" />
+        )}
+      />
+      <TextField
+        className={css.inputWrapper}
+        onChange={handleFilterByAgency}
+        id="agencyName"
+        placeholder="Агенство"
+        variant="standard"
+        size="small"
+        type="search"
+      />
+      <TextField
+        className={css.inputWrapper}
+        onChange={handleFilterByPhone}
+        id="phone"
+        placeholder="Телефон"
+        variant="standard"
+        size="small"
+        type="search"
+      />
+    </Paper>
   );
 };
 

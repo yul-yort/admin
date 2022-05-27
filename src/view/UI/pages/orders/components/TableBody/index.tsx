@@ -9,26 +9,10 @@ import { IOrdersList } from "./types";
 import { getCurrency } from "src/libs/utils";
 import { Phones } from "../../../../components/shared/Phones";
 import css from "./styles.module.scss";
-import TableToolbar from "../TableToolbar";
 
-const TableBody: VFC<IOrdersList> = ({
-  list,
-  getLocalities,
-  localities,
-  localitiesLoading,
-  filterByAgency,
-  filterByPhone,
-}) => {
+const TableBody: VFC<IOrdersList> = ({ list }) => {
   return (
     <MUITableBody>
-      <TableToolbar
-        localities={localities}
-        filterByAgency={filterByAgency}
-        filterByPhone={filterByPhone}
-        getLocalities={getLocalities}
-        localitiesLoading={localitiesLoading}
-      />
-
       {list.map(({ id, route, agency, price, currencyISO }) => {
         return (
           <TableRow key={id} tabIndex={-1}>

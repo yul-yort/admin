@@ -8,6 +8,7 @@ import { IListProps } from "./types";
 import TableBody from "../TableBody";
 import TableHeader from "../TableHeader";
 import { EmptyList } from "../EmptyList";
+import TableToolbar from "../TableToolbar";
 
 const TableContainer: VFC<IListProps> = ({
   list,
@@ -19,6 +20,14 @@ const TableContainer: VFC<IListProps> = ({
 }) => {
   return (
     <>
+      <TableToolbar
+        localities={localities}
+        filterByAgency={filterByAgency}
+        filterByPhone={filterByPhone}
+        getLocalities={getLocalities}
+        localitiesLoading={localitiesLoading}
+      />
+
       <Typography align="right" className={css.title} color="text.secondary">
         Найдено {list.length} вариантов
       </Typography>
@@ -28,14 +37,7 @@ const TableContainer: VFC<IListProps> = ({
           <Table aria-label="order list" size="small">
             <TableHeader />
 
-            <TableBody
-              list={list}
-              filterByAgency={filterByAgency}
-              filterByPhone={filterByPhone}
-              localities={localities}
-              getLocalities={getLocalities}
-              localitiesLoading={localitiesLoading}
-            />
+            <TableBody list={list} />
           </Table>
         </MUITableContainer>
 
