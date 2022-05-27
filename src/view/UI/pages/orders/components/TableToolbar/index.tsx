@@ -31,7 +31,7 @@ const TableToolbar: VFC<ITableToolbar> = ({
     loading: localitiesLoading,
     options: localities,
     noOptionsText: "Не найдено",
-    loadingText: "Загрузка",
+    loadingText: "Загрузка...",
     clearOnEscape: true,
     className: css.inputWrapper,
   };
