@@ -10,6 +10,7 @@ export interface ICreateOrders {
   orderID: string;
   createOrder: (fields: IOrdersCreateFormFields) => void;
   localities: ILocalityEntity[];
+  getLocality: () => void;
 }
 
 export interface IOrdersCreateModal {
@@ -21,10 +22,14 @@ export interface IOrdersCreateModal {
   onCancelClose: () => void;
   titleModal: string;
   localities: ILocalityEntity[];
+  getLocality: () => void;
 }
 
 export interface IOrdersCreateForm
-  extends Pick<IOrdersCreateModal, "onSave" | "onClose" | "localities"> {}
+  extends Pick<
+    IOrdersCreateModal,
+    "onSave" | "onClose" | "localities" | "getLocality"
+  > {}
 
 export interface IOrdersCreateFormFields
   extends Pick<IOrder, "origin" | "destination" | "price"> {}

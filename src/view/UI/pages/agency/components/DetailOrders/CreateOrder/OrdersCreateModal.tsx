@@ -12,6 +12,7 @@ export const OrdersCreateModal: FC<IOrdersCreateModal> = ({
   onCancelClose,
   titleModal,
   localities,
+  getLocality,
 }) => {
   return (
     <Modal
@@ -33,6 +34,7 @@ export const OrdersCreateModal: FC<IOrdersCreateModal> = ({
         onSave={onSave}
         onClose={onClose}
         localities={localities}
+        getLocality={getLocality}
       />
     </Modal>
   );

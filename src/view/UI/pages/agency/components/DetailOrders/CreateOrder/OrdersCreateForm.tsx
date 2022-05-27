@@ -12,6 +12,7 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
   onSave,
   onClose,
   localities,
+  getLocality,
 }) => {
   const {
     handleSubmit,
@@ -20,7 +21,7 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
     formState: { errors, isSubmitting, isDirty },
   } = useFormContext<IOrdersCreateFormFields>();
 
-  const noOptionsText: string = "Не найдено";
+  const noOptionsText: string = localities.length ? "Не найдено" : "Загрузка";
   const [originID, setOriginID] = useState("");
   const [destinationID, setDestinationID] = useState("");
 
@@ -28,6 +29,13 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
     originID && clearErrors("origin");
     destinationID && clearErrors("destination");
   }, [originID, destinationID, clearErrors]);
+
+  const handleOpen = async () => {
+    //TODO: как лучше всего не отправлять повторных запросов
+    if (!localities.length) {
+      await getLocality();
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSave)}>
@@ -47,6 +55,9 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
           onChange={(_, newValue) => {
             const originID = newValue?.id || "";
             setOriginID(originID);
+          }}
+          onOpen={() => {
+            handleOpen();
           }}
           renderInput={(params) => (
             <TextField
@@ -81,6 +92,9 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
           onChange={(_, newValue) => {
             const destinationID = newValue?.id || "";
             setDestinationID(destinationID);
+          }}
+          onOpen={() => {
+            handleOpen();
           }}
           renderInput={(params) => (
             <TextField

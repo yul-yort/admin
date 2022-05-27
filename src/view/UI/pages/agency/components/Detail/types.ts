@@ -12,4 +12,5 @@ export interface IDetail
   ordersLoading: boolean;
   createOrder: (fields: IOrdersCreateFormFields) => void;
   localities: ILocalityEntity[];
+  getLocality: () => void;
 }
