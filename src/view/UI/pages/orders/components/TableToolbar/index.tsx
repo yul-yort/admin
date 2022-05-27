@@ -11,6 +11,8 @@ const TableToolbar: VFC<ITableToolbar> = ({
   localitiesLoading,
   filterByAgency,
   filterByPhone,
+  filterByOrigin,
+  filterByDestination,
 }) => {
   const handleOpen = async () => {
     await getLocalities();
@@ -24,6 +26,14 @@ const TableToolbar: VFC<ITableToolbar> = ({
 
   const handleFilterByPhone: ChangeEventHandler<HTMLInputElement> = (event) => {
     filterByPhone(event.target.value);
+  };
+
+  const handleFilterByOrigin = (id: ID) => {
+    filterByOrigin(id);
+  };
+
+  const handleFilterByDestination = (id: ID) => {
+    filterByDestination(id);
   };
 
   const autocompleteProps = {
@@ -44,10 +54,13 @@ const TableToolbar: VFC<ITableToolbar> = ({
         getOptionLabel={(option) => option.name}
         isOptionEqualToValue={(option, value) => option.name === value.name}
         renderOption={(props, option) => (
-          <li {...props} key={option.id}>
+          <li {...props} key={option.id} data-name="origin">
             {option.name}
           </li>
         )}
+        onChange={(_, value) => {
+          handleFilterByOrigin(value ? value.id : "");
+        }}
         renderInput={(params) => {
           return (
             <TextField {...params} placeholder="Откуда" variant="standard" />
@@ -60,10 +73,13 @@ const TableToolbar: VFC<ITableToolbar> = ({
         getOptionLabel={(option) => option.name}
         isOptionEqualToValue={(option, value) => option.name === value.name}
         renderOption={(props, option) => (
-          <li {...props} key={option.id}>
+          <li {...props} key={option.id} data-name="destination">
             {option.name}
           </li>
         )}
+        onChange={(_, value) => {
+          handleFilterByDestination(value ? value.id : "");
+        }}
         renderInput={(params) => (
           <TextField {...params} placeholder="Куда" variant="standard" />
         )}
