@@ -13,6 +13,7 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
   onClose,
   localities,
   getLocality,
+  localitiesLoading,
 }) => {
   const {
     handleSubmit,
@@ -22,6 +23,7 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
   } = useFormContext<IOrdersCreateFormFields>();
 
   const noOptionsText: string = "Не найдено";
+  const loadingText: string = "Загрузка...";
   const [originID, setOriginID] = useState("");
   const [destinationID, setDestinationID] = useState("");
 
@@ -42,6 +44,8 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
           fullWidth
           id="origin"
           options={localities}
+          loading={localitiesLoading}
+          loadingText={loadingText}
           getOptionLabel={(option) => option.name}
           noOptionsText={noOptionsText}
           onOpen={handleOpen}
@@ -78,6 +82,8 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
           fullWidth
           id="destination"
           options={localities}
+          loading={localitiesLoading}
+          loadingText={loadingText}
           getOptionLabel={(option) => option.name}
           noOptionsText={noOptionsText}
           onOpen={handleOpen}

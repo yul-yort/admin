@@ -11,6 +11,7 @@ export interface ICreateOrders {
   createOrder: (fields: IOrdersCreateFormFields) => void;
   localities: ILocalityEntity[];
   getLocality: () => void;
+  localitiesLoading: boolean;
 }
 
 export interface IOrdersCreateModal {
@@ -23,12 +24,13 @@ export interface IOrdersCreateModal {
   titleModal: string;
   localities: ILocalityEntity[];
   getLocality: () => void;
+  localitiesLoading: boolean;
 }
 
 export interface IOrdersCreateForm
   extends Pick<
     IOrdersCreateModal,
-    "onSave" | "onClose" | "localities" | "getLocality"
+    "onSave" | "onClose" | "localities" | "getLocality" | "localitiesLoading"
   > {}
 
 export interface IOrdersCreateFormFields
