@@ -21,7 +21,7 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
     formState: { errors, isSubmitting, isDirty },
   } = useFormContext<IOrdersCreateFormFields>();
 
-  const noOptionsText: string = localities.length ? "Не найдено" : "Загрузка";
+  const noOptionsText: string = "Не найдено";
   const [originID, setOriginID] = useState("");
   const [destinationID, setDestinationID] = useState("");
 
@@ -31,10 +31,7 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
   }, [originID, destinationID, clearErrors]);
 
   const handleOpen = async () => {
-    //TODO: как лучше всего не отправлять повторных запросов
-    if (!localities.length) {
-      await getLocality();
-    }
+    await getLocality();
   };
 
   return (
@@ -46,18 +43,17 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
           id="origin"
           options={localities}
           getOptionLabel={(option) => option.name}
+          noOptionsText={noOptionsText}
+          onOpen={handleOpen}
+          isOptionEqualToValue={(option, value) => option.id === value.id}
           renderOption={(props, option) => (
             <li {...props} key={option.id}>
               {option.name}
             </li>
           )}
-          noOptionsText={noOptionsText}
           onChange={(_, newValue) => {
             const originID = newValue?.id || "";
             setOriginID(originID);
-          }}
-          onOpen={() => {
-            handleOpen();
           }}
           renderInput={(params) => (
             <TextField
@@ -83,18 +79,17 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
           id="destination"
           options={localities}
           getOptionLabel={(option) => option.name}
+          noOptionsText={noOptionsText}
+          onOpen={handleOpen}
+          isOptionEqualToValue={(option, value) => option.id === value.id}
           renderOption={(props, option) => (
             <li {...props} key={option.id}>
               {option.name}
             </li>
           )}
-          noOptionsText={noOptionsText}
           onChange={(_, newValue) => {
             const destinationID = newValue?.id || "";
             setDestinationID(destinationID);
-          }}
-          onOpen={() => {
-            handleOpen();
           }}
           renderInput={(params) => (
             <TextField
