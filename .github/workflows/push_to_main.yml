@@ -8,12 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Install Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: 16.x
-          cache: npm
+          node-version: 14.x
+          cache: "npm"
+      - uses: google/wireit@setup-github-actions-caching/v1
       - name: Install dependencies
         run: npm install
       - name: Build for github pages
