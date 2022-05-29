@@ -51,8 +51,6 @@ export class AgencyService implements IAgencyService {
   async createAgency(
     fields: ICreateOrEditAgencyFormFields
   ): Promise<IAgencyEntity> {
-    // TODO Создавать такие DTO-шки?
-    // https://github.com/nestjs/nest/blob/master/sample/06-mongoose/src/cats/dto/create-cat.dto.ts
     const params: IAgencyRequestCreateParams = {
       ...fields,
       createDate: new Date().getTime(),
