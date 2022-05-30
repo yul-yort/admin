@@ -86,9 +86,7 @@ export const Detail: FC<IDetail> = ({
   };
 
   const handleSaveEdit = async (fields: ICreateOrEditAgencyFormFields) => {
-    await editAgency({
-      ...fields,
-    });
+    await editAgency(fields);
 
     setTitle(fields.agencyName);
     setOpenEditModal(false);

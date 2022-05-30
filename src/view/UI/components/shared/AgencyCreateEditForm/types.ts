@@ -5,6 +5,7 @@ export interface IAgencyCreateEditForm {
   onSave: () => Promise<void>;
 }
 
+//TODO учесть, что при создании нет id
 export interface ICreateOrEditAgencyFormFields
   extends Pick<
     IAgencyEntity,
