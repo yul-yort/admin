@@ -54,7 +54,7 @@ const TableToolbar: VFC<ITableToolbar> = ({
         getOptionLabel={(option) => option.name}
         isOptionEqualToValue={(option, value) => option.name === value.name}
         renderOption={(props, option) => (
-          <li {...props} key={option.id} data-name="origin">
+          <li {...props} key={option.id}>
             {option.name}
           </li>
         )}
@@ -73,7 +73,7 @@ const TableToolbar: VFC<ITableToolbar> = ({
         getOptionLabel={(option) => option.name}
         isOptionEqualToValue={(option, value) => option.name === value.name}
         renderOption={(props, option) => (
-          <li {...props} key={option.id} data-name="destination">
+          <li {...props} key={option.id}>
             {option.name}
           </li>
         )}
