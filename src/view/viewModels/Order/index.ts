@@ -1,15 +1,30 @@
+import {
+  action,
+  computed,
+  makeObservable,
+  observable,
+  runInAction,
+} from "mobx";
+
 import { BaseVM } from "../BaseVM";
 import { IOrderVM } from "./types";
 import { INotificationsVM } from "../types";
-import { action, makeObservable, observable, runInAction } from "mobx";
 import {
   IOrderItemEntity,
   IOrderItemRequestParams,
-} from "../../../data/entities/Order/types";
-import { IOrderService } from "../../../data/services/Order/types";
+} from "src/data/entities/Order/types";
+import { IOrderService } from "src/data/services/Order/types";
 
 export class OrderVM extends BaseVM implements IOrderVM {
-  orders: IOrderItemEntity[] | null = [];
+  private _orders: IOrderItemEntity[] | null = [];
+  _filterByAgency: string = "";
+  _filterByPhone: string = "";
+  _filterByOrigin: string = "";
+  _filterByDestination: string = "";
+
+  get orders() {
+    return this._orders;
+  }
 
   constructor(
     notificationsVM: INotificationsVM,
@@ -18,10 +33,32 @@ export class OrderVM extends BaseVM implements IOrderVM {
     super(notificationsVM);
 
     makeObservable(this, {
-      orders: observable,
+      orders: computed,
+      _filterByAgency: observable,
+      _filterByPhone: observable,
+      _filterByOrigin: observable,
+      _filterByDestination: observable,
       getList: action,
+      filterByAgency: action,
+      filterByPhone: action,
     });
   }
+
+  filterByAgency = (value: string) => {
+    this._filterByAgency = value;
+  };
+
+  filterByPhone = (value: string) => {
+    this._filterByPhone = value;
+  };
+
+  filterByOrigin = (value: string) => {
+    this._filterByOrigin = value;
+  };
+
+  filterByDestination = (value: string) => {
+    this._filterByDestination = value;
+  };
 
   getList = async (params?: IOrderItemRequestParams): Promise<void> => {
     this.setLoading();
@@ -31,7 +68,7 @@ export class OrderVM extends BaseVM implements IOrderVM {
       const list = await this.service.getList(params);
 
       runInAction(() => {
-        this.orders = list;
+        this._orders = list;
       });
     } catch (err) {
       this.setError(err);

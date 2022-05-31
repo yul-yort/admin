@@ -1,46 +1,21 @@
 import React, { FC } from "react";
 import { observer } from "mobx-react-lite";
-import { useRouteNode } from "react-router5";
-import { SubmitHandler } from "react-hook-form";
 
 import { useViewModel } from "../../hooks/useViewModel";
-import Loading from "./components/Loading";
-import List from "./components/List/List";
+import TableContainer from "./components/TableContainer";
 import css from "./styles.module.scss";
 import { IOrderVM } from "../../../viewModels/Order/types";
 import Error from "../../components/shared/Error";
-import { SearchForm } from "../../components/shared/SearchForm";
-import { IFormData } from "../../components/shared/SearchForm/types";
+import Loading from "../../components/common/Loading";
+import { ILocalityVM } from "src/view/viewModels/Locality/types";
 
 const Orders: FC = observer(() => {
   const orderVM = useViewModel<IOrderVM>("order");
-  const {
-    route: { params },
-    router: { navigate },
-  } = useRouteNode("orders");
-
-  const handleSearch: SubmitHandler<IFormData> = (data) => {
-    navigate("orders", data);
-  };
-
-  const onReset = () => {
-    navigate("orders");
-  };
+  const localityVM = useViewModel<ILocalityVM>("locality");
 
   return (
     <div className={css.page}>
       <div className={css.list}>
-        <div className={css.searchForm}>
-          <SearchForm
-            minified
-            loading={orderVM.loading}
-            destination={params.destination}
-            origin={params.origin}
-            onSearch={handleSearch}
-            onReset={params.origin && params.destination && onReset}
-          />
-        </div>
-
         {orderVM.loading && <Loading />}
 
         {orderVM.error && (
@@ -50,7 +25,14 @@ const Orders: FC = observer(() => {
           />
         )}
         {!orderVM.error && !orderVM.loading && orderVM.orders && (
-          <List list={orderVM.orders} />
+          <TableContainer
+            list={orderVM.orders}
+            filterByAgency={orderVM.filterByAgency}
+            filterByPhone={orderVM.filterByPhone}
+            localities={localityVM.localities || []}
+            getLocalities={localityVM.getList}
+            localitiesLoading={localityVM.loading}
+          />
         )}
       </div>
     </div>
