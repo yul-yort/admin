@@ -1,4 +1,5 @@
 import { UseFormReturn } from "react-hook-form";
+import { ILocalityEntity } from "src/data/entities/Locality/types";
 import { IOrder } from "../types";
 
 export interface ICreateOrders {
@@ -8,6 +9,9 @@ export interface ICreateOrders {
   methods: UseFormReturn<IOrdersCreateFormFields>;
   orderID: string;
   createOrder: (fields: IOrdersCreateFormFields) => void;
+  localities: ILocalityEntity[];
+  getLocality: () => void;
+  localitiesLoading: boolean;
 }
 
 export interface IOrdersCreateModal {
@@ -18,10 +22,16 @@ export interface IOrdersCreateModal {
   onConformClose: () => void;
   onCancelClose: () => void;
   titleModal: string;
+  localities: ILocalityEntity[];
+  getLocality: () => void;
+  localitiesLoading: boolean;
 }
 
 export interface IOrdersCreateForm
-  extends Pick<IOrdersCreateModal, "onSave" | "onClose"> {}
+  extends Pick<
+    IOrdersCreateModal,
+    "onSave" | "onClose" | "localities" | "getLocality" | "localitiesLoading"
+  > {}
 
 export interface IOrdersCreateFormFields
   extends Pick<IOrder, "origin" | "destination" | "price"> {}
