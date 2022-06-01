@@ -58,6 +58,21 @@ const routes: IRoutes = [
       await store.order.getList(params);
     },
   },
+  {
+    name: "localities",
+    path: "/localities",
+    title: "Населенные пункты",
+    auth: true,
+    onActivate: async (props) => {
+      if (!props) {
+        return;
+      }
+
+      const { store } = props;
+
+      await store.locality.getList();
+    },
+  },
 ];
 
 export default routes;

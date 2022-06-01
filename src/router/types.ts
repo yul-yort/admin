@@ -7,7 +7,8 @@ export type IRoutes = [
   ILoginRoute,
   IDashboardRoute,
   IAgenciesRoute,
-  IOrdersRoute
+  IOrdersRoute,
+  ILocalitiesRoute
 ];
 
 export interface IDependencies extends DefaultDependencies {
@@ -42,3 +43,4 @@ interface IAgenciesRoute extends IRoute {
 interface IDashboardRoute extends IRoute {}
 interface ILoginRoute extends IRoute {}
 interface IOrdersRoute extends IRouteWithParams<IOrderItemRequestParams> {}
+interface ILocalitiesRoute extends IRoute {}

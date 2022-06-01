@@ -16,12 +16,14 @@ const AgencyPage = lazy(() => import("./pages/agency"));
 const AgencyListPage = lazy(() => import("./pages/agencies"));
 const DashboardPage = lazy(() => import("./pages/dashboard"));
 const OrdersPage = lazy(() => import("./pages/orders"));
+const LocalitiesPage = lazy(() => import("./pages/localities"));
 
 const pages = {
   agencies: <AgencyListPage />,
   "agencies.agency": <AgencyPage />,
   dashboard: <DashboardPage />,
   orders: <OrdersPage />,
+  localities: <LocalitiesPage />,
   [constants.UNKNOWN_ROUTE]: <NotFoundPage />,
 };
 
