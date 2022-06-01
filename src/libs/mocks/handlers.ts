@@ -9,10 +9,7 @@ import { EEndpoints } from "../../constants/Endpoints";
 import { getAuthCookie } from "./utils/getAuthCookie";
 import { v4 as uuid } from "uuid";
 import { IOrderItemResponseDTO } from "../../data/entities/Order/types";
-import {
-  ILocalityDTO,
-  ILocalityEntity,
-} from "../../data/entities/Locality/types";
+import { ILocalityDTO } from "../../data/entities/Locality/types";
 import { ECurrencyISO } from "../utils/getCurrency";
 
 export const handlers = [
@@ -143,26 +140,34 @@ export const handlers = [
     const originData = localities.find(({ id }) => id === originID);
     const destinationData = localities.find(({ id }) => id === destinationID);
 
-    const newOrder = {
-      id: "test",
+    //TODO: как передавать агенство
+    const newOrder: IOrderItemResponseDTO = {
+      id: uuid(),
       price,
       route: {
-        id: "route",
+        id: uuid(),
         origin: {
-          id: originData && originData.id,
-          name: originData && originData.name,
-          description: originData && originData.description,
+          id: originData?.id || "",
+          name: originData?.name || "",
+          description: originData?.description,
         },
         destination: {
-          id: destinationData && destinationData.id,
-          name: destinationData && destinationData.name,
+          id: destinationData?.id || "",
+          name: destinationData?.name || "",
           description: destinationData && destinationData.description,
         },
       },
+      agency: {
+        id: "1",
+        agencyName: "Заглушка",
+        description: "Заглушка",
+        phones: ["7 929 5797780"],
+      },
+      currencyISO: ECurrencyISO.RUB,
     };
 
-    // orders.push(newOrder)
+    orders.push(newOrder);
 
-    return res(ctx.json(newOrder), ctx.delay(getTimeout()), ctx.status(200));
+    return res(ctx.json(orders), ctx.delay(getTimeout()), ctx.status(200));
   }),
 ];

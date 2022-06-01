@@ -11,5 +11,7 @@ export interface IOrderRepository {
 
   deleteOrder: (id: ID) => Promise<IOrderItemResponseDTO[]>;
 
-  createOrder: (fields: IOrdersCreateFormFields) => void;
+  createOrder: (
+    fields: IOrdersCreateFormFields
+  ) => Promise<IOrderItemResponseDTO[]>;
 }

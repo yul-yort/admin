@@ -13,6 +13,7 @@ export const CreateOrder: FC<ICreateOrders> = ({
   localities,
   getLocality,
   localitiesLoading,
+  ordersAddLoading,
 }) => {
   //FIXME: добавить loading
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
@@ -79,6 +80,7 @@ export const CreateOrder: FC<ICreateOrders> = ({
         localities={localities || []}
         getLocality={getLocality}
         localitiesLoading={localitiesLoading}
+        ordersAddLoading={ordersAddLoading}
       />
     </FormProvider>
   );

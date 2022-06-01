@@ -12,6 +12,7 @@ export interface ICreateOrders {
   localities: ILocalityEntity[];
   getLocality: () => void;
   localitiesLoading: boolean;
+  ordersAddLoading: boolean;
 }
 
 export interface IOrdersCreateModal {
@@ -25,6 +26,7 @@ export interface IOrdersCreateModal {
   localities: ILocalityEntity[];
   getLocality: () => void;
   localitiesLoading: boolean;
+  ordersAddLoading: boolean;
 }
 
 export interface IOrdersCreateForm

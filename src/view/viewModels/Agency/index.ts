@@ -21,6 +21,7 @@ import { IOrdersCreateFormFields } from "src/view/UI/pages/agency/components/Det
 export class AgencyVM extends BaseVM implements IAgencyVM {
   editLoading: boolean = false;
   ordersLoading: boolean = false;
+  ordersAddLoading: boolean = false;
   loadingList: ID[] = [];
 
   agency: IAgencyEntity | null = null;
@@ -54,11 +55,13 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
       loadingList: observable,
       searchValue: observable,
       ordersLoading: observable,
+      ordersAddLoading: observable,
       getAgency: action,
       editAgency: action,
       getList: action,
       createAgency: action,
       deleteOrder: action,
+      createOrder: action,
     });
   }
 
@@ -88,6 +91,14 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
 
   private unsetOrdersLoading = () => {
     this.ordersLoading = false;
+  };
+
+  private setOrdersAddLoading = () => {
+    this.ordersAddLoading = true;
+  };
+
+  private unsetOrdersAddLoading = () => {
+    this.ordersAddLoading = false;
   };
 
   isLoadingItem = (id: ID) => this.loadingList.indexOf(id) !== -1;
@@ -169,13 +180,18 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
   };
 
   createOrder = async (fields: IOrdersCreateFormFields) => {
+    this.setOrdersAddLoading();
     try {
-      const order = await this.orderService.createOrder(fields);
-      console.log("super", order);
-
-      //обновить
-      // this.agencyOrders
-    } catch (error) {}
+      const orders = await this.orderService.createOrder(fields);
+      runInAction(() => {
+        this.agencyOrders = orders;
+      });
+      this.notify.successNotification("Поездка добавлена");
+    } catch (err) {
+      this.setError(err);
+    } finally {
+      this.unsetOrdersAddLoading();
+    }
   };
 
   deleteOrder = async (id: ID) => {

@@ -24,7 +24,9 @@ export class OrderRepository
     return await this.api.delete(EEndpoints.ORDER_DELETE, id);
   }
 
-  async createOrder(fields: IOrdersCreateFormFields) {
+  async createOrder(
+    fields: IOrdersCreateFormFields
+  ): Promise<IOrderItemResponseDTO[]> {
     return await this.api.post(EEndpoints.ORDER_CREATE, fields);
   }
 }
