@@ -11,4 +11,5 @@ export enum EEndpoints {
   ORDERS_LIST = "/order-list",
   ORDER_DELETE = "/order-delete",
   LOCALITY_LIST = "/locality-list",
+  ORDER_CREATE = "/order-create",
 }

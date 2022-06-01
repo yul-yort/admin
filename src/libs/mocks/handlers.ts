@@ -9,7 +9,11 @@ import { EEndpoints } from "../../constants/Endpoints";
 import { getAuthCookie } from "./utils/getAuthCookie";
 import { v4 as uuid } from "uuid";
 import { IOrderItemResponseDTO } from "../../data/entities/Order/types";
-import { ILocalityDTO } from "../../data/entities/Locality/types";
+import {
+  ILocalityDTO,
+  ILocalityEntity,
+} from "../../data/entities/Locality/types";
+import { ECurrencyISO } from "../utils/getCurrency";
 
 export const handlers = [
   rest.get(EEndpoints.AGENCY, (req, res, ctx) => {
@@ -129,5 +133,36 @@ export const handlers = [
       ctx.delay(getTimeout()),
       ctx.status(200)
     );
+  }),
+
+  rest.post<string>(EEndpoints.ORDER_CREATE, (req, res, ctx) => {
+    const body = JSON.parse(req.body);
+    const { price, origin: originID, destination: destinationID } = body;
+
+    //доступ к location
+    const originData = localities.find(({ id }) => id === originID);
+    const destinationData = localities.find(({ id }) => id === destinationID);
+
+    const newOrder = {
+      id: "test",
+      price,
+      route: {
+        id: "route",
+        origin: {
+          id: originData && originData.id,
+          name: originData && originData.name,
+          description: originData && originData.description,
+        },
+        destination: {
+          id: destinationData && destinationData.id,
+          name: destinationData && destinationData.name,
+          description: destinationData && destinationData.description,
+        },
+      },
+    };
+
+    // orders.push(newOrder)
+
+    return res(ctx.json(newOrder), ctx.delay(getTimeout()), ctx.status(200));
   }),
 ];
