@@ -4,6 +4,7 @@ import { useViewModel } from "../../hooks/useViewModel";
 import { ILocalityVM } from "src/view/viewModels/Locality/types";
 import Loading from "../orders/components/Loading";
 import LocalityList from "./components/LocalityList";
+import LocalitiesHeader from "./components/Header";
 
 const Localities: FC = observer(() => {
   const localityVM = useViewModel<ILocalityVM>("locality");
@@ -14,7 +15,10 @@ const Localities: FC = observer(() => {
       {localityVM.loading && <Loading />}
 
       {!localityVM.loading && !localityVM.error && localityVM.localities && (
-        <LocalityList localities={localityVM.localities || []} />
+        <>
+          <LocalitiesHeader />
+          <LocalityList localities={localityVM.localities || []} />
+        </>
       )}
     </div>
   );
