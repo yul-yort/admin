@@ -15,9 +15,9 @@ const LocalitiesHeader = () => {
   return (
     <div className={css.header}>
       <TextField
-        id="search-agency"
+        id="search-locality"
         label="Поиск"
-        placeholder="Название или телефон"
+        placeholder="Название или район"
         variant="standard"
         size="small"
         type="search"
@@ -25,7 +25,7 @@ const LocalitiesHeader = () => {
       />
 
       <Tooltip title="Добавить location">
-        <IconButton aria-label="add agency">
+        <IconButton>
           <AddIcon fontSize="medium" />
         </IconButton>
       </Tooltip>

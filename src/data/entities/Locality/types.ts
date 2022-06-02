@@ -14,6 +14,18 @@ export interface ILocalityEntity {
    * Описание.
    */
   description?: string;
+  /**
+   * Регион
+   */
+  region?: string;
+  /**
+   * Район
+   */
+  district?: string;
+  /**
+   * координаты
+   */
+  coordinates?: string;
 }
 
 export interface ILocalityDTO extends ILocalityEntity {}

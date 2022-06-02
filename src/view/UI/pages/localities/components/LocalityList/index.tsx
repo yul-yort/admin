@@ -10,7 +10,6 @@ import { IconButton } from "@mui/material";
 import css from "./styles.module.scss";
 
 const LocalityList: FC<ILocalityList> = ({ localities }) => {
-  console.log(localities);
   return (
     // FIXME: высота карточек исправить
     <div className={css.lists}>
@@ -24,13 +23,13 @@ const LocalityList: FC<ILocalityList> = ({ localities }) => {
                   color="text.secondary"
                   gutterBottom
                 >
-                  Республика Башкортстан
+                  {item.region}
                 </Typography>
                 <Typography variant="h5" component="div">
                   {item.name}
                 </Typography>
                 <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                  Зилаир
+                  {item.district}
                 </Typography>
                 <Typography variant="body2">{item.description}</Typography>
               </CardContent>
