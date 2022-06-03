@@ -14,7 +14,6 @@ export const CreateOrder: FC<ICreateOrders> = ({
   localitiesLoading,
   ordersAddLoading,
 }) => {
-  //FIXME: добавить loading
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
   const {
