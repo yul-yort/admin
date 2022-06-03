@@ -8,7 +8,6 @@ export const CreateOrder: FC<ICreateOrders> = ({
   handleCloseModal,
   titleModal,
   methods,
-  orderID,
   createOrder,
   localities,
   getLocality,
@@ -32,10 +31,9 @@ export const CreateOrder: FC<ICreateOrders> = ({
   }, [formState, getValues, isSubmitSuccessful, reset]);
 
   const onClose = () => {
-    //FIXME: LOADING
-    // if (editLoading) {
-    //   return;
-    // }
+    if (ordersAddLoading) {
+      return;
+    }
 
     if (isDirty) {
       setShowConfirm(true);

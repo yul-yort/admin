@@ -24,7 +24,11 @@ export class OrderService implements IOrderService {
     return orders.map((orderItem) => new OrderItem(orderItem));
   }
 
-  async createOrder(fields: IOrdersCreateFormFields) {
-    return await this.repository.createOrder(fields);
+  async createOrder(
+    fields: IOrdersCreateFormFields
+  ): Promise<IOrderItemEntity[]> {
+    const orders = await this.repository.createOrder(fields);
+
+    return orders.map((orderItem) => new OrderItem(orderItem));
   }
 }

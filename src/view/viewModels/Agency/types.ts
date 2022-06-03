@@ -6,10 +6,7 @@ import {
   IAgencyItemEntity,
 } from "../../../data/entities/Agency/types";
 import { ICreateOrEditAgencyFormFields } from "../../UI/components/shared/AgencyCreateEditForm/types";
-import {
-  IOrderItemEntity,
-  IOrderItemResponseDTO,
-} from "../../../data/entities/Order/types";
+import { IOrderItemEntity } from "../../../data/entities/Order/types";
 import { IOrdersCreateFormFields } from "src/view/UI/pages/agency/components/DetailOrders/CreateOrder/types";
 
 export interface IAgencyVM extends IBaseVM {

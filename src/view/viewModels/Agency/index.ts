@@ -188,7 +188,9 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
       });
       this.notify.successNotification("Поездка добавлена");
     } catch (err) {
-      this.setError(err);
+      const error = errorMapper(err);
+      const message = `${error?.name} ${error?.message}`;
+      this.notify.errorNotification(message);
     } finally {
       this.unsetOrdersAddLoading();
     }
