@@ -1,4 +1,4 @@
-import { ILocalityEntity } from "src/data/entities/Locality/types";
+import { ILocalityEntity } from "src/data/Locality/entity/types";
 
 export interface ITableToolbar {
   filterByAgency: (value: string) => void;

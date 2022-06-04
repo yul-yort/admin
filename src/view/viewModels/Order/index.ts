@@ -12,8 +12,8 @@ import { INotificationsVM } from "../types";
 import {
   IOrderItemEntity,
   IOrderItemRequestParams,
-} from "src/data/entities/Order/types";
-import { IOrderService } from "src/data/services/Order/types";
+} from "src/data/Order/entity/types";
+import { IOrderService } from "src/data/Order/service/types";
 import { IOrdersCreateFormFields } from "../../UI/pages/agency/components/DetailOrders/CreateOrder/types";
 import { errorMapper } from "../mappers";
 

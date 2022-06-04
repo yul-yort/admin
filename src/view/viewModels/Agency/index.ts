@@ -8,8 +8,8 @@ import {
   IAgencyRequestParams,
   IAgencyRequestDeleteParams,
   IAgencyItemEntity,
-} from "../../../data/entities/Agency/types";
-import { IAgencyService } from "../../../data/services/Agency/types";
+} from "../../../data/Agency/entity/types";
+import { IAgencyService } from "../../../data/Agency/service/types";
 import { INotificationsVM } from "../types";
 import { ICreateOrEditAgencyFormFields } from "../../UI/components/shared/AgencyCreateEditForm/types";
 import { VMPhonesRequestFormatter } from "src/view/UI/components/shared/AgencyCreateEditForm/mappers";

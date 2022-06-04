@@ -1,7 +1,7 @@
 import { rest } from "msw";
 import { EEndpoints } from "../../../../constants/Endpoints";
 import { getTimeout } from "../../utils/getTimeout";
-import { ILocalityDTO } from "../../../../data/entities/Locality/types";
+import { ILocalityDTO } from "../../../../data/Locality/entity/types";
 import { localities } from "./localities";
 
 export const localitiesHandlers = [

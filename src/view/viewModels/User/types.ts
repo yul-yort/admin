@@ -1,6 +1,6 @@
 import { IBaseVM } from "../types";
 
-import { IUserEntity } from "../../../data/entities/User/types";
+import { IUserEntity } from "../../../data/User/entity/types";
 
 export interface IUserVM extends IBaseVM {
   user: IUserEntity | null;

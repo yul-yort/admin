@@ -1,8 +1,8 @@
 import { IRepositories, IStoreLibs, IStoreRepositories } from "./types";
-import { AgencyRepository } from "../data/repositories/Agency";
-import { UserRepository } from "../data/repositories/User";
-import { OrderRepository } from "../data/repositories/Order";
-import { LocalityRepository } from "../data/repositories/Locality";
+import { AgencyRepository } from "../data/Agency/repository";
+import { UserRepository } from "../data/User/repository";
+import { OrderRepository } from "../data/Order/repository";
+import { LocalityRepository } from "../data/Locality/repository";
 
 export class RepositoriesStore implements IStoreRepositories {
   private repositories: IRepositories = {};

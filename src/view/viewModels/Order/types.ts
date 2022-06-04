@@ -2,7 +2,7 @@ import { IBaseVM } from "../types";
 import {
   IOrderItemEntity,
   IOrderItemRequestParams,
-} from "../../../data/entities/Order/types";
+} from "../../../data/Order/entity/types";
 import { IOrdersCreateFormFields } from "../../UI/pages/agency/components/DetailOrders/CreateOrder/types";
 
 export interface IOrderVM extends IBaseVM {

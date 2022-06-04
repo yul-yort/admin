@@ -4,7 +4,7 @@ import {
   IAgencyRequestParams,
   IAgencyRequestDeleteParams,
   IAgencyItemEntity,
-} from "../../../data/entities/Agency/types";
+} from "../../../data/Agency/entity/types";
 import { ICreateOrEditAgencyFormFields } from "../../UI/components/shared/AgencyCreateEditForm/types";
 
 export interface IAgencyVM extends IBaseVM {

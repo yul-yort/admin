@@ -1,4 +1,4 @@
-import { IOrderItemResponseDTO } from "../../../../data/entities/Order/types";
+import { IOrderItemResponseDTO } from "../../../../data/Order/entity/types";
 import { ECurrencyISO } from "../../../utils/getCurrency";
 
 export const orders: IOrderItemResponseDTO[] = [

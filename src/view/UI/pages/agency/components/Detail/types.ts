@@ -1,8 +1,8 @@
 import { IAgencyVM } from "src/view/viewModels/Agency/types";
-import { IAgencyEntity } from "src/data/entities/Agency/types";
-import { IOrderItemEntity } from "src/data/entities/Order/types";
+import { IAgencyEntity } from "src/data/Agency/entity/types";
+import { IOrderItemEntity } from "src/data/Order/entity/types";
 import { IOrdersCreateFormFields } from "../DetailOrders/CreateOrder/types";
-import { ILocalityEntity } from "src/data/entities/Locality/types";
+import { ILocalityEntity } from "src/data/Locality/entity/types";
 
 export interface IDetail
   extends Pick<IAgencyVM, "editAgency" | "editLoading" | "deleteAgency"> {

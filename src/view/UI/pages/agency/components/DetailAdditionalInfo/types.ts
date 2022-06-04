@@ -1,4 +1,4 @@
-import { IAgencyEntity } from "../../../../../../data/entities/Agency/types";
+import { IAgencyEntity } from "../../../../../../data/Agency/entity/types";
 
 export interface IAdditionalInfo extends Omit<IAgencyEntity, "id"> {
   handleEdit: () => void;

@@ -1,5 +1,5 @@
 import { UseFormReturn } from "react-hook-form";
-import { ILocalityEntity } from "src/data/entities/Locality/types";
+import { ILocalityEntity } from "src/data/Locality/entity/types";
 import { IOrder } from "../types";
 
 export interface ICreateOrders {

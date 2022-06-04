@@ -1,5 +1,5 @@
-import { IOrderItemEntity } from "src/data/entities/Order/types";
-import { ILocalityEntity } from "src/data/entities/Locality/types";
+import { IOrderItemEntity } from "src/data/Order/entity/types";
+import { ILocalityEntity } from "src/data/Locality/entity/types";
 
 export interface IListProps {
   list: IOrderItemEntity[];
