@@ -39,6 +39,7 @@ const Agency: FC = observer(() => {
             localities={localityVM.localities || []}
             getLocality={localityVM.getList}
             localitiesLoading={localityVM.loading}
+            ordersAddLoading={agencyVM.ordersAddLoading}
           />
         )}
     </div>

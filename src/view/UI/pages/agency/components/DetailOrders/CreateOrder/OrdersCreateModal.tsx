@@ -14,6 +14,7 @@ export const OrdersCreateModal: FC<IOrdersCreateModal> = ({
   localities,
   getLocality,
   localitiesLoading,
+  ordersAddLoading,
 }) => {
   return (
     <Modal
@@ -21,6 +22,7 @@ export const OrdersCreateModal: FC<IOrdersCreateModal> = ({
       onClose={onClose}
       title={titleModal}
       showConfirm={showConfirm}
+      loading={ordersAddLoading}
       confirmProps={{
         onConfirm: onConformClose,
         onCancel: onCancelClose,
