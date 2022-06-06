@@ -14,6 +14,7 @@ export interface IAgencyVM extends IBaseVM {
   editLoading: boolean;
   ordersLoading: boolean;
   loadingList: ID[];
+  ordersAddLoading: boolean;
 
   // entities
   agency: IAgencyEntity | null;
@@ -29,5 +30,5 @@ export interface IAgencyVM extends IBaseVM {
   searchAgency: (value: string) => void;
   getList: () => Promise<void>;
   deleteOrder: (id: ID) => Promise<void>;
-  createOrder: (fields: IOrdersCreateFormFields) => void;
+  createOrder: (fields: IOrdersCreateFormFields) => Promise<void>;
 }

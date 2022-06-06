@@ -8,13 +8,12 @@ export const CreateOrder: FC<ICreateOrders> = ({
   handleCloseModal,
   titleModal,
   methods,
-  orderID,
   createOrder,
   localities,
   getLocality,
   localitiesLoading,
+  ordersAddLoading,
 }) => {
-  //FIXME: добавить loading
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
   const {
@@ -31,10 +30,9 @@ export const CreateOrder: FC<ICreateOrders> = ({
   }, [formState, getValues, isSubmitSuccessful, reset]);
 
   const onClose = () => {
-    //FIXME: LOADING
-    // if (editLoading) {
-    //   return;
-    // }
+    if (ordersAddLoading) {
+      return;
+    }
 
     if (isDirty) {
       setShowConfirm(true);
@@ -79,6 +77,7 @@ export const CreateOrder: FC<ICreateOrders> = ({
         localities={localities || []}
         getLocality={getLocality}
         localitiesLoading={localitiesLoading}
+        ordersAddLoading={ordersAddLoading}
       />
     </FormProvider>
   );
