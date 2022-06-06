@@ -1,6 +1,5 @@
 import { ILocalityDTO, ILocalityEntity } from "./types";
 import { makeAutoObservable } from "mobx";
-import { getWeekYearWithOptions } from "date-fns/fp";
 
 /**
  * Сущность населенного пункта.
