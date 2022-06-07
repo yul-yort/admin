@@ -14,6 +14,7 @@ import {
   IOrderItemRequestParams,
 } from "src/data/entities/Order/types";
 import { IOrderService } from "src/data/services/Order/types";
+import { filterOrders } from "./mappers";
 
 export class OrderVM extends BaseVM implements IOrderVM {
   private _orders: IOrderItemEntity[] | null = [];
@@ -23,7 +24,15 @@ export class OrderVM extends BaseVM implements IOrderVM {
   _filterByDestination: string = "";
 
   get orders() {
-    return this._orders;
+    return (
+      this._orders &&
+      filterOrders(this._orders, {
+        filterByOrigin: this._filterByOrigin,
+        filterByDestination: this._filterByDestination,
+        filterByAgency: this._filterByAgency,
+        filterByPhone: this._filterByPhone,
+      })
+    );
   }
 
   constructor(

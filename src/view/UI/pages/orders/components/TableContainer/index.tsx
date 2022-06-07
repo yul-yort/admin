@@ -17,6 +17,8 @@ const TableContainer: VFC<IListProps> = ({
   localitiesLoading,
   filterByAgency,
   filterByPhone,
+  filterByOrigin,
+  filterByDestination,
 }) => {
   return (
     <>
@@ -24,6 +26,8 @@ const TableContainer: VFC<IListProps> = ({
         localities={localities}
         filterByAgency={filterByAgency}
         filterByPhone={filterByPhone}
+        filterByOrigin={filterByOrigin}
+        filterByDestination={filterByDestination}
         getLocalities={getLocalities}
         localitiesLoading={localitiesLoading}
       />
