@@ -28,4 +28,5 @@ export interface IDetailOrders {
   localities: ILocalityEntity[];
   getLocality: () => void;
   localitiesLoading: boolean;
+  ordersAddLoading: boolean;
 }

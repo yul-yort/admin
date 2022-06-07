@@ -25,6 +25,7 @@ export const Detail: FC<IDetail> = ({
   localities,
   getLocality,
   localitiesLoading,
+  ordersAddLoading,
 }) => {
   const { navigate } = useRouter();
 
@@ -142,6 +143,7 @@ export const Detail: FC<IDetail> = ({
             localities={localities || []}
             getLocality={getLocality}
             localitiesLoading={localitiesLoading}
+            ordersAddLoading={ordersAddLoading}
           />
         </div>
       </Paper>
