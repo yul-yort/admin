@@ -35,7 +35,7 @@ export class OrderVM extends BaseVM implements IOrderVM {
       filterOrders(this._orders, {
         filterByOrigin: this._filterByOrigin,
         filterByDestination: this._filterByDestination,
-        filterByAgency: this._filterByAgency,
+        filterByAgency: this._filterByAgencyName,
         filterByPhone: this._filterByPhone,
       })
     );
