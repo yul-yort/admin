@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, MouseEventHandler, useState } from "react";
 import {
   TableContainer,
   Table,
@@ -13,20 +13,45 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import css from "./styles.module.scss";
 import { IAgencyOrders } from "./types";
 import { getCurrency } from "src/libs/utils";
+import { ConfirmModal } from "../../../../components/common/ConfirmModal";
 
 export const Orders: FC<IAgencyOrders> = ({
   handleEditOrder,
   agencyOrders,
   handleDeleteOrder,
 }) => {
-  //TODO: any
-  const handleClickRow = (event: any) => {
-    const $editButton = event.target.closest("[data-edit-id]");
-    const $deleteButton = event.target.closest("[data-delete-id]");
+  const [deleteModal, setOpenDeleteModal] = useState<boolean>(false);
+  const [deletedOrderId, setDeletedOrderId] = useState<ID>("");
 
-    $editButton && handleEditOrder($editButton.dataset.editId);
-    $deleteButton && handleDeleteOrder($deleteButton.dataset.deleteId);
+  const handleCancelDelete = () => {
+    setOpenDeleteModal(false);
+    setDeletedOrderId("");
   };
+
+  const handleConfirmDelete = () => {
+    deletedOrderId && handleDeleteOrder(deletedOrderId);
+    handleCancelDelete();
+  };
+
+  const handleClickEdit: MouseEventHandler<HTMLButtonElement> = ({
+    target,
+  }) => {
+    if (target instanceof HTMLElement) {
+      const id = target.dataset.editId;
+      id && handleEditOrder(id);
+    }
+  };
+
+  const handleClickDelete: MouseEventHandler<HTMLButtonElement> = ({
+    target,
+  }) => {
+    setOpenDeleteModal(true);
+
+    if (target instanceof HTMLElement) {
+      setDeletedOrderId(target.dataset.deleteId || "");
+    }
+  };
+
   return (
     <>
       {agencyOrders.length ? (
@@ -41,25 +66,36 @@ export const Orders: FC<IAgencyOrders> = ({
               </TableRow>
             </TableHead>
 
-            <TableBody onClick={handleClickRow}>
+            <TableBody>
               {agencyOrders.map(({ id, route, price, currencyISO }) => (
                 <TableRow key={id} className={css.tableRow}>
                   <TableCell>{route.origin.name}</TableCell>
                   <TableCell>{route.destination.name}</TableCell>
-                  <TableCell>
+                  <TableCell className={css.currencyCell}>
                     {price} {getCurrency(currencyISO)}
                   </TableCell>
                   <TableCell>
                     <div className={css.icons}>
-                      <IconButton aria-label="edit order" data-edit-id={id}>
-                        <EditRoundedIcon fontSize="small" />
+                      <IconButton
+                        aria-label="edit order"
+                        data-edit-id={id}
+                        onClick={handleClickEdit}
+                      >
+                        <EditRoundedIcon
+                          fontSize="small"
+                          className={css.icon}
+                        />
                       </IconButton>
                       <IconButton
                         aria-label="delete order"
                         data-delete-id={id}
                         color="error"
+                        onClick={handleClickDelete}
                       >
-                        <DeleteForeverIcon fontSize="small" />
+                        <DeleteForeverIcon
+                          fontSize="small"
+                          className={css.icon}
+                        />
                       </IconButton>
                     </div>
                   </TableCell>
@@ -73,6 +109,13 @@ export const Orders: FC<IAgencyOrders> = ({
           <h3>Поездки не найдены!</h3>
         </div>
       )}
+
+      <ConfirmModal
+        open={deleteModal}
+        onCancel={handleCancelDelete}
+        onConfirm={handleConfirmDelete}
+        title="Подтвердите удаление поездки."
+      />
     </>
   );
 };
