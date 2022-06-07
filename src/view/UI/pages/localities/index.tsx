@@ -2,10 +2,10 @@ import { FC } from "react";
 import { observer } from "mobx-react-lite";
 import { useViewModel } from "../../hooks/useViewModel";
 import { ILocalityVM } from "src/view/viewModels/Locality/types";
-import Loading from "../orders/components/Loading";
 import LocalityList from "./components/LocalityList";
 import LocalitiesHeader from "./components/Header";
 import Error from "../../components/shared/Error";
+import Loading from "../../components/common/Loading";
 
 const Localities: FC = observer(() => {
   const localityVM = useViewModel<ILocalityVM>("locality");
