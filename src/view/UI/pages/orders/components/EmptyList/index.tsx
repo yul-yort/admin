@@ -6,6 +6,7 @@ export const EmptyList = () => {
   return (
     <div className={css.wrapper}>
       <SearchOffRoundedIcon fontSize="large" />
+
       <Typography variant="h6" align="center">
         Поездки не найдены
       </Typography>

@@ -8,11 +8,11 @@ export const orders: IOrderItemResponseDTO[] = [
       id: "asdfasd",
       origin: {
         id: "asdf",
-        name: "origin",
+        name: "Баймак",
       },
       destination: {
-        id: "asdfasf",
-        name: "destination",
+        id: "223m2",
+        name: "Сибай",
         description: "description description description",
       },
     },
@@ -30,13 +30,13 @@ export const orders: IOrderItemResponseDTO[] = [
     route: {
       id: "8789as9df8",
       origin: {
-        id: "asdf",
-        name: "origin 1",
+        id: "5k6764k5",
+        name: "Уфа",
         description: "7da9sdf79abfasf as98d7f9 asdf97asd9f a7",
       },
       destination: {
-        id: "asdfasf",
-        name: "destination 1",
+        id: "223m2",
+        name: "Сибай",
       },
       waypoints: [
         {
@@ -64,12 +64,12 @@ export const orders: IOrderItemResponseDTO[] = [
       id: "8789as9df8",
       origin: {
         id: "asdf",
-        name: "origin 1",
+        name: "Баймак",
         description: "7da9sdf79abfasf as98d7f9 asdf97asd9f a7",
       },
       destination: {
-        id: "asdfasf",
-        name: "destination 1",
+        id: "5k6764k5",
+        name: "Уфа",
       },
       waypoints: [
         {
