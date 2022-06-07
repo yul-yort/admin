@@ -9,5 +9,16 @@
 
   @media (max-width: 768px) {
     grid-template-columns: repeat(1, 1fr);
+    grid-gap: 4vw;
   }
+}
+
+.card {
+  padding: 12px;
+}
+
+.actionButtons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--yy-base4X);
 }

@@ -1,6 +1,5 @@
-import { ILocalityDTO, ILocalityEntity } from "./types";
+import { ILocalityDTO, ILocalityEntity, Latitude, Longitude } from "./types";
 import { makeAutoObservable } from "mobx";
-import { getWeekYearWithOptions } from "date-fns/fp";
 
 /**
  * Сущность населенного пункта.
@@ -11,7 +10,7 @@ export class Locality implements ILocalityEntity {
   description?: string;
   region?: string;
   district?: string;
-  coordinates?: string;
+  coordinates?: [Latitude, Longitude];
 
   constructor(dto: ILocalityDTO) {
     this.id = dto.id;

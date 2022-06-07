@@ -7,7 +7,7 @@ export const localities: ILocalityDTO[] = [
     description: "баймакский р-н",
     region: "Респулика Башкортостан",
     district: "Баймак",
-    coordinates: "",
+    coordinates: ["1", "2"],
   },
   {
     id: "223m2",

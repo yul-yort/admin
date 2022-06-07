@@ -25,7 +25,12 @@ export interface ILocalityEntity {
   /**
    * координаты
    */
-  coordinates?: string;
+  coordinates?: [Latitude, Longitude];
 }
+
+/** Широта */
+export type Latitude = string;
+/* Долгота */
+export type Longitude = string;
 
 export interface ILocalityDTO extends ILocalityEntity {}
