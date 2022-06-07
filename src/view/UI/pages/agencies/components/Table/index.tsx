@@ -21,14 +21,31 @@ const AgencyTable: VFC<ITable> = ({
   searchAgency,
 }) => {
   const [createModal, setOpenCreateModal] = useState<boolean>(false);
+  const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
   const methods = useForm<ICreateOrEditAgencyFormFields>({
     defaultValues: {
+      agencyName: "",
+      description: "",
       phones: [{ value: "" }],
     },
   });
 
-  const { reset } = methods;
+  const {
+    reset,
+    formState: { isDirty },
+  } = methods;
+
+  const handleConfirmCloseModal = () => {
+    setShowConfirm(false);
+    setOpenCreateModal(false);
+
+    reset();
+  };
+
+  const handleCancelCloseEditModal = () => {
+    setShowConfirm(false);
+  };
 
   const handleOpenModal = () => {
     setOpenCreateModal(true);
@@ -38,15 +55,16 @@ const AgencyTable: VFC<ITable> = ({
     if (modalLoading) {
       return;
     }
-
-    setOpenCreateModal(false);
-
-    reset();
+    if (isDirty) {
+      setShowConfirm(true);
+    } else {
+      handleConfirmCloseModal();
+    }
   };
 
   const handleCreate = async (fields: ICreateOrEditAgencyFormFields) => {
     await createAgency(fields);
-    handleCancelCreate();
+    handleConfirmCloseModal();
   };
 
   return (
@@ -74,6 +92,9 @@ const AgencyTable: VFC<ITable> = ({
 
       <FormProvider {...methods}>
         <AgencyCreateEditModal
+          showConfirm={showConfirm}
+          onConformClose={handleConfirmCloseModal}
+          onCancelClose={handleCancelCloseEditModal}
           loading={modalLoading}
           open={createModal}
           onClose={handleCancelCreate}
