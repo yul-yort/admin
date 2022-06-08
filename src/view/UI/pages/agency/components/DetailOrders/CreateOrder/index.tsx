@@ -13,6 +13,7 @@ export const CreateOrder: FC<ICreateOrders> = ({
   getLocality,
   localitiesLoading,
   ordersAddLoading,
+  orderID,
 }) => {
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
@@ -52,13 +53,18 @@ export const CreateOrder: FC<ICreateOrders> = ({
   };
 
   //handleOrderEdit
-  // const handleOrderEdit = async (fields: IOrdersCreateFormFields) => {
-  //   if (orderID) {
-  //     console.log("edit", fields);
-  //   }
-  // };
+  const handleOrderEdit = async (fields: IOrdersCreateFormFields) => {
+    if (orderID) {
+      console.log("edit", fields);
+    }
+  };
 
   const handleOrderCreate = async (fields: IOrdersCreateFormFields) => {
+    //вызывается одна функция
+    if (orderID) {
+      handleOrderEdit(fields);
+      return;
+    }
     await createOrder(fields);
     reset();
     handleCloseModal();
