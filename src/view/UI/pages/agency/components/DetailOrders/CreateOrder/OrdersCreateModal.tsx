@@ -15,6 +15,8 @@ export const OrdersCreateModal: FC<IOrdersCreateModal> = ({
   getLocality,
   localitiesLoading,
   ordersAddLoading,
+  orderID,
+  defaultValues,
 }) => {
   return (
     <Modal
@@ -34,11 +36,13 @@ export const OrdersCreateModal: FC<IOrdersCreateModal> = ({
       }}
     >
       <OrdersCreateForm
+        orderID={orderID}
         onSave={onSave}
         onClose={onClose}
         localities={localities}
         getLocality={getLocality}
         localitiesLoading={localitiesLoading}
+        defaultValues={defaultValues}
       />
     </Modal>
   );

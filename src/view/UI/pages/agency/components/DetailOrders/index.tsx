@@ -30,8 +30,8 @@ export const DetailOrders: FC<IDetailOrders> = ({
 
   useEffect(() => {
     if (defaultValues) {
-      setValue("origin", defaultValues.origin);
-      setValue("destination", defaultValues.destination);
+      // setValue("origin", defaultValues.origin);
+      // setValue("destination", defaultValues.destination);
       setValue("price", defaultValues.price);
     }
   }, [defaultValues, setValue]);
@@ -97,6 +97,7 @@ export const DetailOrders: FC<IDetailOrders> = ({
         getLocality={getLocality}
         localitiesLoading={localitiesLoading}
         ordersAddLoading={ordersAddLoading}
+        defaultValues={defaultValues}
       />
     </Paper>
   );

@@ -14,6 +14,7 @@ export const CreateOrder: FC<ICreateOrders> = ({
   localitiesLoading,
   ordersAddLoading,
   orderID,
+  defaultValues,
 }) => {
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
@@ -84,6 +85,8 @@ export const CreateOrder: FC<ICreateOrders> = ({
         getLocality={getLocality}
         localitiesLoading={localitiesLoading}
         ordersAddLoading={ordersAddLoading}
+        orderID={orderID}
+        defaultValues={defaultValues}
       />
     </FormProvider>
   );
