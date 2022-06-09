@@ -1,4 +1,4 @@
-import { IAgencyResponseDTO } from "../../../data/entities/Agency/types";
+import { IAgencyResponseDTO } from "../../../../data/entities/Agency/types";
 
 export const agencies: IAgencyResponseDTO[] = [
   {

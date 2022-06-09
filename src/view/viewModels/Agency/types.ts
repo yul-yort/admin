@@ -8,19 +8,14 @@ import {
 // TODO наверное viewModel не должен зависеть от UI.
 // решить, что делать со всеми такими зависимостями
 import { ICreateOrEditAgencyFormFields } from "../../UI/components/shared/AgencyCreateEditForm/types";
-import { IOrderItemEntity } from "../../../data/entities/Order/types";
-import { IOrdersCreateFormFields } from "src/view/UI/pages/agency/components/DetailOrders/CreateOrder/types";
 
 export interface IAgencyVM extends IBaseVM {
   // loaders
   editLoading: boolean;
-  ordersLoading: boolean;
   loadingList: ID[];
-  ordersAddLoading: boolean;
 
   // entities
   agency: IAgencyEntity | null;
-  agencyOrders: IOrderItemEntity[] | null;
   agencies: IAgencyItemEntity[] | null;
 
   // methods
@@ -31,6 +26,4 @@ export interface IAgencyVM extends IBaseVM {
   createAgency: (params: ICreateOrEditAgencyFormFields) => Promise<void>;
   searchAgency: (value: string) => void;
   getList: () => Promise<void>;
-  deleteOrder: (id: ID) => Promise<void>;
-  createOrder: (fields: IOrdersCreateFormFields) => Promise<void>;
 }
