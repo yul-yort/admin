@@ -1,4 +1,4 @@
-import { IOrderItemEntity } from "src/data/entities/Order/types";
+import { IOrderItemEntity } from "../../../data/Order/entity/types";
 
 /**
  * Возвращает отфильтрованные поездки.
@@ -6,8 +6,8 @@ import { IOrderItemEntity } from "src/data/entities/Order/types";
  * @param orders - список поездок
  * @param filterByOrigin - пункт отбытия
  * @param filterByDestination - пункт прибытия
- * @param filterByAgency - название агенства
- * @param filterByPhone - телефон агенства
+ * @param filterByAgency - название агентства
+ * @param filterByPhone - телефон агентства
  */
 export const filterOrders = (
   orders: IOrderItemEntity[],

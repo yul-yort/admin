@@ -1,8 +1,8 @@
 import { BaseVM } from "../BaseVM";
 import { makeObservable, observable } from "mobx";
 
-import { IUserEntity } from "../../../data/entities/User/types";
-import { IUserService } from "../../../data/services/User/types";
+import { IUserEntity } from "../../../data/User/entity/types";
+import { IUserService } from "../../../data/User/service/types";
 import { IUserVM } from "./types";
 import { INotificationsVM } from "../types";
 

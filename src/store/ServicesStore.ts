@@ -1,8 +1,8 @@
 import { IServices, IStoreRepositories, IStoreServices } from "./types";
-import { AgencyService } from "../data/services/Agency";
-import { UserService } from "../data/services/User";
-import { OrderService } from "../data/services/Order";
-import { LocalityService } from "../data/services/Locality";
+import { AgencyService } from "../data/Agency/service";
+import { OrderService } from "../data/Order/service";
+import { LocalityService } from "../data/Locality/service";
+import { UserService } from "../data/User/service";
 
 export class ServicesStore implements IStoreServices {
   private services: IServices = {};

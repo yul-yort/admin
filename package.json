@@ -9,6 +9,7 @@
     "serve-build": "cross-env REACT_APP_BUILD_MODE=serve BUILD_PATH='serve-build' react-scripts build",
     "gh-pages-build": "cross-env REACT_APP_BUILD_MODE=gh-pages BUILD_PATH='gh-pages' react-scripts build",
     "build": "react-scripts build",
+    "module": "node createModule.js",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "test": "react-scripts test",

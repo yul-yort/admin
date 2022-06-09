@@ -1,16 +1,16 @@
-import { IAgencyService } from "../data/services/Agency/types";
-import { IAgencyRepository } from "../data/repositories/Agency/types";
+import { IAgencyService } from "../data/Agency/service/types";
+import { IAgencyRepository } from "../data/Agency/repository/types";
 import { IAgencyVM } from "../view/viewModels/Agency/types";
 import { IApi } from "../libs/api/types";
 import { INotificationsVM } from "../view/viewModels/types";
-import { IUserService } from "../data/services/User/types";
-import { IUserRepository } from "../data/repositories/User/types";
+import { IUserService } from "../data/User/service/types";
+import { IUserRepository } from "../data/User/repository/types";
 import { IUserVM } from "../view/viewModels/User/types";
 import { IOrderVM } from "../view/viewModels/Order/types";
-import { IOrderService } from "../data/services/Order/types";
-import { IOrderRepository } from "../data/repositories/Order/types";
-import { ILocalityRepository } from "../data/repositories/Locality/types";
-import { ILocalityService } from "../data/services/Locality/types";
+import { IOrderService } from "../data/Order/service/types";
+import { IOrderRepository } from "../data/Order/repository/types";
+import { ILocalityRepository } from "../data/Locality/repository/types";
+import { ILocalityService } from "../data/Locality/service/types";
 import { ILocalityVM } from "../view/viewModels/Locality/types";
 
 export interface ILibs {

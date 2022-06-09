@@ -3,7 +3,7 @@ import { EEndpoints } from "../../../../constants/Endpoints";
 import {
   IAgencyItemResponseDTO,
   IAgencyResponseDTO,
-} from "../../../../data/entities/Agency/types";
+} from "../../../../data/Agency/entity/types";
 import { getTimeout } from "../../utils/getTimeout";
 import { v4 as uuid } from "uuid";
 import { agencies } from "./agencies";

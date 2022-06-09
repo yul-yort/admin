@@ -1,7 +1,7 @@
 import { DefaultDependencies, Route, Router } from "router5/dist/types/router";
 import { IStoreViewModels } from "../store/types";
-import { IAgencyRequestParams } from "../data/entities/Agency/types";
-import { IOrderItemRequestParams } from "../data/entities/Order/types";
+import { IAgencyRequestParams } from "../data/Agency/entity/types";
+import { IOrderItemRequestParams } from "../data/Order/entity/types";
 
 export type IRoutes = [
   ILoginRoute,

@@ -1,4 +1,4 @@
-import { ILocalityDTO } from "../../../../data/entities/Locality/types";
+import { ILocalityDTO } from "../../../../data/Locality/entity/types";
 
 export const localities: ILocalityDTO[] = [
   {
