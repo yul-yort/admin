@@ -5,6 +5,8 @@ import {
   IAgencyRequestDeleteParams,
   IAgencyItemEntity,
 } from "../../../data/Agency/entity/types";
+// TODO наверное viewModel не должен зависеть от UI.
+// решить, что делать со всеми такими зависимостями
 import { ICreateOrEditAgencyFormFields } from "../../UI/components/shared/AgencyCreateEditForm/types";
 
 export interface IAgencyVM extends IBaseVM {

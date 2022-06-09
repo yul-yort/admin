@@ -29,6 +29,8 @@ const Orders: FC = observer(() => {
             list={orderVM.orders}
             filterByAgency={orderVM.filterByAgency}
             filterByPhone={orderVM.filterByPhone}
+            filterByOrigin={orderVM.filterByOrigin}
+            filterByDestination={orderVM.filterByDestination}
             localities={localityVM.localities || []}
             getLocalities={localityVM.getList}
             localitiesLoading={localityVM.loading}

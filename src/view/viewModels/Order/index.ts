@@ -16,6 +16,7 @@ import {
 import { IOrderService } from "src/data/Order/service/types";
 import { IOrdersCreateFormFields } from "../../UI/pages/agency/components/DetailOrders/CreateOrder/types";
 import { errorMapper } from "../mappers";
+import { filterOrders } from "./mappers";
 
 export class OrderVM extends BaseVM implements IOrderVM {
   ordersAddLoading: boolean = false;
@@ -29,7 +30,19 @@ export class OrderVM extends BaseVM implements IOrderVM {
   _filterByDestination: string = "";
 
   get orders() {
-    return this._orders;
+    return (
+      this._orders &&
+      filterOrders(this._orders, {
+        filterByOrigin: this._filterByOrigin,
+        filterByDestination: this._filterByDestination,
+        filterByAgency: this._filterByAgencyName,
+        filterByPhone: this._filterByPhone,
+      })
+    );
+  }
+
+  get agencyOrders() {
+    return this._agencyOrders;
   }
 
   get agencyOrders() {
