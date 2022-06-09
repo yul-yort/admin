@@ -1,4 +1,4 @@
-import { IAgencyItemEntity } from "src/data/entities/Agency/types";
+import { IAgencyItemEntity } from "src/data/Agency/entity/types";
 
 export interface ITableBodyTemplateProps {
   rows: IAgencyItemEntity[];

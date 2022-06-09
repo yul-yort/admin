@@ -1,4 +1,4 @@
-import { ILocalityEntity } from "src/data/entities/Locality/types";
+import { ILocalityEntity } from "../../../../../../data/Locality/entity/types";
 
 export interface ILocalityList {
   localities: ILocalityEntity[];

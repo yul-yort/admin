@@ -7,9 +7,11 @@ import Error from "../../components/shared/Error";
 import Loading from "../../components/common/Loading";
 import { IAgencyVM } from "../../../viewModels/Agency/types";
 import { ILocalityVM } from "src/view/viewModels/Locality/types";
+import { IOrderVM } from "../../../viewModels/Order/types";
 
 const Agency: FC = observer(() => {
   const agencyVM = useViewModel<IAgencyVM>("agency");
+  const orderVM = useViewModel<IOrderVM>("order");
   const localityVM = useViewModel<ILocalityVM>("locality");
 
   return (
@@ -18,30 +20,27 @@ const Agency: FC = observer(() => {
 
       {agencyVM.error && !agencyVM.loading && (
         <Error
-          title="Ошибка при получении данных об агенстве"
+          title="Ошибка при получении данных об агентстве"
           error={agencyVM.error}
         />
       )}
 
-      {!agencyVM.loading &&
-        !agencyVM.error &&
-        agencyVM.agency &&
-        agencyVM.agencyOrders && (
-          <Detail
-            agency={agencyVM.agency}
-            editAgency={agencyVM.editAgency}
-            deleteAgency={agencyVM.deleteAgency}
-            editLoading={agencyVM.editLoading}
-            agencyOrders={agencyVM.agencyOrders}
-            deleteOrder={agencyVM.deleteOrder}
-            ordersLoading={agencyVM.ordersLoading}
-            createOrder={agencyVM.createOrder}
-            localities={localityVM.localities || []}
-            getLocality={localityVM.getList}
-            localitiesLoading={localityVM.loading}
-            ordersAddLoading={agencyVM.ordersAddLoading}
-          />
-        )}
+      {!agencyVM.loading && !agencyVM.error && agencyVM.agency && (
+        <Detail
+          agency={agencyVM.agency}
+          editAgency={agencyVM.editAgency}
+          deleteAgency={agencyVM.deleteAgency}
+          editLoading={agencyVM.editLoading}
+          agencyOrders={orderVM.agencyOrders || []}
+          deleteOrder={orderVM.deleteOrder}
+          ordersLoading={orderVM.loading}
+          ordersAddLoading={orderVM.ordersAddLoading}
+          createOrder={orderVM.createOrder}
+          localities={localityVM.localities || []}
+          getLocality={localityVM.getList}
+          localitiesLoading={localityVM.loading}
+        />
+      )}
     </div>
   );
 });

@@ -1,4 +1,4 @@
-import { IAgencyItemResponseDTO } from "src/data/entities/Agency/types";
+import { IAgencyItemResponseDTO } from "src/data/Agency/entity/types";
 
 export interface ITableHeaderCell {
   id: keyof IAgencyItemResponseDTO;

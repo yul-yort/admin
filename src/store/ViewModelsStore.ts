@@ -20,8 +20,7 @@ export class ViewModelsStore implements IStoreViewModels {
     if (!this.store.agency) {
       this.store.agency = new AgencyVM(
         this.notifications,
-        this.services.agency,
-        this.services.order
+        this.services.agency
       );
     }
 

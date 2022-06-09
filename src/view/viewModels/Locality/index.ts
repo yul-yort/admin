@@ -1,8 +1,8 @@
 import { action, makeObservable, observable, runInAction } from "mobx";
 import { BaseVM } from "../BaseVM";
 import { INotificationsVM } from "../types";
-import { ILocalityEntity } from "src/data/entities/Locality/types";
-import { ILocalityService } from "src/data/services/Locality/types";
+import { ILocalityEntity } from "src/data/Locality/entity/types";
+import { ILocalityService } from "src/data/Locality/service/types";
 import { ILocalityVM } from "./types";
 
 export class LocalityVM extends BaseVM implements ILocalityVM {

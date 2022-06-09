@@ -8,24 +8,18 @@ import {
   IAgencyRequestParams,
   IAgencyRequestDeleteParams,
   IAgencyItemEntity,
-} from "../../../data/entities/Agency/types";
-import { IAgencyService } from "../../../data/services/Agency/types";
+} from "../../../data/Agency/entity/types";
+import { IAgencyService } from "../../../data/Agency/service/types";
 import { INotificationsVM } from "../types";
 import { ICreateOrEditAgencyFormFields } from "../../UI/components/shared/AgencyCreateEditForm/types";
 import { VMPhonesRequestFormatter } from "src/view/UI/components/shared/AgencyCreateEditForm/mappers";
-import { IOrderService } from "../../../data/services/Order/types";
-import { IOrderItemEntity } from "../../../data/entities/Order/types";
 import { errorMapper } from "../mappers";
-import { IOrdersCreateFormFields } from "src/view/UI/pages/agency/components/DetailOrders/CreateOrder/types";
 
 export class AgencyVM extends BaseVM implements IAgencyVM {
   editLoading: boolean = false;
-  ordersLoading: boolean = false;
-  ordersAddLoading: boolean = false;
   loadingList: ID[] = [];
 
   agency: IAgencyEntity | null = null;
-  agencyOrders: IOrderItemEntity[] | null = null;
   searchValue: string = "";
 
   private _agencies: IAgencyItemEntity[] | null = null;
@@ -43,25 +37,19 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
 
   constructor(
     notificationsVM: INotificationsVM,
-    private service: IAgencyService,
-    private orderService: IOrderService
+    private service: IAgencyService
   ) {
     super(notificationsVM);
 
     makeObservable(this, {
       agency: observable,
-      agencyOrders: observable,
       editLoading: observable,
       loadingList: observable,
       searchValue: observable,
-      ordersLoading: observable,
-      ordersAddLoading: observable,
       getAgency: action,
       editAgency: action,
       getList: action,
       createAgency: action,
-      deleteOrder: action,
-      createOrder: action,
     });
   }
 
@@ -85,22 +73,6 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
     this.editLoading = false;
   };
 
-  private setOrdersLoading = () => {
-    this.ordersLoading = true;
-  };
-
-  private unsetOrdersLoading = () => {
-    this.ordersLoading = false;
-  };
-
-  private setOrdersAddLoading = () => {
-    this.ordersAddLoading = true;
-  };
-
-  private unsetOrdersAddLoading = () => {
-    this.ordersAddLoading = false;
-  };
-
   isLoadingItem = (id: ID) => this.loadingList.indexOf(id) !== -1;
 
   searchAgency = (value: string) => {
@@ -113,13 +85,9 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
 
     try {
       const agency = await this.service.getAgency(params);
-      const orders = await this.orderService.getList({
-        agencyId: params.id,
-      });
 
       runInAction(() => {
         this.agency = agency;
-        this.agencyOrders = orders;
       });
     } catch (err) {
       this.setError(err);
@@ -176,40 +144,6 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
       this.setError(err);
     } finally {
       this.unsetLoading();
-    }
-  };
-
-  createOrder = async (fields: IOrdersCreateFormFields) => {
-    this.setOrdersAddLoading();
-    try {
-      const orders = await this.orderService.createOrder(fields);
-      runInAction(() => {
-        this.agencyOrders = orders;
-      });
-      this.notify.successNotification("Поездка добавлена");
-    } catch (err) {
-      const error = errorMapper(err);
-      const message = `${error?.name} ${error?.message}`;
-      this.notify.errorNotification(message);
-    } finally {
-      this.unsetOrdersAddLoading();
-    }
-  };
-
-  deleteOrder = async (id: ID) => {
-    this.setOrdersLoading();
-    try {
-      const orders = await this.orderService.deleteOrder(id);
-      runInAction(() => {
-        this.agencyOrders = orders;
-      });
-      this.notify.successNotification(`Поездка удалена`);
-    } catch (err) {
-      const error = errorMapper(err);
-      const message = `${error?.name} ${error?.message}`;
-      this.notify.errorNotification(message);
-    } finally {
-      this.unsetOrdersLoading();
     }
   };
 

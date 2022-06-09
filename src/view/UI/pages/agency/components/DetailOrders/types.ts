@@ -1,5 +1,5 @@
-import { ILocalityEntity } from "src/data/entities/Locality/types";
-import { IOrderItemEntity } from "src/data/entities/Order/types";
+import { ILocalityEntity } from "src/data/Locality/entity/types";
+import { IOrderItemEntity } from "src/data/Order/entity/types";
 import { IOrdersCreateFormFields } from "./CreateOrder/types";
 
 export interface IOrdersHeader {
