@@ -45,10 +45,6 @@ export class OrderVM extends BaseVM implements IOrderVM {
     return this._agencyOrders;
   }
 
-  get agencyOrders() {
-    return this._agencyOrders;
-  }
-
   constructor(
     notificationsVM: INotificationsVM,
     private service: IOrderService
