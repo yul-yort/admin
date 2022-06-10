@@ -174,7 +174,7 @@ export class OrderVM extends BaseVM implements IOrderVM {
       const message = `${error?.name} ${error?.message}`;
       this.notify.errorNotification(message);
     } finally {
-      this.setLoading();
+      this.unsetLoading();
     }
   };
 }
