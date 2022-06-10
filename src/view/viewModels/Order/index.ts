@@ -64,6 +64,7 @@ export class OrderVM extends BaseVM implements IOrderVM {
       filterByPhone: action,
       deleteOrder: action,
       createOrder: action,
+      editOrder: action,
     });
   }
 
@@ -139,6 +140,22 @@ export class OrderVM extends BaseVM implements IOrderVM {
       this.notify.errorNotification(message);
     } finally {
       this.unsetOrdersAddLoading();
+    }
+  };
+
+  editOrder = async (fields: any) => {
+    try {
+      const orders = await this.service.editOrder(fields);
+      //FIXME:  Update
+      runInAction(() => {
+        this._agencyOrders = orders;
+      });
+      this.notify.successNotification("Поездка изменена");
+    } catch (err) {
+      const error = errorMapper(err);
+      const message = `${error?.name} ${error?.message}`;
+      this.notify.errorNotification(message);
+    } finally {
     }
   };
 

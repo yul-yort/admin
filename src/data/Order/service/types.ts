@@ -5,4 +5,5 @@ export interface IOrderService {
   getList: (params?: IOrderItemRequestParams) => Promise<IOrderItemEntity[]>;
   deleteOrder: (id: ID) => Promise<IOrderItemEntity[]>;
   createOrder: (fields: IOrdersCreateFormFields) => Promise<IOrderItemEntity[]>;
+  editOrder: (fields: any) => Promise<IOrderItemEntity[]>;
 }

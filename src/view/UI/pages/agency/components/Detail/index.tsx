@@ -26,6 +26,7 @@ export const Detail: FC<IDetail> = ({
   getLocality,
   localitiesLoading,
   ordersAddLoading,
+  editOrder,
 }) => {
   const { navigate } = useRouter();
 
@@ -138,6 +139,7 @@ export const Detail: FC<IDetail> = ({
             deleteOrder={deleteOrder}
             agencyOrders={agencyOrders}
             createOrder={createOrder}
+            editOrder={editOrder}
             localities={localities || []}
             getLocality={getLocality}
             localitiesLoading={localitiesLoading}

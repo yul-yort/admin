@@ -43,9 +43,9 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
     <form onSubmit={handleSubmit(onSave)}>
       {Boolean(orderID) ? (
         <div className={css.editFormPoints}>
-          <div className={css.editFormPoint}>{defaultValues.origin}</div>
+          <div className={css.editFormPoint}>{defaultValues?.origin}</div>
           <ArrowForwardIcon className={css.arrowPoint} />
-          <div className={css.editFormPoint}>{defaultValues.destination}</div>
+          <div className={css.editFormPoint}>{defaultValues?.destination}</div>
         </div>
       ) : (
         <>

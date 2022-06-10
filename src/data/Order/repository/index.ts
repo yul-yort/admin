@@ -29,4 +29,8 @@ export class OrderRepository
   ): Promise<IOrderItemResponseDTO[]> {
     return await this.api.post(EEndpoints.ORDER_CREATE, fields);
   }
+
+  async editOrder(fields: any): Promise<IOrderItemResponseDTO[]> {
+    return await this.api.post(EEndpoints.ORDER_EDIT, fields);
+  }
 }

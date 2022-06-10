@@ -25,6 +25,7 @@ export interface IDetailOrders {
   deleteOrder: (id: ID) => Promise<void>;
   ordersLoading: boolean;
   createOrder: (fields: IOrdersCreateFormFields) => void;
+  editOrder: (fields: IOrdersCreateFormFields) => void;
   localities: ILocalityEntity[];
   getLocality: () => void;
   localitiesLoading: boolean;

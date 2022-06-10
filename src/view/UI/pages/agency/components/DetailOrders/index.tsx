@@ -18,6 +18,7 @@ export const DetailOrders: FC<IDetailOrders> = ({
   getLocality,
   localitiesLoading,
   ordersAddLoading,
+  editOrder,
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [titleModal, setTitleModal] = useState("");
@@ -30,8 +31,6 @@ export const DetailOrders: FC<IDetailOrders> = ({
 
   useEffect(() => {
     if (defaultValues) {
-      // setValue("origin", defaultValues.origin);
-      // setValue("destination", defaultValues.destination);
       setValue("price", defaultValues.price);
     }
   }, [defaultValues, setValue]);
@@ -71,6 +70,14 @@ export const DetailOrders: FC<IDetailOrders> = ({
     }
   };
 
+  const handleOrderEdit = async (fields: IOrdersCreateFormFields) => {
+    const a = {
+      ...fields,
+      orderID,
+    };
+    editOrder(a);
+  };
+
   return (
     <Paper className={sharedCss.block} variant="outlined">
       <OrdersHeader
@@ -98,6 +105,7 @@ export const DetailOrders: FC<IDetailOrders> = ({
         localitiesLoading={localitiesLoading}
         ordersAddLoading={ordersAddLoading}
         defaultValues={defaultValues}
+        handleOrderEdit={handleOrderEdit}
       />
     </Paper>
   );

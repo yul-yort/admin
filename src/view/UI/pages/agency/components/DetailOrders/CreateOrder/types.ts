@@ -9,11 +9,12 @@ export interface ICreateOrders {
   methods: UseFormReturn<IOrdersCreateFormFields>;
   orderID: string;
   createOrder: (fields: IOrdersCreateFormFields) => void;
+  handleOrderEdit: (fields: IOrdersCreateFormFields) => void;
   localities: ILocalityEntity[];
   getLocality: () => void;
   localitiesLoading: boolean;
   ordersAddLoading: boolean;
-  defaultValues: any;
+  defaultValues: IOrdersCreateFormFields | null;
 }
 
 export interface IOrdersCreateModal {
@@ -29,7 +30,7 @@ export interface IOrdersCreateModal {
   localitiesLoading: boolean;
   ordersAddLoading: boolean;
   orderID: string;
-  defaultValues: any;
+  defaultValues: IOrdersCreateFormFields | null;
 }
 
 export interface IOrdersCreateForm

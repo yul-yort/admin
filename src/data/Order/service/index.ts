@@ -28,4 +28,8 @@ export class OrderService implements IOrderService {
 
     return orders.map((orderItem) => new OrderItem(orderItem));
   }
+
+  async editOrder(fields: any): Promise<IOrderItemEntity[]> {
+    return await this.repository.editOrder(fields);
+  }
 }

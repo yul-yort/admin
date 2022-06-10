@@ -15,6 +15,7 @@ export const CreateOrder: FC<ICreateOrders> = ({
   ordersAddLoading,
   orderID,
   defaultValues,
+  handleOrderEdit,
 }) => {
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
@@ -53,20 +54,12 @@ export const CreateOrder: FC<ICreateOrders> = ({
     setShowConfirm(false);
   };
 
-  //handleOrderEdit
-  const handleOrderEdit = async (fields: IOrdersCreateFormFields) => {
+  const onSave = async (fields: IOrdersCreateFormFields) => {
     if (orderID) {
-      console.log("edit", fields);
+      await handleOrderEdit(fields);
+    } else {
+      await createOrder(fields);
     }
-  };
-
-  const handleOrderCreate = async (fields: IOrdersCreateFormFields) => {
-    //вызывается одна функция
-    if (orderID) {
-      handleOrderEdit(fields);
-      return;
-    }
-    await createOrder(fields);
     reset();
     handleCloseModal();
   };
@@ -77,7 +70,7 @@ export const CreateOrder: FC<ICreateOrders> = ({
         titleModal={titleModal}
         showModal={showModal}
         onClose={onClose}
-        onSave={handleOrderCreate}
+        onSave={onSave}
         showConfirm={showConfirm}
         onConformClose={handleConfirmCloseModal}
         onCancelClose={handleCancelCloseModal}
