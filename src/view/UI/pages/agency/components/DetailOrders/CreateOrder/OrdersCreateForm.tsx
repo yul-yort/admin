@@ -6,7 +6,6 @@ import { getErrorText } from "src/libs/utils";
 import { CONSTANTS } from "src/constants/globalConstants";
 import css from "./styles.module.scss";
 import Autocomplete from "@mui/material/Autocomplete";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 //TODO нужно сделать обязательное поле "Выбор валюты". (https://trello.com/c/wXEG7n0j)
 export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
@@ -35,96 +34,112 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
     destinationID && clearErrors("destination");
   }, [originID, destinationID, clearErrors]);
 
+  useEffect(() => {
+    if (defaultValues) {
+      setOriginID(defaultValues.originID);
+      setDestinationID(defaultValues.destinationID);
+    }
+  }, [orderID, defaultValues]);
+
   const handleOpen = async () => {
     await getLocality();
   };
 
   return (
     <form onSubmit={handleSubmit(onSave)}>
-      {Boolean(orderID) ? (
-        <div className={css.editFormPoints}>
-          <div className={css.editFormPoint}>{defaultValues?.origin}</div>
-          <ArrowForwardIcon className={css.arrowPoint} />
-          <div className={css.editFormPoint}>{defaultValues?.destination}</div>
-        </div>
-      ) : (
-        <>
-          <div className={css.row}>
-            <Autocomplete
-              size="small"
-              fullWidth
-              id="origin"
-              options={localities}
-              loading={localitiesLoading}
-              loadingText={loadingText}
-              getOptionLabel={(option) => option.name}
-              noOptionsText={noOptionsText}
-              onOpen={handleOpen}
-              isOptionEqualToValue={(option, value) => option.id === value.id}
-              renderOption={(props, option) => (
-                <li {...props} key={option.id}>
-                  {option.name}
-                </li>
-              )}
-              onChange={(_, newValue) => {
-                const originID = newValue?.id || "";
-                setOriginID(originID);
-              }}
-              renderInput={(params) => (
-                <TextField
-                  autoFocus
-                  {...params}
-                  {...register("origin", {
-                    required: true,
-                    value: originID,
-                  })}
-                  error={!!getErrorText(errors, "origin")}
-                  helperText={getErrorText(errors, "origin")}
-                  label="Откуда"
-                  placeholder="Откуда"
-                />
-              )}
+      <div className={css.row}>
+        <Autocomplete
+          disabled={Boolean(orderID) ? true : false}
+          defaultValue={
+            Boolean(orderID)
+              ? {
+                  name: defaultValues ? defaultValues.origin : "",
+                  id: defaultValues ? defaultValues.originID : "",
+                }
+              : null
+          }
+          size="small"
+          fullWidth
+          id="origin"
+          options={localities}
+          loading={localitiesLoading}
+          loadingText={loadingText}
+          getOptionLabel={(option) => option.name}
+          noOptionsText={noOptionsText}
+          onOpen={handleOpen}
+          isOptionEqualToValue={(option, value) => option.id === value.id}
+          renderOption={(props, option) => (
+            <li {...props} key={option.id}>
+              {option.name}
+            </li>
+          )}
+          onChange={(_, newValue) => {
+            const originID = newValue?.id || "";
+            setOriginID(originID);
+          }}
+          renderInput={(params) => (
+            <TextField
+              autoFocus
+              {...params}
+              {...register("origin", {
+                required: true,
+                value: originID,
+              })}
+              error={!!getErrorText(errors, "origin")}
+              helperText={getErrorText(errors, "origin")}
+              label="Откуда"
+              placeholder="Откуда"
             />
-          </div>
+          )}
+        />
+      </div>
 
-          <div className={css.row}>
-            <Autocomplete
-              size="small"
-              fullWidth
-              id="destination"
-              options={localities}
-              loading={localitiesLoading}
-              loadingText={loadingText}
-              getOptionLabel={(option) => option.name}
-              noOptionsText={noOptionsText}
-              onOpen={handleOpen}
-              isOptionEqualToValue={(option, value) => option.id === value.id}
-              renderOption={(props, option) => (
-                <li {...props} key={option.id}>
-                  {option.name}
-                </li>
-              )}
-              onChange={(_, newValue) => {
-                const destinationID = newValue?.id || "";
-                setDestinationID(destinationID);
-              }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  {...register("destination", {
-                    required: true,
-                    value: destinationID,
-                  })}
-                  error={!!getErrorText(errors, "destination")}
-                  helperText={getErrorText(errors, "destination")}
-                  label="Куда"
-                  placeholder="Куда"
-                />
-              )}
+      <div className={css.row}>
+        <Autocomplete
+          disabled={Boolean(orderID) ? true : false}
+          defaultValue={
+            Boolean(orderID)
+              ? {
+                  name: defaultValues ? defaultValues.destination : "",
+                  id: defaultValues ? defaultValues.destinationID : "",
+                }
+              : null
+          }
+          size="small"
+          fullWidth
+          id="destination"
+          options={localities}
+          loading={localitiesLoading}
+          loadingText={loadingText}
+          getOptionLabel={(option) => option.name}
+          noOptionsText={noOptionsText}
+          onOpen={handleOpen}
+          isOptionEqualToValue={(option, value) => option.id === value.id}
+          renderOption={(props, option) => (
+            <li {...props} key={option.id}>
+              {option.name}
+            </li>
+          )}
+          onChange={(_, newValue) => {
+            const destinationID = newValue?.id || "";
+            setDestinationID(destinationID);
+          }}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              {...register("destination", {
+                required: true,
+                value: destinationID,
+              })}
+              error={!!getErrorText(errors, "destination")}
+              helperText={getErrorText(errors, "destination")}
+              label="Куда"
+              placeholder="Куда"
             />
-          </div>
-        </>
-      )}
+          )}
+        />
+      </div>
+
       <div className={css.row}>
         <TextField
           id="price"

@@ -14,7 +14,7 @@ export interface ICreateOrders {
   getLocality: () => void;
   localitiesLoading: boolean;
   ordersAddLoading: boolean;
-  defaultValues: IOrdersCreateFormFields | null;
+  defaultValues: IOrdersEditFormDefaultFields | null;
 }
 
 export interface IOrdersCreateModal {
@@ -30,7 +30,7 @@ export interface IOrdersCreateModal {
   localitiesLoading: boolean;
   ordersAddLoading: boolean;
   orderID: string;
-  defaultValues: IOrdersCreateFormFields | null;
+  defaultValues: IOrdersEditFormDefaultFields | null;
 }
 
 export interface IOrdersCreateForm
@@ -46,4 +46,12 @@ export interface IOrdersCreateForm
   > {}
 
 export interface IOrdersCreateFormFields
-  extends Pick<IOrder, "origin" | "destination" | "price"> {}
+  extends Pick<IOrder, "origin" | "destination" | "price"> {
+  orderID?: string;
+}
+
+export interface IOrdersEditFormDefaultFields
+  extends Pick<IOrder, "origin" | "destination" | "price"> {
+  originID: string;
+  destinationID: string;
+}

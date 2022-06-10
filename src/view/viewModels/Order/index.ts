@@ -143,10 +143,10 @@ export class OrderVM extends BaseVM implements IOrderVM {
     }
   };
 
-  editOrder = async (fields: any) => {
+  editOrder = async (fields: IOrdersCreateFormFields) => {
+    this.setOrdersAddLoading();
     try {
       const orders = await this.service.editOrder(fields);
-      //FIXME:  Update
       runInAction(() => {
         this._agencyOrders = orders;
       });
@@ -156,6 +156,7 @@ export class OrderVM extends BaseVM implements IOrderVM {
       const message = `${error?.name} ${error?.message}`;
       this.notify.errorNotification(message);
     } finally {
+      this.unsetOrdersAddLoading();
     }
   };
 

@@ -5,7 +5,10 @@ import { Orders } from "./Orders";
 import { OrdersHeader } from "./OrdersHeader";
 import { CreateOrder } from "./CreateOrder";
 import { useForm } from "react-hook-form";
-import { IOrdersCreateFormFields } from "./CreateOrder/types";
+import {
+  IOrdersCreateFormFields,
+  IOrdersEditFormDefaultFields,
+} from "./CreateOrder/types";
 import { IDetailOrders } from "./types";
 import Loading from "../../../../components/common/Loading";
 
@@ -23,7 +26,7 @@ export const DetailOrders: FC<IDetailOrders> = ({
   const [showModal, setShowModal] = useState(false);
   const [titleModal, setTitleModal] = useState("");
   const [defaultValues, setDefaultValues] =
-    useState<IOrdersCreateFormFields | null>(null);
+    useState<IOrdersEditFormDefaultFields | null>(null);
   const [orderID, setOrderID] = useState("");
 
   const methods = useForm<IOrdersCreateFormFields>({});
@@ -64,18 +67,16 @@ export const DetailOrders: FC<IDetailOrders> = ({
       setOrderID(order.id);
       setDefaultValues({
         origin: order.route.origin.name,
+        originID: order.route.origin.id,
         destination: order.route.destination.name,
+        destinationID: order.route.destination.id,
         price: order.price,
       });
     }
   };
 
   const handleOrderEdit = async (fields: IOrdersCreateFormFields) => {
-    const a = {
-      ...fields,
-      orderID,
-    };
-    editOrder(a);
+    await editOrder({ ...fields, orderID });
   };
 
   return (

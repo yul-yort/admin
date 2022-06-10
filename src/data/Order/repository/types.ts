@@ -15,5 +15,7 @@ export interface IOrderRepository {
     fields: IOrdersCreateFormFields
   ) => Promise<IOrderItemResponseDTO[]>;
 
-  editOrder: (fields: any) => Promise<IOrderItemResponseDTO[]>;
+  editOrder: (
+    fields: IOrdersCreateFormFields
+  ) => Promise<IOrderItemResponseDTO[]>;
 }

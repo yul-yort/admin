@@ -19,5 +19,5 @@ export interface IOrderVM extends IBaseVM {
   getListByAgencyId: (id: ID) => Promise<void>;
   deleteOrder: (id: ID) => Promise<void>;
   createOrder: (fields: IOrdersCreateFormFields) => Promise<void>;
-  editOrder: (fields: any) => Promise<void>;
+  editOrder: (fields: IOrdersCreateFormFields) => Promise<void>;
 }
