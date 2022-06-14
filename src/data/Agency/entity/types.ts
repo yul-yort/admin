@@ -1,6 +1,3 @@
-/**
- * Типы элементов списка. Начало.
- */
 export interface IAgencyEntity {
   id: ID;
   agencyName: string;
@@ -34,6 +31,3 @@ export interface IAgencyRequestCreateParams
 }
 
 export interface IAgencyRequestDeleteParams extends Pick<IAgencyEntity, "id"> {}
-/**
- * Типы основной сущности. Конец.
- */
