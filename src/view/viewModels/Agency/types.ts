@@ -1,9 +1,8 @@
 import { IBaseVM } from "../types";
 import {
-  IAgencyEntity,
   IAgencyRequestParams,
   IAgencyRequestDeleteParams,
-  IAgencyItemEntity,
+  IAgencyEntity,
 } from "../../../data/Agency/entity/types";
 // TODO наверное viewModel не должен зависеть от UI.
 // решить, что делать со всеми такими зависимостями
@@ -16,7 +15,7 @@ export interface IAgencyVM extends IBaseVM {
 
   // entities
   agency: IAgencyEntity | null;
-  agencies: IAgencyItemEntity[] | null;
+  agencies: IAgencyEntity[] | null;
 
   // methods
   isLoadingItem: (id: ID) => boolean;

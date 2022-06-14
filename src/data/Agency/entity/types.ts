@@ -1,27 +1,18 @@
 /**
  * Типы элементов списка. Начало.
  */
-export interface IAgencyItemEntity {
+export interface IAgencyEntity {
   id: ID;
   agencyName: string;
   phones?: string[];
   createDate: string;
   editedDate?: string;
-}
-
-export interface IAgencyItemResponseDTO
-  extends Pick<IAgencyItemEntity, "id" | "agencyName" | "phones"> {
-  createDate: number;
-}
-/**
- * Типы элементов списка. Конец.
- */
-
-/**
- * Типы основной сущности. Начало.
- */
-export interface IAgencyEntity extends IAgencyItemEntity {
   description?: string;
+}
+
+export interface IAgencyResponseDTO
+  extends Pick<IAgencyEntity, "id" | "agencyName" | "phones"> {
+  createDate: number;
 }
 
 export interface IAgencyResponseDTO
