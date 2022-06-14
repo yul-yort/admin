@@ -1,5 +1,5 @@
 import { IApi } from "../libs/api/types";
 
-export class BaseRepository {
+export abstract class BaseRepository {
   constructor(protected api: IApi) {}
 }

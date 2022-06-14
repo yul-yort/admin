@@ -2,12 +2,11 @@ import { IBaseVM, IError, INotificationsVM } from "./types";
 import { action, makeObservable, observable } from "mobx";
 import { errorMapper } from "./mappers";
 
-// переименовать в Controller?
-export class BaseVM implements IBaseVM {
+export abstract class BaseVM implements IBaseVM {
   loading: boolean = false;
   error: IError | null = null;
 
-  constructor(protected notify: INotificationsVM) {
+  protected constructor(protected notify: INotificationsVM) {
     makeObservable(this, {
       loading: observable,
       error: observable,
