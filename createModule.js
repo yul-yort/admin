@@ -17,63 +17,6 @@ function capitalizeFirstLetter(name) {
 }
 
 /**
- * Вернет шаблон класса согласно указанному типу.
- * @param {string} name - название модуля.
- * @param {string} type - тип создаваемого класса.
- * @returns {string}
- */
-function getDataClassTemplate(name, type) {
-  let localType = type !== "entity" ? capitalizeFirstLetter(type) : "";
-  const className = name + localType;
-  const typeName = "I" + className;
-
-  return `import { ${typeName} } from "./types";
-
-export class ${className} implements ${typeName} {}
-`;
-}
-/**
- * Вернет шаблон класса для ViewModel.
- * @param {string} name - название модуля.
- * @param {string} type - тип создаваемого класса.
- * @returns {string}
- */
-function getVMClassTemplate(name, type) {
-  const className = name + type;
-  const typeName = "I" + className;
-
-  return `import { BaseVM } from "../BaseVM";
-import { ${typeName} } from "./types";
-
-export class ${className} extends BaseVM implements ${typeName} {}
-`;
-}
-/**
- * Вернет шаблон интерфейса согласно указанному типу.
- * @param {string} name - название модуля.
- * @param {string} type - тип создаваемого интерфейса.
- * @returns {string}
- */
-function getDataInterfaceTemplate(name, type) {
-  const localType = type !== "entity" ? capitalizeFirstLetter(type) : "";
-
-  return `export interface I${name}${localType} {}
-`;
-}
-/**
- * Вернет шаблон интерфейса для ViewModel.
- * @param {string} name - название модуля.
- * @param {string} type - тип создаваемого интерфейса.
- * @returns {string}
- */
-function getVMInterfaceTemplate(name, type) {
-  return `import { IBaseVM } from "../types";
-
-export interface I${name}${type} extends IBaseVM {}
-`;
-}
-
-/**
  * Обработчик ошибок.
  * @param err
  */
@@ -82,6 +25,120 @@ function errorCallback(err) {
     return console.log(err);
   }
 }
+
+const builder = {
+  entity: {
+    getClassFilePath(name) {
+      return `${this.getDirectoryPath(name)}/index.ts`;
+    },
+    getTypeFilePath(name) {
+      return `${this.getDirectoryPath(name)}/types.ts`;
+    },
+    getDirectoryPath: (name) => {
+      return `./src/data/${name}/entity`;
+    },
+    getClassTemplate: (name) => {
+      const className = name;
+      const typeName = "I" + className;
+
+      return `import { ${typeName} } from "./types";
+
+export class ${className} implements ${typeName} {}
+`;
+    },
+    getTypeTemplate: (name) => {
+      return `export interface I${name} {}
+`;
+    },
+  },
+  service: {
+    getClassFilePath(name) {
+      return `${this.getDirectoryPath(name)}/index.ts`;
+    },
+    getTypeFilePath(name) {
+      return `${this.getDirectoryPath(name)}/types.ts`;
+    },
+    getDirectoryPath: (name) => {
+      return `./src/data/${name}/service`;
+    },
+    getClassTemplate: (name) => {
+      const className = name + "Service";
+      const typeName = "I" + className;
+
+      return `import { ${typeName} } from "./types";
+import { I${name}Repository } from "../repository/types";
+
+export class ${className} implements ${typeName} {
+  constructor(private repository: I${name}Repository) {}
+}
+`;
+    },
+    getTypeTemplate: (name) =>
+      `export interface I${name}Service {}
+`,
+  },
+  repository: {
+    getClassFilePath(name) {
+      return `${this.getDirectoryPath(name)}/index.ts`;
+    },
+    getTypeFilePath(name) {
+      return `${this.getDirectoryPath(name)}/types.ts`;
+    },
+    getDirectoryPath: (name) => {
+      return `./src/data/${name}/repository`;
+    },
+    getClassTemplate: (name) => {
+      const className = name + "Repository";
+      const typeName = "I" + className;
+
+      return `import { BaseRepository } from "../../BaseRepository";
+import { ${typeName} } from "./types";
+
+export class ${className} extends BaseRepository implements ${typeName} {}
+`;
+    },
+    getTypeTemplate: (name) =>
+      `export interface I${name}Repository {}
+`,
+  },
+  VM: {
+    getClassFilePath(name) {
+      return `${this.getDirectoryPath(name)}/index.ts`;
+    },
+    getTypeFilePath(name) {
+      return `${this.getDirectoryPath(name)}/types.ts`;
+    },
+    getDirectoryPath(name) {
+      return `./src/view/viewModels/${name}`;
+    },
+    getClassTemplate(name) {
+      const className = name + "VM";
+      const typeName = "I" + className;
+
+      return `import { makeObservable } from "mobx";
+import { I${name}Service } from "../../../data/${name}/service/types";
+import { INotificationsVM } from "../types";
+import { BaseVM } from "../BaseVM";
+import { ${typeName} } from "./types";
+
+export class ${className} extends BaseVM implements ${typeName} {
+  constructor(
+    notificationsVM: INotificationsVM,
+    private service: I${name}Service
+  ) {
+    super(notificationsVM);
+
+    makeObservable(this, {});
+  }
+}
+`;
+    },
+    getTypeTemplate: (name) => `import { IBaseVM } from "../types";
+
+export interface I${name}VM extends IBaseVM {}
+`,
+  },
+};
 
 /**
  * Название модуля.
@@ -92,32 +149,20 @@ const moduleName = capitalizeFirstLetter(moduleNameArg);
  * Создаваемые типы.
  * @type {string[]}
  */
-const dirs = ["entity", "repository", "service", "VM"];
+const types = ["entity", "repository", "service", "VM"];
 
-dirs.forEach((dir) => {
-  const isVM = dir === "VM";
-
-  const dirName = isVM
-    ? `./src/view/viewModels/${moduleName}`
-    : `./src/data/${moduleName}/${dir}`;
-
+types.forEach((type) => {
   /**
    * Создает соответствующую папку.
    */
-  if (!fs.existsSync(dirName)) {
-    fs.mkdirSync(dirName, { recursive: true });
-  } else {
-    return console.error(`Directory ${dirName} is existed`);
-  }
+  fs.mkdirSync(builder[type].getDirectoryPath(moduleName), { recursive: true });
 
   /**
    * Создает соответствующий класс.
    */
   fs.writeFile(
-    `${dirName}/index.ts`,
-    isVM
-      ? getVMClassTemplate(moduleName, dir)
-      : getDataClassTemplate(moduleName, dir),
+    builder[type].getClassFilePath(moduleName),
+    builder[type].getClassTemplate(moduleName),
     errorCallback
   );
 
@@ -125,10 +170,8 @@ dirs.forEach((dir) => {
    * Создает соответствующий интерфейс.
    */
   fs.writeFile(
-    `${dirName}/types.ts`,
-    isVM
-      ? getVMInterfaceTemplate(moduleName, dir)
-      : getDataInterfaceTemplate(moduleName, dir),
+    builder[type].getTypeFilePath(moduleName),
+    builder[type].getTypeTemplate(moduleName),
     errorCallback
   );
 });
