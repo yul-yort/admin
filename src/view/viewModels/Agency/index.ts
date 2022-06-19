@@ -29,8 +29,13 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
       this._agencies &&
       this._agencies.filter(
         (agency) =>
-          agency.agencyName.toLocaleLowerCase().includes(this.searchValue) ||
-          agency.phones?.some((phone) => phone.includes(this.searchValue))
+          agency.agencyName
+            .toLocaleLowerCase()
+            .trim()
+            .includes(this.searchValue.trim()) ||
+          agency.phones?.some((phone) =>
+            phone.includes(this.searchValue.trim())
+          )
       )
     );
   }
