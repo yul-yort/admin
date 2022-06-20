@@ -68,11 +68,10 @@ export const ordersHandlers = [
 
   rest.post<string>(EEndpoints.ORDER_EDIT, (req, res, ctx) => {
     const body = JSON.parse(req.body);
-    const { price, orderID } = body;
-
+    const { price, id } = body;
     // TODO: нужно найти более оптимальный вариант
     const result = orders.map((order) => {
-      if (order.id === orderID) {
+      if (order.id === id) {
         order.price = price;
       }
       return order;

@@ -14,7 +14,10 @@ import {
   IOrderItemRequestParams,
 } from "src/data/Order/entity/types";
 import { IOrderService } from "src/data/Order/service/types";
-import { IOrdersCreateFormFields } from "../../UI/pages/agency/components/DetailOrders/CreateOrder/types";
+import {
+  IOrdersCreateFormFields,
+  IOrdersEditSelected,
+} from "../../UI/pages/agency/components/DetailOrders/CreateOrder/types";
 import { errorMapper } from "../mappers";
 import { filterOrders } from "./mappers";
 
@@ -143,7 +146,7 @@ export class OrderVM extends BaseVM implements IOrderVM {
     }
   };
 
-  editOrder = async (fields: IOrdersCreateFormFields) => {
+  editOrder = async (fields: IOrdersEditSelected) => {
     this.setOrdersAddLoading();
     try {
       const orders = await this.service.editOrder(fields);

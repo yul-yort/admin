@@ -14,8 +14,7 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
   localities,
   getLocality,
   localitiesLoading,
-  orderID,
-  defaultValues,
+  selectedOrder,
 }) => {
   const {
     handleSubmit,
@@ -35,11 +34,11 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
   }, [originID, destinationID, clearErrors]);
 
   useEffect(() => {
-    if (defaultValues) {
-      setOriginID(defaultValues.originID);
-      setDestinationID(defaultValues.destinationID);
+    if (selectedOrder) {
+      setOriginID(selectedOrder?.route.origin.id);
+      setDestinationID(selectedOrder?.route.destination.id);
     }
-  }, [orderID, defaultValues]);
+  }, [selectedOrder]);
 
   const handleOpen = async () => {
     await getLocality();
@@ -49,15 +48,8 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
     <form onSubmit={handleSubmit(onSave)}>
       <div className={css.row}>
         <Autocomplete
-          disabled={Boolean(orderID) ? true : false}
-          defaultValue={
-            Boolean(orderID)
-              ? {
-                  name: defaultValues ? defaultValues.origin : "",
-                  id: defaultValues ? defaultValues.originID : "",
-                }
-              : null
-          }
+          disabled={Boolean(selectedOrder)}
+          defaultValue={selectedOrder?.route.origin}
           size="small"
           fullWidth
           id="origin"
@@ -96,15 +88,8 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
 
       <div className={css.row}>
         <Autocomplete
-          disabled={Boolean(orderID) ? true : false}
-          defaultValue={
-            Boolean(orderID)
-              ? {
-                  name: defaultValues ? defaultValues.destination : "",
-                  id: defaultValues ? defaultValues.destinationID : "",
-                }
-              : null
-          }
+          disabled={Boolean(selectedOrder)}
+          defaultValue={selectedOrder?.route.destination}
           size="small"
           fullWidth
           id="destination"

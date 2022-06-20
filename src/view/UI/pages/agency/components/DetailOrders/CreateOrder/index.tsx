@@ -13,8 +13,7 @@ export const CreateOrder: FC<ICreateOrders> = ({
   getLocality,
   localitiesLoading,
   ordersAddLoading,
-  orderID,
-  defaultValues,
+  selectedOrder,
   handleOrderEdit,
 }) => {
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
@@ -55,8 +54,12 @@ export const CreateOrder: FC<ICreateOrders> = ({
   };
 
   const onSave = async (fields: IOrdersCreateFormFields) => {
-    if (orderID) {
-      await handleOrderEdit(fields);
+    if (selectedOrder) {
+      const orderEditfields = {
+        ...selectedOrder,
+        price: Number(fields.price),
+      };
+      await handleOrderEdit(orderEditfields);
     } else {
       await createOrder(fields);
     }
@@ -78,8 +81,7 @@ export const CreateOrder: FC<ICreateOrders> = ({
         getLocality={getLocality}
         localitiesLoading={localitiesLoading}
         ordersAddLoading={ordersAddLoading}
-        orderID={orderID}
-        defaultValues={defaultValues}
+        selectedOrder={selectedOrder}
       />
     </FormProvider>
   );
