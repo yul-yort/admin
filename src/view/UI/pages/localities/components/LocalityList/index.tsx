@@ -7,7 +7,11 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { IconButton } from "@mui/material";
 import css from "./styles.module.scss";
 
-const LocalityList: FC<ILocalityList> = ({ localities }) => {
+const LocalityList: FC<ILocalityList> = ({
+  localities,
+  handleShowEditModal,
+  handleShowDeleteModal,
+}) => {
   return (
     // FIXME: высота карточек исправить
     <div className={css.lists}>
@@ -26,10 +30,17 @@ const LocalityList: FC<ILocalityList> = ({ localities }) => {
               </Typography>
               <Typography variant="body2">{item.description}</Typography>
               <div className={css.actionButtons}>
-                <IconButton aria-label="edit order">
+                <IconButton
+                  onClick={handleShowEditModal}
+                  aria-label="edit order"
+                >
                   <EditRoundedIcon fontSize="small" />
                 </IconButton>
-                <IconButton aria-label="delete order" color="error">
+                <IconButton
+                  onClick={handleShowDeleteModal}
+                  aria-label="delete order"
+                  color="error"
+                >
                   <DeleteForeverIcon fontSize="small" />
                 </IconButton>
               </div>
