@@ -13,12 +13,15 @@ const Localities: FC = observer(() => {
   const localityVM = useViewModel<ILocalityVM>("locality");
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [titleModal, setTitleModal] = useState("");
 
   const handleShowCreateModal = () => {
+    setTitleModal("Добавить населенный пункт");
     setShowModal(true);
   };
 
   const handleShowEditModal = () => {
+    setTitleModal("Редактировать населенный пункт");
     setShowModal(true);
   };
 
@@ -57,6 +60,7 @@ const Localities: FC = observer(() => {
           <CreateLocality
             showModal={showModal}
             handleCloseCreateModal={handleCloseCreateModal}
+            titleModal={titleModal}
           />
           <ConfirmDeleteModal
             showDeleteModal={showDeleteModal}

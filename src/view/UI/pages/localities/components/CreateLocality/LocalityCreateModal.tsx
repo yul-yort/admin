@@ -6,12 +6,15 @@ import { ICreateLocalityModal } from "./types";
 export const LocalityCreateModal: FC<ICreateLocalityModal> = ({
   showModal,
   handleCloseCreateModal,
+  titleModal,
+  onSave,
+  onClose,
 }) => {
   return (
     <Modal
       open={showModal}
       onClose={handleCloseCreateModal}
-      title="test"
+      title={titleModal}
       showConfirm={false}
       loading={false}
       confirmProps={{
@@ -24,7 +27,7 @@ export const LocalityCreateModal: FC<ICreateLocalityModal> = ({
         text: "Вы уверены, что хотите закрыть окно, не сохранив данные?",
       }}
     >
-      <LocalityCreateForm />
+      <LocalityCreateForm onSave={onSave} onClose={onClose} />
     </Modal>
   );
 };
