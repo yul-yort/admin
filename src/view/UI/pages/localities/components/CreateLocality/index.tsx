@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { LocalityCreateModal } from "./LocalityCreateModal";
 import { ICreateLocality, ILocalityFormFields } from "./types";
@@ -9,6 +9,7 @@ const CreateLocality: FC<ICreateLocality> = ({
   titleModal,
 }) => {
   const methods = useForm<ILocalityFormFields>({});
+  const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
   const {
     formState,
@@ -27,21 +28,33 @@ const CreateLocality: FC<ICreateLocality> = ({
     }
 
     if (isDirty) {
-      // setShowConfirm(true);
+      setShowConfirm(true);
     } else {
       handleCloseCreateModal();
       reset();
     }
   };
 
+  const handleConfirmCloseModal = () => {
+    setShowConfirm(false);
+    handleCloseCreateModal();
+    reset();
+  };
+
+  const handleConfirmClose = () => {
+    setShowConfirm(false);
+  };
+
   return (
     <FormProvider {...methods}>
       <LocalityCreateModal
         showModal={showModal}
-        handleCloseCreateModal={handleCloseCreateModal}
         titleModal={titleModal}
         onSave={onSave}
         onClose={onClose}
+        showConfirm={showConfirm}
+        handleConfirmClose={handleConfirmClose}
+        handleConfirmCloseModal={handleConfirmCloseModal}
       />
     </FormProvider>
   );

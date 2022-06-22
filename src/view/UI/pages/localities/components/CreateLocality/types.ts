@@ -6,10 +6,12 @@ export interface ICreateLocality {
 
 export interface ICreateLocalityModal {
   showModal: boolean;
-  handleCloseCreateModal: () => void;
   titleModal: string;
   onSave: (fields: any) => void;
   onClose: () => void;
+  showConfirm: boolean;
+  handleConfirmClose: () => void;
+  handleConfirmCloseModal: () => void;
 }
 
 export interface ICreateLocalityForm {

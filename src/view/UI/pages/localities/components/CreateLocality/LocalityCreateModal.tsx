@@ -5,21 +5,23 @@ import { ICreateLocalityModal } from "./types";
 
 export const LocalityCreateModal: FC<ICreateLocalityModal> = ({
   showModal,
-  handleCloseCreateModal,
   titleModal,
   onSave,
   onClose,
+  showConfirm,
+  handleConfirmClose,
+  handleConfirmCloseModal,
 }) => {
   return (
     <Modal
       open={showModal}
-      onClose={handleCloseCreateModal}
+      onClose={onClose}
       title={titleModal}
-      showConfirm={false}
+      showConfirm={showConfirm}
       loading={false}
       confirmProps={{
-        // onConfirm: onConformClose,
-        // onCancel: onCancelClose,
+        onConfirm: handleConfirmCloseModal,
+        onCancel: handleConfirmClose,
         confirmText: "Да",
         cancelText: "Нет",
         confirmColor: "error",
