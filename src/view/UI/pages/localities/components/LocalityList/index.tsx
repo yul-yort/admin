@@ -1,5 +1,5 @@
 import { ILocalityList } from "./types";
-import { FC } from "react";
+import { FC, MouseEventHandler } from "react";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
@@ -12,6 +12,28 @@ const LocalityList: FC<ILocalityList> = ({
   handleShowEditModal,
   handleShowDeleteModal,
 }) => {
+  const handleEdit: MouseEventHandler<Element> = ({ target }) => {
+    if (target instanceof Element) {
+      const $button = target.closest("[data-edit-id]");
+
+      if ($button && $button instanceof HTMLElement) {
+        const id = $button.dataset.editId;
+        id && handleShowEditModal(id);
+      }
+    }
+  };
+
+  const handleDelete: MouseEventHandler<Element> = ({ target }) => {
+    if (target instanceof Element) {
+      const $button = target.closest("[data-delete-id]");
+
+      if ($button && $button instanceof HTMLElement) {
+        const id = $button.dataset.deleteId;
+        id && handleShowDeleteModal();
+      }
+    }
+  };
+
   return (
     // FIXME: высота карточек исправить
     <div className={css.lists}>
@@ -31,15 +53,17 @@ const LocalityList: FC<ILocalityList> = ({
               <Typography variant="body2">{item.description}</Typography>
               <div className={css.actionButtons}>
                 <IconButton
-                  onClick={handleShowEditModal}
+                  onClick={handleEdit}
                   aria-label="edit order"
+                  data-edit-id={item.id}
                 >
                   <EditRoundedIcon fontSize="small" />
                 </IconButton>
                 <IconButton
-                  onClick={handleShowDeleteModal}
+                  onClick={handleDelete}
                   aria-label="delete order"
                   color="error"
+                  data-delete-id={item.id}
                 >
                   <DeleteForeverIcon fontSize="small" />
                 </IconButton>

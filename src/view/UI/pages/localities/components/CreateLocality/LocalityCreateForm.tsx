@@ -9,7 +9,6 @@ const LocalityCreateForm: FC<ICreateLocalityForm> = ({ onSave, onClose }) => {
   const {
     handleSubmit,
     register,
-    clearErrors,
     formState: { errors, isSubmitting, isDirty },
   } = useFormContext<ILocalityFormFields>();
   return (

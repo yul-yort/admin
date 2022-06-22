@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 
 import { ConfirmModal } from "src/view/UI/components/common/ConfirmModal";
 import { IConfirmDeleteModal } from "./types";

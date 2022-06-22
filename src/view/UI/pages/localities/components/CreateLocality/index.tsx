@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { LocalityCreateModal } from "./LocalityCreateModal";
 import { ICreateLocality, ILocalityFormFields } from "./types";
@@ -7,6 +7,7 @@ const CreateLocality: FC<ICreateLocality> = ({
   showModal,
   handleCloseCreateModal,
   titleModal,
+  selectedLocality,
 }) => {
   const methods = useForm<ILocalityFormFields>({});
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
@@ -16,10 +17,29 @@ const CreateLocality: FC<ICreateLocality> = ({
     formState: { isSubmitSuccessful, isDirty },
     reset,
     getValues,
+    setValue,
   } = methods;
 
+  useEffect(() => {
+    if (selectedLocality) {
+      setValue("name", selectedLocality.name);
+      setValue("region", selectedLocality.region);
+      setValue("district", selectedLocality.district);
+      setValue("description", selectedLocality.description);
+    }
+  }, [selectedLocality, setValue]);
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset(getValues());
+    }
+  }, [formState, getValues, isSubmitSuccessful, reset]);
+
   const onSave = (fields: any) => {
+    //TODO: получаем данные
     console.log(fields);
+    reset();
+    handleCloseCreateModal();
   };
 
   const onClose = () => {

@@ -2,6 +2,7 @@ export interface ICreateLocality {
   showModal: boolean;
   handleCloseCreateModal: () => void;
   titleModal: string;
+  selectedLocality: ILocalityFormFields | null;
 }
 
 export interface ICreateLocalityModal {
