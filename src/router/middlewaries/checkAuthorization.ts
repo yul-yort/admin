@@ -3,7 +3,7 @@ import { Middleware, MiddlewareFactory } from "router5/dist/types/router";
 
 import { getRouteByToStateName } from "./utils";
 import { IDependencies, IRoute } from "../types";
-import { checkToken } from "../../libs/utils/checkToken";
+import { checkToken } from "../../libs/utils";
 import { CONSTANTS } from "../../constants/globalConstants";
 
 /**
@@ -14,7 +14,7 @@ import { CONSTANTS } from "../../constants/globalConstants";
  * Если текущая страница не найдена и пользователь не авторизован,
  * то перенаправит на страницу авторизации.
  *
- * Если текущая страница содежит поле auth и пользователь не авторизован,
+ * Если у текущего объекта route поле auth: true и пользователь не авторизован,
  * то перенаправит на страницу авторизации с параметрами текущей страницы.
  *
  * @param router
@@ -49,7 +49,7 @@ export const checkAuthorization: MiddlewareFactory<IDependencies> =
       });
     }
 
-    // Если текущая страница содежит поле auth и пользователь не авторизован, то перенаправит
+    // Если текущая страница содержит поле auth и пользователь не авторизован, то перенаправит
     // на страницу авторизации с параметрами текущей страницы.
     if (route?.auth && !hasToken) {
       return done({
