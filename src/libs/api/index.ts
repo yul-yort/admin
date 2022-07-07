@@ -24,8 +24,13 @@ export class Api implements IApi {
   async post<R, P>(path: EEndpoints, params?: P): Promise<R> {
     const url = new URL(path, baseUrl).toString();
 
+    let _headers = {
+      "Content-Type": "application/json",
+    };
+
     let response = await fetch(url, {
       method: "POST",
+      headers: _headers,
       body: JSON.stringify(params),
     });
 

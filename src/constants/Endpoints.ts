@@ -1,4 +1,8 @@
-export const baseUrl = window.location.origin;
+import { CONSTANTS } from "./globalConstants";
+
+export const baseUrl = CONSTANTS.isDev
+  ? "http://localhost:9000/"
+  : window.location.origin;
 
 export enum EEndpoints {
   AGENCY = "/agency",
@@ -6,7 +10,7 @@ export enum EEndpoints {
   AGENCY_DELETE = "/agency-delete",
   AGENCY_LIST = "/agency-list",
   AGENCY_CREATE = "/agency-create",
-  LOGIN = "/login",
+  LOGIN = "/api/auth/login",
   LOGOUT = "/logout",
   ORDERS_LIST = "/order-list",
   ORDER_DELETE = "/order-delete",

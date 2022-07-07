@@ -1,4 +1,6 @@
+import { IFormValues } from "src/view/UI/pages/login/types";
+
 export interface IUserService {
-  login(): Promise<void>;
+  login(data: IFormValues): Promise<void>;
   logout(): Promise<void>;
 }

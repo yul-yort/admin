@@ -1,4 +1,5 @@
 export const CONSTANTS = {
+  isDev: process.env.NODE_ENV === "development",
   projectName: "Yul-Yort Admin",
   tokenCookieKey: "auth-token",
   defaultRoute: "dashboard",

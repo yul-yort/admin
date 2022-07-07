@@ -5,6 +5,7 @@ import { IUserEntity } from "../../../data/User/entity/types";
 import { IUserService } from "../../../data/User/service/types";
 import { IUserVM } from "./types";
 import { INotificationsVM } from "../types";
+import { IFormValues } from "src/view/UI/pages/login/types";
 
 export class UserVM extends BaseVM implements IUserVM {
   user: IUserEntity | null = null;
@@ -19,15 +20,16 @@ export class UserVM extends BaseVM implements IUserVM {
     });
   }
 
-  login = async () => {
+  login = async (data: IFormValues) => {
     this.setLoading();
     this.unsetError();
 
     try {
-      await this.service.login();
+      await this.service.login(data);
       this.notify.successNotification("Добро пожаловать!");
     } catch (err) {
       this.setError(err);
+      console.log("error");
     } finally {
       this.unsetLoading();
     }
