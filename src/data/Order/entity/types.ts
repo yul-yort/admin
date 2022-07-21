@@ -10,12 +10,14 @@ export interface IOrderItemEntity {
   currencyISO: ECurrencyISO;
 }
 
-export interface IOrderRoute extends IRouteEntity {}
+export type IOrderRoute = IRouteEntity;
 
-export interface IOrderAgency
-  extends Pick<IAgencyEntity, "id" | "agencyName" | "phones" | "description"> {}
+export type IOrderAgency = Pick<
+  IAgencyEntity,
+  "id" | "agencyName" | "phones" | "description"
+>;
 
-export interface IOrderItemResponseDTO extends IOrderItemEntity {}
+export type IOrderItemResponseDTO = IOrderItemEntity;
 
 export interface IOrderItemRequestParams {
   agencyId?: ID;

@@ -6,6 +6,7 @@ import { initErrorApp } from "./view/UI/InitErrorApp";
 import routes from "./router/routes";
 import { checkAuthorization, onActivate } from "./router/middlewaries";
 import { documentTitle } from "./router/middlewaries/documentTitle";
+import * as workerInstance from "./libs/mocks/browser";
 
 try {
   const BUILD_MODE = process.env.REACT_APP_BUILD_MODE;
@@ -16,9 +17,7 @@ try {
     BUILD_MODE === "gh-pages" ||
     NODE_ENV === "development"
   ) {
-    const { worker } = require("./libs/mocks/browser");
-
-    worker.start({
+    workerInstance.worker.start({
       onUnhandledRequest: "bypass",
       serviceWorker: {
         url: `/${

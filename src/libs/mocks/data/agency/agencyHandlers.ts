@@ -1,5 +1,5 @@
 import { rest } from "msw";
-import { EEndpoints } from "../../../../constants/Endpoints";
+import { EEndpoints } from "../../../../constants";
 import {
   IAgencyItemResponseDTO,
   IAgencyResponseDTO,
@@ -13,12 +13,12 @@ export const agencyHandlers = [
     const url = new URL(req.url);
     const id = url.searchParams.get("id");
 
-    const result: IAgencyResponseDTO | {} =
+    const result: IAgencyResponseDTO | Record<string, never> =
       agencies.find((agency) => agency.id === id) || {};
-    let status = Object.keys(result).length ? 200 : 404;
+    const status = Object.keys(result).length ? 200 : 404;
 
     return res(
-      ctx.json<IAgencyResponseDTO | {}>(result),
+      ctx.json<IAgencyResponseDTO | unknown>(result),
       ctx.delay(getTimeout()),
       ctx.status(status)
     );
@@ -26,7 +26,7 @@ export const agencyHandlers = [
 
   rest.post<string>(EEndpoints.AGENCY_EDIT, (req, res, ctx) => {
     const body = JSON.parse(req.body);
-    const result: IAgencyResponseDTO | {} =
+    const result: IAgencyResponseDTO | Record<string, never> =
       agencies.find((agency, index) => {
         if (agency.id === body.id) {
           agencies[index] = { ...agency, ...body };
@@ -35,7 +35,7 @@ export const agencyHandlers = [
         }
         return false;
       }) || {};
-    let status = Object.keys(result).length ? 200 : 404;
+    const status = Object.keys(result).length ? 200 : 404;
 
     return res(
       ctx.json<IAgencyResponseDTO>({ ...result, ...body }),
@@ -46,7 +46,7 @@ export const agencyHandlers = [
 
   rest.delete<string>(EEndpoints.AGENCY_DELETE, (req, res, ctx) => {
     const body = JSON.parse(req.body);
-    const result: IAgencyResponseDTO | {} =
+    const result: IAgencyResponseDTO | Record<string, never> =
       agencies.find((agency, index) => {
         if (agency.id === body.id) {
           agencies.splice(index, 1);
@@ -55,10 +55,10 @@ export const agencyHandlers = [
         }
         return false;
       }) || {};
-    let status = Object.keys(result).length ? 200 : 404;
+    const status = Object.keys(result).length ? 200 : 404;
 
     return res(
-      ctx.json<IAgencyResponseDTO | {}>(result),
+      ctx.json<IAgencyResponseDTO | unknown>(result),
       ctx.delay(getTimeout()),
       ctx.status(status)
     );

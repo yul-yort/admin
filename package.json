@@ -15,7 +15,9 @@
     "test": "react-scripts test",
     "testCoverage": "npm test --coverage",
     "eject": "react-scripts eject",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint": "eslint --debug src/",
+    "lint:write": "eslint --debug src/ --fix"
   },
   "dependencies": {
     "@emotion/react": "^11.4.1",
@@ -67,6 +69,10 @@
     "@types/js-cookie": "^3.0.1",
     "@types/uuid": "^8.3.4",
     "cross-env": "^7.0.3",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.30.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-sonarjs": "^0.13.0",
     "husky": "^7.0.0",
     "lint-staged": "^12.4.0",
     "msw": "^0.35.0",
@@ -75,22 +81,6 @@
     "sass": "^1.52.2",
     "storybook-addon-material-ui": "^0.9.0-alpha.24"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ],
-    "overrides": [
-      {
-        "files": [
-          "**/*.stories.*"
-        ],
-        "rules": {
-          "import/no-anonymous-default-export": "off"
-        }
-      }
-    ]
-  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
@@ -98,7 +88,8 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "prettier --write"
+      "prettier --write",
+      "npm run lint:write"
     ]
   },
   "browserslist": {

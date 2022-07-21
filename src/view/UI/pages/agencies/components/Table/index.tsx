@@ -1,4 +1,4 @@
-import React, { useState, VFC } from "react";
+import { useState, VFC } from "react";
 import Table from "@mui/material/Table";
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
@@ -9,8 +9,8 @@ import TableToolbar from "../TableToolbar";
 import TableBodyTemplate from "../TableBody";
 import { ITable } from "./types";
 import css from "./styles.module.scss";
-import { ICreateOrEditAgencyFormFields } from "../../../../components/shared/AgencyCreateEditForm/types";
-import { AgencyCreateEditModal } from "../../../../components/shared/AgencyCreateEditModal";
+import { ICreateOrEditAgencyFormFields } from "../../../../components/shared";
+import { AgencyCreateEditModal } from "../../../../components/shared";
 import { EmptyList } from "../EmptyList";
 
 const AgencyTable: VFC<ITable> = ({

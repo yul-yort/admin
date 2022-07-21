@@ -29,11 +29,12 @@ export interface IOrdersCreateModal {
   ordersAddLoading: boolean;
 }
 
-export interface IOrdersCreateForm
-  extends Pick<
-    IOrdersCreateModal,
-    "onSave" | "onClose" | "localities" | "getLocality" | "localitiesLoading"
-  > {}
+export type IOrdersCreateForm = Pick<
+  IOrdersCreateModal,
+  "onSave" | "onClose" | "localities" | "getLocality" | "localitiesLoading"
+>;
 
-export interface IOrdersCreateFormFields
-  extends Pick<IOrder, "origin" | "destination" | "price"> {}
+export type IOrdersCreateFormFields = Pick<
+  IOrder,
+  "origin" | "destination" | "price"
+>;

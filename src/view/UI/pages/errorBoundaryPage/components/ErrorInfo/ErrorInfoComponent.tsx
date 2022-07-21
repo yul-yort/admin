@@ -1,4 +1,4 @@
-import React, { VFC } from "react";
+import { VFC } from "react";
 import { Collapse, IconButton, Typography } from "@mui/material";
 import SentimentVeryDissatisfiedOutlinedIcon from "@mui/icons-material/SentimentVeryDissatisfiedOutlined";
 import ExpandLess from "@mui/icons-material/ExpandLess";

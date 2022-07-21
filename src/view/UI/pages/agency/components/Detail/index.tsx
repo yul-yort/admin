@@ -5,13 +5,15 @@ import { useRouter } from "react-router5";
 
 import css from "./styles.module.scss";
 import { IDetail } from "./types";
-import { ConfirmModal } from "../../../../components/common/ConfirmModal";
-import { AgencyCreateEditModal } from "../../../../components/shared/AgencyCreateEditModal";
+import { ConfirmModal } from "../../../../components/common";
+import {
+  AgencyCreateEditModal,
+  ICreateOrEditAgencyFormFields,
+  UIPhonesFormatter,
+} from "../../../../components/shared";
 import { DetailAdditionalInfo } from "../DetailAdditionalInfo";
 import { DetailOrders } from "../DetailOrders";
-import { UIPhonesFormatter } from "../../../../components/shared/AgencyCreateEditForm/mappers";
-import { ICreateOrEditAgencyFormFields } from "../../../../components/shared/AgencyCreateEditForm/types";
-import { useTitle } from "../../../../hooks/useTitle";
+import { useTitle } from "../../../../hooks";
 
 export const Detail: FC<IDetail> = ({
   agency: { id, agencyName, phones = [], createDate, description, editedDate },

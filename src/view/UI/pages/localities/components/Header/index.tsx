@@ -1,4 +1,4 @@
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler, FC } from "react";
 import { TextField } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import Tooltip from "@mui/material/Tooltip";
@@ -6,7 +6,7 @@ import { IconButton } from "@mui/material";
 
 import css from "./styles.module.scss";
 
-const LocalitiesHeader = () => {
+const LocalitiesHeader: FC = () => {
   const handleSearch: ChangeEventHandler<
     HTMLTextAreaElement | HTMLInputElement
   > = () => {
