@@ -62,9 +62,12 @@ const AgencyTable: VFC<ITable> = ({
     }
   };
 
-  const handleCreate = async (fields: ICreateOrEditAgencyFormFields) => {
-    await createAgency(fields);
-    handleConfirmCloseModal();
+  const handleCreate = async (fields?: ICreateOrEditAgencyFormFields) => {
+    // TODO могут ли поля быть необязательными?
+    if (fields) {
+      await createAgency(fields);
+      handleConfirmCloseModal();
+    }
   };
 
   return (

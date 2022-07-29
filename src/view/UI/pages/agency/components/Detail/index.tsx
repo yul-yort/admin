@@ -88,11 +88,14 @@ export const Detail: FC<IDetail> = ({
     setShowConfirm(false);
   };
 
-  const handleSaveEdit = async (fields: ICreateOrEditAgencyFormFields) => {
-    await editAgency(fields);
+  const handleSaveEdit = async (fields?: ICreateOrEditAgencyFormFields) => {
+    // TODO могут ли поля быть необязательными?
+    if (fields) {
+      await editAgency(fields);
 
-    setTitle(fields.agencyName);
-    setOpenEditModal(false);
+      setTitle(fields.agencyName);
+      setOpenEditModal(false);
+    }
   };
 
   const handleCancelEdit = () => {
