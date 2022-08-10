@@ -32,21 +32,22 @@ export interface IOrdersCreateModal {
   selectedOrder: IOrdersEditSelected | null;
 }
 
-export interface IOrdersCreateForm
-  extends Pick<
-    IOrdersCreateModal,
-    | "onSave"
-    | "onClose"
-    | "localities"
-    | "getLocality"
-    | "localitiesLoading"
-    | "selectedOrder"
-  > {}
+export type IOrdersCreateForm = Pick<
+  IOrdersCreateModal,
+  | "onSave"
+  | "onClose"
+  | "localities"
+  | "getLocality"
+  | "localitiesLoading"
+  | "selectedOrder"
+>;
 
 export type IOrdersCreateFormFields = Pick<
   IOrder,
   "origin" | "destination" | "price"
 >;
 
-export interface IOrdersEditSelected
-  extends Pick<IOrderItemEntity, "route" | "price" | "id"> {}
+export type IOrdersEditSelected = Pick<
+  IOrderItemEntity,
+  "route" | "price" | "id"
+>;

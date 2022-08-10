@@ -146,7 +146,7 @@ export class OrderVM extends BaseVM implements IOrderVM {
     }
   };
 
-  editOrder = async (fields: IOrdersEditSelected) => {
+  editOrder = async (fields: IOrdersEditSelected): Promise<void> => {
     this.setOrdersAddLoading();
     try {
       const orders = await this.service.editOrder(fields);
