@@ -5,13 +5,15 @@ import Tooltip from "@mui/material/Tooltip";
 import { IconButton } from "@mui/material";
 
 import css from "./styles.module.scss";
+import { IHeaderLocality } from "./types";
 
-const LocalitiesHeader: FC = () => {
+const LocalitiesHeader: FC<IHeaderLocality> = ({ handleShowCreateModal }) => {
   const handleSearch: ChangeEventHandler<
     HTMLTextAreaElement | HTMLInputElement
   > = () => {
     console.log("event");
   };
+
   return (
     <div className={css.header}>
       <TextField
@@ -25,7 +27,7 @@ const LocalitiesHeader: FC = () => {
       />
 
       <Tooltip title="Добавить location">
-        <IconButton>
+        <IconButton onClick={handleShowCreateModal}>
           <AddIcon fontSize="medium" />
         </IconButton>
       </Tooltip>
