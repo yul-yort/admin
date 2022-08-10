@@ -1,11 +1,10 @@
 import { IAgencyRepository } from "./types";
 import {
-  IAgencyItemResponseDTO,
+  IAgencyResponseDTO,
   IAgencyRequestCreateParams,
   IAgencyRequestDeleteParams,
   IAgencyRequestEditParams,
   IAgencyRequestParams,
-  IAgencyResponseDTO,
 } from "../entity/types";
 import { EEndpoints } from "../../../constants/Endpoints";
 import { BaseRepository } from "../../BaseRepository";
@@ -39,16 +38,16 @@ export class AgencyRepository
     >(EEndpoints.AGENCY_DELETE, params);
   }
 
-  async getList(): Promise<IAgencyItemResponseDTO[]> {
-    return await this.api.get<IAgencyItemResponseDTO[]>(EEndpoints.AGENCY_LIST);
+  async getList(): Promise<IAgencyResponseDTO[]> {
+    return await this.api.get<IAgencyResponseDTO[]>(EEndpoints.AGENCY_LIST);
   }
 
   async createAgency(
     params: IAgencyRequestCreateParams
-  ): Promise<IAgencyItemResponseDTO> {
-    return await this.api.post<
-      IAgencyItemResponseDTO,
-      IAgencyRequestCreateParams
-    >(EEndpoints.AGENCY_CREATE, params);
+  ): Promise<IAgencyResponseDTO> {
+    return await this.api.post<IAgencyResponseDTO, IAgencyRequestCreateParams>(
+      EEndpoints.AGENCY_CREATE,
+      params
+    );
   }
 }

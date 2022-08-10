@@ -1,9 +1,6 @@
 import { rest } from "msw";
 import { EEndpoints } from "../../../../constants";
-import {
-  IAgencyItemResponseDTO,
-  IAgencyResponseDTO,
-} from "../../../../data/Agency/entity/types";
+import { IAgencyResponseDTO } from "../../../../data/Agency/entity/types";
 import { getTimeout } from "../../utils/getTimeout";
 import { v4 as uuid } from "uuid";
 import { agencies } from "./agencies";
@@ -66,7 +63,7 @@ export const agencyHandlers = [
 
   rest.get(EEndpoints.AGENCY_LIST, (req, res, ctx) => {
     return res(
-      ctx.json<IAgencyItemResponseDTO[]>(agencies),
+      ctx.json<IAgencyResponseDTO[]>(agencies),
       ctx.delay(getTimeout()),
       ctx.status(200)
     );
@@ -76,7 +73,7 @@ export const agencyHandlers = [
     agencies.unshift({ id: uuid(), ...JSON.parse(req.body) });
 
     return res(
-      ctx.json<IAgencyItemResponseDTO>(agencies[0]),
+      ctx.json<IAgencyResponseDTO>(agencies[0]),
       ctx.delay(getTimeout()),
       ctx.status(200)
     );

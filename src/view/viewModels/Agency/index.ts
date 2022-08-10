@@ -4,10 +4,9 @@ import { format } from "date-fns";
 import { BaseVM } from "../BaseVM";
 import { IAgencyVM } from "./types";
 import {
-  IAgencyEntity,
   IAgencyRequestParams,
   IAgencyRequestDeleteParams,
-  IAgencyItemEntity,
+  IAgencyEntity,
 } from "../../../data/Agency/entity/types";
 import { IAgencyService } from "../../../data/Agency/service/types";
 import { INotificationsVM } from "../types";
@@ -22,9 +21,9 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
   agency: IAgencyEntity | null = null;
   searchValue = "";
 
-  private _agencies: IAgencyItemEntity[] | null = null;
+  private _agencies: IAgencyEntity[] | null = null;
 
-  get agencies(): IAgencyItemEntity[] | null {
+  get agencies(): IAgencyEntity[] | null {
     return (
       this._agencies &&
       this._agencies.filter(
