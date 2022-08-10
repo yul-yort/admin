@@ -23,7 +23,7 @@ export interface IRoute extends Route<IDependencies> {
   children?: IRoute[];
 }
 
-export interface IRouteWithParams<P = {}> extends IRoute {
+export interface IRouteWithParams<P = Record<string, unknown>> extends IRoute {
   onActivate?: (args?: IOnActivateArgsWithParams<P>) => Promise<void>;
 }
 
@@ -36,11 +36,11 @@ export interface IOnActivateArgsWithParams<P> extends IOnActivateArgs {
   params?: P;
 }
 
-interface IAgencyRoute extends IRouteWithParams<IAgencyRequestParams> {}
+type IAgencyRoute = IRouteWithParams<IAgencyRequestParams>;
 interface IAgenciesRoute extends IRoute {
   children: [IAgencyRoute];
 }
-interface IDashboardRoute extends IRoute {}
-interface ILoginRoute extends IRoute {}
-interface IOrdersRoute extends IRouteWithParams<IOrderItemRequestParams> {}
-interface ILocalitiesRoute extends IRoute {}
+type IDashboardRoute = IRoute;
+type ILoginRoute = IRoute;
+type IOrdersRoute = IRouteWithParams<IOrderItemRequestParams>;
+type ILocalitiesRoute = IRoute;

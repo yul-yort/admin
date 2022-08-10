@@ -22,4 +22,4 @@ export interface IRouteEntity {
   waypoints?: ILocalityEntity[];
 }
 
-export interface IRouteDTO extends IRouteEntity {}
+export type IRouteDTO = IRouteEntity;

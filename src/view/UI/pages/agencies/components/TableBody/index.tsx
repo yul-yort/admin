@@ -8,7 +8,7 @@ import cn from "classnames";
 
 import { ITableBodyTemplateProps } from "./types";
 import css from "./styles.module.scss";
-import { Phones } from "../../../../components/shared/Phones";
+import { Phones } from "../../../../components/shared";
 
 const TableBodyTemplate: FC<ITableBodyTemplateProps> = ({
   rows,

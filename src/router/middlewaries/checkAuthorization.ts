@@ -4,7 +4,7 @@ import { Middleware, MiddlewareFactory } from "router5/dist/types/router";
 import { getRouteByToStateName } from "./utils";
 import { IDependencies, IRoute } from "../types";
 import { checkToken } from "../../libs/utils";
-import { CONSTANTS } from "../../constants/globalConstants";
+import { CONSTANTS } from "../../constants";
 
 /**
  * Плагин проверяет авторизацию.
@@ -24,7 +24,7 @@ export const checkAuthorization: MiddlewareFactory<IDependencies> =
   (router, dependencies): Middleware =>
   (toState, _, done) => {
     const toStateName = toState.name;
-    let route: IRoute | undefined = getRouteByToStateName(
+    const route: IRoute | undefined = getRouteByToStateName(
       toStateName,
       dependencies
     );

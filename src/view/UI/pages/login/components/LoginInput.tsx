@@ -1,4 +1,4 @@
-import React, { VFC } from "react";
+import { VFC } from "react";
 import { TextField } from "@mui/material";
 import { IInput } from "../types";
 import { getErrorText } from "../../../../../libs/utils";

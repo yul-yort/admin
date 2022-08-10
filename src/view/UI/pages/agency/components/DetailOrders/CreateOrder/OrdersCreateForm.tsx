@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { TextField, Button } from "@mui/material";
 import { useFormContext } from "react-hook-form";
 import { IOrdersCreateForm, IOrdersCreateFormFields } from "./types";
@@ -6,6 +6,7 @@ import { getErrorText } from "src/libs/utils";
 import { CONSTANTS } from "src/constants/globalConstants";
 import css from "./styles.module.scss";
 import Autocomplete from "@mui/material/Autocomplete";
+import { ILocalityEntity } from "../../../../../../../data/Locality/entity/types";
 
 //TODO нужно сделать обязательное поле "Выбор валюты". (https://trello.com/c/wXEG7n0j)
 export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
@@ -22,8 +23,8 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
     formState: { errors, isSubmitting, isDirty },
   } = useFormContext<IOrdersCreateFormFields>();
 
-  const noOptionsText: string = "Не найдено";
-  const loadingText: string = "Загрузка...";
+  const noOptionsText = "Не найдено";
+  const loadingText = "Загрузка...";
   const [originID, setOriginID] = useState("");
   const [destinationID, setDestinationID] = useState("");
 
@@ -35,6 +36,15 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
   const handleOpen = async () => {
     await getLocality();
   };
+
+  const renderOption = (
+    props: HTMLAttributes<HTMLLIElement>,
+    option: ILocalityEntity
+  ) => (
+    <li {...props} key={option.id}>
+      {option.name}
+    </li>
+  );
 
   return (
     <form onSubmit={handleSubmit(onSave)}>
@@ -50,11 +60,7 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
           noOptionsText={noOptionsText}
           onOpen={handleOpen}
           isOptionEqualToValue={(option, value) => option.id === value.id}
-          renderOption={(props, option) => (
-            <li {...props} key={option.id}>
-              {option.name}
-            </li>
-          )}
+          renderOption={renderOption}
           onChange={(_, newValue) => {
             const originID = newValue?.id || "";
             setOriginID(originID);
@@ -88,11 +94,7 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
           noOptionsText={noOptionsText}
           onOpen={handleOpen}
           isOptionEqualToValue={(option, value) => option.id === value.id}
-          renderOption={(props, option) => (
-            <li {...props} key={option.id}>
-              {option.name}
-            </li>
-          )}
+          renderOption={renderOption}
           onChange={(_, newValue) => {
             const destinationID = newValue?.id || "";
             setDestinationID(destinationID);

@@ -1,6 +1,8 @@
-import { IRoutes } from "./types";
-import { CONSTANTS } from "../constants/globalConstants";
+import { IOnActivateArgs, IOnActivateArgsWithParams, IRoutes } from "./types";
+import { CONSTANTS } from "../constants";
 import { setDocumentTitle } from "../libs/utils";
+import { IAgencyRequestParams } from "../data/Agency/entity/types";
+import { IOrderItemRequestParams } from "../data/Order/entity/types";
 
 const routes: IRoutes = [
   {
@@ -19,7 +21,7 @@ const routes: IRoutes = [
     path: "/agencies",
     title: "Список агентств",
     auth: true,
-    onActivate: async (props) => {
+    onActivate: async (props?: IOnActivateArgs): Promise<void> => {
       if (!props) return;
 
       const { store } = props;
@@ -31,8 +33,10 @@ const routes: IRoutes = [
         path: "/:id",
         title: "Агенство",
         auth: true,
-        onActivate: async (props) => {
-          if (!props || !props.params) return;
+        onActivate: async (
+          props?: IOnActivateArgsWithParams<IAgencyRequestParams>
+        ): Promise<void> => {
+          if (!props || !props?.params) return;
 
           const { store, params } = props;
 
@@ -49,7 +53,9 @@ const routes: IRoutes = [
     path: "/orders",
     title: "Поездки",
     auth: true,
-    onActivate: async (props) => {
+    onActivate: async (
+      props?: IOnActivateArgsWithParams<IOrderItemRequestParams>
+    ): Promise<void> => {
       if (!props) {
         return;
       }
@@ -64,7 +70,7 @@ const routes: IRoutes = [
     path: "/localities",
     title: "Населенные пункты",
     auth: true,
-    onActivate: async (props) => {
+    onActivate: async (props?: IOnActivateArgs): Promise<void> => {
       if (!props) {
         return;
       }

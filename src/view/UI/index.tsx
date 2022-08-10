@@ -19,12 +19,13 @@ type IAppInitConfig = {
   theme: Theme;
 };
 
-export const initApp = ({ router, theme }: IAppInitConfig) => {
+export const initApp = ({ router, theme }: IAppInitConfig): void => {
   ReactDOM.render(
     <StrictMode>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <StyledEngineProvider injectFirst>
+          {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
           {/* @ts-ignore */}
           <RouterProvider router={router}>
             <ErrorBoundary>

@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import { IInitErrorPageProps } from "./types";
 import { Collapse, IconButton, Typography } from "@mui/material";
 import css from "./styles.module.scss";

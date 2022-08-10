@@ -1,4 +1,4 @@
-import React, { VFC } from "react";
+import { VFC } from "react";
 import TableRow from "@mui/material/TableRow";
 import { TableBody as MUITableBody } from "@mui/material";
 import TableCell from "@mui/material/TableCell";
@@ -7,7 +7,7 @@ import { Typography } from "@mui/material";
 
 import { IOrdersList } from "./types";
 import { getCurrency } from "src/libs/utils";
-import { Phones } from "../../../../components/shared/Phones";
+import { Phones } from "../../../../components/shared";
 import css from "./styles.module.scss";
 
 const TableBody: VFC<IOrdersList> = ({ list }) => {
