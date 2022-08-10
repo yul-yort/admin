@@ -43,9 +43,9 @@ const CreateLocality: FC<ICreateLocality> = ({
   };
 
   const onClose = () => {
-    if (false) {
-      return;
-    }
+    // if (false) {
+    //   return;
+    // }
 
     if (isDirty) {
       setShowConfirm(true);
