@@ -4,7 +4,7 @@ import { format } from "date-fns";
 
 export class Agency implements IAgencyEntity {
   id: ID = "";
-  agencyName: string = "";
+  agencyName = "";
   phones?: string[];
   createDate: string;
   editedDate: string | undefined;

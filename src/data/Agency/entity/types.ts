@@ -31,6 +31,3 @@ export interface IAgencyRequestCreateParams
 }
 
 export type IAgencyRequestDeleteParams = Pick<IAgencyEntity, "id">;
-/**
- * Типы основной сущности. Конец.
- */
