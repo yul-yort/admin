@@ -30,7 +30,7 @@ export interface IAgencyResponseDTO
   editedDate?: number;
 }
 
-export interface IAgencyRequestParams extends Pick<IAgencyEntity, "id"> {}
+export type IAgencyRequestParams = Pick<IAgencyEntity, "id">;
 
 export interface IAgencyRequestEditParams
   extends Pick<IAgencyEntity, "id" | "agencyName" | "phones" | "description"> {
@@ -42,7 +42,7 @@ export interface IAgencyRequestCreateParams
   createDate: number;
 }
 
-export interface IAgencyRequestDeleteParams extends Pick<IAgencyEntity, "id"> {}
+export type IAgencyRequestDeleteParams = Pick<IAgencyEntity, "id">;
 /**
  * Типы основной сущности. Конец.
  */

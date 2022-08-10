@@ -1,4 +1,3 @@
-import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { LoadingScreen } from "./index";
 
@@ -7,7 +6,7 @@ export default {
   component: LoadingScreen,
 } as ComponentMeta<typeof LoadingScreen>;
 
-const Template: ComponentStory<typeof LoadingScreen> = (args: any) => (
+const Template: ComponentStory<typeof LoadingScreen> = (args) => (
   <LoadingScreen {...args} />
 );
 

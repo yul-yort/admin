@@ -16,7 +16,7 @@ import { ILocalityVM } from "../view/viewModels/Locality/types";
 export interface ILibs {
   api?: IApi;
 }
-export interface IStoreLibs extends Required<ILibs> {}
+export type IStoreLibs = Required<ILibs>;
 
 export interface IRepositories {
   agency?: IAgencyRepository;
@@ -25,7 +25,7 @@ export interface IRepositories {
   locality?: ILocalityRepository;
 }
 
-export interface IStoreRepositories extends Required<IRepositories> {}
+export type IStoreRepositories = Required<IRepositories>;
 
 export interface IServices {
   agency?: IAgencyService;
@@ -34,7 +34,7 @@ export interface IServices {
   locality?: ILocalityService;
 }
 
-export interface IStoreServices extends Required<IServices> {}
+export type IStoreServices = Required<IServices>;
 
 export interface IViewModels {
   agency?: IAgencyVM;
@@ -44,4 +44,4 @@ export interface IViewModels {
   locality?: ILocalityVM;
 }
 
-export interface IStoreViewModels extends Required<IViewModels> {}
+export type IStoreViewModels = Required<IViewModels>;

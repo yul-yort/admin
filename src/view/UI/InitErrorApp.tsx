@@ -4,7 +4,7 @@ import { CssBaseline, StyledEngineProvider } from "@mui/material";
 
 const InitErrorPage = lazy(() => import("./pages/initError"));
 
-export const initErrorApp = (error: unknown) => {
+export const initErrorApp = (error: unknown): void => {
   ReactDOM.render(
     <StrictMode>
       <StyledEngineProvider injectFirst>

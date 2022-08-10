@@ -43,8 +43,10 @@ export interface IOrdersCreateForm
     | "selectedOrder"
   > {}
 
-export interface IOrdersCreateFormFields
-  extends Pick<IOrder, "origin" | "destination" | "price"> {}
+export type IOrdersCreateFormFields = Pick<
+  IOrder,
+  "origin" | "destination" | "price"
+>;
 
 export interface IOrdersEditSelected
   extends Pick<IOrderItemEntity, "route" | "price" | "id"> {}

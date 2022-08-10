@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Modal } from "../../common/Modal";
+import { Modal } from "../../common";
 import { AgencyCreateEditForm } from "../AgencyCreateEditForm";
 import { IAgencyCreateEditModal } from "./types";
 

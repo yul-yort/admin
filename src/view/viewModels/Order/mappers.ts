@@ -31,12 +31,15 @@ export const filterOrders = (
       return filterByAgency
         ? order.agency.agencyName
             .toUpperCase()
-            .includes(filterByAgency.toUpperCase())
+            .trim()
+            .includes(filterByAgency.toUpperCase().trim())
         : true;
     })
     .filter((order) => {
       return filterByPhone
-        ? order.agency.phones?.some((phone) => phone.includes(filterByPhone))
+        ? order.agency.phones?.some((phone) =>
+            phone.includes(filterByPhone.trim())
+          )
         : true;
     });
 };

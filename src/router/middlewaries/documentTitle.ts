@@ -1,6 +1,6 @@
 import { MiddlewareFactory } from "router5/dist/types/router";
 import { IDependencies, IRoute } from "../types";
-import { CONSTANTS } from "../../constants/globalConstants";
+import { CONSTANTS } from "../../constants";
 import { getRouteByToStateName } from "./utils";
 import { setDocumentTitle } from "../../libs/utils";
 
@@ -14,7 +14,7 @@ import { setDocumentTitle } from "../../libs/utils";
 export const documentTitle: MiddlewareFactory<IDependencies> =
   (router, dependencies) =>
   (toState): boolean => {
-    let route: IRoute | undefined = getRouteByToStateName(
+    const route: IRoute | undefined = getRouteByToStateName(
       toState.name,
       dependencies
     );
