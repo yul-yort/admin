@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import { observer } from "mobx-react-lite";
-import { useViewModel } from "../../hooks/useViewModel";
+import { useViewModel } from "../../hooks";
 import { ILocalityVM } from "src/view/viewModels/Locality/types";
 import LocalityList from "./components/LocalityList";
 import LocalitiesHeader from "./components/Header";
@@ -34,7 +34,12 @@ const Localities: FC = observer(() => {
   };
 
   const handleSelectedLocality = (id: ID) => {
-    const localities = localityVM.localities || [];
+    const localities = localityVM.localities;
+
+    if (!localities || !localities.length) {
+      return;
+    }
+
     const locality = localities.find((item) => item.id === id);
     if (locality) {
       setSelectedLocality({
