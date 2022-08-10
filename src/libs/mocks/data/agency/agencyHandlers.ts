@@ -1,9 +1,6 @@
 import { rest } from "msw";
 import { EEndpoints } from "../../../../constants";
-import {
-  IAgencyItemResponseDTO,
-  IAgencyResponseDTO,
-} from "../../../../data/Agency/entity/types";
+import { IAgencyResponseDTO } from "../../../../data/Agency/entity/types";
 import { getTimeout } from "../../utils/getTimeout";
 import { v4 as uuid } from "uuid";
 import { agencies } from "./agencies";
