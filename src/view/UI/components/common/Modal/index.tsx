@@ -8,7 +8,7 @@ import {
 import { IModal } from "./types";
 import css from "./styles.module.scss";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import { ConfirmBody } from "../ConfirmBody/ConfirmBody";
+import { ConfirmBody } from "../ConfirmBody";
 import CircularProgress from "@mui/material/CircularProgress";
 
 export const Modal: FC<IModal> = ({

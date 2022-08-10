@@ -1,4 +1,4 @@
-import React, { VFC } from "react";
+import { VFC } from "react";
 import { Paper, Typography } from "@mui/material";
 import { TableContainer as MUITableContainer } from "@mui/material";
 import Table from "@mui/material/Table";

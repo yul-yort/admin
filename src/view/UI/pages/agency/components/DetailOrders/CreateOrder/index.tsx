@@ -13,6 +13,8 @@ export const CreateOrder: FC<ICreateOrders> = ({
   getLocality,
   localitiesLoading,
   ordersAddLoading,
+  selectedOrder,
+  handleOrderEdit,
 }) => {
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
@@ -51,15 +53,16 @@ export const CreateOrder: FC<ICreateOrders> = ({
     setShowConfirm(false);
   };
 
-  //handleOrderEdit
-  // const handleOrderEdit = async (fields: IOrdersCreateFormFields) => {
-  //   if (orderID) {
-  //     console.log("edit", fields);
-  //   }
-  // };
-
-  const handleOrderCreate = async (fields: IOrdersCreateFormFields) => {
-    await createOrder(fields);
+  const onSave = async (fields: IOrdersCreateFormFields) => {
+    if (selectedOrder) {
+      const orderEditfields = {
+        ...selectedOrder,
+        price: Number(fields.price),
+      };
+      await handleOrderEdit(orderEditfields);
+    } else {
+      await createOrder(fields);
+    }
     reset();
     handleCloseModal();
   };
@@ -70,7 +73,7 @@ export const CreateOrder: FC<ICreateOrders> = ({
         titleModal={titleModal}
         showModal={showModal}
         onClose={onClose}
-        onSave={handleOrderCreate}
+        onSave={onSave}
         showConfirm={showConfirm}
         onConformClose={handleConfirmCloseModal}
         onCancelClose={handleCancelCloseModal}
@@ -78,6 +81,7 @@ export const CreateOrder: FC<ICreateOrders> = ({
         getLocality={getLocality}
         localitiesLoading={localitiesLoading}
         ordersAddLoading={ordersAddLoading}
+        selectedOrder={selectedOrder}
       />
     </FormProvider>
   );

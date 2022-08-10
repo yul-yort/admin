@@ -57,3 +57,5 @@ export const ConfirmBody = forwardRef<HTMLDivElement, IConfirmBody>(
     );
   }
 );
+
+ConfirmBody.displayName = "ConfirmBody";

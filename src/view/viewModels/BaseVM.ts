@@ -3,7 +3,7 @@ import { action, makeObservable, observable } from "mobx";
 import { errorMapper } from "./mappers";
 
 export abstract class BaseVM implements IBaseVM {
-  loading: boolean = false;
+  loading = false;
   error: IError | null = null;
 
   protected constructor(protected notify: INotificationsVM) {

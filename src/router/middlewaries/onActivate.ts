@@ -11,7 +11,7 @@ import { getRouteByToStateName } from "./utils";
 export const onActivate: MiddlewareFactory<IDependencies> =
   (router, dependencies) =>
   (toState): boolean => {
-    let route: IRoute | IRouteWithParams | undefined = getRouteByToStateName(
+    const route: IRoute | IRouteWithParams | undefined = getRouteByToStateName(
       toState.name,
       dependencies
     );

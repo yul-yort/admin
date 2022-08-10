@@ -1,5 +1,6 @@
 import { UseFormReturn } from "react-hook-form";
 import { ILocalityEntity } from "src/data/Locality/entity/types";
+import { IOrderItemEntity } from "src/data/Order/entity/types";
 import { IOrder } from "../types";
 
 export interface ICreateOrders {
@@ -7,12 +8,13 @@ export interface ICreateOrders {
   handleCloseModal: () => void;
   titleModal: string;
   methods: UseFormReturn<IOrdersCreateFormFields>;
-  orderID: string;
   createOrder: (fields: IOrdersCreateFormFields) => void;
+  handleOrderEdit: (fields: IOrdersEditSelected) => void;
   localities: ILocalityEntity[];
   getLocality: () => void;
   localitiesLoading: boolean;
   ordersAddLoading: boolean;
+  selectedOrder: IOrdersEditSelected | null;
 }
 
 export interface IOrdersCreateModal {
@@ -27,13 +29,25 @@ export interface IOrdersCreateModal {
   getLocality: () => void;
   localitiesLoading: boolean;
   ordersAddLoading: boolean;
+  selectedOrder: IOrdersEditSelected | null;
 }
 
-export interface IOrdersCreateForm
-  extends Pick<
-    IOrdersCreateModal,
-    "onSave" | "onClose" | "localities" | "getLocality" | "localitiesLoading"
-  > {}
+export type IOrdersCreateForm = Pick<
+  IOrdersCreateModal,
+  | "onSave"
+  | "onClose"
+  | "localities"
+  | "getLocality"
+  | "localitiesLoading"
+  | "selectedOrder"
+>;
 
-export interface IOrdersCreateFormFields
-  extends Pick<IOrder, "origin" | "destination" | "price"> {}
+export type IOrdersCreateFormFields = Pick<
+  IOrder,
+  "origin" | "destination" | "price"
+>;
+
+export type IOrdersEditSelected = Pick<
+  IOrderItemEntity,
+  "route" | "price" | "id"
+>;

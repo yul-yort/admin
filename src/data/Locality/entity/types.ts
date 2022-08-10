@@ -33,4 +33,4 @@ export type Latitude = string;
 /* Долгота */
 export type Longitude = string;
 
-export interface ILocalityDTO extends ILocalityEntity {}
+export type ILocalityDTO = ILocalityEntity;

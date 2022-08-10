@@ -1,17 +1,19 @@
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler, FC } from "react";
 import { TextField } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import Tooltip from "@mui/material/Tooltip";
 import { IconButton } from "@mui/material";
 
 import css from "./styles.module.scss";
+import { IHeaderLocality } from "./types";
 
-const LocalitiesHeader = () => {
+const LocalitiesHeader: FC<IHeaderLocality> = ({ handleShowCreateModal }) => {
   const handleSearch: ChangeEventHandler<
     HTMLTextAreaElement | HTMLInputElement
   > = () => {
     console.log("event");
   };
+
   return (
     <div className={css.header}>
       <TextField
@@ -25,7 +27,7 @@ const LocalitiesHeader = () => {
       />
 
       <Tooltip title="Добавить location">
-        <IconButton>
+        <IconButton onClick={handleShowCreateModal}>
           <AddIcon fontSize="medium" />
         </IconButton>
       </Tooltip>

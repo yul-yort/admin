@@ -1,11 +1,11 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRoute } from "react-router5";
 import { observer } from "mobx-react-lite";
 
 import { IUserVM } from "../../../viewModels/User/types";
-import { useViewModel } from "../../hooks/useViewModel";
-import { CONSTANTS } from "../../../../constants/globalConstants";
+import { useViewModel } from "../../hooks";
+import { CONSTANTS } from "../../../../constants";
 import { IFormValues } from "./types";
 import css from "./styles.module.scss";
 
@@ -27,7 +27,7 @@ const LoginPage: FC = observer(() => {
   } = useRoute();
   const { redirectName = CONSTANTS.defaultRoute, redirectParams = {} } = params;
 
-  const onSubmit: SubmitHandler<IFormValues> = async (data: IFormValues) => {
+  const onSubmit: SubmitHandler<IFormValues> = async () => {
     await user.login();
     navigate(redirectName, redirectParams);
   };
