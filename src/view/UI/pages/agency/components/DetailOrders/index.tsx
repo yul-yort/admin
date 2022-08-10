@@ -5,7 +5,10 @@ import { Orders } from "./Orders";
 import { OrdersHeader } from "./OrdersHeader";
 import { CreateOrder } from "./CreateOrder";
 import { useForm } from "react-hook-form";
-import { IOrdersCreateFormFields } from "./CreateOrder/types";
+import {
+  IOrdersCreateFormFields,
+  IOrdersEditSelected,
+} from "./CreateOrder/types";
 import { IDetailOrders } from "./types";
 import Loading from "../../../../components/common/Loading";
 
@@ -18,29 +21,26 @@ export const DetailOrders: FC<IDetailOrders> = ({
   getLocality,
   localitiesLoading,
   ordersAddLoading,
+  editOrder,
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [titleModal, setTitleModal] = useState("");
-  const [defaultValues, setDefaultValues] =
-    useState<IOrdersCreateFormFields | null>(null);
-  const [orderID, setOrderID] = useState("");
+  const [selectedOrder, setSelectedOrder] =
+    useState<IOrdersEditSelected | null>(null);
 
   const methods = useForm<IOrdersCreateFormFields>({});
   const { setValue } = methods;
 
   useEffect(() => {
-    if (defaultValues) {
-      setValue("origin", defaultValues.origin);
-      setValue("destination", defaultValues.destination);
-      setValue("price", defaultValues.price);
+    if (selectedOrder) {
+      setValue("price", selectedOrder.price);
     }
-  }, [defaultValues, setValue]);
+  }, [selectedOrder, setValue]);
 
   const handleCreateOrderClick = () => {
     setShowModal(true);
-    setDefaultValues(null);
+    setSelectedOrder(null);
     setTitleModal("Добавить новую поездку");
-    setOrderID("");
   };
 
   const handleCloseModal = () => {
@@ -61,13 +61,16 @@ export const DetailOrders: FC<IDetailOrders> = ({
     const order = agencyOrders.find((item) => item.id === id);
 
     if (order) {
-      setOrderID(order.id);
-      setDefaultValues({
-        origin: order.route.origin.name,
-        destination: order.route.destination.name,
+      setSelectedOrder({
+        id: order.id,
+        route: order.route,
         price: order.price,
       });
     }
+  };
+
+  const handleOrderEdit = async (fields: IOrdersEditSelected) => {
+    await editOrder(fields);
   };
 
   return (
@@ -86,7 +89,6 @@ export const DetailOrders: FC<IDetailOrders> = ({
         <Loading />
       )}
       <CreateOrder
-        orderID={orderID}
         methods={methods}
         titleModal={titleModal}
         showModal={showModal}
@@ -96,6 +98,8 @@ export const DetailOrders: FC<IDetailOrders> = ({
         getLocality={getLocality}
         localitiesLoading={localitiesLoading}
         ordersAddLoading={ordersAddLoading}
+        selectedOrder={selectedOrder}
+        handleOrderEdit={handleOrderEdit}
       />
     </Paper>
   );

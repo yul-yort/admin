@@ -15,6 +15,7 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
   localities,
   getLocality,
   localitiesLoading,
+  selectedOrder,
 }) => {
   const {
     handleSubmit,
@@ -33,6 +34,13 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
     destinationID && clearErrors("destination");
   }, [originID, destinationID, clearErrors]);
 
+  useEffect(() => {
+    if (selectedOrder) {
+      setOriginID(selectedOrder?.route.origin.id);
+      setDestinationID(selectedOrder?.route.destination.id);
+    }
+  }, [selectedOrder]);
+
   const handleOpen = async () => {
     await getLocality();
   };
@@ -50,6 +58,8 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
     <form onSubmit={handleSubmit(onSave)}>
       <div className={css.row}>
         <Autocomplete
+          disabled={Boolean(selectedOrder)}
+          defaultValue={selectedOrder?.route.origin}
           size="small"
           fullWidth
           id="origin"
@@ -84,6 +94,8 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
 
       <div className={css.row}>
         <Autocomplete
+          disabled={Boolean(selectedOrder)}
+          defaultValue={selectedOrder?.route.destination}
           size="small"
           fullWidth
           id="destination"

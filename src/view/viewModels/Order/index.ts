@@ -14,7 +14,10 @@ import {
   IOrderItemRequestParams,
 } from "src/data/Order/entity/types";
 import { IOrderService } from "src/data/Order/service/types";
-import { IOrdersCreateFormFields } from "../../UI/pages/agency/components/DetailOrders/CreateOrder/types";
+import {
+  IOrdersCreateFormFields,
+  IOrdersEditSelected,
+} from "../../UI/pages/agency/components/DetailOrders/CreateOrder/types";
 import { errorMapper } from "../mappers";
 import { filterOrders } from "./mappers";
 
@@ -64,6 +67,7 @@ export class OrderVM extends BaseVM implements IOrderVM {
       filterByPhone: action,
       deleteOrder: action,
       createOrder: action,
+      editOrder: action,
     });
   }
 
@@ -142,6 +146,23 @@ export class OrderVM extends BaseVM implements IOrderVM {
     }
   };
 
+  editOrder = async (fields: IOrdersEditSelected): Promise<void> => {
+    this.setOrdersAddLoading();
+    try {
+      const orders = await this.service.editOrder(fields);
+      runInAction(() => {
+        this._agencyOrders = orders;
+      });
+      this.notify.successNotification("Поездка изменена");
+    } catch (err) {
+      const error = errorMapper(err);
+      const message = `${error?.name} ${error?.message}`;
+      this.notify.errorNotification(message);
+    } finally {
+      this.unsetOrdersAddLoading();
+    }
+  };
+
   deleteOrder = async (id: ID): Promise<void> => {
     this.setLoading();
     try {
@@ -156,7 +177,7 @@ export class OrderVM extends BaseVM implements IOrderVM {
       const message = `${error?.name} ${error?.message}`;
       this.notify.errorNotification(message);
     } finally {
-      this.setLoading();
+      this.unsetLoading();
     }
   };
 }
