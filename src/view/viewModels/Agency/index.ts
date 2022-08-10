@@ -23,7 +23,7 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
 
   private _agencies: IAgencyEntity[] | null = null;
 
-  get agencies(): IAgencyItemEntity[] | null {
+  get agencies(): IAgencyEntity[] | null {
     return (
       this._agencies &&
       this._agencies.filter(
