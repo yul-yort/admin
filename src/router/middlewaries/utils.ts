@@ -3,7 +3,7 @@ import { IDependencies, IRoute } from "../types";
 /**
  * Кэш роутов.
  */
-let cache: Record<string, IRoute> = {};
+const cache: Record<string, IRoute> = {};
 
 export const getRouteByToStateName = (
   toStateName: string,

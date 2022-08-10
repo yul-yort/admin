@@ -1,14 +1,10 @@
 import { FC, lazy, Suspense, useState } from "react";
 import { constants } from "router5";
-import { useTitle } from "./hooks/useTitle";
 import { useRoute } from "react-router5";
 import { observer } from "mobx-react-lite";
 
-import { LoadingScreen } from "./components/common/LoadingScreen";
-import { Header } from "./components/common/Header";
-import { SideBar } from "./components/common/SideBar";
-import Body from "./components/common/Body";
-import { useViewModel } from "./hooks/useViewModel";
+import { LoadingScreen, Header, SideBar, Body } from "./components/common";
+import { useViewModel, useTitle } from "./hooks";
 import { IUserVM } from "../viewModels/User/types";
 
 const NotFoundPage = lazy(() => import("./pages/notFound"));

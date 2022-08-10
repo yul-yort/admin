@@ -1,9 +1,10 @@
-import React, { ChangeEventHandler, VFC } from "react";
+import { ChangeEventHandler, HTMLAttributes, VFC } from "react";
 import { Paper, TextField } from "@mui/material";
 
 import css from "./styles.module.scss";
 import Autocomplete from "@mui/material/Autocomplete";
 import { ITableToolbar } from "./types";
+import { ILocalityEntity } from "../../../../../../data/Locality/entity/types";
 
 const TableToolbar: VFC<ITableToolbar> = ({
   localities,
@@ -46,6 +47,15 @@ const TableToolbar: VFC<ITableToolbar> = ({
     className: css.inputWrapper,
   };
 
+  const renderOption = (
+    props: HTMLAttributes<HTMLLIElement>,
+    option: ILocalityEntity
+  ) => (
+    <li {...props} key={option.id}>
+      {option.name}
+    </li>
+  );
+
   return (
     <Paper className={css.toolbarWrapper}>
       <Autocomplete
@@ -53,11 +63,7 @@ const TableToolbar: VFC<ITableToolbar> = ({
         id="origin"
         getOptionLabel={(option) => option.name}
         isOptionEqualToValue={(option, value) => option.name === value.name}
-        renderOption={(props, option) => (
-          <li {...props} key={option.id}>
-            {option.name}
-          </li>
-        )}
+        renderOption={renderOption}
         onChange={(_, value) => {
           handleFilterByOrigin(value ? value.id : "");
         }}
@@ -72,11 +78,7 @@ const TableToolbar: VFC<ITableToolbar> = ({
         id="destination"
         getOptionLabel={(option) => option.name}
         isOptionEqualToValue={(option, value) => option.name === value.name}
-        renderOption={(props, option) => (
-          <li {...props} key={option.id}>
-            {option.name}
-          </li>
-        )}
+        renderOption={renderOption}
         onChange={(_, value) => {
           handleFilterByDestination(value ? value.id : "");
         }}

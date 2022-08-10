@@ -15,6 +15,7 @@ export const OrdersCreateModal: FC<IOrdersCreateModal> = ({
   getLocality,
   localitiesLoading,
   ordersAddLoading,
+  selectedOrder,
 }) => {
   return (
     <Modal
@@ -39,6 +40,7 @@ export const OrdersCreateModal: FC<IOrdersCreateModal> = ({
         localities={localities}
         getLocality={getLocality}
         localitiesLoading={localitiesLoading}
+        selectedOrder={selectedOrder}
       />
     </Modal>
   );

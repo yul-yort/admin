@@ -65,4 +65,18 @@ export const ordersHandlers = [
 
     return res(ctx.json(orders), ctx.delay(getTimeout()), ctx.status(200));
   }),
+
+  rest.post<string>(EEndpoints.ORDER_EDIT, (req, res, ctx) => {
+    const body = JSON.parse(req.body);
+    const { price, id } = body;
+    // TODO: нужно найти более оптимальный вариант
+    const result = orders.map((order) => {
+      if (order.id === id) {
+        order.price = price;
+      }
+      return order;
+    });
+
+    return res(ctx.json(result), ctx.delay(getTimeout()), ctx.status(200));
+  }),
 ];

@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Modal } from "@mui/material";
 import { IConfirmModal } from "./types";
 import css from "./styles.module.scss";
-import { ConfirmBody } from "../ConfirmBody/ConfirmBody";
+import { ConfirmBody } from "../ConfirmBody";
 
 export const ConfirmModal: FC<IConfirmModal> = ({
   open,
