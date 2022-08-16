@@ -21,6 +21,7 @@ const LocalityCreateForm: FC<ICreateLocalityForm> = ({ onSave, onClose }) => {
           variant="outlined"
           size="small"
           fullWidth
+          autoFocus
           error={!!getErrorText(errors, "name")}
           disabled={isSubmitting}
           helperText={getErrorText(errors, "name")}

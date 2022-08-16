@@ -80,6 +80,8 @@ const Localities: FC = observer(() => {
             localities={localityVM.localities || []}
           />
           <CreateLocality
+            loading={localityVM.createOrEditLoading}
+            createLocality={localityVM.createLocality}
             showModal={showModal}
             handleCloseCreateModal={handleCloseCreateModal}
             titleModal={titleModal}
