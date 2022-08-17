@@ -3,14 +3,14 @@ export interface ICreateLocality {
   loading: boolean;
   handleCloseCreateModal: () => void;
   titleModal: string;
-  selectedLocality: ILocalityFormFields | null;
-  createLocality: (fields: ILocalityFormFields) => Promise<void>;
+  selectedLocality: ILocalityCreateFormFields | null;
+  onSave: (fields: ILocalityCreateFormFields) => Promise<void>;
 }
 
 export interface ICreateLocalityModal {
   showModal: boolean;
   titleModal: string;
-  onSave: (fields: ILocalityFormFields) => void;
+  onSave: (fields: ILocalityCreateFormFields) => void;
   loading: boolean;
   onClose: () => void;
   showConfirm: boolean;
@@ -19,11 +19,19 @@ export interface ICreateLocalityModal {
 }
 
 export interface ICreateLocalityForm {
-  onSave: (fields: ILocalityFormFields) => void;
+  onSave: (fields: ILocalityCreateFormFields) => void;
   onClose: () => void;
 }
 
-export interface ILocalityFormFields {
+export interface ILocalityCreateFormFields {
+  name: string;
+  region?: string;
+  district?: string;
+  description?: string;
+}
+
+export interface ILocalityEditFormFields {
+  id: ID;
   name: string;
   region?: string;
   district?: string;

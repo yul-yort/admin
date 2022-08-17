@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Button, TextField } from "@mui/material";
 import { useFormContext } from "react-hook-form";
 import { getErrorText } from "src/libs/utils";
-import { ICreateLocalityForm, ILocalityFormFields } from "./types";
+import { ICreateLocalityForm, ILocalityCreateFormFields } from "./types";
 import css from "./styles.module.scss";
 
 const LocalityCreateForm: FC<ICreateLocalityForm> = ({ onSave, onClose }) => {
@@ -10,7 +10,7 @@ const LocalityCreateForm: FC<ICreateLocalityForm> = ({ onSave, onClose }) => {
     handleSubmit,
     register,
     formState: { errors, isSubmitting, isDirty },
-  } = useFormContext<ILocalityFormFields>();
+  } = useFormContext<ILocalityCreateFormFields>();
   return (
     <form onSubmit={handleSubmit(onSave)}>
       <div className={css.row}>

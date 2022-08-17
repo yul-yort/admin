@@ -8,29 +8,30 @@ import Error from "../../components/shared/Error";
 import Loading from "../../components/common/Loading";
 import CreateLocality from "./components/CreateLocality";
 import ConfirmDeleteModal from "./components/ConfirmDeleteModal";
-import { ILocalityFormFields } from "./components/CreateLocality/types";
+import {
+  ILocalityCreateFormFields,
+  ILocalityEditFormFields,
+} from "./components/CreateLocality/types";
+import { ILocalityEntity } from "src/data/Locality/entity";
 
 const Localities: FC = observer(() => {
   const localityVM = useViewModel<ILocalityVM>("locality");
-  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState<"" | "create" | "edit">("");
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [titleModal, setTitleModal] = useState("");
   const [selectedLocality, setSelectedLocality] =
-    useState<ILocalityFormFields | null>(null);
+    useState<ILocalityEntity | null>(null);
 
   const handleShowCreateModal = () => {
-    setTitleModal("Добавить населенный пункт");
-    setShowModal(true);
+    setModalType("create");
   };
 
   const handleShowEditModal = (id: ID) => {
     handleSelectedLocality(id);
-    setTitleModal("Редактировать населенный пункт");
-    setShowModal(true);
+    setModalType("edit");
   };
 
   const handleCloseCreateModal = () => {
-    setShowModal(false);
+    setModalType("");
   };
 
   const handleSelectedLocality = (id: ID) => {
@@ -42,12 +43,7 @@ const Localities: FC = observer(() => {
 
     const locality = localities.find((item) => item.id === id);
     if (locality) {
-      setSelectedLocality({
-        name: locality.name,
-        region: locality.region,
-        district: locality.district,
-        description: locality.description,
-      });
+      setSelectedLocality(locality);
     }
   };
 
@@ -58,6 +54,19 @@ const Localities: FC = observer(() => {
 
   const handleCancelDeleteModal = () => {
     setShowDeleteModal(false);
+  };
+
+  const editOrCreateHandler = async (
+    fields: ILocalityEditFormFields | ILocalityCreateFormFields
+  ) => {
+    if (modalType === "create") {
+      await localityVM.createLocality(fields);
+    } else if (modalType === "edit" && selectedLocality) {
+      await localityVM.editLocality({
+        ...fields,
+        id: selectedLocality.id,
+      });
+    }
   };
 
   return (
@@ -81,10 +90,14 @@ const Localities: FC = observer(() => {
           />
           <CreateLocality
             loading={localityVM.createOrEditLoading}
-            createLocality={localityVM.createLocality}
-            showModal={showModal}
+            onSave={editOrCreateHandler}
+            showModal={Boolean(modalType)}
             handleCloseCreateModal={handleCloseCreateModal}
-            titleModal={titleModal}
+            titleModal={
+              modalType === "create"
+                ? "Добавить населенный пункт"
+                : "Редактировать населенный пункт"
+            }
             selectedLocality={selectedLocality}
           />
           <ConfirmDeleteModal

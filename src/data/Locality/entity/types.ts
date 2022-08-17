@@ -41,3 +41,8 @@ export type ILocalityCreateParamsReq = Pick<
   ILocalityEntity,
   "name" | "description" | "region" | "district" | "coordinates"
 >;
+
+export type ILocalityEditParamsReq = Pick<
+  ILocalityEntity,
+  "id" | "name" | "description" | "region" | "district" | "coordinates"
+>;

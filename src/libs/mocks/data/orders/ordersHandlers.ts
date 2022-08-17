@@ -1,6 +1,6 @@
 import { rest } from "msw";
-import { EEndpoints } from "../../../../constants/Endpoints";
-import { IOrderItemResponseDTO } from "../../../../data/Order/entity/types";
+import { EEndpoints } from "src/constants";
+import { IOrderItemResponseDTO } from "src/data/Order/entity/types";
 import { getTimeout } from "../../utils/getTimeout";
 import { orders } from "./orders";
 import { localities } from "../localities/localities";

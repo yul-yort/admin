@@ -1,17 +1,17 @@
 import { FC, useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { LocalityCreateModal } from "./LocalityCreateModal";
-import { ICreateLocality, ILocalityFormFields } from "./types";
+import { ICreateLocality, ILocalityCreateFormFields } from "./types";
 
 const CreateLocality: FC<ICreateLocality> = ({
   showModal,
   handleCloseCreateModal,
-  createLocality,
+  onSave,
   loading,
   titleModal,
   selectedLocality,
 }) => {
-  const methods = useForm<ILocalityFormFields>({
+  const methods = useForm<ILocalityCreateFormFields>({
     defaultValues: {
       name: "",
       region: "",
@@ -44,8 +44,8 @@ const CreateLocality: FC<ICreateLocality> = ({
     }
   }, [formState, getValues, isSubmitSuccessful, reset]);
 
-  const onSave = async (fields: ILocalityFormFields) => {
-    await createLocality(fields);
+  const handleSave = async (fields: ILocalityCreateFormFields) => {
+    await onSave(fields);
     reset();
     handleCloseCreateModal();
   };
@@ -78,7 +78,7 @@ const CreateLocality: FC<ICreateLocality> = ({
         loading={loading}
         showModal={showModal}
         titleModal={titleModal}
-        onSave={onSave}
+        onSave={handleSave}
         onClose={onClose}
         showConfirm={showConfirm}
         handleConfirmClose={handleConfirmClose}

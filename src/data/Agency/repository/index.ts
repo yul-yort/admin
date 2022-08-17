@@ -6,7 +6,7 @@ import {
   IAgencyRequestEditParams,
   IAgencyRequestParams,
 } from "../entity/types";
-import { EEndpoints } from "../../../constants/Endpoints";
+import { EEndpoints } from "../../../constants";
 import { BaseRepository } from "../../BaseRepository";
 
 export class AgencyRepository

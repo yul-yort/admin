@@ -3,6 +3,7 @@ import { BaseVM } from "../BaseVM";
 import { INotificationsVM } from "../types";
 import {
   ILocalityCreateParamsReq,
+  ILocalityEditParamsReq,
   ILocalityEntity,
 } from "src/data/Locality/entity/types";
 import { ILocalityService } from "src/data/Locality/service/types";
@@ -12,11 +13,11 @@ export class LocalityVM extends BaseVM implements ILocalityVM {
   localities: ILocalityEntity[] | null = null;
   createOrEditLoading = false;
 
-  private setEditLoading = (): void => {
+  private setEditOrCreateLoading = (): void => {
     this.createOrEditLoading = true;
   };
 
-  private unsetEditLoading = (): void => {
+  private unsetEditOrCreateLoading = (): void => {
     this.createOrEditLoading = false;
   };
 
@@ -52,8 +53,7 @@ export class LocalityVM extends BaseVM implements ILocalityVM {
   };
 
   createLocality = async (params: ILocalityCreateParamsReq): Promise<void> => {
-    this.setEditLoading();
-    this.unsetError();
+    this.setEditOrCreateLoading();
 
     try {
       const list = await this.service.createLocality(params);
@@ -64,7 +64,23 @@ export class LocalityVM extends BaseVM implements ILocalityVM {
     } catch (err) {
       this.setError(err);
     } finally {
-      this.unsetEditLoading();
+      this.unsetEditOrCreateLoading();
+    }
+  };
+
+  editLocality = async (params: ILocalityEditParamsReq): Promise<void> => {
+    this.setEditOrCreateLoading();
+
+    try {
+      const list = await this.service.editLocality(params);
+
+      runInAction(() => {
+        this.localities = list;
+      });
+    } catch (err) {
+      this.setError(err);
+    } finally {
+      this.unsetEditOrCreateLoading();
     }
   };
 }
