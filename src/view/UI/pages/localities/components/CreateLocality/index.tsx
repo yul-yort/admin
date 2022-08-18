@@ -6,10 +6,19 @@ import { ICreateLocality, ILocalityFormFields } from "./types";
 const CreateLocality: FC<ICreateLocality> = ({
   showModal,
   handleCloseCreateModal,
+  createLocality,
+  loading,
   titleModal,
   selectedLocality,
 }) => {
-  const methods = useForm<ILocalityFormFields>({});
+  const methods = useForm<ILocalityFormFields>({
+    defaultValues: {
+      name: "",
+      region: "",
+      description: "",
+      district: "",
+    },
+  });
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
   const {
@@ -35,18 +44,16 @@ const CreateLocality: FC<ICreateLocality> = ({
     }
   }, [formState, getValues, isSubmitSuccessful, reset]);
 
-  const onSave = (fields: any) => {
-    //TODO: получаем данные
-    console.log(fields);
+  const onSave = async (fields: ILocalityFormFields) => {
+    await createLocality(fields);
     reset();
     handleCloseCreateModal();
   };
 
   const onClose = () => {
-    // if (false) {
-    //   return;
-    // }
-
+    if (loading) {
+      return;
+    }
     if (isDirty) {
       setShowConfirm(true);
     } else {
@@ -68,6 +75,7 @@ const CreateLocality: FC<ICreateLocality> = ({
   return (
     <FormProvider {...methods}>
       <LocalityCreateModal
+        loading={loading}
         showModal={showModal}
         titleModal={titleModal}
         onSave={onSave}

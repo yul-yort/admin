@@ -7,6 +7,7 @@ export const LocalityCreateModal: FC<ICreateLocalityModal> = ({
   showModal,
   titleModal,
   onSave,
+  loading,
   onClose,
   showConfirm,
   handleConfirmClose,
@@ -18,7 +19,7 @@ export const LocalityCreateModal: FC<ICreateLocalityModal> = ({
       onClose={onClose}
       title={titleModal}
       showConfirm={showConfirm}
-      loading={false}
+      loading={loading}
       confirmProps={{
         onConfirm: handleConfirmCloseModal,
         onCancel: handleConfirmClose,

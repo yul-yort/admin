@@ -1,14 +1,17 @@
 export interface ICreateLocality {
   showModal: boolean;
+  loading: boolean;
   handleCloseCreateModal: () => void;
   titleModal: string;
   selectedLocality: ILocalityFormFields | null;
+  createLocality: (fields: ILocalityFormFields) => Promise<void>;
 }
 
 export interface ICreateLocalityModal {
   showModal: boolean;
   titleModal: string;
-  onSave: (fields: any) => void;
+  onSave: (fields: ILocalityFormFields) => void;
+  loading: boolean;
   onClose: () => void;
   showConfirm: boolean;
   handleConfirmClose: () => void;
@@ -16,7 +19,7 @@ export interface ICreateLocalityModal {
 }
 
 export interface ICreateLocalityForm {
-  onSave: (fields: any) => void;
+  onSave: (fields: ILocalityFormFields) => void;
   onClose: () => void;
 }
 
