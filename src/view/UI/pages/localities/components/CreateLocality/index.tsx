@@ -3,6 +3,13 @@ import { FormProvider, useForm } from "react-hook-form";
 import { LocalityCreateModal } from "./LocalityCreateModal";
 import { ICreateLocality, ILocalityCreateFormFields } from "./types";
 
+const defaultValues: ILocalityCreateFormFields = {
+  name: "",
+  region: "",
+  description: "",
+  district: "",
+};
+
 const CreateLocality: FC<ICreateLocality> = ({
   showModal,
   handleCloseCreateModal,
@@ -12,12 +19,7 @@ const CreateLocality: FC<ICreateLocality> = ({
   selectedLocality,
 }) => {
   const methods = useForm<ILocalityCreateFormFields>({
-    defaultValues: {
-      name: "",
-      region: "",
-      description: "",
-      district: "",
-    },
+    defaultValues,
   });
   const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
@@ -31,10 +33,17 @@ const CreateLocality: FC<ICreateLocality> = ({
 
   useEffect(() => {
     if (selectedLocality) {
-      setValue("name", selectedLocality.name);
-      setValue("region", selectedLocality.region);
-      setValue("district", selectedLocality.district);
-      setValue("description", selectedLocality.description);
+      const keys = Object.keys(
+        defaultValues
+      ) as (keyof ILocalityCreateFormFields)[];
+
+      keys.forEach((key: keyof ILocalityCreateFormFields) => {
+        setValue(key as keyof ILocalityCreateFormFields, selectedLocality[key]);
+      });
+    } else {
+      Object.keys(defaultValues).forEach((key) => {
+        setValue(key as keyof ILocalityCreateFormFields, "");
+      });
     }
   }, [selectedLocality, setValue]);
 

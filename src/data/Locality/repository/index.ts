@@ -30,4 +30,11 @@ export class LocalityRepository
       params
     );
   }
+
+  async deleteLocality(id: ID): Promise<ILocalityDTO[]> {
+    return await this.api.delete<ILocalityDTO[], ID>(
+      EEndpoints.LOCALITY_DELETE,
+      id
+    );
+  }
 }

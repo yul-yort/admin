@@ -5,17 +5,14 @@ import { IConfirmDeleteModal } from "./types";
 
 const ConfirmDeleteModal: FC<IConfirmDeleteModal> = ({
   showDeleteModal,
-  handleCancelDeleteModal,
+  onCancelDeleteModal,
+  onDelete,
 }) => {
-  const handleConfirmDeleteModal = () => {
-    handleCancelDeleteModal();
-  };
-
   return (
     <ConfirmModal
       open={showDeleteModal}
-      onCancel={handleCancelDeleteModal}
-      onConfirm={handleConfirmDeleteModal}
+      onCancel={onCancelDeleteModal}
+      onConfirm={onDelete}
       title="Подтвердите удаление населенного пункта."
     />
   );

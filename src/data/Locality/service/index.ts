@@ -31,4 +31,10 @@ export class LocalityService implements ILocalityService {
 
     return localities.map((locality) => new Locality(locality));
   };
+
+  deleteLocality = async (id: ID): Promise<ILocalityEntity[]> => {
+    const localities = await this.repository.deleteLocality(id);
+
+    return localities.map((locality) => new Locality(locality));
+  };
 }

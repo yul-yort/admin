@@ -13,6 +13,7 @@ export const localitiesHandlers = [
       ctx.status(200)
     );
   }),
+
   rest.post<string>(EEndpoints.LOCALITY_CREATE, (req, res, ctx) => {
     const body = JSON.parse(req.body);
     localities.push({ ...body, id: uuid() });
@@ -23,6 +24,7 @@ export const localitiesHandlers = [
       ctx.status(200)
     );
   }),
+
   rest.post<string>(EEndpoints.LOCALITY_EDIT, (req, res, ctx) => {
     const body = JSON.parse(req.body);
     localities.forEach((agency, index) => {
@@ -35,6 +37,31 @@ export const localitiesHandlers = [
       ctx.json<ILocalityDTO[]>(localities),
       ctx.delay(getTimeout()),
       ctx.status(200)
+    );
+  }),
+
+  rest.delete<string>(EEndpoints.LOCALITY_DELETE, (req, res, ctx) => {
+    const id = JSON.parse(req.body);
+    let deletedLocalityIndex: number | null = null;
+
+    localities.forEach((agency, index) => {
+      if (agency.id === id) {
+        deletedLocalityIndex = index;
+      }
+    });
+
+    let status = 200;
+
+    if (deletedLocalityIndex !== null) {
+      localities.splice(deletedLocalityIndex, 1);
+    } else {
+      status = 404;
+    }
+
+    return res(
+      ctx.json<ILocalityDTO[]>(localities),
+      ctx.delay(getTimeout()),
+      ctx.status(status)
     );
   }),
 ];
