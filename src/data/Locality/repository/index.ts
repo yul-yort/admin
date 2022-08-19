@@ -1,9 +1,10 @@
 import { BaseRepository } from "../../BaseRepository";
-import { EEndpoints } from "src/constants/Endpoints";
+import { EEndpoints } from "src/constants/endpoints";
 import { ILocalityRepository } from "./types";
 import {
   ILocalityDTO,
   ILocalityCreateParamsReq,
+  ILocalityEditParamsReq,
 } from "src/data/Locality/entity/types";
 
 export class LocalityRepository
@@ -19,6 +20,13 @@ export class LocalityRepository
   ): Promise<ILocalityDTO[]> {
     return await this.api.post<ILocalityDTO[], ILocalityCreateParamsReq>(
       EEndpoints.LOCALITY_CREATE,
+      params
+    );
+  }
+
+  async editLocality(params: ILocalityEditParamsReq): Promise<ILocalityDTO[]> {
+    return await this.api.post<ILocalityDTO[], ILocalityEditParamsReq>(
+      EEndpoints.LOCALITY_EDIT,
       params
     );
   }

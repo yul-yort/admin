@@ -1,2 +1,2 @@
-export * from "./Endpoints";
+export * from "./endpoints";
 export * from "./globalConstants";

@@ -4,7 +4,7 @@ import {
   IOrderItemRequestParams,
   IOrderItemResponseDTO,
 } from "../entity/types";
-import { EEndpoints } from "../../../constants/Endpoints";
+import { EEndpoints } from "src/constants";
 import {
   IOrdersCreateFormFields,
   IOrdersEditSelected,
