@@ -8,4 +8,5 @@ export interface ILocalityRepository {
   getList: () => Promise<ILocalityDTO[]>;
   createLocality: (params: ILocalityCreateParamsReq) => Promise<ILocalityDTO[]>;
   editLocality: (params: ILocalityEditParamsReq) => Promise<ILocalityDTO[]>;
+  deleteLocality: (id: ID) => Promise<ILocalityDTO[]>;
 }

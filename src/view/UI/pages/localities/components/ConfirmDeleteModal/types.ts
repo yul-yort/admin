@@ -1,4 +1,5 @@
 export interface IConfirmDeleteModal {
   showDeleteModal: boolean;
-  handleCancelDeleteModal: () => void;
+  onDelete: () => void;
+  onCancelDeleteModal: () => void;
 }

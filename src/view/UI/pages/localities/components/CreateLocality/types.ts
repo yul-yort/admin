@@ -1,3 +1,5 @@
+import { ILocalityEntity } from "src/data/Locality/entity";
+
 export interface ICreateLocality {
   showModal: boolean;
   loading: boolean;
@@ -23,17 +25,12 @@ export interface ICreateLocalityForm {
   onClose: () => void;
 }
 
-export interface ILocalityCreateFormFields {
-  name: string;
-  region?: string;
-  district?: string;
-  description?: string;
-}
+export type ILocalityCreateFormFields = Pick<
+  ILocalityEntity,
+  "name" | "district" | "region" | "description"
+>;
 
-export interface ILocalityEditFormFields {
-  id: ID;
-  name: string;
-  region?: string;
-  district?: string;
-  description?: string;
-}
+export type ILocalityEditFormFields = Pick<
+  ILocalityEntity,
+  "name" | "district" | "region" | "description" | "id"
+>;

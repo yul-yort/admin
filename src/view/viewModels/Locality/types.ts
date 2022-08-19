@@ -11,4 +11,5 @@ export interface ILocalityVM extends IBaseVM {
   getList: () => Promise<void>;
   createLocality: (params: ILocalityCreateParamsReq) => Promise<void>;
   editLocality: (params: ILocalityEditParamsReq) => Promise<void>;
+  deleteLocality: (id: ID) => Promise<void>;
 }

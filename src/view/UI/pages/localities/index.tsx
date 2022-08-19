@@ -32,6 +32,7 @@ const Localities: FC = observer(() => {
 
   const handleCloseCreateModal = () => {
     setModalType("");
+    setSelectedLocality(null);
   };
 
   const handleSelectedLocality = (id: ID) => {
@@ -48,12 +49,21 @@ const Localities: FC = observer(() => {
   };
 
   //DELETE MODAL
-  const handleShowDeleteModal = () => {
+  const handleShowDeleteModal = (id: ID) => {
     setShowDeleteModal(true);
+    handleSelectedLocality(id);
   };
 
   const handleCancelDeleteModal = () => {
     setShowDeleteModal(false);
+    setSelectedLocality(null);
+  };
+
+  const handleDeleteModal = async () => {
+    //TODO переписать через if и исправить ошибку eslint
+    selectedLocality?.id &&
+      (await localityVM.deleteLocality(selectedLocality.id));
+    handleCancelDeleteModal();
   };
 
   const editOrCreateHandler = async (
@@ -101,8 +111,9 @@ const Localities: FC = observer(() => {
             selectedLocality={selectedLocality}
           />
           <ConfirmDeleteModal
+            onCancelDeleteModal={handleCancelDeleteModal}
             showDeleteModal={showDeleteModal}
-            handleCancelDeleteModal={handleCancelDeleteModal}
+            onDelete={handleDeleteModal}
           />
         </>
       )}

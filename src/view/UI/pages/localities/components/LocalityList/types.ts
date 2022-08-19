@@ -1,7 +1,7 @@
-import { ILocalityEntity } from "../../../../../../data/Locality/entity/types";
+import { ILocalityEntity } from "src/data/Locality/entity";
 
 export interface ILocalityList {
   localities: ILocalityEntity[];
   handleShowEditModal: (id: ID) => void;
-  handleShowDeleteModal: () => void;
+  handleShowDeleteModal: (id: ID) => void;
 }

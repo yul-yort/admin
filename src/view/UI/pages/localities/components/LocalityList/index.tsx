@@ -29,7 +29,7 @@ const LocalityList: FC<ILocalityList> = ({
 
       if ($button && $button instanceof HTMLElement) {
         const id = $button.dataset.deleteId;
-        id && handleShowDeleteModal();
+        id && handleShowDeleteModal(id);
       }
     }
   };
