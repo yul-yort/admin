@@ -79,6 +79,19 @@ const Localities: FC = observer(() => {
     }
   };
 
+  const editOrCreateHandler = async (
+    fields: ILocalityEditFormFields | ILocalityCreateFormFields
+  ) => {
+    if (modalType === "create") {
+      await localityVM.createLocality(fields);
+    } else if (modalType === "edit" && selectedLocality) {
+      await localityVM.editLocality({
+        ...fields,
+        id: selectedLocality.id,
+      });
+    }
+  };
+
   return (
     <div>
       {localityVM.loading && <Loading />}

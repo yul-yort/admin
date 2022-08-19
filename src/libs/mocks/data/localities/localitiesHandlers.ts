@@ -13,6 +13,30 @@ export const localitiesHandlers = [
       ctx.status(200)
     );
   }),
+  rest.post<string>(EEndpoints.LOCALITY_CREATE, (req, res, ctx) => {
+    const body = JSON.parse(req.body);
+    localities.push({ ...body, id: uuid() });
+
+    return res(
+      ctx.json<ILocalityDTO[]>(localities),
+      ctx.delay(getTimeout()),
+      ctx.status(200)
+    );
+  }),
+  rest.post<string>(EEndpoints.LOCALITY_EDIT, (req, res, ctx) => {
+    const body = JSON.parse(req.body);
+    localities.forEach((agency, index) => {
+      if (agency.id === body.id) {
+        localities[index] = { ...agency, ...body };
+      }
+    });
+
+    return res(
+      ctx.json<ILocalityDTO[]>(localities),
+      ctx.delay(getTimeout()),
+      ctx.status(200)
+    );
+  }),
 
   rest.post<string>(EEndpoints.LOCALITY_CREATE, (req, res, ctx) => {
     const body = JSON.parse(req.body);
