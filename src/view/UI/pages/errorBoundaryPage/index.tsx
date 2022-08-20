@@ -6,7 +6,7 @@ import { ErrorInfoComponent } from "./components/ErrorInfo/ErrorInfoComponent";
 import cn from "classnames";
 
 export class ErrorBoundary extends React.Component<IProps, IState> {
-  constructor(props: any) {
+  constructor(props: IProps) {
     super(props);
     this.state = {
       error: null,
@@ -17,7 +17,7 @@ export class ErrorBoundary extends React.Component<IProps, IState> {
     };
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     const timerID = setInterval(() => {
       if (!navigator.onLine !== this.state.offline) {
         this.setState({
@@ -31,11 +31,11 @@ export class ErrorBoundary extends React.Component<IProps, IState> {
     });
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     this.state.timerID && clearInterval(this.state.timerID);
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     this.setState({
       error: error,
       errorInfo: errorInfo,
@@ -46,11 +46,11 @@ export class ErrorBoundary extends React.Component<IProps, IState> {
     console.error(error.stack);
   }
 
-  handleExpand = () => {
+  handleExpand = (): void => {
     this.setState({ expanded: !this.state.expanded });
   };
 
-  render() {
+  render(): JSX.Element {
     return (
       <span
         className={cn(css.appWrapper, {

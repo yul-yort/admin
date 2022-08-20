@@ -2,8 +2,7 @@ import { FC, lazy, Suspense } from "react";
 import { constants } from "router5";
 import { useRoute } from "react-router5";
 
-import { LoadingScreen } from "./components/common/LoadingScreen";
-import Body from "./components/common/Body";
+import { LoadingScreen, Body } from "./components/common";
 
 const NotFoundPage = lazy(() => import("./pages/notFound"));
 const RegistrationPage = lazy(() => import("./pages/login"));

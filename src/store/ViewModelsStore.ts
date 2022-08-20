@@ -4,11 +4,16 @@ import { UserVM } from "../view/viewModels/User";
 import { NotificationsVM } from "../view/viewModels/NotificationsVM";
 import { OrderVM } from "../view/viewModels/Order";
 import { LocalityVM } from "../view/viewModels/Locality";
+import { IAgencyVM } from "../view/viewModels/Agency/types";
+import { INotificationsVM } from "../view/viewModels/types";
+import { IUserVM } from "../view/viewModels/User/types";
+import { IOrderVM } from "../view/viewModels/Order/types";
+import { ILocalityVM } from "../view/viewModels/Locality/types";
 
 export class ViewModelsStore implements IStoreViewModels {
   private store: IViewModels = {};
 
-  get notifications() {
+  get notifications(): INotificationsVM {
     if (!this.store.notifications) {
       this.store.notifications = new NotificationsVM();
     }
@@ -16,7 +21,7 @@ export class ViewModelsStore implements IStoreViewModels {
     return this.store.notifications;
   }
 
-  get agency() {
+  get agency(): IAgencyVM {
     if (!this.store.agency) {
       this.store.agency = new AgencyVM(
         this.notifications,
@@ -27,7 +32,7 @@ export class ViewModelsStore implements IStoreViewModels {
     return this.store.agency;
   }
 
-  get user() {
+  get user(): IUserVM {
     if (!this.store.user) {
       this.store.user = new UserVM(this.notifications, this.services.user);
     }
@@ -35,7 +40,7 @@ export class ViewModelsStore implements IStoreViewModels {
     return this.store.user;
   }
 
-  get order() {
+  get order(): IOrderVM {
     if (!this.store.order) {
       this.store.order = new OrderVM(this.notifications, this.services.order);
     }
@@ -43,7 +48,7 @@ export class ViewModelsStore implements IStoreViewModels {
     return this.store.order;
   }
 
-  get locality() {
+  get locality(): ILocalityVM {
     if (!this.store.locality) {
       this.store.locality = new LocalityVM(
         this.notifications,

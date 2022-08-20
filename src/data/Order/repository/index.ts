@@ -4,8 +4,11 @@ import {
   IOrderItemRequestParams,
   IOrderItemResponseDTO,
 } from "../entity/types";
-import { EEndpoints } from "../../../constants/Endpoints";
-import { IOrdersCreateFormFields } from "src/view/UI/pages/agency/components/DetailOrders/CreateOrder/types";
+import { EEndpoints } from "src/constants";
+import {
+  IOrdersCreateFormFields,
+  IOrdersEditSelected,
+} from "src/view/UI/pages/agency/components/DetailOrders/CreateOrder/types";
 
 export class OrderRepository
   extends BaseRepository
@@ -28,5 +31,11 @@ export class OrderRepository
     fields: IOrdersCreateFormFields
   ): Promise<IOrderItemResponseDTO[]> {
     return await this.api.post(EEndpoints.ORDER_CREATE, fields);
+  }
+
+  async editOrder(
+    fields: IOrdersEditSelected
+  ): Promise<IOrderItemResponseDTO[]> {
+    return await this.api.post(EEndpoints.ORDER_EDIT, fields);
   }
 }

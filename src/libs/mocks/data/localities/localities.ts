@@ -1,4 +1,4 @@
-import { ILocalityDTO } from "../../../../data/Locality/entity/types";
+import { ILocalityDTO } from "src/data/Locality/entity";
 
 export const localities: ILocalityDTO[] = [
   {
@@ -12,28 +12,28 @@ export const localities: ILocalityDTO[] = [
   {
     id: "223m2",
     name: "Сибай",
-    region: "Респулика Башкортостан",
+    region: "Респулика Башкортостан 1",
     district: "Баймак",
   },
   {
     id: "5k6764k5",
     name: "Уфа",
     description: "Уфа - столица RNB!",
-    region: "Респулика Башкортостан",
+    region: "Респулика Башкортостан 2",
     district: "Уфа",
   },
   {
     id: "5k6764k",
     name: "Матрай",
     description: "",
-    region: "Респулика Башкортостан",
+    region: "Респулика Башкортостан 3",
     district: "Зилаир",
   },
   {
     id: "5k6764",
     name: "Акъяр",
     description: "",
-    region: "Респулика Башкортостан",
+    region: "Респулика Башкортостан 4",
     district: "Хайбулла",
   },
 ];

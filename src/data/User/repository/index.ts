@@ -1,5 +1,5 @@
 import { IUserRepository } from "./types";
-import { EEndpoints } from "../../../constants/Endpoints";
+import { EEndpoints } from "src/constants";
 import { BaseRepository } from "src/data/BaseRepository";
 import { IFormValues } from "src/view/UI/pages/login/types";
 

@@ -1,8 +1,7 @@
 import {
-  IAgencyEntity,
   IAgencyRequestParams,
   IAgencyRequestDeleteParams,
-  IAgencyItemEntity,
+  IAgencyEntity,
 } from "../entity/types";
 import { ICreateOrEditAgencyFormFields } from "../../../view/UI/components/shared/AgencyCreateEditForm/types";
 
@@ -11,9 +10,7 @@ export interface IAgencyService {
   editAgency(params: ICreateOrEditAgencyFormFields): Promise<IAgencyEntity>;
   deleteAgency(params: IAgencyRequestDeleteParams): Promise<IAgencyEntity>;
 
-  getList(): Promise<IAgencyItemEntity[]>;
+  getList(): Promise<IAgencyEntity[]>;
 
-  createAgency(
-    fields: ICreateOrEditAgencyFormFields
-  ): Promise<IAgencyItemEntity>;
+  createAgency(fields: ICreateOrEditAgencyFormFields): Promise<IAgencyEntity>;
 }

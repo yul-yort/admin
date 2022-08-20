@@ -1,9 +1,6 @@
 import { rest } from "msw";
-import { EEndpoints } from "../../../../constants/Endpoints";
-import {
-  IAgencyItemResponseDTO,
-  IAgencyResponseDTO,
-} from "../../../../data/Agency/entity/types";
+import { EEndpoints } from "../../../../constants";
+import { IAgencyResponseDTO } from "../../../../data/Agency/entity/types";
 import { getTimeout } from "../../utils/getTimeout";
 import { v4 as uuid } from "uuid";
 import { agencies } from "./agencies";
@@ -13,12 +10,12 @@ export const agencyHandlers = [
     const url = new URL(req.url);
     const id = url.searchParams.get("id");
 
-    const result: IAgencyResponseDTO | {} =
+    const result: IAgencyResponseDTO | Record<string, never> =
       agencies.find((agency) => agency.id === id) || {};
-    let status = Object.keys(result).length ? 200 : 404;
+    const status = Object.keys(result).length ? 200 : 404;
 
     return res(
-      ctx.json<IAgencyResponseDTO | {}>(result),
+      ctx.json<IAgencyResponseDTO | unknown>(result),
       ctx.delay(getTimeout()),
       ctx.status(status)
     );
@@ -26,7 +23,7 @@ export const agencyHandlers = [
 
   rest.post<string>(EEndpoints.AGENCY_EDIT, (req, res, ctx) => {
     const body = JSON.parse(req.body);
-    const result: IAgencyResponseDTO | {} =
+    const result: IAgencyResponseDTO | Record<string, never> =
       agencies.find((agency, index) => {
         if (agency.id === body.id) {
           agencies[index] = { ...agency, ...body };
@@ -35,7 +32,7 @@ export const agencyHandlers = [
         }
         return false;
       }) || {};
-    let status = Object.keys(result).length ? 200 : 404;
+    const status = Object.keys(result).length ? 200 : 404;
 
     return res(
       ctx.json<IAgencyResponseDTO>({ ...result, ...body }),
@@ -46,7 +43,7 @@ export const agencyHandlers = [
 
   rest.delete<string>(EEndpoints.AGENCY_DELETE, (req, res, ctx) => {
     const body = JSON.parse(req.body);
-    const result: IAgencyResponseDTO | {} =
+    const result: IAgencyResponseDTO | Record<string, never> =
       agencies.find((agency, index) => {
         if (agency.id === body.id) {
           agencies.splice(index, 1);
@@ -55,10 +52,10 @@ export const agencyHandlers = [
         }
         return false;
       }) || {};
-    let status = Object.keys(result).length ? 200 : 404;
+    const status = Object.keys(result).length ? 200 : 404;
 
     return res(
-      ctx.json<IAgencyResponseDTO | {}>(result),
+      ctx.json<IAgencyResponseDTO | unknown>(result),
       ctx.delay(getTimeout()),
       ctx.status(status)
     );
@@ -66,7 +63,7 @@ export const agencyHandlers = [
 
   rest.get(EEndpoints.AGENCY_LIST, (req, res, ctx) => {
     return res(
-      ctx.json<IAgencyItemResponseDTO[]>(agencies),
+      ctx.json<IAgencyResponseDTO[]>(agencies),
       ctx.delay(getTimeout()),
       ctx.status(200)
     );
@@ -76,7 +73,7 @@ export const agencyHandlers = [
     agencies.unshift({ id: uuid(), ...JSON.parse(req.body) });
 
     return res(
-      ctx.json<IAgencyItemResponseDTO>(agencies[0]),
+      ctx.json<IAgencyResponseDTO>(agencies[0]),
       ctx.delay(getTimeout()),
       ctx.status(200)
     );

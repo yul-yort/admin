@@ -14,22 +14,25 @@ import {
   IOrderItemRequestParams,
 } from "src/data/Order/entity/types";
 import { IOrderService } from "src/data/Order/service/types";
-import { IOrdersCreateFormFields } from "../../UI/pages/agency/components/DetailOrders/CreateOrder/types";
+import {
+  IOrdersCreateFormFields,
+  IOrdersEditSelected,
+} from "../../UI/pages/agency/components/DetailOrders/CreateOrder/types";
 import { errorMapper } from "../mappers";
 import { filterOrders } from "./mappers";
 
 export class OrderVM extends BaseVM implements IOrderVM {
-  ordersAddLoading: boolean = false;
+  ordersAddLoading = false;
 
   private _orders: IOrderItemEntity[] | null = [];
   private _agencyOrders: IOrderItemEntity[] | null = [];
 
-  _filterByAgencyName: string = "";
-  _filterByPhone: string = "";
-  _filterByOrigin: string = "";
-  _filterByDestination: string = "";
+  _filterByAgencyName = "";
+  _filterByPhone = "";
+  _filterByOrigin = "";
+  _filterByDestination = "";
 
-  get orders() {
+  get orders(): IOrderItemEntity[] | null {
     return (
       this._orders &&
       filterOrders(this._orders, {
@@ -41,7 +44,7 @@ export class OrderVM extends BaseVM implements IOrderVM {
     );
   }
 
-  get agencyOrders() {
+  get agencyOrders(): IOrderItemEntity[] | null {
     return this._agencyOrders;
   }
 
@@ -64,22 +67,23 @@ export class OrderVM extends BaseVM implements IOrderVM {
       filterByPhone: action,
       deleteOrder: action,
       createOrder: action,
+      editOrder: action,
     });
   }
 
-  filterByAgency = (value: string) => {
+  filterByAgency = (value: string): void => {
     this._filterByAgencyName = value;
   };
 
-  filterByPhone = (value: string) => {
+  filterByPhone = (value: string): void => {
     this._filterByPhone = value;
   };
 
-  filterByOrigin = (value: string) => {
+  filterByOrigin = (value: string): void => {
     this._filterByOrigin = value;
   };
 
-  filterByDestination = (value: string) => {
+  filterByDestination = (value: string): void => {
     this._filterByDestination = value;
   };
 
@@ -125,7 +129,7 @@ export class OrderVM extends BaseVM implements IOrderVM {
     }
   };
 
-  createOrder = async (fields: IOrdersCreateFormFields) => {
+  createOrder = async (fields: IOrdersCreateFormFields): Promise<void> => {
     this.setOrdersAddLoading();
     try {
       const orders = await this.service.createOrder(fields);
@@ -142,7 +146,24 @@ export class OrderVM extends BaseVM implements IOrderVM {
     }
   };
 
-  deleteOrder = async (id: ID) => {
+  editOrder = async (fields: IOrdersEditSelected): Promise<void> => {
+    this.setOrdersAddLoading();
+    try {
+      const orders = await this.service.editOrder(fields);
+      runInAction(() => {
+        this._agencyOrders = orders;
+      });
+      this.notify.successNotification("Поездка изменена");
+    } catch (err) {
+      const error = errorMapper(err);
+      const message = `${error?.name} ${error?.message}`;
+      this.notify.errorNotification(message);
+    } finally {
+      this.unsetOrdersAddLoading();
+    }
+  };
+
+  deleteOrder = async (id: ID): Promise<void> => {
     this.setLoading();
     try {
       const orders = await this.service.deleteOrder(id);
@@ -156,7 +177,7 @@ export class OrderVM extends BaseVM implements IOrderVM {
       const message = `${error?.name} ${error?.message}`;
       this.notify.errorNotification(message);
     } finally {
-      this.setLoading();
+      this.unsetLoading();
     }
   };
 }

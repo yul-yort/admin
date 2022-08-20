@@ -1,4 +1,4 @@
-import { baseUrl, EEndpoints } from "../../constants/Endpoints";
+import { baseUrl, EEndpoints } from "../../constants";
 import { IApi } from "./types";
 import { Router } from "router5/dist/types/router";
 import { IDependencies } from "../../router/types";
@@ -9,7 +9,7 @@ export class Api implements IApi {
   async get<R, P = undefined>(path: EEndpoints, params?: P): Promise<R> {
     const url = new URL(path, baseUrl);
 
-    url.search = new URLSearchParams(params as any).toString();
+    url.search = new URLSearchParams(params as never).toString();
     const fullUrl = url.toString();
 
     const response = await fetch(fullUrl);
@@ -28,7 +28,7 @@ export class Api implements IApi {
       "Content-Type": "application/json",
     };
 
-    let response = await fetch(url, {
+    const response = await fetch(url, {
       method: "POST",
       headers: _headers,
       body: JSON.stringify(params),
@@ -44,7 +44,7 @@ export class Api implements IApi {
   async delete<R, P>(path: EEndpoints, params?: P): Promise<R> {
     const url = new URL(path, baseUrl).toString();
 
-    let response = await fetch(url, {
+    const response = await fetch(url, {
       method: "DELETE",
       body: JSON.stringify(params),
     });
@@ -56,7 +56,7 @@ export class Api implements IApi {
     return await response.json();
   }
 
-  errorHandler(response: Response) {
+  errorHandler(response: Response): void {
     if (response.status === 401) {
       this.router.navigate("login");
     }

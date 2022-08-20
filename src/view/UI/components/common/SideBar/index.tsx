@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import {
   AppBar,
   Button,
@@ -18,7 +18,7 @@ import { ISideBar } from "./types";
 import css from "./styles.module.scss";
 import routes from "../../../../../router/routes";
 import { icons } from "./icons";
-import { CONSTANTS } from "../../../../../constants/globalConstants";
+import { CONSTANTS } from "../../../../../constants";
 
 export const SideBar: FC<ISideBar> = ({ open, onClose, onLogout, loading }) => {
   return (

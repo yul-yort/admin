@@ -1,7 +1,7 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { observer } from "mobx-react-lite";
 
-import { useViewModel } from "../../hooks/useViewModel";
+import { useViewModel } from "../../hooks";
 import TableContainer from "./components/TableContainer";
 import css from "./styles.module.scss";
 import { IOrderVM } from "../../../viewModels/Order/types";

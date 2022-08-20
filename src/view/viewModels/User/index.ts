@@ -21,7 +21,7 @@ export class UserVM extends BaseVM implements IUserVM {
     });
   }
 
-  login = async (data: IFormValues) => {
+  login = async (data: IFormValues): Promise<void> => {
     this.setLoading();
     this.unsetError();
 
@@ -36,7 +36,7 @@ export class UserVM extends BaseVM implements IUserVM {
     }
   };
 
-  logout = async () => {
+  logout = async (): Promise<void> => {
     this.setLoading();
     this.unsetError();
 

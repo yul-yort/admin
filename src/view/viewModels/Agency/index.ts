@@ -4,27 +4,26 @@ import { format } from "date-fns";
 import { BaseVM } from "../BaseVM";
 import { IAgencyVM } from "./types";
 import {
-  IAgencyEntity,
   IAgencyRequestParams,
   IAgencyRequestDeleteParams,
-  IAgencyItemEntity,
+  IAgencyEntity,
 } from "../../../data/Agency/entity/types";
 import { IAgencyService } from "../../../data/Agency/service/types";
 import { INotificationsVM } from "../types";
-import { ICreateOrEditAgencyFormFields } from "../../UI/components/shared/AgencyCreateEditForm/types";
+import { ICreateOrEditAgencyFormFields } from "../../UI/components/shared";
 import { VMPhonesRequestFormatter } from "src/view/UI/components/shared/AgencyCreateEditForm/mappers";
 import { errorMapper } from "../mappers";
 
 export class AgencyVM extends BaseVM implements IAgencyVM {
-  editLoading: boolean = false;
+  editLoading = false;
   loadingList: ID[] = [];
 
   agency: IAgencyEntity | null = null;
-  searchValue: string = "";
+  searchValue = "";
 
-  private _agencies: IAgencyItemEntity[] | null = null;
+  private _agencies: IAgencyEntity[] | null = null;
 
-  get agencies() {
+  get agencies(): IAgencyEntity[] | null {
     return (
       this._agencies &&
       this._agencies.filter(
@@ -78,13 +77,13 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
     this.editLoading = false;
   };
 
-  isLoadingItem = (id: ID) => this.loadingList.indexOf(id) !== -1;
+  isLoadingItem = (id: ID): boolean => this.loadingList.indexOf(id) !== -1;
 
-  searchAgency = (value: string) => {
+  searchAgency = (value: string): void => {
     this.searchValue = value.toLocaleLowerCase();
   };
 
-  getAgency = async (params: IAgencyRequestParams) => {
+  getAgency = async (params: IAgencyRequestParams): Promise<void> => {
     this.setLoading();
     this.unsetError();
 
@@ -101,7 +100,7 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
     }
   };
 
-  editAgency = async (fields: ICreateOrEditAgencyFormFields) => {
+  editAgency = async (fields: ICreateOrEditAgencyFormFields): Promise<void> => {
     this.setEditLoading();
 
     try {
@@ -119,7 +118,7 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
     }
   };
 
-  deleteAgency = async (params: IAgencyRequestDeleteParams) => {
+  deleteAgency = async (params: IAgencyRequestDeleteParams): Promise<void> => {
     this.setLoading();
 
     try {
@@ -135,7 +134,7 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
     }
   };
 
-  getList = async () => {
+  getList = async (): Promise<void> => {
     this.setLoading();
     this.unsetError();
 
@@ -152,7 +151,9 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
     }
   };
 
-  createAgency = async (fields: ICreateOrEditAgencyFormFields) => {
+  createAgency = async (
+    fields: ICreateOrEditAgencyFormFields
+  ): Promise<void> => {
     this.setEditLoading();
 
     const newAgency = {

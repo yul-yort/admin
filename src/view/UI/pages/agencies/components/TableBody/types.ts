@@ -1,6 +1,6 @@
-import { IAgencyItemEntity } from "src/data/Agency/entity/types";
+import { IAgencyEntity } from "src/data/Agency/entity/types";
 
 export interface ITableBodyTemplateProps {
-  rows: IAgencyItemEntity[];
+  rows: IAgencyEntity[];
   isLoadingItem: (id: ID) => boolean;
 }

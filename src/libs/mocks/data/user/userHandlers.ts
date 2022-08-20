@@ -1,5 +1,5 @@
 import { rest } from "msw";
-import { EEndpoints } from "../../../../constants/Endpoints";
+import { EEndpoints } from "src/constants";
 import { getTimeout } from "../../utils/getTimeout";
 import { getAuthCookie } from "../../utils/getAuthCookie";
 

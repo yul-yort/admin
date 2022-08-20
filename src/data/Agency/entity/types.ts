@@ -1,27 +1,15 @@
-/**
- * Типы элементов списка. Начало.
- */
-export interface IAgencyItemEntity {
+export interface IAgencyEntity {
   id: ID;
   agencyName: string;
   phones?: string[];
   createDate: string;
   editedDate?: string;
-}
-
-export interface IAgencyItemResponseDTO
-  extends Pick<IAgencyItemEntity, "id" | "agencyName" | "phones"> {
-  createDate: number;
-}
-/**
- * Типы элементов списка. Конец.
- */
-
-/**
- * Типы основной сущности. Начало.
- */
-export interface IAgencyEntity extends IAgencyItemEntity {
   description?: string;
+}
+
+export interface IAgencyResponseDTO
+  extends Pick<IAgencyEntity, "id" | "agencyName" | "phones"> {
+  createDate: number;
 }
 
 export interface IAgencyResponseDTO
@@ -30,7 +18,7 @@ export interface IAgencyResponseDTO
   editedDate?: number;
 }
 
-export interface IAgencyRequestParams extends Pick<IAgencyEntity, "id"> {}
+export type IAgencyRequestParams = Pick<IAgencyEntity, "id">;
 
 export interface IAgencyRequestEditParams
   extends Pick<IAgencyEntity, "id" | "agencyName" | "phones" | "description"> {
@@ -42,7 +30,4 @@ export interface IAgencyRequestCreateParams
   createDate: number;
 }
 
-export interface IAgencyRequestDeleteParams extends Pick<IAgencyEntity, "id"> {}
-/**
- * Типы основной сущности. Конец.
- */
+export type IAgencyRequestDeleteParams = Pick<IAgencyEntity, "id">;

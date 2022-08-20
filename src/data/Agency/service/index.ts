@@ -1,14 +1,13 @@
 import { IAgencyService } from "./types";
 import {
   IAgencyRequestEditParams,
-  IAgencyEntity,
   IAgencyRequestParams,
   IAgencyRequestDeleteParams,
-  IAgencyItemEntity,
+  IAgencyEntity,
   IAgencyRequestCreateParams,
 } from "../entity/types";
 import { IAgencyRepository } from "../repository/types";
-import { Agency, AgencyItem } from "../entity";
+import { Agency } from "../entity";
 import { VMPhonesRequestFormatter } from "../../../view/UI/components/shared/AgencyCreateEditForm/mappers";
 import { ICreateOrEditAgencyFormFields } from "../../../view/UI/components/shared/AgencyCreateEditForm/types";
 
@@ -42,10 +41,10 @@ export class AgencyService implements IAgencyService {
     return new Agency(agency);
   }
 
-  async getList(): Promise<IAgencyItemEntity[]> {
+  async getList(): Promise<IAgencyEntity[]> {
     const agencies = await this.repository.getList();
 
-    return agencies.map((agency) => new AgencyItem(agency));
+    return agencies.map((agency) => new Agency(agency));
   }
 
   async createAgency(
@@ -59,6 +58,6 @@ export class AgencyService implements IAgencyService {
 
     const agencyItem = await this.repository.createAgency(params);
 
-    return new AgencyItem(agencyItem);
+    return new Agency(agencyItem);
   }
 }

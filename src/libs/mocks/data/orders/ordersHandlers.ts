@@ -1,6 +1,6 @@
 import { rest } from "msw";
-import { EEndpoints } from "../../../../constants/Endpoints";
-import { IOrderItemResponseDTO } from "../../../../data/Order/entity/types";
+import { EEndpoints } from "src/constants";
+import { IOrderItemResponseDTO } from "src/data/Order/entity/types";
 import { getTimeout } from "../../utils/getTimeout";
 import { orders } from "./orders";
 import { localities } from "../localities/localities";
@@ -64,5 +64,19 @@ export const ordersHandlers = [
     orders.push(newOrder);
 
     return res(ctx.json(orders), ctx.delay(getTimeout()), ctx.status(200));
+  }),
+
+  rest.post<string>(EEndpoints.ORDER_EDIT, (req, res, ctx) => {
+    const body = JSON.parse(req.body);
+    const { price, id } = body;
+    // TODO: нужно найти более оптимальный вариант
+    const result = orders.map((order) => {
+      if (order.id === id) {
+        order.price = price;
+      }
+      return order;
+    });
+
+    return res(ctx.json(result), ctx.delay(getTimeout()), ctx.status(200));
   }),
 ];
