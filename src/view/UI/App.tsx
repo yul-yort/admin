@@ -22,7 +22,7 @@ export const App: FC = observer(() => {
       />
 
       <Suspense fallback={<LoadingScreen />}>
-        {user.isUnauthorized ? <UnauthorizedApp /> : <AuthorizedApp />}
+        {user.authorized ? <AuthorizedApp /> : <UnauthorizedApp />}
       </Suspense>
     </>
   );

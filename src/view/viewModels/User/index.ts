@@ -6,10 +6,15 @@ import { IUserService } from "../../../data/User/service/types";
 import { IUserVM } from "./types";
 import { INotificationsVM } from "../types";
 import { IFormValues } from "src/view/UI/pages/login/types";
+import Cookies from "js-cookie";
+import { CONSTANTS } from "src/constants";
 
 export class UserVM extends BaseVM implements IUserVM {
   user: IUserEntity | null = null;
-  isUnauthorized = true;
+  get authorized() {
+    // return !!Cookies.get(CONSTANTS.tokenCookieKey);
+    return false;
+  }
 
   constructor(
     notificationsVM: INotificationsVM,
@@ -28,7 +33,6 @@ export class UserVM extends BaseVM implements IUserVM {
     try {
       await this.service.login(data);
       this.notify.successNotification("Добро пожаловать!");
-      this.isUnauthorized = false;
     } catch (err) {
       this.setError(err);
     } finally {
