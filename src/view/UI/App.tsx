@@ -5,18 +5,15 @@ import { useRoute } from "react-router5";
 import { LoadingScreen } from "./components/common/LoadingScreen";
 import { useNotification } from "./hooks/useNotification";
 import { Notify } from "./components/common/Notify";
+import { useViewModel } from "./hooks/useViewModel";
+import { IUserVM } from "../viewModels/User/types";
 
 const UnauthorizedApp = lazy(() => import("./UnauthorizedApp"));
 const AuthorizedApp = lazy(() => import("./AuthorizedApp"));
 
 export const App: FC = observer(() => {
   const { notification, removeNotification } = useNotification();
-
-  const {
-    route: { name },
-  } = useRoute();
-
-  const isUnauthorized = name === "login";
+  const user = useViewModel<IUserVM>("user");
 
   return (
     <>
@@ -28,7 +25,7 @@ export const App: FC = observer(() => {
       />
 
       <Suspense fallback={<LoadingScreen />}>
-        {isUnauthorized ? <UnauthorizedApp /> : <AuthorizedApp />}
+        {user.isUnauthorized ? <UnauthorizedApp /> : <AuthorizedApp />}
       </Suspense>
     </>
   );

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRoute } from "react-router5";
 import { observer } from "mobx-react-lite";

@@ -9,6 +9,7 @@ import { IFormValues } from "src/view/UI/pages/login/types";
 
 export class UserVM extends BaseVM implements IUserVM {
   user: IUserEntity | null = null;
+  isUnauthorized: boolean = true;
 
   constructor(
     notificationsVM: INotificationsVM,
@@ -27,9 +28,9 @@ export class UserVM extends BaseVM implements IUserVM {
     try {
       await this.service.login(data);
       this.notify.successNotification("Добро пожаловать!");
+      this.isUnauthorized = false;
     } catch (err) {
       this.setError(err);
-      console.log("error");
     } finally {
       this.unsetLoading();
     }
