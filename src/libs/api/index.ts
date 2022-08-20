@@ -4,6 +4,10 @@ import { Router } from "router5/dist/types/router";
 import { IDependencies } from "../../router/types";
 
 export class Api implements IApi {
+  private _headers = {
+    "Content-Type": "application/json",
+  };
+
   constructor(private router: Router<IDependencies>) {}
 
   async get<R, P = undefined>(path: EEndpoints, params?: P): Promise<R> {
@@ -24,13 +28,9 @@ export class Api implements IApi {
   async post<R, P>(path: EEndpoints, params?: P): Promise<R> {
     const url = new URL(path, baseUrl).toString();
 
-    let _headers = {
-      "Content-Type": "application/json",
-    };
-
     const response = await fetch(url, {
       method: "POST",
-      headers: _headers,
+      headers: this._headers,
       body: JSON.stringify(params),
     });
 

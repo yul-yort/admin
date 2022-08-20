@@ -1,11 +1,8 @@
 import { FC, lazy, Suspense } from "react";
 import { observer } from "mobx-react-lite";
-import { useRoute } from "react-router5";
 
-import { LoadingScreen } from "./components/common/LoadingScreen";
-import { useNotification } from "./hooks/useNotification";
-import { Notify } from "./components/common/Notify";
-import { useViewModel } from "./hooks/useViewModel";
+import { LoadingScreen, Notify } from "./components/common";
+import { useNotification, useViewModel } from "./hooks";
 import { IUserVM } from "../viewModels/User/types";
 
 const UnauthorizedApp = lazy(() => import("./UnauthorizedApp"));

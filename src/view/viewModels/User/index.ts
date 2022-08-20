@@ -9,7 +9,7 @@ import { IFormValues } from "src/view/UI/pages/login/types";
 
 export class UserVM extends BaseVM implements IUserVM {
   user: IUserEntity | null = null;
-  isUnauthorized: boolean = true;
+  isUnauthorized = true;
 
   constructor(
     notificationsVM: INotificationsVM,
