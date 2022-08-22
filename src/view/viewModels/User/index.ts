@@ -5,9 +5,15 @@ import { IUserEntity } from "../../../data/User/entity/types";
 import { IUserService } from "../../../data/User/service/types";
 import { IUserVM } from "./types";
 import { INotificationsVM } from "../types";
+import { IFormValues } from "src/view/UI/pages/login/types";
+import Cookies from "js-cookie";
+import { CONSTANTS } from "src/constants";
 
 export class UserVM extends BaseVM implements IUserVM {
   user: IUserEntity | null = null;
+  get authorized(): boolean {
+    return !!Cookies.get(CONSTANTS.tokenCookieKey);
+  }
 
   constructor(
     notificationsVM: INotificationsVM,
@@ -19,12 +25,12 @@ export class UserVM extends BaseVM implements IUserVM {
     });
   }
 
-  login = async (): Promise<void> => {
+  login = async (data: IFormValues): Promise<void> => {
     this.setLoading();
     this.unsetError();
 
     try {
-      await this.service.login();
+      await this.service.login(data);
       this.notify.successNotification("Добро пожаловать!");
     } catch (err) {
       this.setError(err);

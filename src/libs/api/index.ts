@@ -4,6 +4,11 @@ import { Router } from "router5/dist/types/router";
 import { IDependencies } from "../../router/types";
 
 export class Api implements IApi {
+  private _headers = {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Credentials": "true",
+  };
+
   constructor(private router: Router<IDependencies>) {}
 
   async get<R, P = undefined>(path: EEndpoints, params?: P): Promise<R> {
@@ -12,7 +17,9 @@ export class Api implements IApi {
     url.search = new URLSearchParams(params as never).toString();
     const fullUrl = url.toString();
 
-    const response = await fetch(fullUrl);
+    const response = await fetch(fullUrl, {
+      credentials: "include",
+    });
 
     if (!response.ok) {
       this.errorHandler(response);
@@ -26,12 +33,15 @@ export class Api implements IApi {
 
     const response = await fetch(url, {
       method: "POST",
+      headers: this._headers,
+      credentials: "include",
       body: JSON.stringify(params),
     });
 
     if (!response.ok) {
       this.errorHandler(response);
     }
+    console.log(response);
 
     return await response.json();
   }
