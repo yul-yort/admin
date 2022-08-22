@@ -29,7 +29,7 @@ const LoginPage: FC = observer(() => {
 
   const onSubmit: SubmitHandler<IFormValues> = async (data: IFormValues) => {
     await user.login(data);
-    // navigate(redirectName, redirectParams);
+    navigate(redirectName, redirectParams);
   };
 
   return (
