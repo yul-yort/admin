@@ -11,7 +11,7 @@ export enum EEndpoints {
   AGENCY_LIST = "/api/agency/list",
   AGENCY_CREATE = "/api/agency/create",
   LOGIN = "/api/auth/login",
-  LOGOUT = "/api/logout",
+  LOGOUT = "/api/auth/logout",
   ORDERS_LIST = "/api/order/list",
   ORDER_DELETE = "/api/order/delete",
   LOCALITY_LIST = "/api/locality/list",
