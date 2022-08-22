@@ -47,11 +47,12 @@ export class Api implements IApi {
   }
 
   async delete<R, P>(path: EEndpoints, params?: P): Promise<R> {
-    const url = new URL(path, baseUrl).toString();
+    const url = new URL(path, baseUrl);
+    url.search = new URLSearchParams(params as never).toString();
+    const fullUrl = url.toString();
 
-    const response = await fetch(url, {
+    const response = await fetch(fullUrl, {
       method: "DELETE",
-      body: JSON.stringify(params),
     });
 
     if (!response.ok) {
