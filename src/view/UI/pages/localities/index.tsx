@@ -92,7 +92,11 @@ const Localities: FC = observer(() => {
 
       {!localityVM.loading && !localityVM.error && localityVM.localities && (
         <>
-          <LocalitiesHeader handleShowCreateModal={handleShowCreateModal} />
+          <LocalitiesHeader
+            searchValue={localityVM.searchValue}
+            handleShowCreateModal={handleShowCreateModal}
+            onSearch={localityVM.searchLocality}
+          />
           <LocalityList
             handleShowEditModal={handleShowEditModal}
             handleShowDeleteModal={handleShowDeleteModal}

@@ -7,11 +7,15 @@ import { IconButton } from "@mui/material";
 import css from "./styles.module.scss";
 import { IHeaderLocality } from "./types";
 
-const LocalitiesHeader: FC<IHeaderLocality> = ({ handleShowCreateModal }) => {
+const LocalitiesHeader: FC<IHeaderLocality> = ({
+  handleShowCreateModal,
+  onSearch,
+  searchValue,
+}) => {
   const handleSearch: ChangeEventHandler<
     HTMLTextAreaElement | HTMLInputElement
-  > = () => {
-    console.log("event");
+  > = (e) => {
+    onSearch(e.target.value);
   };
 
   return (
@@ -22,6 +26,7 @@ const LocalitiesHeader: FC<IHeaderLocality> = ({ handleShowCreateModal }) => {
         placeholder="Название или район"
         variant="standard"
         size="small"
+        value={searchValue}
         type="search"
         onChange={handleSearch}
       />

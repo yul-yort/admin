@@ -7,7 +7,9 @@ import {
 
 export interface ILocalityVM extends IBaseVM {
   createOrEditLoading: boolean;
+  searchValue: string;
   localities: ILocalityEntity[] | null;
+  searchLocality: (value: string) => void;
   getList: () => Promise<void>;
   createLocality: (params: ILocalityCreateParamsReq) => Promise<void>;
   editLocality: (params: ILocalityEditParamsReq) => Promise<void>;
