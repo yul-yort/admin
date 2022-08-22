@@ -27,8 +27,8 @@ const LoginPage: FC = observer(() => {
   } = useRoute();
   const { redirectName = CONSTANTS.defaultRoute, redirectParams = {} } = params;
 
-  const onSubmit: SubmitHandler<IFormValues> = async () => {
-    await user.login();
+  const onSubmit: SubmitHandler<IFormValues> = async (data: IFormValues) => {
+    await user.login(data);
     navigate(redirectName, redirectParams);
   };
 

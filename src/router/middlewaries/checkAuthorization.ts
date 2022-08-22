@@ -3,7 +3,6 @@ import { Middleware, MiddlewareFactory } from "router5/dist/types/router";
 
 import { getRouteByToStateName } from "./utils";
 import { IDependencies, IRoute } from "../types";
-import { checkToken } from "../../libs/utils";
 import { CONSTANTS } from "../../constants";
 
 /**
@@ -29,10 +28,10 @@ export const checkAuthorization: MiddlewareFactory<IDependencies> =
       dependencies
     );
 
-    const hasToken = checkToken();
+    const isAuthorized = dependencies.store.user.authorized;
 
     // Если текущая страница /login, то перенаправит на страницу по умолчанию.
-    if (toStateName === "login" && hasToken) {
+    if (toStateName === "login" && isAuthorized) {
       return done({
         redirect: {
           name: CONSTANTS.defaultRoute,
@@ -41,7 +40,7 @@ export const checkAuthorization: MiddlewareFactory<IDependencies> =
     }
 
     // Если текущая страница не найдена и пользователь не авторизован, то перенаправит на страницу авторизации.
-    if (toStateName === constants.UNKNOWN_ROUTE && !hasToken) {
+    if (toStateName === constants.UNKNOWN_ROUTE && !isAuthorized) {
       return done({
         redirect: {
           name: "login",
@@ -51,7 +50,7 @@ export const checkAuthorization: MiddlewareFactory<IDependencies> =
 
     // Если текущая страница содержит поле auth и пользователь не авторизован, то перенаправит
     // на страницу авторизации с параметрами текущей страницы.
-    if (route?.auth && !hasToken) {
+    if (route?.auth && !isAuthorized) {
       return done({
         redirect: {
           name: "login",
