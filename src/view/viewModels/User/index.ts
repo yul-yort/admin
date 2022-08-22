@@ -11,7 +11,7 @@ import { CONSTANTS } from "src/constants";
 
 export class UserVM extends BaseVM implements IUserVM {
   user: IUserEntity | null = null;
-  get authorized() {
+  get authorized(): boolean {
     return !!Cookies.get(CONSTANTS.tokenCookieKey);
   }
 
