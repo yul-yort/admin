@@ -12,6 +12,7 @@ import { filterLocalities } from "./utils";
 
 export class LocalityVM extends BaseVM implements ILocalityVM {
   private _localities: ILocalityEntity[] | null = null;
+  private localitiesErrorText = "Нет списка населенных пунктов!!!";
 
   private setEditOrCreateLoading = (): void => {
     this.createOrEditLoading = true;
@@ -71,10 +72,15 @@ export class LocalityVM extends BaseVM implements ILocalityVM {
     this.setEditOrCreateLoading();
 
     try {
-      const list = await this.service.createLocality(params);
+      const locality = await this.service.createLocality(params);
+      if (!this.localities) {
+        throw new Error(this.localitiesErrorText);
+      }
+
+      const updatedLocalities = [...this.localities, locality];
 
       runInAction(() => {
-        this._localities = list;
+        this._localities = updatedLocalities;
       });
     } catch (err) {
       this.setError(err);
@@ -89,7 +95,7 @@ export class LocalityVM extends BaseVM implements ILocalityVM {
     try {
       const locality = await this.service.editLocality(params);
       if (!this.localities) {
-        throw new Error("Нет списка населенных пунктов");
+        throw new Error(this.localitiesErrorText);
       }
       const localitiesWithoutEditItem = this.localities.filter(
         (item) => item.id !== params.id
@@ -113,7 +119,7 @@ export class LocalityVM extends BaseVM implements ILocalityVM {
     try {
       const locality = await this.service.deleteLocality(id);
       if (!this.localities) {
-        throw new Error("Нет списка населенных пунктов");
+        throw new Error(this.localitiesErrorText);
       }
 
       const newLocalities = this.localities.filter(

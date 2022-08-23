@@ -29,7 +29,7 @@ export const ordersHandlers = [
 
   rest.post<string>(EEndpoints.ORDER_CREATE, (req, res, ctx) => {
     const body = JSON.parse(req.body);
-    const { price, origin: originID, destination: destinationID } = body;
+    const { price } = body;
 
     //доступ к location
 

@@ -41,13 +41,11 @@ export class Api implements IApi {
     if (!response.ok) {
       this.errorHandler(response);
     }
-    console.log(response);
 
     return await response.json();
   }
 
   async delete<R, P>(path: EEndpoints, params?: P): Promise<R> {
-    //TODO: прикрепить id
     const url = new URL(path, baseUrl);
     url.search = new URLSearchParams(params as never).toString();
     const fullUrl = url.toString();

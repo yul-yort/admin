@@ -18,8 +18,8 @@ export class LocalityRepository
 
   async createLocality(
     params: ILocalityCreateParamsReq
-  ): Promise<ILocalityDTO[]> {
-    return await this.api.post<ILocalityDTO[], ILocalityCreateParamsReq>(
+  ): Promise<ILocalityDTO> {
+    return await this.api.post<ILocalityDTO, ILocalityCreateParamsReq>(
       EEndpoints.LOCALITY_CREATE,
       params
     );
