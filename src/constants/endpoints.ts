@@ -5,8 +5,8 @@ export const baseUrl = CONSTANTS.isDev
   : window.location.origin;
 
 export enum EEndpoints {
-  AGENCY = "/api/agency",
-  AGENCY_EDIT = "/api/agency/edit",
+  AGENCY = "/api/agency/",
+  AGENCY_UPDATE = "/api/agency/update",
   AGENCY_DELETE = "/api/agency/delete",
   AGENCY_LIST = "/api/agency/list",
   AGENCY_CREATE = "/api/agency/create",

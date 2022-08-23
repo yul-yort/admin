@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { observer } from "mobx-react-lite";
 
-import { useViewModel } from "../../hooks/useViewModel";
+import { useViewModel } from "../../hooks";
 import { Detail } from "./components/Detail";
 import Error from "../../components/shared/Error";
 import Loading from "../../components/common/Loading";

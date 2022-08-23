@@ -1,6 +1,6 @@
-import { IAgencyResponseDTO } from "src/data/Agency/entity/types";
+import { IAgencyEntity } from "src/data/Agency/entity/types";
 
 export interface ITableHeaderCell {
-  id: keyof IAgencyResponseDTO;
+  id: keyof IAgencyEntity;
   label: string;
 }

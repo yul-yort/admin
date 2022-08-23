@@ -2,7 +2,7 @@ import { IconButton, Paper, Typography } from "@mui/material";
 import { FC } from "react";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 
-import { Phones } from "../../../../components/shared/Phones";
+import { Phones } from "../../../../components/shared";
 import css from "./styles.module.scss";
 import sharedCss from "../shared/styles.module.scss";
 import { IAdditionalInfo } from "./types";
@@ -10,8 +10,8 @@ import { IAdditionalInfo } from "./types";
 export const DetailAdditionalInfo: FC<IAdditionalInfo> = ({
   handleEdit,
   agencyName,
-  createDate,
-  editedDate,
+  createdAt,
+  updatedAt,
   phones,
   description,
 }) => {
@@ -31,14 +31,14 @@ export const DetailAdditionalInfo: FC<IAdditionalInfo> = ({
 
       <div className={sharedCss.row}>
         <Typography variant="subtitle2">Дата создания:</Typography>
-        <Typography variant="body2">{createDate}</Typography>
+        <Typography variant="body2">{createdAt}</Typography>
       </div>
 
-      {editedDate && (
+      {updatedAt && (
         <div className={sharedCss.row}>
           <Typography variant="subtitle2">Дата редактирвоания:</Typography>
 
-          <Typography variant="body2">{editedDate}</Typography>
+          <Typography variant="body2">{updatedAt}</Typography>
         </div>
       )}
 

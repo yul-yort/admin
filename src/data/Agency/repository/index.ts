@@ -1,9 +1,8 @@
-import { IAgencyRepository } from "./types";
+import { IAgencyRepository, IAgencyRequestEditParams } from "./types";
 import {
   IAgencyResponseDTO,
-  IAgencyRequestCreateParams,
+  IAgencyRequestCreateOrEditParams,
   IAgencyRequestDeleteParams,
-  IAgencyRequestEditParams,
   IAgencyRequestParams,
 } from "../entity/types";
 import { EEndpoints } from "../../../constants";
@@ -24,7 +23,7 @@ export class AgencyRepository
     params: IAgencyRequestEditParams
   ): Promise<IAgencyResponseDTO> {
     return await this.api.post<IAgencyResponseDTO, IAgencyRequestEditParams>(
-      EEndpoints.AGENCY_EDIT,
+      EEndpoints.AGENCY_UPDATE,
       params
     );
   }
@@ -43,11 +42,11 @@ export class AgencyRepository
   }
 
   async createAgency(
-    params: IAgencyRequestCreateParams
+    params: IAgencyRequestCreateOrEditParams
   ): Promise<IAgencyResponseDTO> {
-    return await this.api.post<IAgencyResponseDTO, IAgencyRequestCreateParams>(
-      EEndpoints.AGENCY_CREATE,
-      params
-    );
+    return await this.api.post<
+      IAgencyResponseDTO,
+      IAgencyRequestCreateOrEditParams
+    >(EEndpoints.AGENCY_CREATE, params);
   }
 }

@@ -16,7 +16,7 @@ import { DetailOrders } from "../DetailOrders";
 import { useTitle } from "../../../../hooks";
 
 export const Detail: FC<IDetail> = ({
-  agency: { id, agencyName, phones = [], createDate, description, editedDate },
+  agency: { id, agencyName, phones = [], createdAt, description, updatedAt },
   agencyOrders,
   editAgency,
   deleteAgency,
@@ -39,7 +39,6 @@ export const Detail: FC<IDetail> = ({
 
   const methods = useForm<ICreateOrEditAgencyFormFields>({
     defaultValues: {
-      id,
       agencyName,
       description,
       phones: UIPhonesFormatter(phones),
@@ -133,8 +132,8 @@ export const Detail: FC<IDetail> = ({
           <DetailAdditionalInfo
             handleEdit={handleEdit}
             agencyName={agencyName}
-            createDate={createDate}
-            editedDate={editedDate}
+            createdAt={createdAt}
+            updatedAt={updatedAt}
             phones={phones}
             description={description}
           />

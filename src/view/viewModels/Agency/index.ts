@@ -1,6 +1,4 @@
 import { action, makeObservable, observable, runInAction } from "mobx";
-import { v4 as uuid } from "uuid";
-import { format } from "date-fns";
 import { BaseVM } from "../BaseVM";
 import { IAgencyVM } from "./types";
 import {
@@ -11,7 +9,6 @@ import {
 import { IAgencyService } from "../../../data/Agency/service/types";
 import { INotificationsVM } from "../types";
 import { ICreateOrEditAgencyFormFields } from "../../UI/components/shared";
-import { VMPhonesRequestFormatter } from "src/view/UI/components/shared/AgencyCreateEditForm/mappers";
 import { errorMapper } from "../mappers";
 
 export class AgencyVM extends BaseVM implements IAgencyVM {
@@ -104,7 +101,11 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
     this.setEditLoading();
 
     try {
-      this.agency = await this.service.editAgency(fields);
+      if (!this.agency) {
+        throw new Error("Агенство не выбрано");
+      }
+
+      this.agency = await this.service.editAgency(this.agency.id, fields);
       this.notify.successNotification("Данные сохранены");
     } catch (err) {
       const error = errorMapper(err);
@@ -156,18 +157,7 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
   ): Promise<void> => {
     this.setEditLoading();
 
-    const newAgency = {
-      ...fields,
-      id: uuid(),
-      createDate: format(new Date(), "dd.MM.yyyy  HH:mm"),
-      phones: VMPhonesRequestFormatter(fields.phones),
-    };
-
-    this.setLoadingItem(newAgency.id);
     const agenciesCopy = this._agencies ? [...this._agencies] : [];
-    runInAction(() => {
-      this._agencies = [newAgency, ...agenciesCopy];
-    });
 
     try {
       const agencyItem = await this.service.createAgency(fields);
@@ -183,7 +173,6 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
       this.setError(err);
     } finally {
       this.unsetEditLoading();
-      this.unsetLoadingItem(newAgency.id);
     }
   };
 }

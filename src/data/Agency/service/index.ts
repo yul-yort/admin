@@ -1,15 +1,16 @@
 import { IAgencyService } from "./types";
 import {
-  IAgencyRequestEditParams,
   IAgencyRequestParams,
   IAgencyRequestDeleteParams,
   IAgencyEntity,
-  IAgencyRequestCreateParams,
+  IAgencyRequestCreateOrEditParams,
 } from "../entity/types";
 import { IAgencyRepository } from "../repository/types";
 import { Agency } from "../entity";
-import { VMPhonesRequestFormatter } from "../../../view/UI/components/shared/AgencyCreateEditForm/mappers";
-import { ICreateOrEditAgencyFormFields } from "../../../view/UI/components/shared/AgencyCreateEditForm/types";
+import {
+  ICreateOrEditAgencyFormFields,
+  VMPhonesRequestFormatter,
+} from "src/view/UI/components/shared";
 
 export class AgencyService implements IAgencyService {
   constructor(private repository: IAgencyRepository) {}
@@ -21,14 +22,14 @@ export class AgencyService implements IAgencyService {
   }
 
   async editAgency(
+    id: ID,
     fields: ICreateOrEditAgencyFormFields
   ): Promise<IAgencyEntity> {
-    const params: IAgencyRequestEditParams = {
+    const params: IAgencyRequestCreateOrEditParams = {
       ...fields,
-      editedDate: new Date().getTime(),
       phones: VMPhonesRequestFormatter(fields.phones),
     };
-    const agency = await this.repository.editAgency(params);
+    const agency = await this.repository.editAgency({ id, ...params });
 
     return new Agency(agency);
   }
@@ -50,9 +51,8 @@ export class AgencyService implements IAgencyService {
   async createAgency(
     fields: ICreateOrEditAgencyFormFields
   ): Promise<IAgencyEntity> {
-    const params: IAgencyRequestCreateParams = {
+    const params: IAgencyRequestCreateOrEditParams = {
       ...fields,
-      createDate: new Date().getTime(),
       phones: VMPhonesRequestFormatter(fields.phones),
     };
 

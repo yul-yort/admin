@@ -3,11 +3,14 @@ import {
   IAgencyRequestDeleteParams,
   IAgencyEntity,
 } from "../entity/types";
-import { ICreateOrEditAgencyFormFields } from "../../../view/UI/components/shared/AgencyCreateEditForm/types";
+import { ICreateOrEditAgencyFormFields } from "../../../view/UI/components/shared";
 
 export interface IAgencyService {
   getAgency(params: IAgencyRequestParams): Promise<IAgencyEntity>;
-  editAgency(params: ICreateOrEditAgencyFormFields): Promise<IAgencyEntity>;
+  editAgency(
+    id: ID,
+    params: ICreateOrEditAgencyFormFields
+  ): Promise<IAgencyEntity>;
   deleteAgency(params: IAgencyRequestDeleteParams): Promise<IAgencyEntity>;
 
   getList(): Promise<IAgencyEntity[]>;

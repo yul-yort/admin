@@ -16,7 +16,7 @@ const TableBodyTemplate: FC<ITableBodyTemplateProps> = ({
 }) => {
   return (
     <TableBody>
-      {rows.map(({ id, phones, agencyName, createDate }) => {
+      {rows.map(({ id, phones, agencyName, createdAt }) => {
         const classes = cn({
           [css.row__loading]: isLoadingItem(id),
         });
@@ -31,7 +31,7 @@ const TableBodyTemplate: FC<ITableBodyTemplateProps> = ({
               </Link>
             </TableCell>
 
-            <TableCell>{createDate}</TableCell>
+            <TableCell>{createdAt}</TableCell>
 
             <TableCell>
               <div className={css.phones_cell}>

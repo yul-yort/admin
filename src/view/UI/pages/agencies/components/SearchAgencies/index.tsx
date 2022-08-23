@@ -2,7 +2,10 @@ import { ChangeEventHandler, FC } from "react";
 import { TextField } from "@mui/material";
 import { ISearchAgency } from "./types";
 
-export const SearchAgencies: FC<ISearchAgency> = ({ searchAgency }) => {
+export const SearchAgencies: FC<ISearchAgency> = ({
+  searchAgency,
+  searchValue,
+}) => {
   const handleSearch: ChangeEventHandler<
     HTMLTextAreaElement | HTMLInputElement
   > = (e) => {
@@ -11,6 +14,7 @@ export const SearchAgencies: FC<ISearchAgency> = ({ searchAgency }) => {
 
   return (
     <TextField
+      value={searchValue}
       id="search-agency"
       label="Поиск"
       placeholder="Название или телефон"
