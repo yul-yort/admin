@@ -38,8 +38,9 @@ const LocalityList: FC<ILocalityList> = ({
     // FIXME: высота карточек исправить
     <div className={css.lists}>
       {localities.map((item) => {
+        console.log(typeof item._id);
         return (
-          <div key={item.id}>
+          <div key={item._id}>
             <Card className={css.card}>
               <Typography color="text.secondary" gutterBottom>
                 {item.region}
@@ -55,7 +56,7 @@ const LocalityList: FC<ILocalityList> = ({
                 <IconButton
                   onClick={handleEdit}
                   aria-label="edit order"
-                  data-edit-id={item.id}
+                  data-edit-id={item._id}
                 >
                   <EditRoundedIcon fontSize="small" />
                 </IconButton>
@@ -63,7 +64,7 @@ const LocalityList: FC<ILocalityList> = ({
                   onClick={handleDelete}
                   aria-label="delete order"
                   color="error"
-                  data-delete-id={item.id}
+                  data-delete-id={item._id}
                 >
                   <DeleteForeverIcon fontSize="small" />
                 </IconButton>
