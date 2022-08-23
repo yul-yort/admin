@@ -38,7 +38,6 @@ const LocalityList: FC<ILocalityList> = ({
     // FIXME: высота карточек исправить
     <div className={css.lists}>
       {localities.map((item) => {
-        console.log(typeof item._id);
         return (
           <div key={item._id}>
             <Card className={css.card}>

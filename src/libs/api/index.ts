@@ -47,6 +47,7 @@ export class Api implements IApi {
   }
 
   async delete<R, P>(path: EEndpoints, params?: P): Promise<R> {
+    //TODO: прикрепить id
     const url = new URL(path, baseUrl);
     url.search = new URLSearchParams(params as never).toString();
     const fullUrl = url.toString();
