@@ -25,8 +25,8 @@ export class LocalityRepository
     );
   }
 
-  async editLocality(params: ILocalityEditParamsReq): Promise<ILocalityDTO[]> {
-    return await this.api.post<ILocalityDTO[], ILocalityEditParamsReq>(
+  async editLocality(params: ILocalityEditParamsReq): Promise<ILocalityDTO> {
+    return await this.api.post<ILocalityDTO, ILocalityEditParamsReq>(
       EEndpoints.LOCALITY_EDIT,
       params
     );

@@ -26,10 +26,10 @@ export class LocalityService implements ILocalityService {
 
   editLocality = async (
     params: ILocalityEditParamsReq
-  ): Promise<ILocalityEntity[]> => {
-    const localities = await this.repository.editLocality(params);
+  ): Promise<ILocalityEntity> => {
+    const locality = await this.repository.editLocality(params);
 
-    return localities.map((locality) => new Locality(locality));
+    return new Locality(locality);
   };
 
   deleteLocality = async (id: ID): Promise<ILocalityEntity> => {

@@ -9,6 +9,6 @@ export interface ILocalityService {
   createLocality: (
     params: ILocalityCreateParamsReq
   ) => Promise<ILocalityEntity[]>;
-  editLocality: (params: ILocalityEditParamsReq) => Promise<ILocalityEntity[]>;
+  editLocality: (params: ILocalityEditParamsReq) => Promise<ILocalityEntity>;
   deleteLocality: (id: ID) => Promise<ILocalityEntity>;
 }
