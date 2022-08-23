@@ -13,8 +13,6 @@ export interface ILocalityEntity {
    * Идентификатор.
    */
   id: ID;
-
-  _id?: ID;
   /**
    * Название.
    */
@@ -37,7 +35,9 @@ export interface ILocalityEntity {
   coordinates?: TLocalityCoordinates;
 }
 
-export type ILocalityDTO = ILocalityEntity;
+export interface ILocalityDTO extends Omit<ILocalityEntity, "id"> {
+  _id: string;
+}
 
 export type ILocalityCreateParamsReq = Pick<
   ILocalityEntity,
@@ -48,3 +48,5 @@ export type ILocalityEditParamsReq = Pick<
   ILocalityEntity,
   "id" | "name" | "description" | "region" | "district" | "coordinates"
 >;
+
+export type ILocalityDeleteParamsReq = Pick<ILocalityEntity, "id">;

@@ -5,6 +5,7 @@ import {
   ILocalityDTO,
   ILocalityCreateParamsReq,
   ILocalityEditParamsReq,
+  ILocalityDeleteParamsReq,
 } from "src/data/Locality/entity/types";
 
 export class LocalityRepository
@@ -31,10 +32,12 @@ export class LocalityRepository
     );
   }
 
-  async deleteLocality(id: ID): Promise<ILocalityDTO[]> {
-    return await this.api.delete<ILocalityDTO[], ID>(
+  async deleteLocality(
+    params: ILocalityDeleteParamsReq
+  ): Promise<ILocalityDTO> {
+    return await this.api.delete<ILocalityDTO, ILocalityDeleteParamsReq>(
       EEndpoints.LOCALITY_DELETE,
-      id
+      params
     );
   }
 }

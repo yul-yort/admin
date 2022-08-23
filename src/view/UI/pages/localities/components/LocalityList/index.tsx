@@ -39,7 +39,7 @@ const LocalityList: FC<ILocalityList> = ({
     <div className={css.lists}>
       {localities.map((item) => {
         return (
-          <div key={item._id}>
+          <div key={item.id}>
             <Card className={css.card}>
               <Typography color="text.secondary" gutterBottom>
                 {item.region}
@@ -55,7 +55,7 @@ const LocalityList: FC<ILocalityList> = ({
                 <IconButton
                   onClick={handleEdit}
                   aria-label="edit order"
-                  data-edit-id={item._id}
+                  data-edit-id={item.id}
                 >
                   <EditRoundedIcon fontSize="small" />
                 </IconButton>
@@ -63,7 +63,7 @@ const LocalityList: FC<ILocalityList> = ({
                   onClick={handleDelete}
                   aria-label="delete order"
                   color="error"
-                  data-delete-id={item._id}
+                  data-delete-id={item.id}
                 >
                   <DeleteForeverIcon fontSize="small" />
                 </IconButton>

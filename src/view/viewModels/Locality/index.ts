@@ -103,10 +103,16 @@ export class LocalityVM extends BaseVM implements ILocalityVM {
     this.setLoading();
 
     try {
-      const list = await this.service.deleteLocality(id);
+      const locality = await this.service.deleteLocality(id);
+      if (!this.localities) {
+        throw new Error("Нет списка населенных пунктов");
+      }
 
+      const newLocalities = this.localities.filter(
+        (item) => item.id !== locality.id
+      );
       runInAction(() => {
-        this._localities = list;
+        this._localities = newLocalities;
       });
     } catch (err) {
       this.setError(err);
