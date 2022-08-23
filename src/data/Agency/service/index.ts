@@ -5,7 +5,10 @@ import {
   IAgencyEntity,
   IAgencyRequestCreateOrEditParams,
 } from "../entity/types";
-import { IAgencyRepository } from "../repository/types";
+import {
+  IAgencyRepository,
+  IAgencyRequestEditParams,
+} from "../repository/types";
 import { Agency } from "../entity";
 import {
   ICreateOrEditAgencyFormFields,
@@ -25,11 +28,13 @@ export class AgencyService implements IAgencyService {
     id: ID,
     fields: ICreateOrEditAgencyFormFields
   ): Promise<IAgencyEntity> {
-    const params: IAgencyRequestCreateOrEditParams = {
+    const params: IAgencyRequestEditParams = {
       ...fields,
+      id,
       phones: VMPhonesRequestFormatter(fields.phones),
     };
-    const agency = await this.repository.editAgency({ id, ...params });
+
+    const agency = await this.repository.editAgency(params);
 
     return new Agency(agency);
   }
