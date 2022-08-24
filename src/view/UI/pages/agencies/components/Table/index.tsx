@@ -14,6 +14,7 @@ import { AgencyCreateEditModal } from "../../../../components/shared";
 import { EmptyList } from "../EmptyList";
 
 const AgencyTable: VFC<ITable> = ({
+  searchValue,
   agencies,
   createAgency,
   isLoadingItem,
@@ -74,6 +75,7 @@ const AgencyTable: VFC<ITable> = ({
     <>
       <Paper className={css.wrapper}>
         <TableToolbar
+          searchValue={searchValue}
           onAddAgency={handleOpenModal}
           searchAgency={searchAgency}
         />

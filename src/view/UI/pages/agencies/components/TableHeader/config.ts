@@ -6,7 +6,7 @@ export const TableHeaderCells: readonly ITableHeaderCell[] = [
     label: "Название",
   },
   {
-    id: "createDate",
+    id: "createdAt",
     label: "Дата создания",
   },
   {

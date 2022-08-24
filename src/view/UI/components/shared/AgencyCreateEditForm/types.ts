@@ -1,16 +1,12 @@
-import { IAgencyEntity } from "../../../../../data/Agency/entity/types";
+import { IAgencyEntity } from "src/data/Agency/entity/types";
 
 export interface IAgencyCreateEditForm {
   onClose: () => void;
   onSave: () => Promise<void>;
 }
 
-//TODO учесть, что при создании нет id
 export interface ICreateOrEditAgencyFormFields
-  extends Pick<
-    IAgencyEntity,
-    "id" | "agencyName" | "description" | "createDate"
-  > {
+  extends Pick<IAgencyEntity, "agencyName" | "description" | "createdAt"> {
   phones: IFormPhone[];
 }
 

@@ -6,26 +6,24 @@ export class Agency implements IAgencyEntity {
   id: ID = "";
   agencyName = "";
   phones?: string[];
-  createDate: string;
-  editedDate: string | undefined;
-  description: string | undefined = "";
+  createdAt: string;
+  updatedAt: string;
+  description?: string = "";
 
   constructor(dto: IAgencyResponseDTO) {
-    this.id = dto.id;
+    this.id = dto._id;
     this.agencyName = dto.agencyName;
     this.phones = dto.phones;
-    this.createDate = format(new Date(dto.createDate), "dd.MM.yyyy  HH:mm");
+    this.createdAt = format(new Date(dto.createdAt), "dd.MM.yyyy  HH:mm");
     this.description = dto.description;
-    this.editedDate = dto.editedDate
-      ? format(new Date(dto.editedDate), "dd.MM.yyyy  HH:mm")
-      : "";
+    this.updatedAt = format(new Date(dto.updatedAt), "dd.MM.yyyy  HH:mm");
 
     makeObservable(this, {
       id: observable,
       agencyName: observable,
       phones: observable,
-      createDate: observable,
-      editedDate: observable,
+      createdAt: observable,
+      updatedAt: observable,
       description: observable,
     });
   }
