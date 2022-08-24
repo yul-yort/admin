@@ -3,7 +3,6 @@ import { EEndpoints } from "src/constants";
 import { IOrderItemResponseDTO } from "src/data/Order/entity/types";
 import { getTimeout } from "../../utils/getTimeout";
 import { orders } from "./orders";
-import { localities } from "../localities/localities";
 import { v4 as uuid } from "uuid";
 import { ECurrencyISO } from "../../../utils/getCurrency";
 
@@ -30,11 +29,9 @@ export const ordersHandlers = [
 
   rest.post<string>(EEndpoints.ORDER_CREATE, (req, res, ctx) => {
     const body = JSON.parse(req.body);
-    const { price, origin: originID, destination: destinationID } = body;
+    const { price } = body;
 
     //доступ к location
-    const originData = localities.find(({ id }) => id === originID);
-    const destinationData = localities.find(({ id }) => id === destinationID);
 
     const newOrder: IOrderItemResponseDTO = {
       id: uuid(),
@@ -42,14 +39,14 @@ export const ordersHandlers = [
       route: {
         id: uuid(),
         origin: {
-          id: originData?.id || "",
-          name: originData?.name || "",
-          description: originData?.description,
+          id: "",
+          name: "",
+          description: "",
         },
         destination: {
-          id: destinationData?.id || "",
-          name: destinationData?.name || "",
-          description: destinationData && destinationData.description,
+          id: "",
+          name: "",
+          description: "",
         },
       },
       agency: {

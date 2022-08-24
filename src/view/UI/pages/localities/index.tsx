@@ -50,8 +50,8 @@ const Localities: FC = observer(() => {
 
   //DELETE MODAL
   const handleShowDeleteModal = (id: ID) => {
-    setShowDeleteModal(true);
     handleSelectedLocality(id);
+    setShowDeleteModal(true);
   };
 
   const handleCancelDeleteModal = () => {
@@ -60,7 +60,6 @@ const Localities: FC = observer(() => {
   };
 
   const handleDeleteModal = async () => {
-    //TODO переписать через if и исправить ошибку eslint
     selectedLocality?.id &&
       (await localityVM.deleteLocality(selectedLocality.id));
     handleCancelDeleteModal();
