@@ -77,7 +77,7 @@ export class LocalityVM extends BaseVM implements ILocalityVM {
         throw new Error(this.localitiesErrorText);
       }
 
-      const updatedLocalities = [...this.localities, locality];
+      const updatedLocalities = [locality, ...this.localities];
 
       runInAction(() => {
         this._localities = updatedLocalities;
@@ -101,7 +101,7 @@ export class LocalityVM extends BaseVM implements ILocalityVM {
         (item) => item.id !== params.id
       );
 
-      const updatedLocalties = [...localitiesWithoutEditItem, locality];
+      const updatedLocalties = [locality, ...localitiesWithoutEditItem];
 
       runInAction(() => {
         this._localities = updatedLocalties;
@@ -126,7 +126,7 @@ export class LocalityVM extends BaseVM implements ILocalityVM {
         (item) => item.id !== locality.id
       );
       runInAction(() => {
-        this._localities = newLocalities;
+        this._localities = [...newLocalities];
       });
     } catch (err) {
       this.setError(err);
