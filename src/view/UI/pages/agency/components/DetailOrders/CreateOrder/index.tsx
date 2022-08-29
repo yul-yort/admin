@@ -61,7 +61,16 @@ export const CreateOrder: FC<ICreateOrders> = ({
       };
       await handleOrderEdit(orderEditfields);
     } else {
-      await createOrder(fields);
+      console.log(fields);
+      const test = {
+        agency: "6305bce8939ec11f6e50331e",
+        route: {
+          origin: "6305c9737d309fe97c6fb28a",
+          destination: "6305c9737d309fe97c6fb28a",
+        },
+        price: "1",
+      };
+      // await createOrder(fields);
     }
     reset();
     handleCloseModal();
