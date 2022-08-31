@@ -24,6 +24,7 @@ export const DetailOrders: FC<IDetailOrders> = ({
   ordersAddLoading,
   editOrder,
 }) => {
+  console.log("log", agencyOrders);
   const [showModal, setShowModal] = useState(false);
   const [titleModal, setTitleModal] = useState("");
   const [selectedOrder, setSelectedOrder] =
@@ -61,6 +62,7 @@ export const DetailOrders: FC<IDetailOrders> = ({
   const changeDefaultValues = (id: string) => {
     const order = agencyOrders.find((item) => item.id === id);
 
+    console.log(order?.route.origin.id);
     if (order) {
       setSelectedOrder({
         id: order.id,

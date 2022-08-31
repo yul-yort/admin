@@ -22,4 +22,6 @@ export interface IRouteEntity {
   waypoints?: ILocalityEntity[];
 }
 
-export type IRouteDTO = IRouteEntity;
+export interface IRouteDTO extends Omit<IRouteEntity, "id"> {
+  _id: string;
+}

@@ -11,7 +11,7 @@ export class RouteEntity implements IRouteEntity {
   waypoints?: ILocalityEntity[];
 
   constructor(dto: IRouteDTO) {
-    this.id = dto.id;
+    this.id = dto._id;
     this.origin = dto.origin;
     this.destination = dto.destination;
     this.waypoints = dto.waypoints;
