@@ -36,7 +36,6 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
 
   useEffect(() => {
     if (selectedOrder) {
-      console.log(selectedOrder, selectedOrder?.route.origin);
       setOriginID(selectedOrder?.route.origin.id);
       setDestinationID(selectedOrder?.route.destination.id);
     }

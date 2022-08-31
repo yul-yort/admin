@@ -13,7 +13,6 @@ const Agency: FC = observer(() => {
   const agencyVM = useViewModel<IAgencyVM>("agency");
   const orderVM = useViewModel<IOrderVM>("order");
   const localityVM = useViewModel<ILocalityVM>("locality");
-  console.log(agencyVM);
 
   return (
     <div>

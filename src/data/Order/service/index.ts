@@ -29,6 +29,7 @@ export class OrderService implements IOrderService {
   }
 
   async editOrder(fields: IOrdersEditSelected): Promise<IOrderItemEntity[]> {
+    console.log(fields);
     // return await this.repository.editOrder(fields);
     return [];
   }
