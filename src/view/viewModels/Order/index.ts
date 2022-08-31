@@ -129,10 +129,18 @@ export class OrderVM extends BaseVM implements IOrderVM {
   createOrder = async (fields: IDataCreateOrder): Promise<void> => {
     this.setOrdersAddLoading();
     try {
-      const orders = await this.service.createOrder(fields);
+      const order = await this.service.createOrder(fields);
+
+      if (!this.agencyOrders) {
+        throw new Error("error");
+      }
+
+      const updatedOrders = [order, ...this.agencyOrders];
+
       runInAction(() => {
-        this._agencyOrders = orders;
+        this._agencyOrders = updatedOrders;
       });
+
       this.notify.successNotification("Поездка добавлена");
     } catch (err) {
       const error = errorMapper(err);
@@ -163,10 +171,16 @@ export class OrderVM extends BaseVM implements IOrderVM {
   deleteOrder = async (id: ID): Promise<void> => {
     this.setLoading();
     try {
-      const orders = await this.service.deleteOrder(id);
+      const order = await this.service.deleteOrder(id);
+      if (!this.agencyOrders) {
+        throw new Error("error");
+      }
 
+      const updatedOrders = this.agencyOrders.filter(
+        (item) => item.id !== order.id
+      );
       runInAction(() => {
-        this._agencyOrders = orders;
+        this._agencyOrders = [...updatedOrders];
       });
       this.notify.successNotification(`Поездка удалена`);
     } catch (err) {

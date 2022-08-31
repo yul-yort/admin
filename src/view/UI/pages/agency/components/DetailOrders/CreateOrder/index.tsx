@@ -66,7 +66,6 @@ export const CreateOrder: FC<ICreateOrders> = ({
       };
       await handleOrderEdit(orderEditfields);
     } else {
-      console.log(selectedOrder);
       const dataCreateOrder = {
         agency: agencyID,
         route: {

@@ -28,3 +28,5 @@ export interface IOrderItemRequestParams {
   origin?: string;
   destination?: string;
 }
+
+export type IOrderDeleteParamsReq = Pick<IOrderItemEntity, "id">;

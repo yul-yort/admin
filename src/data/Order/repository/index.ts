@@ -1,6 +1,7 @@
 import { BaseRepository } from "../../BaseRepository";
 import { IOrderRepository } from "./types";
 import {
+  IOrderDeleteParamsReq,
   IOrderItemRequestParams,
   IOrderItemResponseDTO,
 } from "../entity/types";
@@ -21,13 +22,16 @@ export class OrderRepository
     );
   }
 
-  async deleteOrder(id: ID): Promise<IOrderItemResponseDTO[]> {
-    return await this.api.delete(EEndpoints.ORDER_DELETE, id);
+  async deleteOrder(
+    params: IOrderDeleteParamsReq
+  ): Promise<IOrderItemResponseDTO> {
+    return await this.api.delete<IOrderItemResponseDTO, IOrderDeleteParamsReq>(
+      EEndpoints.ORDER_DELETE,
+      params
+    );
   }
 
-  async createOrder(
-    fields: IDataCreateOrder
-  ): Promise<IOrderItemResponseDTO[]> {
+  async createOrder(fields: IDataCreateOrder): Promise<IOrderItemResponseDTO> {
     return await this.api.post(EEndpoints.ORDER_CREATE, fields);
   }
 

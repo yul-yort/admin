@@ -16,16 +16,16 @@ export class OrderService implements IOrderService {
     return orders.map((orderItem) => new OrderItem(orderItem));
   };
 
-  async deleteOrder(id: ID): Promise<IOrderItemEntity[]> {
-    const orders = await this.repository.deleteOrder(id);
+  async deleteOrder(id: ID): Promise<IOrderItemEntity> {
+    const order = await this.repository.deleteOrder({ id });
 
-    return orders.map((orderItem) => new OrderItem(orderItem));
+    return new OrderItem(order);
   }
 
-  async createOrder(fields: IDataCreateOrder): Promise<IOrderItemEntity[]> {
-    const orders = await this.repository.createOrder(fields);
+  async createOrder(fields: IDataCreateOrder): Promise<IOrderItemEntity> {
+    const order = await this.repository.createOrder(fields);
 
-    return orders.map((orderItem) => new OrderItem(orderItem));
+    return new OrderItem(order);
   }
 
   async editOrder(fields: IOrdersEditSelected): Promise<IOrderItemEntity[]> {
