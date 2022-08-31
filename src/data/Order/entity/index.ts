@@ -2,7 +2,6 @@ import { makeAutoObservable } from "mobx";
 import { ECurrencyISO } from "src/libs/utils/getCurrency";
 import {
   IOrderAgency,
-  // IOrderDTO,
   IOrderItemEntity,
   IOrderItemResponseDTO,
   IOrderRoute,

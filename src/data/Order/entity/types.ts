@@ -17,8 +17,6 @@ export type IOrderAgency = Pick<
   "id" | "agencyName" | "phones" | "description"
 >;
 
-// export type IOrderItemResponseDTO = IOrderItemEntity;
-
 export interface IOrderItemResponseDTO extends Omit<IOrderItemEntity, "id"> {
   _id: string;
 }
