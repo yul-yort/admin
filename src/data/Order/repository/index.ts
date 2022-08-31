@@ -5,10 +5,8 @@ import {
   IOrderItemResponseDTO,
 } from "../entity/types";
 import { EEndpoints } from "src/constants";
-import {
-  IOrdersCreateFormFields,
-  IOrdersEditSelected,
-} from "src/view/UI/pages/agency/components/DetailOrders/CreateOrder/types";
+import { IOrdersEditSelected } from "src/view/UI/pages/agency/components/DetailOrders/CreateOrder/types";
+import { IDataCreateOrder } from "src/view/viewModels/Order/types";
 
 export class OrderRepository
   extends BaseRepository
@@ -28,7 +26,7 @@ export class OrderRepository
   }
 
   async createOrder(
-    fields: IOrdersCreateFormFields
+    fields: IDataCreateOrder
   ): Promise<IOrderItemResponseDTO[]> {
     return await this.api.post(EEndpoints.ORDER_CREATE, fields);
   }

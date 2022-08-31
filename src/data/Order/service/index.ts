@@ -2,10 +2,8 @@ import { IOrderService } from "./types";
 import { IOrderItemEntity, IOrderItemRequestParams } from "../entity/types";
 import { IOrderRepository } from "../repository/types";
 import { OrderItem } from "../entity";
-import {
-  IOrdersCreateFormFields,
-  IOrdersEditSelected,
-} from "src/view/UI/pages/agency/components/DetailOrders/CreateOrder/types";
+import { IOrdersEditSelected } from "src/view/UI/pages/agency/components/DetailOrders/CreateOrder/types";
+import { IDataCreateOrder } from "src/view/viewModels/Order/types";
 
 export class OrderService implements IOrderService {
   constructor(private repository: IOrderRepository) {}
@@ -24,15 +22,14 @@ export class OrderService implements IOrderService {
     return orders.map((orderItem) => new OrderItem(orderItem));
   }
 
-  async createOrder(
-    fields: IOrdersCreateFormFields
-  ): Promise<IOrderItemEntity[]> {
+  async createOrder(fields: IDataCreateOrder): Promise<IOrderItemEntity[]> {
     const orders = await this.repository.createOrder(fields);
 
     return orders.map((orderItem) => new OrderItem(orderItem));
   }
 
   async editOrder(fields: IOrdersEditSelected): Promise<IOrderItemEntity[]> {
-    return await this.repository.editOrder(fields);
+    // return await this.repository.editOrder(fields);
+    return [];
   }
 }

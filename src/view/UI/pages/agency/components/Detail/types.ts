@@ -6,6 +6,7 @@ import {
   IOrdersEditSelected,
 } from "../DetailOrders/CreateOrder/types";
 import { ILocalityEntity } from "src/data/Locality/entity/types";
+import { IDataCreateOrder } from "src/view/viewModels/Order/types";
 
 export interface IDetail
   extends Pick<IAgencyVM, "editAgency" | "editLoading" | "deleteAgency"> {
@@ -13,7 +14,7 @@ export interface IDetail
   agencyOrders: IOrderItemEntity[];
   deleteOrder: (id: ID) => Promise<void>;
   ordersLoading: boolean;
-  createOrder: (fields: IOrdersCreateFormFields) => void;
+  createOrder: (fields: IDataCreateOrder) => void;
   localities: ILocalityEntity[];
   getLocality: () => void;
   localitiesLoading: boolean;

@@ -2,6 +2,7 @@ import { makeAutoObservable } from "mobx";
 import { ECurrencyISO } from "src/libs/utils/getCurrency";
 import {
   IOrderAgency,
+  // IOrderDTO,
   IOrderItemEntity,
   IOrderItemResponseDTO,
   IOrderRoute,
@@ -15,7 +16,7 @@ export class OrderItem implements IOrderItemEntity {
   price: number;
 
   constructor(dto: IOrderItemResponseDTO) {
-    this.id = dto.id;
+    this.id = dto._id;
     this.agency = dto.agency;
     this.route = dto.route;
     this.currencyISO = dto.currencyISO;

@@ -3,10 +3,7 @@ import {
   IOrderItemEntity,
   IOrderItemRequestParams,
 } from "../../../data/Order/entity/types";
-import {
-  IOrdersCreateFormFields,
-  IOrdersEditSelected,
-} from "../../UI/pages/agency/components/DetailOrders/CreateOrder/types";
+import { IOrdersEditSelected } from "../../UI/pages/agency/components/DetailOrders/CreateOrder/types";
 
 export interface IOrderVM extends IBaseVM {
   ordersAddLoading: boolean;
@@ -21,6 +18,17 @@ export interface IOrderVM extends IBaseVM {
   getList: (params?: IOrderItemRequestParams) => Promise<void>;
   getListByAgencyId: (id: ID) => Promise<void>;
   deleteOrder: (id: ID) => Promise<void>;
-  createOrder: (fields: IOrdersCreateFormFields) => Promise<void>;
+  createOrder: (fields: IDataCreateOrder) => Promise<void>;
   editOrder: (fields: IOrdersEditSelected) => Promise<void>;
+}
+
+export interface IRoute {
+  origin: string;
+  destination: string;
+}
+
+export interface IDataCreateOrder {
+  agency: ID;
+  route: IRoute;
+  price?: number;
 }

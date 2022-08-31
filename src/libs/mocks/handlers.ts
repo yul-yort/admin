@@ -1,3 +1,3 @@
-import { ordersHandlers, userHandlers } from "./data";
+import { userHandlers } from "./data";
 
-export const handlers = [...userHandlers, ...ordersHandlers];
+export const handlers = [...userHandlers];

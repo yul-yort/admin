@@ -7,17 +7,14 @@ import {
 } from "mobx";
 
 import { BaseVM } from "../BaseVM";
-import { IOrderVM } from "./types";
+import { IDataCreateOrder, IOrderVM } from "./types";
 import { INotificationsVM } from "../types";
 import {
   IOrderItemEntity,
   IOrderItemRequestParams,
 } from "src/data/Order/entity/types";
 import { IOrderService } from "src/data/Order/service/types";
-import {
-  IOrdersCreateFormFields,
-  IOrdersEditSelected,
-} from "../../UI/pages/agency/components/DetailOrders/CreateOrder/types";
+import { IOrdersEditSelected } from "../../UI/pages/agency/components/DetailOrders/CreateOrder/types";
 import { errorMapper } from "../mappers";
 import { filterOrders } from "./mappers";
 
@@ -129,7 +126,7 @@ export class OrderVM extends BaseVM implements IOrderVM {
     }
   };
 
-  createOrder = async (fields: IOrdersCreateFormFields): Promise<void> => {
+  createOrder = async (fields: IDataCreateOrder): Promise<void> => {
     this.setOrdersAddLoading();
     try {
       const orders = await this.service.createOrder(fields);

@@ -148,6 +148,7 @@ export const Detail: FC<IDetail> = ({
             getLocality={getLocality}
             localitiesLoading={localitiesLoading}
             ordersAddLoading={ordersAddLoading}
+            agencyID={id}
           />
         </div>
       </Paper>
