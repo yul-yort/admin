@@ -1,5 +1,6 @@
 import { ILocalityEntity } from "src/data/Locality/entity/types";
 import { IOrderItemEntity } from "src/data/Order/entity/types";
+import { IDataCreateOrder } from "src/view/viewModels/Order/types";
 import {
   IOrdersCreateFormFields,
   IOrdersEditSelected,
@@ -27,10 +28,11 @@ export interface IDetailOrders {
   agencyOrders: IOrderItemEntity[];
   deleteOrder: (id: ID) => Promise<void>;
   ordersLoading: boolean;
-  createOrder: (fields: IOrdersCreateFormFields) => void;
+  createOrder: (fields: IDataCreateOrder) => void;
   editOrder: (fields: IOrdersEditSelected) => void;
   localities: ILocalityEntity[];
   getLocality: () => void;
   localitiesLoading: boolean;
   ordersAddLoading: boolean;
+  agencyID: ID;
 }

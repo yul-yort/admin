@@ -13,6 +13,7 @@ import { IDetailOrders } from "./types";
 import Loading from "../../../../components/common/Loading";
 
 export const DetailOrders: FC<IDetailOrders> = ({
+  agencyID,
   agencyOrders,
   deleteOrder,
   ordersLoading,
@@ -100,6 +101,7 @@ export const DetailOrders: FC<IDetailOrders> = ({
         ordersAddLoading={ordersAddLoading}
         selectedOrder={selectedOrder}
         handleOrderEdit={handleOrderEdit}
+        agencyID={agencyID}
       />
     </Paper>
   );

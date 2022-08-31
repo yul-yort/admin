@@ -1,26 +1,26 @@
-import { IAgencyEntity } from "../../Agency/entity/types";
-import { IRouteEntity } from "../../Route/entity/types";
+import { IAgencyEntity, IAgencyResponseDTO } from "../../Agency/entity/types";
+import { IRouteDTO, IRouteEntity } from "../../Route/entity/types";
 import { ECurrencyISO } from "src/libs/utils/getCurrency";
 
 export interface IOrderItemEntity {
   id: ID;
-  agency: IOrderAgency;
-  route: IOrderRoute;
+  agency: IAgencyEntity;
+  route: IRouteEntity;
   price: number;
   currencyISO: ECurrencyISO;
 }
 
-export type IOrderRoute = IRouteEntity;
-
-export type IOrderAgency = Pick<
-  IAgencyEntity,
-  "id" | "agencyName" | "phones" | "description"
->;
-
-export type IOrderItemResponseDTO = IOrderItemEntity;
+export interface IOrderItemResponseDTO
+  extends Omit<IOrderItemEntity, "id" | "agency" | "route"> {
+  _id: string;
+  agency: IAgencyResponseDTO;
+  route: IRouteDTO;
+}
 
 export interface IOrderItemRequestParams {
   agencyId?: ID;
   origin?: string;
   destination?: string;
 }
+
+export type IOrderDeleteParamsReq = Pick<IOrderItemEntity, "id">;

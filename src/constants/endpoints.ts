@@ -14,10 +14,10 @@ export enum EEndpoints {
   LOGOUT = "/api/auth/logout",
   ORDERS_LIST = "/api/order/list",
   ORDER_DELETE = "/api/order/delete",
+  ORDER_CREATE = "/api/order/create",
+  ORDER_EDIT = "/api/order/update",
   LOCALITY_LIST = "/api/locality/list",
   LOCALITY_CREATE = "/api/locality/create",
   LOCALITY_EDIT = "/api/locality/edit",
   LOCALITY_DELETE = "/api/locality/delete",
-  ORDER_CREATE = "/api/order/create",
-  ORDER_EDIT = "/api/order/edit",
 }

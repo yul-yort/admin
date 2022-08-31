@@ -4,6 +4,7 @@ import { OrdersCreateModal } from "./OrdersCreateModal";
 import { ICreateOrders, IOrdersCreateFormFields } from "./types";
 
 export const CreateOrder: FC<ICreateOrders> = ({
+  agencyID,
   showModal,
   handleCloseModal,
   titleModal,
@@ -53,15 +54,28 @@ export const CreateOrder: FC<ICreateOrders> = ({
     setShowConfirm(false);
   };
 
-  const onSave = async (fields: IOrdersCreateFormFields) => {
+  const onSave = async ({
+    origin,
+    destination,
+    price,
+  }: IOrdersCreateFormFields) => {
     if (selectedOrder) {
       const orderEditfields = {
         ...selectedOrder,
-        price: Number(fields.price),
+        price: Number(price),
       };
       await handleOrderEdit(orderEditfields);
     } else {
-      await createOrder(fields);
+      const dataCreateOrder = {
+        agency: agencyID,
+        route: {
+          origin,
+          destination,
+        },
+        price,
+      };
+
+      await createOrder(dataCreateOrder);
     }
     reset();
     handleCloseModal();
