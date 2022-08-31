@@ -1,13 +1,9 @@
-import { ILocalityEntity } from "../../Locality/entity/types";
+import { ILocalityDTO, ILocalityEntity } from "../../Locality/entity";
 
 /**
  * Сущность маршрута.
  */
 export interface IRouteEntity {
-  /**
-   * Идентификатор.
-   */
-  id: ID;
   /**
    * Пункт отправления.
    */
@@ -16,12 +12,15 @@ export interface IRouteEntity {
    * Пункт назначения.
    */
   destination: ILocalityEntity;
-  /**
-   * Промежуточные пункты.
-   */
-  waypoints?: ILocalityEntity[];
 }
 
-export interface IRouteDTO extends Omit<IRouteEntity, "id"> {
-  _id: string;
+export interface IRouteDTO {
+  /**
+   * Пункт отправления.
+   */
+  origin: ILocalityDTO;
+  /**
+   * Пункт назначения.
+   */
+  destination: ILocalityDTO;
 }

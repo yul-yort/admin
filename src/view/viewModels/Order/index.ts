@@ -154,9 +154,15 @@ export class OrderVM extends BaseVM implements IOrderVM {
   editOrder = async (fields: IOrdersEditSelected): Promise<void> => {
     this.setOrdersAddLoading();
     try {
-      const orders = await this.service.editOrder(fields);
+      if (!this.agencyOrders) {
+        throw new Error("Массив поездок пустой");
+      }
+      const order = await this.service.editOrder(fields);
+      const updatedOrders = this.agencyOrders.filter(
+        (item) => item.id !== order.id
+      );
       runInAction(() => {
-        this._agencyOrders = orders;
+        this._agencyOrders = [order, ...updatedOrders];
       });
       this.notify.successNotification("Поездка изменена");
     } catch (err) {

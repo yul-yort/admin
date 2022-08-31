@@ -35,9 +35,7 @@ export class OrderRepository
     return await this.api.post(EEndpoints.ORDER_CREATE, fields);
   }
 
-  async editOrder(
-    fields: IOrdersEditSelected
-  ): Promise<IOrderItemResponseDTO[]> {
+  async editOrder(fields: IOrdersEditSelected): Promise<IOrderItemResponseDTO> {
     return await this.api.post(EEndpoints.ORDER_EDIT, fields);
   }
 }

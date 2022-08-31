@@ -28,9 +28,8 @@ export class OrderService implements IOrderService {
     return new OrderItem(order);
   }
 
-  async editOrder(fields: IOrdersEditSelected): Promise<IOrderItemEntity[]> {
-    console.log(fields);
-    // return await this.repository.editOrder(fields);
-    return [];
+  async editOrder(fields: IOrdersEditSelected): Promise<IOrderItemEntity> {
+    const editedOrder = await this.repository.editOrder(fields);
+    return new OrderItem(editedOrder);
   }
 }

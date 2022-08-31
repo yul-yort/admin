@@ -17,5 +17,5 @@ export interface IOrderRepository {
 
   createOrder: (fields: IDataCreateOrder) => Promise<IOrderItemResponseDTO>;
 
-  editOrder: (fields: IOrdersEditSelected) => Promise<IOrderItemResponseDTO[]>;
+  editOrder: (fields: IOrdersEditSelected) => Promise<IOrderItemResponseDTO>;
 }
