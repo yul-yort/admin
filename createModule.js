@@ -1,9 +1,12 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires,no-undef
 const fs = require("fs");
 
+// eslint-disable-next-line no-undef
 const moduleNameArg = process.argv[2];
 
 if (!moduleNameArg) {
-  return console.error("Укажите название модуля! Н-р: npm run module test");
+  console.error("Укажите название модуля! Н-р: npm run module test");
+  throw new Error("Укажите название модуля! Н-р: npm run module test");
 }
 
 /**
@@ -138,6 +141,16 @@ export class ${className} extends BaseVM implements ${typeName} {
 export interface I${name}VM extends IBaseVM {}
 `,
   },
+
+  getIndexPath: (name) => `./src/data/${name}/index.ts`,
+  indexTemplate: `export * from "./entity";
+export * from "./service";
+export * from "./repository";
+
+export * from "./entity/types";
+export * from "./repository/types";
+export * from "./service/types";
+`,
 };
 
 /**
@@ -172,6 +185,15 @@ types.forEach((type) => {
   fs.writeFile(
     builder[type].getTypeFilePath(moduleName),
     builder[type].getTypeTemplate(moduleName),
+    errorCallback
+  );
+
+  /**
+   * Создает корневой файл.
+   */
+  fs.writeFile(
+    builder.getIndexPath(moduleName),
+    builder.indexTemplate,
     errorCallback
   );
 });
