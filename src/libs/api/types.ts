@@ -5,5 +5,5 @@ export interface IApi {
   post<R, P = undefined>(path: EEndpoints, params?: P): Promise<R>;
   delete<R, P>(path: EEndpoints, params?: P): Promise<R>;
 
-  errorHandler(response: Response): void;
+  errorHandler(response: string): void;
 }

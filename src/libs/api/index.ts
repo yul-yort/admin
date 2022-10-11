@@ -22,7 +22,7 @@ export class Api implements IApi {
     });
 
     if (!response.ok) {
-      this.errorHandler(response);
+      this.errorHandler(await response.text());
     }
 
     return await response.json();
@@ -39,7 +39,7 @@ export class Api implements IApi {
     });
 
     if (!response.ok) {
-      this.errorHandler(response);
+      this.errorHandler(await response.text());
     }
 
     return await response.json();
@@ -61,11 +61,11 @@ export class Api implements IApi {
     return await response.json();
   }
 
-  errorHandler(response: Response): void {
-    if (response.status === 401) {
+  errorHandler(response: string): void {
+    if (JSON.parse(response).status === 401) {
       this.router.navigate("login");
     }
 
-    throw Error(response.status + " " + response.statusText);
+    throw Error(response);
   }
 }
