@@ -55,7 +55,7 @@ export class Api implements IApi {
     });
 
     if (!response.ok) {
-      throw Error(response.status + " " + response.statusText);
+      this.errorHandler(await response.text());
     }
 
     return await response.json();
