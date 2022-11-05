@@ -16,7 +16,7 @@ export const getErrorText = (
 ): string | undefined => {
   let error = errors[valuePath];
 
-  if (error && index !== undefined) {
+  if (Array.isArray(error) && index !== undefined) {
     error = error[index]?.value;
   }
 
@@ -24,5 +24,8 @@ export const getErrorText = (
     return void 0;
   }
 
-  return error.message || ErrorsDictionary[error.type] || error.type;
+  const errorType: string =
+    typeof error.type === "string" ? error.type : "default";
+
+  return ErrorsDictionary[errorType] || errorType;
 };
