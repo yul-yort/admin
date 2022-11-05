@@ -27,7 +27,7 @@ export const AuthorizedApp: FC = observer(() => {
   const [open, setOpen] = useState<boolean>(false);
 
   const { title } = useTitle();
-  const user = useViewModel<IUserVM>("user");
+  const userVM = useViewModel<IUserVM>("user");
   const {
     route: { name, params },
     router: { navigate },
@@ -38,20 +38,24 @@ export const AuthorizedApp: FC = observer(() => {
   };
 
   const logout = async () => {
-    await user.logout();
+    await userVM.logout();
 
     navigate("login", { redirectName: name, redirectParams: params });
   };
 
   return (
     <>
-      <Header openDrawer={handleOpenCloseSidebar} title={title} />
+      <Header
+        openDrawer={handleOpenCloseSidebar}
+        title={title}
+        user={userVM.user}
+      />
 
       <SideBar
         open={open}
         onClose={handleOpenCloseSidebar}
         onLogout={logout}
-        loading={user.loading}
+        loading={userVM.loading}
       />
 
       <Body>
