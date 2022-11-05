@@ -8,6 +8,7 @@ import { INotificationsVM } from "../types";
 import { IFormValues } from "src/view/UI/pages/login/types";
 import Cookies from "js-cookie";
 import { CONSTANTS } from "src/constants";
+import { User } from "../../../data/User/entity";
 
 export class UserVM extends BaseVM implements IUserVM {
   user: IUserEntity | null = null;
@@ -20,6 +21,7 @@ export class UserVM extends BaseVM implements IUserVM {
     private service: IUserService
   ) {
     super(notificationsVM);
+    this.user = new User({ id: "asdf" });
     makeObservable(this, {
       user: observable,
     });

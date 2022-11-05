@@ -1,3 +1,12 @@
+.toolbar {
+  justify-content: space-between;
+}
+
+.leftColumn {
+  display: flex;
+  align-items: center;
+}
+
 .title {
   margin-left: calc(var(--yy-base) * 2);
 }
