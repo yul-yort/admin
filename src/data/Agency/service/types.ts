@@ -11,7 +11,7 @@ export interface IAgencyService {
     id: ID,
     params: ICreateOrEditAgencyFormFields
   ): Promise<IAgencyEntity>;
-  deleteAgency(params: IAgencyRequestDeleteParams): Promise<IAgencyEntity>;
+  deleteAgency(params: IAgencyRequestDeleteParams): Promise<void>;
 
   getList(): Promise<IAgencyEntity[]>;
 

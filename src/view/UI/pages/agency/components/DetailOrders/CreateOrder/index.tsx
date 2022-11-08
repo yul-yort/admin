@@ -68,10 +68,8 @@ export const CreateOrder: FC<ICreateOrders> = ({
     } else {
       const dataCreateOrder = {
         agency: agencyID,
-        route: {
-          origin,
-          destination,
-        },
+        originId: origin,
+        destinationId: destination,
         price,
       };
 

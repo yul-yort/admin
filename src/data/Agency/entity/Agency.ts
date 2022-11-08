@@ -4,15 +4,15 @@ import { format } from "date-fns";
 
 export class Agency implements IAgencyEntity {
   id: ID = "";
-  agencyName = "";
+  name = "";
   phones?: string[];
   createdAt: string;
   updatedAt: string;
   description?: string = "";
 
   constructor(dto: IAgencyResponseDTO) {
-    this.id = dto._id;
-    this.agencyName = dto.agencyName;
+    this.id = dto.id;
+    this.name = dto.name;
     this.phones = dto.phones;
     this.createdAt = format(new Date(dto.createdAt), "dd.MM.yyyy  HH:mm");
     this.description = dto.description;
@@ -20,7 +20,7 @@ export class Agency implements IAgencyEntity {
 
     makeObservable(this, {
       id: observable,
-      agencyName: observable,
+      name: observable,
       phones: observable,
       createdAt: observable,
       updatedAt: observable,

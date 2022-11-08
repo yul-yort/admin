@@ -18,7 +18,7 @@ export class Locality implements ILocalityEntity {
   coordinates?: [TLocalityLatitude, TLocalityLongitude];
 
   constructor(dto: ILocalityDTO) {
-    this.id = dto._id;
+    this.id = dto.id;
     this.name = dto.name;
     this.description = dto.description;
     this.region = dto.region;

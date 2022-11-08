@@ -14,28 +14,29 @@ export class OrderRepository
   implements IOrderRepository
 {
   async getList(
-    params?: IOrderItemRequestParams
+    query?: IOrderItemRequestParams
   ): Promise<IOrderItemResponseDTO[]> {
     return await this.api.get<IOrderItemResponseDTO[], IOrderItemRequestParams>(
-      EEndpoints.ORDERS_LIST,
-      params
+      { endpoint: EEndpoints.ORDERS, query: query }
     );
   }
 
-  async deleteOrder(
-    params: IOrderDeleteParamsReq
-  ): Promise<IOrderItemResponseDTO> {
-    return await this.api.delete<IOrderItemResponseDTO, IOrderDeleteParamsReq>(
-      EEndpoints.ORDER_DELETE,
-      params
-    );
+  //TODO param - number
+  async deleteOrder(params: IOrderDeleteParamsReq): Promise<void> {
+    await this.api.delete<IOrderDeleteParamsReq>({
+      endpoint: EEndpoints.ORDERS,
+      param: params.id,
+    });
   }
 
   async createOrder(fields: IDataCreateOrder): Promise<IOrderItemResponseDTO> {
-    return await this.api.post(EEndpoints.ORDER_CREATE, fields);
+    return await this.api.post({ endpoint: EEndpoints.ORDERS, body: fields });
   }
 
   async editOrder(fields: IOrdersEditSelected): Promise<IOrderItemResponseDTO> {
-    return await this.api.post(EEndpoints.ORDER_EDIT, fields);
+    return await this.api.patch<IOrderItemResponseDTO, IOrdersEditSelected>({
+      endpoint: EEndpoints.ORDERS,
+      body: fields,
+    });
   }
 }

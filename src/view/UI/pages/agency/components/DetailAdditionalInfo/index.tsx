@@ -9,7 +9,7 @@ import { IAdditionalInfo } from "./types";
 
 export const DetailAdditionalInfo: FC<IAdditionalInfo> = ({
   handleEdit,
-  agencyName,
+  name,
   createdAt,
   updatedAt,
   phones,
@@ -26,7 +26,7 @@ export const DetailAdditionalInfo: FC<IAdditionalInfo> = ({
 
       <div className={sharedCss.row}>
         <Typography variant="subtitle2">Название:</Typography>
-        <Typography variant="body2">{agencyName}</Typography>
+        <Typography variant="body2">{name}</Typography>
       </div>
 
       <div className={sharedCss.row}>

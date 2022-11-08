@@ -16,7 +16,7 @@ export const filterOrders = (
     filterByDestination,
     filterByAgency,
     filterByPhone,
-  }: Record<string, string>
+  }: Record<string, ID>
 ): IOrderItemEntity[] => {
   return orders
     .filter((order) => {
@@ -29,16 +29,16 @@ export const filterOrders = (
     })
     .filter((order) => {
       return filterByAgency
-        ? order.agency.agencyName
+        ? order.agency.name
             .toUpperCase()
             .trim()
-            .includes(filterByAgency.toUpperCase().trim())
+            .includes(filterByAgency.toString().toUpperCase().trim())
         : true;
     })
     .filter((order) => {
       return filterByPhone
         ? order.agency.phones?.some((phone) =>
-            phone.includes(filterByPhone.trim())
+            phone.includes(filterByPhone.toString().trim())
           )
         : true;
     });

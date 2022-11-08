@@ -1,9 +1,27 @@
 import { EEndpoints } from "../../constants";
 
-export interface IApi {
-  get<R, P = undefined>(path: EEndpoints, params?: P): Promise<R>;
-  post<R, P = undefined>(path: EEndpoints, params?: P): Promise<R>;
-  delete<R, P>(path: EEndpoints, params?: P): Promise<R>;
+export interface IMethodArgs<Q> {
+  endpoint: EEndpoints;
+  param?: number | string;
+  query?: Q;
+  body?: Q;
+}
 
-  errorHandler(response: string): void;
+export interface IApi {
+  /**
+   * Метод для получения данных.
+   */
+  get<R, Q = undefined>(args: IMethodArgs<Q>): Promise<R>;
+  /**
+   * Метод для записи новых данных.
+   */
+  post<R, Q = undefined>(args: IMethodArgs<Q>): Promise<R>;
+  /**
+   * Метод для изменения существующих данных.
+   */
+  patch<R, Q = undefined>(args: IMethodArgs<Q>): Promise<R>;
+  /**
+   * Метод для удаления данных.
+   */
+  delete<Q>(args: IMethodArgs<Q>): Promise<void>;
 }

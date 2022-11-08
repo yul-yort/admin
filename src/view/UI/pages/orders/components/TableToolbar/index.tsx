@@ -4,7 +4,7 @@ import { Paper, TextField } from "@mui/material";
 import css from "./styles.module.scss";
 import Autocomplete from "@mui/material/Autocomplete";
 import { ITableToolbar } from "./types";
-import { ILocalityEntity } from "../../../../../../data/Locality/entity/types";
+import { ILocalityEntity } from "../../../../../../data/Locality/entity";
 
 const TableToolbar: VFC<ITableToolbar> = ({
   localities,
@@ -89,7 +89,7 @@ const TableToolbar: VFC<ITableToolbar> = ({
       <TextField
         className={css.inputWrapper}
         onChange={handleFilterByAgency}
-        id="agencyName"
+        id="name"
         placeholder="Агенство"
         variant="standard"
         size="small"

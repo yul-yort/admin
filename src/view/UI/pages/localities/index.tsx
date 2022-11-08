@@ -42,7 +42,7 @@ const Localities: FC = observer(() => {
       return;
     }
 
-    const locality = localities.find((item) => item.id === id);
+    const locality = localities.find((item) => item.id.toString() === id);
     if (locality) {
       setSelectedLocality(locality);
     }

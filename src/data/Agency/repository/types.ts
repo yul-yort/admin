@@ -13,9 +13,7 @@ export interface IAgencyRequestEditParams
 export interface IAgencyRepository {
   getAgency: (params: IAgencyRequestParams) => Promise<IAgencyResponseDTO>;
   editAgency: (params: IAgencyRequestEditParams) => Promise<IAgencyResponseDTO>;
-  deleteAgency: (
-    params: IAgencyRequestDeleteParams
-  ) => Promise<IAgencyResponseDTO>;
+  deleteAgency: (params: IAgencyRequestDeleteParams) => Promise<void>;
   getList: () => Promise<IAgencyResponseDTO[]>;
   createAgency: (
     params: IAgencyRequestCreateOrEditParams

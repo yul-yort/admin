@@ -6,7 +6,7 @@ export interface IAgencyCreateEditForm {
 }
 
 export interface ICreateOrEditAgencyFormFields
-  extends Pick<IAgencyEntity, "agencyName" | "description" | "createdAt"> {
+  extends Pick<IAgencyEntity, "name" | "description" | "createdAt"> {
   phones: IFormPhone[];
 }
 

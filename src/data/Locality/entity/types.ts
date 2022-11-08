@@ -35,9 +35,7 @@ export interface ILocalityEntity {
   coordinates?: TLocalityCoordinates;
 }
 
-export interface ILocalityDTO extends Omit<ILocalityEntity, "id"> {
-  _id: string;
-}
+export interface ILocalityDTO extends ILocalityEntity {}
 
 export type ILocalityCreateParamsReq = Pick<
   ILocalityEntity,

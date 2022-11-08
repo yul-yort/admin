@@ -16,7 +16,7 @@ const TableBodyTemplate: FC<ITableBodyTemplateProps> = ({
 }) => {
   return (
     <TableBody>
-      {rows.map(({ id, phones, agencyName, createdAt }) => {
+      {rows.map(({ id, phones, name, createdAt }) => {
         const classes = cn({
           [css.row__loading]: isLoadingItem(id),
         });
@@ -26,7 +26,7 @@ const TableBodyTemplate: FC<ITableBodyTemplateProps> = ({
             <TableCell>
               <Link routeName="agencies.agency" routeParams={{ id }}>
                 <Typography variant="subtitle2" align="left">
-                  {agencyName}
+                  {name}
                 </Typography>
               </Link>
             </TableCell>

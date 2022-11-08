@@ -6,7 +6,7 @@ import { getErrorText } from "src/libs/utils";
 import { CONSTANTS } from "src/constants/globalConstants";
 import css from "./styles.module.scss";
 import Autocomplete from "@mui/material/Autocomplete";
-import { ILocalityEntity } from "../../../../../../../data/Locality/entity/types";
+import { ILocalityEntity } from "../../../../../../../data/Locality/entity";
 
 //TODO нужно сделать обязательное поле "Выбор валюты". (https://trello.com/c/wXEG7n0j)
 export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
@@ -26,8 +26,8 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
 
   const noOptionsText = "Не найдено";
   const loadingText = "Загрузка...";
-  const [originID, setOriginID] = useState("");
-  const [destinationID, setDestinationID] = useState("");
+  const [originID, setOriginID] = useState<Nullable<ID>>(null);
+  const [destinationID, setDestinationID] = useState<Nullable<ID>>(null);
 
   useEffect(() => {
     originID && clearErrors("origin");
@@ -73,22 +73,26 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
           renderOption={renderOption}
           onChange={(_, newValue) => {
             const originID = newValue?.id || "";
+
             setOriginID(originID);
           }}
-          renderInput={(params) => (
-            <TextField
-              autoFocus
-              {...params}
-              {...register("origin", {
-                required: true,
-                value: originID,
-              })}
-              error={!!getErrorText(errors, "origin")}
-              helperText={getErrorText(errors, "origin")}
-              label="Откуда"
-              placeholder="Откуда"
-            />
-          )}
+          renderInput={(params) => {
+            return (
+              <TextField
+                autoFocus
+                {...params}
+                {...register("origin", {
+                  required: true,
+                  valueAsNumber: true,
+                  value: originID?.toString(),
+                })}
+                error={!!getErrorText(errors, "origin")}
+                helperText={getErrorText(errors, "origin")}
+                label="Откуда"
+                placeholder="Откуда"
+              />
+            );
+          }}
         />
       </div>
 
@@ -116,7 +120,8 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
               {...params}
               {...register("destination", {
                 required: true,
-                value: destinationID,
+                valueAsNumber: true,
+                value: destinationID?.toString(),
               })}
               error={!!getErrorText(errors, "destination")}
               helperText={getErrorText(errors, "destination")}
@@ -140,6 +145,7 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
           helperText={getErrorText(errors, "price")}
           {...register("price", {
             required: true,
+            valueAsNumber: true,
             pattern: {
               value: CONSTANTS.numberPattern,
               message: "Введите числовое значение без пробелов",

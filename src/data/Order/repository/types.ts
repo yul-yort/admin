@@ -8,12 +8,10 @@ import {
 
 export interface IOrderRepository {
   getList: (
-    params?: IOrderItemRequestParams
+    query?: IOrderItemRequestParams
   ) => Promise<IOrderItemResponseDTO[]>;
 
-  deleteOrder: (
-    params: IOrderDeleteParamsReq
-  ) => Promise<IOrderItemResponseDTO>;
+  deleteOrder: (params: IOrderDeleteParamsReq) => Promise<void>;
 
   createOrder: (fields: IDataCreateOrder) => Promise<IOrderItemResponseDTO>;
 

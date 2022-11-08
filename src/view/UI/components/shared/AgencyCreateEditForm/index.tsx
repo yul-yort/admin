@@ -35,10 +35,10 @@ export const AgencyCreateEditForm: FC<IAgencyCreateEditForm> = ({
           size="small"
           fullWidth
           autoFocus
-          error={!!getErrorText(errors, "agencyName")}
+          error={!!getErrorText(errors, "name")}
           disabled={isSubmitting}
-          helperText={getErrorText(errors, "agencyName")}
-          {...register("agencyName", {
+          helperText={getErrorText(errors, "name")}
+          {...register("name", {
             required: true,
           })}
         />

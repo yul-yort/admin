@@ -16,7 +16,7 @@ import { DetailOrders } from "../DetailOrders";
 import { useTitle } from "../../../../hooks";
 
 export const Detail: FC<IDetail> = ({
-  agency: { id, agencyName, phones = [], createdAt, description, updatedAt },
+  agency: { id, name, phones = [], createdAt, description, updatedAt },
   agencyOrders,
   editAgency,
   deleteAgency,
@@ -39,7 +39,7 @@ export const Detail: FC<IDetail> = ({
 
   const methods = useForm<ICreateOrEditAgencyFormFields>({
     defaultValues: {
-      agencyName,
+      name: name,
       description,
       phones: UIPhonesFormatter(phones),
     },
@@ -93,7 +93,7 @@ export const Detail: FC<IDetail> = ({
     if (fields) {
       await editAgency(fields);
 
-      setTitle(fields.agencyName);
+      setTitle(fields.name);
       setOpenEditModal(false);
     }
   };
@@ -115,7 +115,7 @@ export const Detail: FC<IDetail> = ({
       <Paper className={css.wrapper}>
         <div className={css.pageHeader}>
           <Typography variant="h6" className={css.headerTitle}>
-            {agencyName}
+            {name}
           </Typography>
           <Button
             variant="outlined"
@@ -131,7 +131,7 @@ export const Detail: FC<IDetail> = ({
         <div className={css.detail}>
           <DetailAdditionalInfo
             handleEdit={handleEdit}
-            agencyName={agencyName}
+            name={name}
             createdAt={createdAt}
             updatedAt={updatedAt}
             phones={phones}
@@ -157,7 +157,7 @@ export const Detail: FC<IDetail> = ({
         open={deleteModal}
         onCancel={handleCancelDelete}
         onConfirm={handleConfirmDelete}
-        title="Подтвердите удаление агентства."
+        title="Внимание! Агенство будет удалено со всеми его поездками."
       />
 
       <FormProvider {...methods}>

@@ -1,9 +1,9 @@
 import { IAgencyRepository, IAgencyRequestEditParams } from "./types";
 import {
-  IAgencyResponseDTO,
   IAgencyRequestCreateOrEditParams,
   IAgencyRequestDeleteParams,
   IAgencyRequestParams,
+  IAgencyResponseDTO,
 } from "../entity/types";
 import { EEndpoints } from "../../../constants";
 import { BaseRepository } from "../../BaseRepository";
@@ -13,32 +13,35 @@ export class AgencyRepository
   implements IAgencyRepository
 {
   async getAgency(params: IAgencyRequestParams): Promise<IAgencyResponseDTO> {
-    return await this.api.get<IAgencyResponseDTO, IAgencyRequestParams>(
-      EEndpoints.AGENCY,
-      params
-    );
+    return await this.api.get<IAgencyResponseDTO, IAgencyRequestParams>({
+      endpoint: EEndpoints.AGENCIES,
+      param: params.id,
+    });
   }
 
   async editAgency(
     params: IAgencyRequestEditParams
   ): Promise<IAgencyResponseDTO> {
-    return await this.api.post<IAgencyResponseDTO, IAgencyRequestEditParams>(
-      EEndpoints.AGENCY_UPDATE,
-      params
-    );
+    return await this.api.patch<IAgencyResponseDTO, IAgencyRequestEditParams>({
+      endpoint: EEndpoints.AGENCIES,
+      body: params,
+    });
   }
 
   async deleteAgency(
+    //TODO param - number
     params: IAgencyRequestDeleteParams
-  ): Promise<IAgencyResponseDTO> {
-    return await this.api.delete<
-      IAgencyResponseDTO,
-      IAgencyRequestDeleteParams
-    >(EEndpoints.AGENCY_DELETE, params);
+  ): Promise<void> {
+    await this.api.delete({
+      endpoint: EEndpoints.AGENCIES,
+      param: params.id,
+    });
   }
 
   async getList(): Promise<IAgencyResponseDTO[]> {
-    return await this.api.get<IAgencyResponseDTO[]>(EEndpoints.AGENCY_LIST);
+    return await this.api.get<IAgencyResponseDTO[]>({
+      endpoint: EEndpoints.AGENCIES,
+    });
   }
 
   async createAgency(
@@ -47,6 +50,6 @@ export class AgencyRepository
     return await this.api.post<
       IAgencyResponseDTO,
       IAgencyRequestCreateOrEditParams
-    >(EEndpoints.AGENCY_CREATE, params);
+    >({ endpoint: EEndpoints.AGENCIES, body: params });
   }
 }

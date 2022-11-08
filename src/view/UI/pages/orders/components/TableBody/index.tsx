@@ -24,7 +24,7 @@ const TableBody: VFC<IOrdersList> = ({ list }) => {
             <TableCell>
               <Link routeName="agencies.agency" routeParams={{ id: agency.id }}>
                 <Typography variant="subtitle2" align="left">
-                  {agency.agencyName}
+                  {agency.name}
                 </Typography>
               </Link>
             </TableCell>

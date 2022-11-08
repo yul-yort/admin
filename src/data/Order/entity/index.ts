@@ -11,12 +11,15 @@ export class OrderItem implements IOrderItemEntity {
   agency: IAgencyEntity;
   currencyISO: ECurrencyISO;
   route: IRouteEntity;
-  price: number;
+  price: Nullable<number>;
 
   constructor(dto: IOrderItemResponseDTO) {
-    this.id = dto._id;
+    this.id = dto.id;
     this.agency = new Agency(dto.agency);
-    this.route = new Route(dto.route);
+    this.route = new Route({
+      origin: dto.origin,
+      destination: dto.destination,
+    });
     this.currencyISO = dto.currencyISO;
     this.price = dto.price;
 

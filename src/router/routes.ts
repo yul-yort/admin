@@ -41,7 +41,7 @@ const routes: IRoutes = [
           const { store, params } = props;
 
           await store.agency.getAgency(params);
-          setDocumentTitle(store.agency.agency?.agencyName);
+          setDocumentTitle(store.agency.agency?.name);
 
           store.order.getListByAgencyId(params.id);
         },

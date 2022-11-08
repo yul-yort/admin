@@ -13,7 +13,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import css from "./styles.module.scss";
 import { IAgencyOrders } from "./types";
 import { getCurrency } from "src/libs/utils";
-import { ConfirmModal } from "../../../../components/common/ConfirmModal";
+import { ConfirmModal } from "../../../../components/common";
 
 export const Orders: FC<IAgencyOrders> = ({
   handleEditOrder,
@@ -21,11 +21,11 @@ export const Orders: FC<IAgencyOrders> = ({
   handleDeleteOrder,
 }) => {
   const [deleteModal, setOpenDeleteModal] = useState<boolean>(false);
-  const [deletedOrderId, setDeletedOrderId] = useState<ID>("");
+  const [deletedOrderId, setDeletedOrderId] = useState<Nullable<number>>(null);
 
   const handleCancelDelete = () => {
     setOpenDeleteModal(false);
-    setDeletedOrderId("");
+    setDeletedOrderId(null);
   };
 
   const handleConfirmDelete = () => {
@@ -48,7 +48,7 @@ export const Orders: FC<IAgencyOrders> = ({
     setOpenDeleteModal(true);
 
     if (target instanceof HTMLElement) {
-      setDeletedOrderId(target.dataset.deleteId || "");
+      setDeletedOrderId(Number(target.dataset.deleteId) || null);
     }
   };
 

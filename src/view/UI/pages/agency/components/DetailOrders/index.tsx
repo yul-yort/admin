@@ -54,7 +54,7 @@ export const DetailOrders: FC<IDetailOrders> = ({
     setTitleModal("Редактировать поездку");
   };
 
-  const handleDeleteOrderClick = async (id: string) => {
+  const handleDeleteOrderClick = async (id: ID) => {
     await deleteOrder(id);
   };
 
