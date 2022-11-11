@@ -10,7 +10,7 @@ module.exports = {
   ],
   overrides: [
     {
-      files: ["src/*/**", ".eslintrc.js"],
+      files: ["src/*/**", ".eslintrc.cjs"],
       excludedFiles: ["src/serviceWorkerRegistration.ts"],
       rules: {
         "no-undef": "off",
