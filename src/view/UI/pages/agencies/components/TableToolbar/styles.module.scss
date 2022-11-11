@@ -2,5 +2,5 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--yy-base) var(--yy-base4X);
+  padding: var(--yy-base) calc(var(--yy-base) * 4);
 }

@@ -2,6 +2,7 @@
   "name": "yul-yort-admin",
   "version": "1.1.1",
   "homepage": ".",
+  "type": "module",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
@@ -16,7 +17,8 @@
     "prepare": "husky install",
     "lint": "eslint --debug src/",
     "lint:write": "eslint --debug src/ --fix",
-    "madge": "madge --extensions ts,tsx --dot ./src > graph.gv"
+    "madge": "madge --extensions ts,tsx --dot ./src > graph.gv",
+    "get-css-vars": "rm -rf ./public/styles/mui-variables.css && node getCSSVariablesFromTheme.js && prettier --write ./public/styles/mui-variables.css"
   },
   "dependencies": {
     "@emotion/react": "^11.4.1",

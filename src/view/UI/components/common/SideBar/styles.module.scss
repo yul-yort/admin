@@ -17,7 +17,7 @@
 .link {
   display: flex;
   width: 100%;
-  padding: var(--yy-base2X);
+  padding: calc(var(--yy-base) * 2);
   align-items: center;
   color: rgba(0, 0, 0, 0.7);
   text-decoration: none;
@@ -26,6 +26,6 @@
 .logoutButton {
   position: fixed;
   width: fit-content;
-  bottom: var(--yy-base4X);
+  bottom: calc(var(--yy-base) * 4);
   align-self: center;
 }

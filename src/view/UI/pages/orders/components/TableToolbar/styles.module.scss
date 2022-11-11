@@ -1,14 +1,14 @@
 .toolbarWrapper {
-  padding: var(--yy-base3X);
+  padding: calc(var(--yy-base) * 3);
   display: flex;
   align-items: flex-end;
   justify-content: space-around;
-  margin-bottom: var(--yy-base4X);
+  margin-bottom: calc(var(--yy-base) * 4);
 }
 
 .inputWrapper {
   flex: 1;
-  margin: 0 var(--yy-base2X);
+  margin: 0 calc(var(--yy-base) * 2);
 }
 
 @media screen and (max-width: 767px) {
@@ -18,6 +18,6 @@
   }
 
   .inputWrapper {
-    margin: var(--yy-base2X) 0;
+    margin: calc(var(--yy-base) * 2) 0;
   }
 }

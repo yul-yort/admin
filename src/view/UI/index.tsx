@@ -16,13 +16,13 @@ import App from "./App";
 
 type IAppInitConfig = {
   router: Router<IDependencies>;
-  theme: Theme;
+  lightTheme: Theme;
 };
 
-export const initApp = ({ router, theme }: IAppInitConfig): void => {
+export const initApp = ({ router, lightTheme }: IAppInitConfig): void => {
   ReactDOM.render(
     <StrictMode>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={lightTheme}>
         <CssBaseline />
         <StyledEngineProvider injectFirst>
           {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
