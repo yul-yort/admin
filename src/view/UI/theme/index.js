@@ -23,6 +23,13 @@ const components = {
       },
     },
   },
+  MuiLink: {
+    styleOverrides: {
+      root: {
+        color: "var(--yy-info-main)",
+      },
+    },
+  },
 };
 
 const typography = {

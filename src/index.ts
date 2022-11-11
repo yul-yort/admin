@@ -5,7 +5,7 @@ import { initErrorApp } from "./view/UI/InitErrorApp";
 import routes from "./router/routes";
 import { checkAuthorization, onActivate } from "./router/middlewaries";
 import { documentTitle } from "./router/middlewaries/documentTitle";
-import { lightTheme } from "./view/UI/theme";
+import { darkTheme, lightTheme } from "./view/UI/theme";
 
 try {
   const router = createAppRouter(routes, [
@@ -20,7 +20,7 @@ try {
 
   initApp({
     router,
-    lightTheme,
+    themes: [lightTheme, darkTheme],
   });
 } catch (err) {
   initErrorApp(err);

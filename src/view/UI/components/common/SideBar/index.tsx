@@ -19,10 +19,29 @@ import css from "./styles.module.scss";
 import routes from "../../../../../router/routes";
 import { icons } from "./icons";
 import { CONSTANTS } from "../../../../../constants";
+import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
+import NightsStayRoundedIcon from "@mui/icons-material/NightsStayRounded";
 
-export const SideBar: FC<ISideBar> = ({ open, onClose, onLogout, loading }) => {
+export const SideBar: FC<ISideBar> = ({
+  open,
+  onClose,
+  onLogout,
+  loading,
+  onSetTheme,
+  theme,
+}) => {
+  const handleChangeTheme = () => {
+    onSetTheme(theme === "dark" ? "light" : "dark");
+  };
+
   return (
-    <Drawer variant={"temporary"} anchor="left" open={open} onClose={onClose}>
+    <Drawer
+      variant={"temporary"}
+      anchor="left"
+      open={open}
+      onClose={onClose}
+      container={() => document.getElementById("yy-body-wrapper")}
+    >
       <AppBar position="relative">
         <Toolbar>
           <Typography variant="h6" noWrap component="div" className={css.title}>
@@ -59,14 +78,24 @@ export const SideBar: FC<ISideBar> = ({ open, onClose, onLogout, loading }) => {
           )}
         </List>
 
-        <Button
-          aria-label="logout"
-          variant="outlined"
-          className={css.logoutButton}
-          onClick={onLogout}
-        >
-          {loading ? <CircularProgress size={25} /> : "Выйти"}
-        </Button>
+        <div className={css.logoutButtonWrapper}>
+          <IconButton onClick={handleChangeTheme}>
+            {theme === "dark" ? (
+              <LightModeRoundedIcon />
+            ) : (
+              <NightsStayRoundedIcon color="action" />
+            )}
+          </IconButton>
+
+          <Button
+            aria-label="logout"
+            variant="outlined"
+            onClick={onLogout}
+            className={css.logoutButton}
+          >
+            {loading ? <CircularProgress size={25} /> : "Выйти"}
+          </Button>
+        </div>
       </div>
     </Drawer>
   );

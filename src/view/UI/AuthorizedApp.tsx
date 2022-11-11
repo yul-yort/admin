@@ -6,6 +6,7 @@ import { observer } from "mobx-react-lite";
 import { LoadingScreen, Header, SideBar, Body } from "./components/common";
 import { useViewModel, useTitle } from "./hooks";
 import { IUserVM } from "../viewModels/User/types";
+import { IAppVM } from "../viewModels/App/types";
 
 const NotFoundPage = lazy(() => import("./pages/notFound"));
 const AgencyPage = lazy(() => import("./pages/agency"));
@@ -28,6 +29,8 @@ export const AuthorizedApp: FC = observer(() => {
 
   const { title } = useTitle();
   const userVM = useViewModel<IUserVM>("user");
+  const appVM = useViewModel<IAppVM>("app");
+
   const {
     route: { name, params },
     router: { navigate },
@@ -51,14 +54,16 @@ export const AuthorizedApp: FC = observer(() => {
         user={userVM.user}
       />
 
-      <SideBar
-        open={open}
-        onClose={handleOpenCloseSidebar}
-        onLogout={logout}
-        loading={userVM.loading}
-      />
+      <Body theme={appVM.theme}>
+        <SideBar
+          theme={appVM.theme}
+          onSetTheme={appVM.setTheme}
+          open={open}
+          onClose={handleOpenCloseSidebar}
+          onLogout={logout}
+          loading={userVM.loading}
+        />
 
-      <Body>
         <Suspense fallback={<LoadingScreen />}>
           {pages[name] || pages[constants.UNKNOWN_ROUTE]}
         </Suspense>

@@ -9,6 +9,8 @@ import { INotificationsVM } from "../view/viewModels/types";
 import { IUserVM } from "../view/viewModels/User/types";
 import { IOrderVM } from "../view/viewModels/Order/types";
 import { ILocalityVM } from "../view/viewModels/Locality/types";
+import { IAppVM } from "../view/viewModels/App/types";
+import { AppVM } from "../view/viewModels/App";
 
 export class ViewModelsStore implements IStoreViewModels {
   private store: IViewModels = {};
@@ -60,4 +62,12 @@ export class ViewModelsStore implements IStoreViewModels {
   }
 
   constructor(private services: IStoreServices) {}
+
+  get app(): IAppVM {
+    if (!this.store.app) {
+      this.store.app = new AppVM(this.notifications);
+    }
+
+    return this.store.app;
+  }
 }
