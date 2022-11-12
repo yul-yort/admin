@@ -55,8 +55,8 @@ export const CreateOrder: FC<ICreateOrders> = ({
   };
 
   const onSave = async ({
-    origin,
-    destination,
+    originId,
+    destinationId,
     price,
   }: IOrdersCreateFormFields) => {
     if (selectedOrder) {
@@ -68,8 +68,8 @@ export const CreateOrder: FC<ICreateOrders> = ({
     } else {
       const dataCreateOrder = {
         agency: agencyID,
-        originId: origin,
-        destinationId: destination,
+        originId,
+        destinationId,
         price,
       };
 

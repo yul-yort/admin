@@ -10,7 +10,7 @@ import { makeAutoObservable } from "mobx";
  * Сущность населенного пункта.
  */
 export class Locality implements ILocalityEntity {
-  id: ID;
+  id: number;
   name: string;
   description?: string;
   region?: string;

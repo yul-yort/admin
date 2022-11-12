@@ -8,7 +8,7 @@ import { ICreateOrEditAgencyFormFields } from "../../../view/UI/components/share
 export interface IAgencyService {
   getAgency(params: IAgencyRequestParams): Promise<IAgencyEntity>;
   editAgency(
-    id: ID,
+    id: number,
     params: ICreateOrEditAgencyFormFields
   ): Promise<IAgencyEntity>;
   deleteAgency(params: IAgencyRequestDeleteParams): Promise<void>;

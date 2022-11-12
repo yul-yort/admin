@@ -25,7 +25,7 @@ export class AgencyService implements IAgencyService {
   }
 
   async editAgency(
-    id: ID,
+    id: number,
     fields: ICreateOrEditAgencyFormFields
   ): Promise<IAgencyEntity> {
     const params: IAgencyRequestEditParams = {

@@ -11,7 +11,7 @@ import { ICreateOrEditAgencyFormFields } from "../../UI/components/shared";
 export interface IAgencyVM extends IBaseVM {
   // loaders
   editLoading: boolean;
-  loadingList: ID[];
+  loadingList: number[];
 
   // entities
   agency: IAgencyEntity | null;
@@ -21,7 +21,7 @@ export interface IAgencyVM extends IBaseVM {
   searchValue: string;
 
   // methods
-  isLoadingItem: (id: ID) => boolean;
+  isLoadingItem: (id: number) => boolean;
   getAgency: (params: IAgencyRequestParams) => Promise<void>;
   editAgency: (params: ICreateOrEditAgencyFormFields) => Promise<void>;
   deleteAgency: (params: IAgencyRequestDeleteParams) => Promise<void>;

@@ -12,7 +12,7 @@ export interface ILocalityEntity {
   /**
    * Идентификатор.
    */
-  id: ID;
+  id: number;
   /**
    * Название.
    */

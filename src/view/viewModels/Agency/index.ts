@@ -13,7 +13,7 @@ import { errorMapper } from "../mappers";
 
 export class AgencyVM extends BaseVM implements IAgencyVM {
   editLoading = false;
-  loadingList: ID[] = [];
+  loadingList: number[] = [];
 
   agency: IAgencyEntity | null = null;
   searchValue = "";
@@ -62,7 +62,7 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
     this.editLoading = false;
   };
 
-  isLoadingItem = (id: ID): boolean => this.loadingList.indexOf(id) !== -1;
+  isLoadingItem = (id: number): boolean => this.loadingList.indexOf(id) !== -1;
 
   searchAgency = (value: string): void => {
     this.searchValue = value.toLocaleLowerCase();

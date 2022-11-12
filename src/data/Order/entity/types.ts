@@ -4,7 +4,7 @@ import { ILocalityDTO } from "../../Locality/entity";
 import { IRouteEntity } from "../../Route/entity/types";
 
 export interface IOrderItemEntity {
-  id: ID;
+  id: number;
   agency: IAgencyEntity;
   route: IRouteEntity;
   price: Nullable<number>;
@@ -19,7 +19,7 @@ export interface IOrderItemResponseDTO
 }
 
 export interface IOrderItemRequestParams {
-  agencyId?: ID;
+  agencyId?: number;
   origin?: string;
   destination?: string;
 }

@@ -16,7 +16,7 @@ export class OrderService implements IOrderService {
     return orders.map((orderItem) => new OrderItem(orderItem));
   };
 
-  async deleteOrder(id: ID): Promise<void> {
+  async deleteOrder(id: number): Promise<void> {
     await this.repository.deleteOrder({ id });
   }
 

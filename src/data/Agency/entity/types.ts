@@ -1,5 +1,5 @@
 export interface IAgencyEntity {
-  id: ID;
+  id: number;
   name: string;
   phones?: string[];
   createdAt: string;

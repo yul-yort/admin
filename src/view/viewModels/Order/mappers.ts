@@ -16,7 +16,7 @@ export const filterOrders = (
     filterByDestination,
     filterByAgency,
     filterByPhone,
-  }: Record<string, ID>
+  }: Record<string, number | string>
 ): IOrderItemEntity[] => {
   return orders
     .filter((order) => {

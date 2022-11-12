@@ -25,7 +25,7 @@ const Localities: FC = observer(() => {
     setModalType("create");
   };
 
-  const handleShowEditModal = (id: ID) => {
+  const handleShowEditModal = (id: string) => {
     handleSelectedLocality(id);
     setModalType("edit");
   };
@@ -35,7 +35,7 @@ const Localities: FC = observer(() => {
     setSelectedLocality(null);
   };
 
-  const handleSelectedLocality = (id: ID) => {
+  const handleSelectedLocality = (id: string) => {
     const localities = localityVM.localities;
 
     if (!localities || !localities.length) {
@@ -49,7 +49,7 @@ const Localities: FC = observer(() => {
   };
 
   //DELETE MODAL
-  const handleShowDeleteModal = (id: ID) => {
+  const handleShowDeleteModal = (id: string) => {
     handleSelectedLocality(id);
     setShowDeleteModal(true);
   };

@@ -54,12 +54,12 @@ export const DetailOrders: FC<IDetailOrders> = ({
     setTitleModal("Редактировать поездку");
   };
 
-  const handleDeleteOrderClick = async (id: ID) => {
+  const handleDeleteOrderClick = async (id: number) => {
     await deleteOrder(id);
   };
 
   const changeDefaultValues = (id: string) => {
-    const order = agencyOrders.find((item) => item.id === id);
+    const order = agencyOrders.find((item) => item.id.toString() === id);
 
     if (order) {
       setSelectedOrder({

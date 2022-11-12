@@ -32,7 +32,7 @@ export class LocalityService implements ILocalityService {
     return new Locality(locality);
   };
 
-  deleteLocality = async (id: ID): Promise<void> => {
+  deleteLocality = async (id: number): Promise<void> => {
     await this.repository.deleteLocality({ id });
   };
 }

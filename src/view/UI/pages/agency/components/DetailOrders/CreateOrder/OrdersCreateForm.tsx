@@ -26,18 +26,18 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
 
   const noOptionsText = "Не найдено";
   const loadingText = "Загрузка...";
-  const [originID, setOriginID] = useState<Nullable<ID>>(null);
-  const [destinationID, setDestinationID] = useState<Nullable<ID>>(null);
+  const [originId, setOriginId] = useState<Nullable<number>>(null);
+  const [destinationId, setDestinationId] = useState<Nullable<number>>(null);
 
   useEffect(() => {
-    originID && clearErrors("origin");
-    destinationID && clearErrors("destination");
-  }, [originID, destinationID, clearErrors]);
+    originId && clearErrors("originId");
+    destinationId && clearErrors("destinationId");
+  }, [originId, destinationId, clearErrors]);
 
   useEffect(() => {
     if (selectedOrder) {
-      setOriginID(selectedOrder?.route.origin.id);
-      setDestinationID(selectedOrder?.route.destination.id);
+      setOriginId(selectedOrder?.route.origin.id);
+      setDestinationId(selectedOrder?.route.destination.id);
     }
   }, [selectedOrder]);
 
@@ -62,7 +62,7 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
           defaultValue={selectedOrder?.route.origin}
           size="small"
           fullWidth
-          id="origin"
+          id="originId"
           options={localities}
           loading={localitiesLoading}
           loadingText={loadingText}
@@ -72,22 +72,20 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
           isOptionEqualToValue={(option, value) => option.id === value.id}
           renderOption={renderOption}
           onChange={(_, newValue) => {
-            const originID = newValue?.id || "";
-
-            setOriginID(originID);
+            const originID = newValue?.id || null;
+            setOriginId(originID);
           }}
           renderInput={(params) => {
             return (
               <TextField
                 autoFocus
                 {...params}
-                {...register("origin", {
+                {...register("originId", {
                   required: true,
                   valueAsNumber: true,
-                  value: originID?.toString(),
                 })}
-                error={!!getErrorText(errors, "origin")}
-                helperText={getErrorText(errors, "origin")}
+                error={!!getErrorText(errors, "originId")}
+                helperText={getErrorText(errors, "originId")}
                 label="Откуда"
                 placeholder="Откуда"
               />
@@ -102,7 +100,7 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
           defaultValue={selectedOrder?.route.destination}
           size="small"
           fullWidth
-          id="destination"
+          id="destinationId"
           options={localities}
           loading={localitiesLoading}
           loadingText={loadingText}
@@ -112,19 +110,18 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
           isOptionEqualToValue={(option, value) => option.id === value.id}
           renderOption={renderOption}
           onChange={(_, newValue) => {
-            const destinationID = newValue?.id || "";
-            setDestinationID(destinationID);
+            const destinationID = newValue?.id || null;
+            setDestinationId(destinationID);
           }}
           renderInput={(params) => (
             <TextField
               {...params}
-              {...register("destination", {
+              {...register("destinationId", {
                 required: true,
                 valueAsNumber: true,
-                value: destinationID?.toString(),
               })}
-              error={!!getErrorText(errors, "destination")}
-              helperText={getErrorText(errors, "destination")}
+              error={!!getErrorText(errors, "destinationId")}
+              helperText={getErrorText(errors, "destinationId")}
               label="Куда"
               placeholder="Куда"
             />

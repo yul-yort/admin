@@ -113,7 +113,7 @@ export class LocalityVM extends BaseVM implements ILocalityVM {
     }
   };
 
-  deleteLocality = async (id: ID): Promise<void> => {
+  deleteLocality = async (id: number): Promise<void> => {
     this.setLoading();
 
     try {

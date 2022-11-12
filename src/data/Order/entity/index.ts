@@ -7,7 +7,7 @@ import { Route } from "../../Route/entity";
 import { IRouteEntity } from "../../Route/entity/types";
 
 export class OrderItem implements IOrderItemEntity {
-  id: ID;
+  id: number;
   agency: IAgencyEntity;
   currencyISO: ECurrencyISO;
   route: IRouteEntity;

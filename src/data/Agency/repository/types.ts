@@ -7,7 +7,7 @@ import {
 
 export interface IAgencyRequestEditParams
   extends IAgencyRequestCreateOrEditParams {
-  id: ID;
+  id: number;
 }
 
 export interface IAgencyRepository {

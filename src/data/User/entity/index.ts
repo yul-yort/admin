@@ -2,7 +2,7 @@ import { makeObservable, observable } from "mobx";
 import { IUserEntity, IUserResponseDTO } from "./types";
 
 export class User implements IUserEntity {
-  id: ID = "";
+  id: number;
   email = "test@test.com";
   firstName = "Тест";
   lastName = "Тестов";

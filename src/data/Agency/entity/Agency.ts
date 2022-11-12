@@ -3,7 +3,7 @@ import { IAgencyEntity, IAgencyResponseDTO } from "./types";
 import { format } from "date-fns";
 
 export class Agency implements IAgencyEntity {
-  id: ID = "";
+  id: number;
   name = "";
   phones?: string[];
   createdAt: string;

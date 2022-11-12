@@ -8,22 +8,17 @@ export interface IOrdersHeader {
   ordersLoading: boolean;
 }
 
-export interface IOrder {
-  id: string;
-  origin: string;
-  destination: string;
-  price: Nullable<number>;
-}
+export interface IOrder extends IOrderItemEntity {}
 
 export interface IAgencyOrders {
   handleEditOrder: (id: string) => void;
   agencyOrders: IOrderItemEntity[];
-  handleDeleteOrder: (id: ID) => void;
+  handleDeleteOrder: (id: number) => void;
 }
 
 export interface IDetailOrders {
   agencyOrders: IOrderItemEntity[];
-  deleteOrder: (id: ID) => Promise<void>;
+  deleteOrder: (id: number) => Promise<void>;
   ordersLoading: boolean;
   createOrder: (fields: IDataCreateOrder) => void;
   editOrder: (fields: IOrdersEditSelected) => void;
@@ -31,5 +26,5 @@ export interface IDetailOrders {
   getLocality: () => void;
   localitiesLoading: boolean;
   ordersAddLoading: boolean;
-  agencyID: ID;
+  agencyID: number;
 }

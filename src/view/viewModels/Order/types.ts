@@ -13,11 +13,11 @@ export interface IOrderVM extends IBaseVM {
 
   filterByAgency: (value: string) => void;
   filterByPhone: (value: string) => void;
-  filterByOrigin: (value: ID) => void;
-  filterByDestination: (value: ID) => void;
+  filterByOrigin: (value: number) => void;
+  filterByDestination: (value: number) => void;
   getList: (params?: IOrderItemRequestParams) => Promise<void>;
-  getListByAgencyId: (id: ID) => Promise<void>;
-  deleteOrder: (id: ID) => Promise<void>;
+  getListByAgencyId: (id: number) => Promise<void>;
+  deleteOrder: (id: number) => Promise<void>;
   createOrder: (fields: IDataCreateOrder) => Promise<void>;
   editOrder: (fields: IOrdersEditSelected) => Promise<void>;
 }
@@ -28,8 +28,8 @@ export interface IRoute {
 }
 
 export interface IDataCreateOrder {
-  agency: ID;
-  originId: ID;
-  destinationId: ID;
+  agency: number;
+  originId: Nullable<number>;
+  destinationId: Nullable<number>;
   price?: Nullable<number>;
 }

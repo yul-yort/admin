@@ -16,7 +16,7 @@ export interface ICreateOrders {
   localitiesLoading: boolean;
   ordersAddLoading: boolean;
   selectedOrder: IOrdersEditSelected | null;
-  agencyID: ID;
+  agencyID: number;
 }
 
 export interface IOrdersCreateModal {
@@ -44,10 +44,10 @@ export type IOrdersCreateForm = Pick<
   | "selectedOrder"
 >;
 
-export type IOrdersCreateFormFields = Pick<
-  IOrder,
-  "origin" | "destination" | "price"
->;
+export interface IOrdersCreateFormFields extends Pick<IOrder, "price"> {
+  originId: Nullable<number>;
+  destinationId: Nullable<number>;
+}
 
 export type IOrdersEditSelected = Pick<
   IOrderItemEntity,
