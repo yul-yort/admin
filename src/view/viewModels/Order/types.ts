@@ -3,7 +3,7 @@ import {
   IOrderItemEntity,
   IOrderItemRequestParams,
 } from "../../../data/Order/entity/types";
-import { IOrdersEditSelected } from "../../UI/pages/agency/components/DetailOrders/CreateOrder/types";
+import { IOrderEditFormFields } from "../../UI/pages/agency/components/DetailOrders/CreateOrder/types";
 
 export interface IOrderVM extends IBaseVM {
   ordersAddLoading: boolean;
@@ -19,7 +19,7 @@ export interface IOrderVM extends IBaseVM {
   getListByAgencyId: (id: number) => Promise<void>;
   deleteOrder: (id: number) => Promise<void>;
   createOrder: (fields: IDataCreateOrder) => Promise<void>;
-  editOrder: (fields: IOrdersEditSelected) => Promise<void>;
+  editOrder: (fields: IOrderEditFormFields) => Promise<void>;
 }
 
 export interface IRoute {

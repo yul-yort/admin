@@ -2,7 +2,7 @@ import { IOrderService } from "./types";
 import { IOrderItemEntity, IOrderItemRequestParams } from "../entity/types";
 import { IOrderRepository } from "../repository/types";
 import { OrderItem } from "../entity";
-import { IOrdersEditSelected } from "src/view/UI/pages/agency/components/DetailOrders/CreateOrder/types";
+import { IOrderEditFormFields } from "src/view/UI/pages/agency/components/DetailOrders/CreateOrder/types";
 import { IDataCreateOrder } from "src/view/viewModels/Order/types";
 
 export class OrderService implements IOrderService {
@@ -26,7 +26,7 @@ export class OrderService implements IOrderService {
     return new OrderItem(order);
   }
 
-  async editOrder(fields: IOrdersEditSelected): Promise<IOrderItemEntity> {
+  async editOrder(fields: IOrderEditFormFields): Promise<IOrderItemEntity> {
     const editedOrder = await this.repository.editOrder(fields);
     return new OrderItem(editedOrder);
   }

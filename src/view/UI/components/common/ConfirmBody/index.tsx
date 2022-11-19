@@ -21,7 +21,7 @@ export const ConfirmBody = forwardRef<HTMLDivElement, IConfirmBody>(
   ) => {
     return (
       <Paper
-        elevation={0}
+        elevation={5}
         className={classnames(css.contentWrapper, className)}
         ref={ref}
       >

@@ -7,10 +7,11 @@ import { CreateOrder } from "./CreateOrder";
 import { useForm } from "react-hook-form";
 import {
   IOrdersCreateFormFields,
-  IOrdersEditSelected,
+  IOrderEditFormFields,
 } from "./CreateOrder/types";
 import { IDetailOrders } from "./types";
 import Loading from "../../../../components/common/Loading";
+import { IOrderItemEntity } from "../../../../../../data/Order/entity/types";
 
 export const DetailOrders: FC<IDetailOrders> = ({
   agencyID,
@@ -27,7 +28,7 @@ export const DetailOrders: FC<IDetailOrders> = ({
   const [showModal, setShowModal] = useState(false);
   const [titleModal, setTitleModal] = useState("");
   const [selectedOrder, setSelectedOrder] =
-    useState<IOrdersEditSelected | null>(null);
+    useState<Nullable<IOrderItemEntity>>(null);
 
   const methods = useForm<IOrdersCreateFormFields>({});
   const { setValue } = methods;
@@ -62,15 +63,11 @@ export const DetailOrders: FC<IDetailOrders> = ({
     const order = agencyOrders.find((item) => item.id.toString() === id);
 
     if (order) {
-      setSelectedOrder({
-        id: order.id,
-        route: order.route,
-        price: order.price,
-      });
+      setSelectedOrder(order);
     }
   };
 
-  const handleOrderEdit = async (fields: IOrdersEditSelected) => {
+  const handleOrderEdit = async (fields: IOrderEditFormFields) => {
     await editOrder(fields);
   };
 

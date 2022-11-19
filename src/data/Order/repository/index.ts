@@ -6,7 +6,7 @@ import {
   IOrderItemResponseDTO,
 } from "../entity/types";
 import { EEndpoints } from "src/constants";
-import { IOrdersEditSelected } from "src/view/UI/pages/agency/components/DetailOrders/CreateOrder/types";
+import { IOrderEditFormFields } from "src/view/UI/pages/agency/components/DetailOrders/CreateOrder/types";
 import { IDataCreateOrder } from "src/view/viewModels/Order/types";
 
 export class OrderRepository
@@ -33,8 +33,10 @@ export class OrderRepository
     return await this.api.post({ endpoint: EEndpoints.ORDERS, body: fields });
   }
 
-  async editOrder(fields: IOrdersEditSelected): Promise<IOrderItemResponseDTO> {
-    return await this.api.patch<IOrderItemResponseDTO, IOrdersEditSelected>({
+  async editOrder(
+    fields: IOrderEditFormFields
+  ): Promise<IOrderItemResponseDTO> {
+    return await this.api.patch<IOrderItemResponseDTO, IOrderEditFormFields>({
       endpoint: EEndpoints.ORDERS,
       body: fields,
     });

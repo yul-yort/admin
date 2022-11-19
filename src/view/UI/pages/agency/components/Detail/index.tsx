@@ -155,9 +155,10 @@ export const Detail: FC<IDetail> = ({
 
       <ConfirmModal
         open={deleteModal}
+        text="Агенство будет удалено со всеми его поездками. Подтвердите удаление!"
         onCancel={handleCancelDelete}
         onConfirm={handleConfirmDelete}
-        title="Внимание! Агенство будет удалено со всеми его поездками."
+        title="Внимание!"
       />
 
       <FormProvider {...methods}>

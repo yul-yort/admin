@@ -1,6 +1,6 @@
-import { FC, HTMLAttributes, useEffect, useState } from "react";
+import { FC, HTMLAttributes, useEffect } from "react";
 import { TextField, Button } from "@mui/material";
-import { useFormContext } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { IOrdersCreateForm, IOrdersCreateFormFields } from "./types";
 import { getErrorText } from "src/libs/utils";
 import { CONSTANTS } from "src/constants/globalConstants";
@@ -19,25 +19,19 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
 }) => {
   const {
     handleSubmit,
+    control,
     register,
-    clearErrors,
+    setValue,
     formState: { errors, isSubmitting, isDirty },
   } = useFormContext<IOrdersCreateFormFields>();
 
   const noOptionsText = "Не найдено";
   const loadingText = "Загрузка...";
-  const [originId, setOriginId] = useState<Nullable<number>>(null);
-  const [destinationId, setDestinationId] = useState<Nullable<number>>(null);
-
-  useEffect(() => {
-    originId && clearErrors("originId");
-    destinationId && clearErrors("destinationId");
-  }, [originId, destinationId, clearErrors]);
 
   useEffect(() => {
     if (selectedOrder) {
-      setOriginId(selectedOrder?.route.origin.id);
-      setDestinationId(selectedOrder?.route.destination.id);
+      setValue("originId", selectedOrder?.route.origin.id);
+      setValue("destinationId", selectedOrder?.route.destination.id);
     }
   }, [selectedOrder]);
 
@@ -57,73 +51,76 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
   return (
     <form onSubmit={handleSubmit(onSave)}>
       <div className={css.row}>
-        <Autocomplete
-          disabled={Boolean(selectedOrder)}
-          defaultValue={selectedOrder?.route.origin}
-          size="small"
-          fullWidth
-          id="originId"
-          options={localities}
-          loading={localitiesLoading}
-          loadingText={loadingText}
-          getOptionLabel={(option) => option.name}
-          noOptionsText={noOptionsText}
-          onOpen={handleOpen}
-          isOptionEqualToValue={(option, value) => option.id === value.id}
-          renderOption={renderOption}
-          onChange={(_, newValue) => {
-            const originID = newValue?.id || null;
-            setOriginId(originID);
-          }}
-          renderInput={(params) => {
-            return (
-              <TextField
-                autoFocus
-                {...params}
-                {...register("originId", {
-                  required: true,
-                  valueAsNumber: true,
-                })}
-                error={!!getErrorText(errors, "originId")}
-                helperText={getErrorText(errors, "originId")}
-                label="Откуда"
-                placeholder="Откуда"
-              />
-            );
-          }}
+        <Controller
+          control={control}
+          rules={{ required: "Обязательное поле" }}
+          name="originId"
+          render={({ field: { onChange } }) => (
+            <Autocomplete
+              disabled={Boolean(selectedOrder)}
+              defaultValue={selectedOrder?.route.origin}
+              size="small"
+              fullWidth
+              id="originId"
+              options={localities}
+              loading={localitiesLoading}
+              loadingText={loadingText}
+              getOptionLabel={(option) => option.name}
+              noOptionsText={noOptionsText}
+              onOpen={handleOpen}
+              clearOnEscape
+              isOptionEqualToValue={(option, value) => option.id === value.id}
+              renderOption={renderOption}
+              onChange={(_, data) => {
+                onChange(data?.id);
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  error={!!getErrorText(errors, "originId")}
+                  helperText={getErrorText(errors, "originId")}
+                  label="Откуда"
+                  placeholder="Откуда"
+                />
+              )}
+            />
+          )}
         />
       </div>
 
       <div className={css.row}>
-        <Autocomplete
-          disabled={Boolean(selectedOrder)}
-          defaultValue={selectedOrder?.route.destination}
-          size="small"
-          fullWidth
-          id="destinationId"
-          options={localities}
-          loading={localitiesLoading}
-          loadingText={loadingText}
-          getOptionLabel={(option) => option.name}
-          noOptionsText={noOptionsText}
-          onOpen={handleOpen}
-          isOptionEqualToValue={(option, value) => option.id === value.id}
-          renderOption={renderOption}
-          onChange={(_, newValue) => {
-            const destinationID = newValue?.id || null;
-            setDestinationId(destinationID);
-          }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              {...register("destinationId", {
-                required: true,
-                valueAsNumber: true,
-              })}
-              error={!!getErrorText(errors, "destinationId")}
-              helperText={getErrorText(errors, "destinationId")}
-              label="Куда"
-              placeholder="Куда"
+        <Controller
+          control={control}
+          rules={{ required: "Обязательное поле" }}
+          name="destinationId"
+          render={({ field: { onChange } }) => (
+            <Autocomplete
+              disabled={Boolean(selectedOrder)}
+              defaultValue={selectedOrder?.route.destination}
+              size="small"
+              fullWidth
+              id="destinationId"
+              options={localities}
+              loading={localitiesLoading}
+              loadingText={loadingText}
+              getOptionLabel={(option) => option.name}
+              noOptionsText={noOptionsText}
+              onOpen={handleOpen}
+              clearOnEscape
+              isOptionEqualToValue={(option, value) => option.id === value.id}
+              renderOption={renderOption}
+              onChange={(_, data) => {
+                onChange(data?.id);
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  error={!!getErrorText(errors, "destinationId")}
+                  helperText={getErrorText(errors, "destinationId")}
+                  label="Куда"
+                  placeholder="Куда"
+                />
+              )}
             />
           )}
         />
@@ -142,7 +139,6 @@ export const OrdersCreateForm: FC<IOrdersCreateForm> = ({
           helperText={getErrorText(errors, "price")}
           {...register("price", {
             required: true,
-            valueAsNumber: true,
             pattern: {
               value: CONSTANTS.numberPattern,
               message: "Введите числовое значение без пробелов",

@@ -1,4 +1,4 @@
-import { IOrdersEditSelected } from "src/view/UI/pages/agency/components/DetailOrders/CreateOrder/types";
+import { IOrderEditFormFields } from "src/view/UI/pages/agency/components/DetailOrders/CreateOrder/types";
 import { IDataCreateOrder } from "src/view/viewModels/Order/types";
 import {
   IOrderDeleteParamsReq,
@@ -15,5 +15,5 @@ export interface IOrderRepository {
 
   createOrder: (fields: IDataCreateOrder) => Promise<IOrderItemResponseDTO>;
 
-  editOrder: (fields: IOrdersEditSelected) => Promise<IOrderItemResponseDTO>;
+  editOrder: (fields: IOrderEditFormFields) => Promise<IOrderItemResponseDTO>;
 }

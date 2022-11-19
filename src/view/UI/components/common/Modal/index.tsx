@@ -30,7 +30,7 @@ export const Modal: FC<IModal> = ({
       disableEnforceFocus={true}
       disableAutoFocus={true}
     >
-      <Paper elevation={0} className={css.modalContentWrapper}>
+      <Paper elevation={1} className={css.modalContentWrapper}>
         <div className={css.titleWrapper}>
           <Typography variant="h6" component="h2">
             {title}
