@@ -27,7 +27,7 @@ export const getRouteByToStateName = (
       }
     });
     if (route) {
-      // сохроняем в кэш, если роут найден
+      // сохраняем в кэш, если роут найден
       cache[toStateName] = route;
     }
   }
