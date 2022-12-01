@@ -27,6 +27,13 @@ a {
   animation-timing-function: ease-in-out;
 }
 
+#loading-dots .greetings-node {
+  font-size: 20px;
+  color: var(--yy-text-primary, rgba(0, 0, 0, 0.87));
+  font-family: "Trebuchet MS", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin-top: 16px;
+}
+
 #loading-dots .dot {
   display: inline-block;
   height: 10px;
