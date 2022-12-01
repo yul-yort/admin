@@ -5,10 +5,13 @@ import { IFormValues } from "src/view/UI/pages/login/types";
 
 export class UserRepository extends BaseRepository implements IUserRepository {
   async login(data: IFormValues): Promise<void> {
-    await this.api.post(EEndpoints.LOGIN, data);
+    await this.api.post({
+      endpoint: EEndpoints.LOGIN,
+      body: { email: data.login, password: data.password },
+    });
   }
 
   async logout(): Promise<void> {
-    await this.api.post(EEndpoints.LOGOUT);
+    await this.api.post({ endpoint: EEndpoints.LOGOUT });
   }
 }

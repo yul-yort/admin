@@ -20,5 +20,5 @@
 .actionButtons {
   display: flex;
   justify-content: flex-end;
-  margin-top: var(--yy-base4X);
+  margin-top: calc(var(--yy-base) * 4);
 }

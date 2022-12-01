@@ -55,23 +55,23 @@ export const CreateOrder: FC<ICreateOrders> = ({
   };
 
   const onSave = async ({
-    origin,
-    destination,
-    price,
+    originId,
+    destinationId,
+    price: stringPrice,
   }: IOrdersCreateFormFields) => {
+    const price = Number(stringPrice);
+
     if (selectedOrder) {
       const orderEditfields = {
-        ...selectedOrder,
-        price: Number(price),
+        id: selectedOrder.id,
+        price,
       };
       await handleOrderEdit(orderEditfields);
     } else {
       const dataCreateOrder = {
         agency: agencyID,
-        route: {
-          origin,
-          destination,
-        },
+        originId,
+        destinationId,
         price,
       };
 

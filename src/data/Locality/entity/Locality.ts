@@ -10,7 +10,7 @@ import { makeAutoObservable } from "mobx";
  * Сущность населенного пункта.
  */
 export class Locality implements ILocalityEntity {
-  id: ID;
+  id: number;
   name: string;
   description?: string;
   region?: string;
@@ -18,7 +18,7 @@ export class Locality implements ILocalityEntity {
   coordinates?: [TLocalityLatitude, TLocalityLongitude];
 
   constructor(dto: ILocalityDTO) {
-    this.id = dto._id;
+    this.id = dto.id;
     this.name = dto.name;
     this.description = dto.description;
     this.region = dto.region;

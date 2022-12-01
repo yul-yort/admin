@@ -26,7 +26,7 @@ const AgencyTable: VFC<ITable> = ({
 
   const methods = useForm<ICreateOrEditAgencyFormFields>({
     defaultValues: {
-      agencyName: "",
+      name: "",
       description: "",
       phones: [{ value: "" }],
     },

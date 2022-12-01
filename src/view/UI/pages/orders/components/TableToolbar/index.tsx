@@ -4,7 +4,7 @@ import { Paper, TextField } from "@mui/material";
 import css from "./styles.module.scss";
 import Autocomplete from "@mui/material/Autocomplete";
 import { ITableToolbar } from "./types";
-import { ILocalityEntity } from "../../../../../../data/Locality/entity/types";
+import { ILocalityEntity } from "../../../../../../data/Locality/entity";
 
 const TableToolbar: VFC<ITableToolbar> = ({
   localities,
@@ -29,11 +29,19 @@ const TableToolbar: VFC<ITableToolbar> = ({
     filterByPhone(event.target.value);
   };
 
-  const handleFilterByOrigin = (id: ID) => {
+  const handleFilterByOrigin = (id: Nullable<number>) => {
+    if (!id) {
+      return;
+    }
+
     filterByOrigin(id);
   };
 
-  const handleFilterByDestination = (id: ID) => {
+  const handleFilterByDestination = (id: Nullable<number>) => {
+    if (!id) {
+      return;
+    }
+
     filterByDestination(id);
   };
 
@@ -65,7 +73,7 @@ const TableToolbar: VFC<ITableToolbar> = ({
         isOptionEqualToValue={(option, value) => option.name === value.name}
         renderOption={renderOption}
         onChange={(_, value) => {
-          handleFilterByOrigin(value ? value.id : "");
+          handleFilterByOrigin(value ? value.id : null);
         }}
         renderInput={(params) => {
           return (
@@ -80,7 +88,7 @@ const TableToolbar: VFC<ITableToolbar> = ({
         isOptionEqualToValue={(option, value) => option.name === value.name}
         renderOption={renderOption}
         onChange={(_, value) => {
-          handleFilterByDestination(value ? value.id : "");
+          handleFilterByDestination(value ? value.id : null);
         }}
         renderInput={(params) => (
           <TextField {...params} placeholder="Куда" variant="standard" />
@@ -89,7 +97,7 @@ const TableToolbar: VFC<ITableToolbar> = ({
       <TextField
         className={css.inputWrapper}
         onChange={handleFilterByAgency}
-        id="agencyName"
+        id="name"
         placeholder="Агенство"
         variant="standard"
         size="small"

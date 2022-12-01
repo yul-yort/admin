@@ -23,7 +23,8 @@
     <link rel="manifest" href="%PUBLIC_URL%/site.webmanifest" />
 
     <link rel="stylesheet" href="%PUBLIC_URL%/styles/public.css" />
-    <link rel="stylesheet" href="%PUBLIC_URL%/styles/variables.css" />
+    <link rel="stylesheet" href="%PUBLIC_URL%/styles/custom-variables.css" />
+    <link rel="stylesheet" href="%PUBLIC_URL%/styles/mui-variables.css" />
     <link
       rel="preload"
       as="style"
@@ -60,5 +61,49 @@
       </div>
       <!--    Конец-->
     </div>
+    <script src="./scripts/jwt-decode.js"></script>
+    <script>
+      // возвращает куки с указанным name,
+      // или undefined, если ничего не найдено
+      function getCookie(name) {
+        let matches = document.cookie.match(
+          new RegExp(
+            "(?:^|; )" +
+              name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") +
+              "=([^;]*)"
+          )
+        );
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+      }
+
+      // Получаем имя пользователя и пишем приветственные слова.
+      const token = getCookie("yy-access-token");
+      const currentDate = new Date();
+      const hour = currentDate.getHours();
+
+      if (token) {
+        const obj = jwt_decode(token);
+        const loadingNode = document.getElementById("loading-dots");
+
+        if (loadingNode && obj) {
+          let greetingsEl = document.createElement("div");
+          greetingsEl.classList.add("greetings-node");
+          let greetingWords;
+
+          if (hour < 5) {
+            greetingWords = "Доброй ночи";
+          } else if (hour < 12) {
+            greetingWords = "Доброе утро";
+          } else if (hour < 17) {
+            greetingWords = "Добрый день";
+          } else {
+            greetingWords = "Добрый вечер";
+          }
+
+          greetingsEl.innerHTML = `${greetingWords}, ${obj.firstName}`;
+          loadingNode.append(greetingsEl);
+        }
+      }
+    </script>
   </body>
 </html>

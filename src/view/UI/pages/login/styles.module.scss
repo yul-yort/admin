@@ -13,6 +13,6 @@
   }
 
   &__formItem {
-    margin: var(--yy-base2X) 0;
+    margin: calc(var(--yy-base) * 2) 0;
   }
 }

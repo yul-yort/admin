@@ -12,7 +12,7 @@ export const TableHeaderCells = [
     label: "Цена",
   },
   {
-    id: "agencyName",
+    id: "name",
     label: "Агенство",
   },
   {

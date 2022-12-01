@@ -1,1 +1,1 @@
-type ID = string;
+type Nullable<T> = T | null;

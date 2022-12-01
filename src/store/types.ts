@@ -12,6 +12,7 @@ import { IOrderRepository } from "../data/Order/repository/types";
 import { ILocalityRepository } from "../data/Locality/repository/types";
 import { ILocalityService } from "../data/Locality/service/types";
 import { ILocalityVM } from "../view/viewModels/Locality/types";
+import { IAppVM } from "../view/viewModels/App/types";
 
 export interface ILibs {
   api?: IApi;
@@ -42,6 +43,7 @@ export interface IViewModels {
   user?: IUserVM;
   order?: IOrderVM;
   locality?: ILocalityVM;
+  app?: IAppVM;
 }
 
 export type IStoreViewModels = Required<IViewModels>;

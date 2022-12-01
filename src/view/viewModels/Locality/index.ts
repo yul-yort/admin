@@ -113,18 +113,16 @@ export class LocalityVM extends BaseVM implements ILocalityVM {
     }
   };
 
-  deleteLocality = async (id: ID): Promise<void> => {
+  deleteLocality = async (id: number): Promise<void> => {
     this.setLoading();
 
     try {
-      const locality = await this.service.deleteLocality(id);
+      await this.service.deleteLocality(id);
       if (!this.localities) {
         throw new Error(this.localitiesErrorText);
       }
 
-      const newLocalities = this.localities.filter(
-        (item) => item.id !== locality.id
-      );
+      const newLocalities = this.localities.filter((item) => item.id !== id);
       runInAction(() => {
         this._localities = [...newLocalities];
       });

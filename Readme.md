@@ -16,6 +16,7 @@
 8. `npm run build-storybook` - сборка storybook.
 9. `npm run test` - запуск тестов.
 10. `npm run testCoverage` - проверка покрытия тестами.
+11. `npm run get-css-vars` - обновление css переменных на основе src/view/UI/theme/index.js.
 
 ## Страница на github pages
 

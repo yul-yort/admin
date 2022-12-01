@@ -14,7 +14,7 @@ import {
   IOrderItemRequestParams,
 } from "src/data/Order/entity/types";
 import { IOrderService } from "src/data/Order/service/types";
-import { IOrdersEditSelected } from "../../UI/pages/agency/components/DetailOrders/CreateOrder/types";
+import { IOrderEditFormFields } from "../../UI/pages/agency/components/DetailOrders/CreateOrder/types";
 import { errorMapper } from "../mappers";
 import { filterOrders } from "./mappers";
 
@@ -26,15 +26,15 @@ export class OrderVM extends BaseVM implements IOrderVM {
 
   _filterByAgencyName = "";
   _filterByPhone = "";
-  _filterByOrigin = "";
-  _filterByDestination = "";
+  _filterByOriginId = 0;
+  _filterByDestinationId = 0;
 
   get orders(): IOrderItemEntity[] | null {
     return (
       this._orders &&
       filterOrders(this._orders, {
-        filterByOrigin: this._filterByOrigin,
-        filterByDestination: this._filterByDestination,
+        filterByOrigin: this._filterByOriginId,
+        filterByDestination: this._filterByDestinationId,
         filterByAgency: this._filterByAgencyName,
         filterByPhone: this._filterByPhone,
       })
@@ -55,8 +55,8 @@ export class OrderVM extends BaseVM implements IOrderVM {
       orders: computed,
       _filterByAgencyName: observable,
       _filterByPhone: observable,
-      _filterByOrigin: observable,
-      _filterByDestination: observable,
+      _filterByOriginId: observable,
+      _filterByDestinationId: observable,
       ordersAddLoading: observable,
 
       getList: action,
@@ -76,12 +76,12 @@ export class OrderVM extends BaseVM implements IOrderVM {
     this._filterByPhone = value;
   };
 
-  filterByOrigin = (value: string): void => {
-    this._filterByOrigin = value;
+  filterByOrigin = (value: number): void => {
+    this._filterByOriginId = value;
   };
 
-  filterByDestination = (value: string): void => {
-    this._filterByDestination = value;
+  filterByDestination = (value: number): void => {
+    this._filterByDestinationId = value;
   };
 
   private setOrdersAddLoading = () => {
@@ -109,7 +109,7 @@ export class OrderVM extends BaseVM implements IOrderVM {
     }
   };
 
-  getListByAgencyId = async (agencyId: ID): Promise<void> => {
+  getListByAgencyId = async (agencyId: number): Promise<void> => {
     this.setLoading();
     this.unsetError();
 
@@ -151,7 +151,7 @@ export class OrderVM extends BaseVM implements IOrderVM {
     }
   };
 
-  editOrder = async (fields: IOrdersEditSelected): Promise<void> => {
+  editOrder = async (fields: IOrderEditFormFields): Promise<void> => {
     this.setOrdersAddLoading();
     try {
       if (!this.agencyOrders) {
@@ -174,16 +174,16 @@ export class OrderVM extends BaseVM implements IOrderVM {
     }
   };
 
-  deleteOrder = async (id: ID): Promise<void> => {
+  deleteOrder = async (id: number): Promise<void> => {
     this.setLoading();
     try {
-      const order = await this.service.deleteOrder(id);
+      await this.service.deleteOrder(id);
       if (!this.agencyOrders) {
         throw new Error("error");
       }
 
       const updatedOrders = this.agencyOrders.filter(
-        (item) => item.id !== order.id
+        (item) => item.id !== Number(id)
       );
       runInAction(() => {
         this._agencyOrders = [...updatedOrders];

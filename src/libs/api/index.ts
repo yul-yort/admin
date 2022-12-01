@@ -1,5 +1,5 @@
-import { baseUrl, EEndpoints } from "../../constants";
-import { IApi } from "./types";
+import { baseUrl } from "../../constants";
+import { IApi, IMethodArgs } from "./types";
 import { Router } from "router5/dist/types/router";
 import { IDependencies } from "../../router/types";
 
@@ -9,63 +9,87 @@ export class Api implements IApi {
     "Access-Control-Allow-Credentials": "true",
   };
 
-  constructor(private router: Router<IDependencies>) {}
-
-  async get<R, P = undefined>(path: EEndpoints, params?: P): Promise<R> {
-    const url = new URL(path, baseUrl);
-
-    url.search = new URLSearchParams(params as never).toString();
-    const fullUrl = url.toString();
-
-    const response = await fetch(fullUrl, {
-      credentials: "include",
-    });
-
-    if (!response.ok) {
-      this.errorHandler(await response.text());
-    }
-
-    return await response.json();
-  }
-
-  async post<R, P>(path: EEndpoints, params?: P): Promise<R> {
-    const url = new URL(path, baseUrl).toString();
-
-    const response = await fetch(url, {
-      method: "POST",
-      headers: this._headers,
-      credentials: "include",
-      body: JSON.stringify(params),
-    });
-
-    if (!response.ok) {
-      this.errorHandler(await response.text());
-    }
-
-    return await response.json();
-  }
-
-  async delete<R, P>(path: EEndpoints, params?: P): Promise<R> {
-    const url = new URL(path, baseUrl);
-    url.search = new URLSearchParams(params as never).toString();
-    const fullUrl = url.toString();
-
-    const response = await fetch(fullUrl, {
-      method: "DELETE",
-    });
-
-    if (!response.ok) {
-      this.errorHandler(await response.text());
-    }
-
-    return await response.json();
-  }
-
-  errorHandler(response: string): void {
+  private errorHandler(response: string): void {
     if (JSON.parse(response).status === 401) {
       this.router.navigate("login");
     }
 
     throw Error(response);
+  }
+
+  private getUrl<Q>(args: IMethodArgs<Q>): string {
+    const { endpoint, query, param = "" } = args;
+    const url = new URL(endpoint + "/" + param, baseUrl);
+
+    if (query) {
+      url.search = new URLSearchParams(query).toString();
+    }
+
+    return url.toString();
+  }
+
+  constructor(private router: Router<IDependencies>) {}
+
+  async get<R, Q = undefined>(args: IMethodArgs<Q>): Promise<R> {
+    const url = this.getUrl<Q>(args);
+
+    const response = await fetch(url, {
+      credentials: "include",
+    });
+
+    if (!response.ok) {
+      this.errorHandler(await response.text());
+    }
+
+    return await response.json();
+  }
+
+  async post<R, Q>({ body, ...args }: IMethodArgs<Q>): Promise<R> {
+    const url = this.getUrl<Q>(args);
+
+    const response = await fetch(url, {
+      method: "POST",
+      headers: this._headers,
+      credentials: "include",
+      body: JSON.stringify(body),
+    });
+
+    if (!response.ok) {
+      this.errorHandler(await response.text());
+    }
+
+    const responseText = (await response.text()) || "{}";
+
+    return JSON.parse(responseText);
+  }
+
+  async patch<R, Q>({ body, ...args }: IMethodArgs<Q>): Promise<R> {
+    const url = this.getUrl<Q>(args);
+
+    const response = await fetch(url, {
+      method: "PATCH",
+      headers: this._headers,
+      credentials: "include",
+      body: JSON.stringify(body),
+    });
+
+    if (!response.ok) {
+      this.errorHandler(await response.text());
+    }
+
+    return await response.json();
+  }
+
+  async delete<Q>(args: IMethodArgs<Q>): Promise<void> {
+    const url = this.getUrl<Q>(args);
+
+    const response = await fetch(url, {
+      method: "DELETE",
+      headers: this._headers,
+    });
+
+    if (!response.ok) {
+      this.errorHandler(await response.text());
+    }
   }
 }

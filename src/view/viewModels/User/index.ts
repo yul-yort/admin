@@ -21,7 +21,7 @@ export class UserVM extends BaseVM implements IUserVM {
     private service: IUserService
   ) {
     super(notificationsVM);
-    this.user = new User({ id: "asdf" });
+    this.user = new User({ id: 0 });
     makeObservable(this, {
       user: observable,
     });

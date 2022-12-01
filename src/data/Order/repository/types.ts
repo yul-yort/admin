@@ -1,4 +1,4 @@
-import { IOrdersEditSelected } from "src/view/UI/pages/agency/components/DetailOrders/CreateOrder/types";
+import { IOrderEditFormFields } from "src/view/UI/pages/agency/components/DetailOrders/CreateOrder/types";
 import { IDataCreateOrder } from "src/view/viewModels/Order/types";
 import {
   IOrderDeleteParamsReq,
@@ -8,14 +8,12 @@ import {
 
 export interface IOrderRepository {
   getList: (
-    params?: IOrderItemRequestParams
+    query?: IOrderItemRequestParams
   ) => Promise<IOrderItemResponseDTO[]>;
 
-  deleteOrder: (
-    params: IOrderDeleteParamsReq
-  ) => Promise<IOrderItemResponseDTO>;
+  deleteOrder: (params: IOrderDeleteParamsReq) => Promise<void>;
 
   createOrder: (fields: IDataCreateOrder) => Promise<IOrderItemResponseDTO>;
 
-  editOrder: (fields: IOrdersEditSelected) => Promise<IOrderItemResponseDTO>;
+  editOrder: (fields: IOrderEditFormFields) => Promise<IOrderItemResponseDTO>;
 }

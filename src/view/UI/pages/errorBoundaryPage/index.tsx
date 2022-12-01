@@ -53,7 +53,7 @@ export class ErrorBoundary extends React.Component<IProps, IState> {
   render(): JSX.Element {
     return (
       <span
-        className={cn(css.appWrapper, {
+        className={cn(css.errorBoundary, {
           [css.appWrapper__offline]: this.state.offline,
         })}
       >

@@ -1,11 +1,11 @@
 import createAppRouter from "./router";
 import { ViewModelsInitializer } from "./store";
 import { initApp } from "./view/UI";
-import theme from "./view/UI/theme";
 import { initErrorApp } from "./view/UI/InitErrorApp";
 import routes from "./router/routes";
 import { checkAuthorization, onActivate } from "./router/middlewaries";
 import { documentTitle } from "./router/middlewaries/documentTitle";
+import { darkTheme, lightTheme } from "./view/UI/theme";
 
 try {
   const router = createAppRouter(routes, [
@@ -20,7 +20,7 @@ try {
 
   initApp({
     router,
-    theme,
+    themes: [lightTheme, darkTheme],
   });
 } catch (err) {
   initErrorApp(err);

@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: var(--yy-base2X);
+  padding: calc(var(--yy-base) * 2);
 }
 
 .title {
@@ -11,6 +11,6 @@
 }
 
 .button {
-  margin-top: var(--yy-base3X);
+  margin-top: calc(var(--yy-base) * 3);
   width: fit-content;
 }

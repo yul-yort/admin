@@ -2,7 +2,7 @@ import { ITableHeaderCell } from "./types";
 
 export const TableHeaderCells: readonly ITableHeaderCell[] = [
   {
-    id: "agencyName",
+    id: "name",
     label: "Название",
   },
   {

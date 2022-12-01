@@ -3,7 +3,7 @@ import {
   IOrderItemEntity,
   IOrderItemRequestParams,
 } from "../../../data/Order/entity/types";
-import { IOrdersEditSelected } from "../../UI/pages/agency/components/DetailOrders/CreateOrder/types";
+import { IOrderEditFormFields } from "../../UI/pages/agency/components/DetailOrders/CreateOrder/types";
 
 export interface IOrderVM extends IBaseVM {
   ordersAddLoading: boolean;
@@ -13,13 +13,13 @@ export interface IOrderVM extends IBaseVM {
 
   filterByAgency: (value: string) => void;
   filterByPhone: (value: string) => void;
-  filterByOrigin: (value: string) => void;
-  filterByDestination: (value: string) => void;
+  filterByOrigin: (value: number) => void;
+  filterByDestination: (value: number) => void;
   getList: (params?: IOrderItemRequestParams) => Promise<void>;
-  getListByAgencyId: (id: ID) => Promise<void>;
-  deleteOrder: (id: ID) => Promise<void>;
+  getListByAgencyId: (id: number) => Promise<void>;
+  deleteOrder: (id: number) => Promise<void>;
   createOrder: (fields: IDataCreateOrder) => Promise<void>;
-  editOrder: (fields: IOrdersEditSelected) => Promise<void>;
+  editOrder: (fields: IOrderEditFormFields) => Promise<void>;
 }
 
 export interface IRoute {
@@ -28,7 +28,8 @@ export interface IRoute {
 }
 
 export interface IDataCreateOrder {
-  agency: ID;
-  route: IRoute;
-  price?: number;
+  agency: number;
+  originId: Nullable<number>;
+  destinationId: Nullable<number>;
+  price?: Nullable<number>;
 }

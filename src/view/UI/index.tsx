@@ -1,4 +1,4 @@
-import { StrictMode } from "react";
+import { FC, StrictMode } from "react";
 import ReactDOM from "react-dom";
 import reportWebVitals from "../../reportWebVitals";
 import * as serviceWorkerRegistration from "../../serviceWorkerRegistration";
@@ -13,28 +13,41 @@ import { IDependencies } from "../../router/types";
 import { Theme } from "@mui/material/styles/createTheme";
 import { ErrorBoundary } from "./pages/errorBoundaryPage";
 import App from "./App";
+import { observer } from "mobx-react-lite";
+import { useViewModel } from "./hooks";
+import { IAppVM } from "../viewModels/App/types";
 
 type IAppInitConfig = {
   router: Router<IDependencies>;
-  theme: Theme;
+  themes: [lightTheme: Theme, darkTheme: Theme];
 };
 
-export const initApp = ({ router, theme }: IAppInitConfig): void => {
-  ReactDOM.render(
-    <StrictMode>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <StyledEngineProvider injectFirst>
-          {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-          {/* @ts-ignore */}
-          <RouterProvider router={router}>
+const AppRoot: FC<{ themes: IAppInitConfig["themes"] }> = observer(
+  ({ themes: [lightTheme, darkTheme] }) => {
+    const appVM = useViewModel<IAppVM>("app");
+
+    return (
+      <StrictMode>
+        <ThemeProvider theme={appVM.theme === "light" ? lightTheme : darkTheme}>
+          <CssBaseline />
+          <StyledEngineProvider injectFirst>
             <ErrorBoundary>
               <App />
             </ErrorBoundary>
-          </RouterProvider>
-        </StyledEngineProvider>
-      </ThemeProvider>
-    </StrictMode>,
+          </StyledEngineProvider>
+        </ThemeProvider>
+      </StrictMode>
+    );
+  }
+);
+
+export const initApp = ({ router, themes }: IAppInitConfig): void => {
+  ReactDOM.render(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    <RouterProvider router={router}>
+      <AppRoot themes={themes} />
+    </RouterProvider>,
     document.getElementById("root")
   );
 };

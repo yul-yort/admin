@@ -13,7 +13,7 @@ import { errorMapper } from "../mappers";
 
 export class AgencyVM extends BaseVM implements IAgencyVM {
   editLoading = false;
-  loadingList: ID[] = [];
+  loadingList: number[] = [];
 
   agency: IAgencyEntity | null = null;
   searchValue = "";
@@ -25,7 +25,7 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
       this._agencies &&
       this._agencies.filter(
         (agency) =>
-          agency.agencyName
+          agency.name
             .toLocaleLowerCase()
             .trim()
             .includes(this.searchValue.trim()) ||
@@ -54,18 +54,6 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
     });
   }
 
-  private setLoadingItem = (id: ID) => {
-    this.loadingList.push(id);
-  };
-
-  private unsetLoadingItem = (id: ID) => {
-    const index = this.loadingList.indexOf(id);
-
-    if (index >= 0) {
-      this.loadingList.splice(index, 1);
-    }
-  };
-
   private setEditLoading = () => {
     this.editLoading = true;
   };
@@ -74,7 +62,7 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
     this.editLoading = false;
   };
 
-  isLoadingItem = (id: ID): boolean => this.loadingList.indexOf(id) !== -1;
+  isLoadingItem = (id: number): boolean => this.loadingList.indexOf(id) !== -1;
 
   searchAgency = (value: string): void => {
     this.searchValue = value.toLocaleLowerCase();
@@ -125,7 +113,7 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
     try {
       await this.service.deleteAgency(params);
       this.notify.successNotification(
-        `Агентство "${this.agency?.agencyName}" удалено`
+        `Агентство "${this.agency?.name}" удалено`
       );
       this.agency = null;
     } catch (err) {
@@ -166,9 +154,7 @@ export class AgencyVM extends BaseVM implements IAgencyVM {
         this._agencies = [agencyItem, ...agenciesCopy];
       });
 
-      this.notify.successNotification(
-        `Агенство ${agencyItem.agencyName} создано`
-      );
+      this.notify.successNotification(`Агенство ${agencyItem.name} создано`);
     } catch (err) {
       this.setError(err);
     } finally {

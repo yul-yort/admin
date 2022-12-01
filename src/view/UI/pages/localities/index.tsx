@@ -25,7 +25,7 @@ const Localities: FC = observer(() => {
     setModalType("create");
   };
 
-  const handleShowEditModal = (id: ID) => {
+  const handleShowEditModal = (id: string) => {
     handleSelectedLocality(id);
     setModalType("edit");
   };
@@ -35,21 +35,21 @@ const Localities: FC = observer(() => {
     setSelectedLocality(null);
   };
 
-  const handleSelectedLocality = (id: ID) => {
+  const handleSelectedLocality = (id: string) => {
     const localities = localityVM.localities;
 
     if (!localities || !localities.length) {
       return;
     }
 
-    const locality = localities.find((item) => item.id === id);
+    const locality = localities.find((item) => item.id.toString() === id);
     if (locality) {
       setSelectedLocality(locality);
     }
   };
 
   //DELETE MODAL
-  const handleShowDeleteModal = (id: ID) => {
+  const handleShowDeleteModal = (id: string) => {
     handleSelectedLocality(id);
     setShowDeleteModal(true);
   };

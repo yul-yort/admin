@@ -2,5 +2,5 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--yy-base4X);
+  margin-bottom: calc(var(--yy-base) * 4);
 }

@@ -14,6 +14,10 @@ export const getErrorText = (
   valuePath: string,
   index?: number
 ): string | undefined => {
+  if (!errors || Object.keys(errors).length === 0) {
+    return void 0;
+  }
+
   let error = errors[valuePath];
 
   if (Array.isArray(error) && index !== undefined) {
@@ -27,5 +31,8 @@ export const getErrorText = (
   const errorType: string =
     typeof error.type === "string" ? error.type : "default";
 
-  return ErrorsDictionary[errorType] || errorType;
+  const errorMessage: string =
+    typeof error.message === "string" ? error.message : errorType;
+
+  return ErrorsDictionary[errorType] || errorMessage;
 };

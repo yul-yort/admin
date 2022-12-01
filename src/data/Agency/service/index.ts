@@ -25,7 +25,7 @@ export class AgencyService implements IAgencyService {
   }
 
   async editAgency(
-    id: ID,
+    id: number,
     fields: ICreateOrEditAgencyFormFields
   ): Promise<IAgencyEntity> {
     const params: IAgencyRequestEditParams = {
@@ -39,12 +39,8 @@ export class AgencyService implements IAgencyService {
     return new Agency(agency);
   }
 
-  async deleteAgency(
-    params: IAgencyRequestDeleteParams
-  ): Promise<IAgencyEntity> {
-    const agency = await this.repository.deleteAgency(params);
-
-    return new Agency(agency);
+  async deleteAgency(params: IAgencyRequestDeleteParams): Promise<void> {
+    await this.repository.deleteAgency(params);
   }
 
   async getList(): Promise<IAgencyEntity[]> {

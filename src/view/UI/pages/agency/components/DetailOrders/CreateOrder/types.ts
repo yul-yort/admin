@@ -10,13 +10,13 @@ export interface ICreateOrders {
   titleModal: string;
   methods: UseFormReturn<IOrdersCreateFormFields>;
   createOrder: (fields: IDataCreateOrder) => void;
-  handleOrderEdit: (fields: IOrdersEditSelected) => void;
+  handleOrderEdit: (fields: IOrderEditFormFields) => void;
   localities: ILocalityEntity[];
   getLocality: () => void;
   localitiesLoading: boolean;
   ordersAddLoading: boolean;
-  selectedOrder: IOrdersEditSelected | null;
-  agencyID: ID;
+  selectedOrder: IOrderItemEntity | null;
+  agencyID: number;
 }
 
 export interface IOrdersCreateModal {
@@ -31,7 +31,7 @@ export interface IOrdersCreateModal {
   getLocality: () => void;
   localitiesLoading: boolean;
   ordersAddLoading: boolean;
-  selectedOrder: IOrdersEditSelected | null;
+  selectedOrder: IOrderItemEntity | null;
 }
 
 export type IOrdersCreateForm = Pick<
@@ -44,12 +44,9 @@ export type IOrdersCreateForm = Pick<
   | "selectedOrder"
 >;
 
-export type IOrdersCreateFormFields = Pick<
-  IOrder,
-  "origin" | "destination" | "price"
->;
+export interface IOrdersCreateFormFields extends Pick<IOrder, "price"> {
+  originId: Nullable<number>;
+  destinationId: Nullable<number>;
+}
 
-export type IOrdersEditSelected = Pick<
-  IOrderItemEntity,
-  "route" | "price" | "id"
->;
+export interface IOrderEditFormFields extends Pick<IOrder, "id" | "price"> {}
