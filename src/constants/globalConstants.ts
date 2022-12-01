@@ -1,7 +1,7 @@
 export const CONSTANTS = {
   isDev: process.env.NODE_ENV === "development",
   projectName: "Yul-Yort Admin",
-  tokenCookieKey: "access_token",
+  tokenCookieKey: "yy-access-token",
   themeKey: "yy-theme",
   defaultRoute: "dashboard",
   numberPattern: /^[1-9]\d*(\d+)?$/i,

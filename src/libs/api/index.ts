@@ -58,7 +58,9 @@ export class Api implements IApi {
       this.errorHandler(await response.text());
     }
 
-    return await response.json();
+    const responseText = (await response.text()) || "{}";
+
+    return JSON.parse(responseText);
   }
 
   async patch<R, Q>({ body, ...args }: IMethodArgs<Q>): Promise<R> {
