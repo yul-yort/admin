@@ -16,7 +16,9 @@ try {
   const viewModels = new ViewModelsInitializer(router).viewModels;
 
   router.setDependencies({ store: viewModels, routes });
-  router.start();
+  const startedRouter = router.start();
+
+  // startedRouter.getDependencies().store.user.getAdmin();
 
   initApp({
     router,

@@ -1,9 +1,9 @@
 import { IFormValues } from "src/view/UI/pages/login/types";
-import { IUserRepository } from "../repository/types";
-import { IUserService } from "./types";
+import { IAdminRepository } from "../repository/types";
+import { IAdminService } from "./types";
 
-export class UserService implements IUserService {
-  constructor(private repository: IUserRepository) {}
+export class AdminService implements IAdminService {
+  constructor(private repository: IAdminRepository) {}
 
   async login(data: IFormValues): Promise<void> {
     await this.repository.login(data);

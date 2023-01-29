@@ -1,9 +1,12 @@
-import { IUserRepository } from "./types";
+import { IAdminRepository } from "./types";
 import { EEndpoints } from "src/constants";
 import { BaseRepository } from "src/data/BaseRepository";
 import { IFormValues } from "src/view/UI/pages/login/types";
 
-export class UserRepository extends BaseRepository implements IUserRepository {
+export class AdminRepository
+  extends BaseRepository
+  implements IAdminRepository
+{
   async login(data: IFormValues): Promise<void> {
     await this.api.post({
       endpoint: EEndpoints.LOGIN,

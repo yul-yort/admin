@@ -28,7 +28,7 @@ export const checkAuthorization: MiddlewareFactory<IDependencies> =
       dependencies
     );
 
-    const isAuthorized = dependencies.store.user.authorized;
+    const isAuthorized = dependencies.store.admin.authorized;
 
     // Если текущая страница /login, то перенаправит на страницу по умолчанию.
     if (toStateName === "login" && isAuthorized) {

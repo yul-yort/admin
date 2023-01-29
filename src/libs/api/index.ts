@@ -10,7 +10,7 @@ export class Api implements IApi {
   };
 
   private errorHandler(response: string): void {
-    if (JSON.parse(response).status === 401) {
+    if (JSON.parse(response).statusCode === 401) {
       this.router.navigate("login");
     }
 

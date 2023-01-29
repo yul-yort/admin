@@ -4,7 +4,7 @@ import { IAppBar } from "./types";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import css from "./styles.module.scss";
 
-export const Header: FC<IAppBar> = ({ openDrawer, title, user }) => {
+export const Header: FC<IAppBar> = ({ openDrawer, title, admin }) => {
   return (
     <AppBar position="fixed">
       <Toolbar className={css.toolbar}>
@@ -26,7 +26,7 @@ export const Header: FC<IAppBar> = ({ openDrawer, title, user }) => {
         </div>
 
         <Typography variant="h6" noWrap className={css.title}>
-          {user?.lastName} {user?.firstName[0]}.
+          {admin?.lastName} {admin?.firstName[0]}.
         </Typography>
       </Toolbar>
     </AppBar>

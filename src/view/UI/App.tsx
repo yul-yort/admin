@@ -3,14 +3,14 @@ import { observer } from "mobx-react-lite";
 
 import { LoadingScreen, Notify } from "./components/common";
 import { useNotification, useViewModel } from "./hooks";
-import { IUserVM } from "../viewModels/User/types";
+import { IAdminVM } from "../viewModels/Admin/types";
 
 const UnauthorizedApp = lazy(() => import("./UnauthorizedApp"));
 const AuthorizedApp = lazy(() => import("./AuthorizedApp"));
 
 export const App: FC = observer(() => {
   const { notification, removeNotification } = useNotification();
-  const user = useViewModel<IUserVM>("user");
+  const adminVM = useViewModel<IAdminVM>("admin");
 
   return (
     <>
@@ -22,7 +22,7 @@ export const App: FC = observer(() => {
       />
 
       <Suspense fallback={<LoadingScreen />}>
-        {user.authorized ? <AuthorizedApp /> : <UnauthorizedApp />}
+        {adminVM.authorized ? <AuthorizedApp /> : <UnauthorizedApp />}
       </Suspense>
     </>
   );

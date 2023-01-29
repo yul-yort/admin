@@ -1,7 +1,7 @@
-import { IUserEntity } from "../../../../../data/User/entity/types";
+import { IAdminEntity } from "../../../../../data/Admin/entity/types";
 
 export interface IAppBar {
   openDrawer: () => void;
   title?: string;
-  user: IUserEntity | null;
+  admin: IAdminEntity | null;
 }

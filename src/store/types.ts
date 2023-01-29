@@ -3,9 +3,9 @@ import { IAgencyRepository } from "../data/Agency/repository/types";
 import { IAgencyVM } from "../view/viewModels/Agency/types";
 import { IApi } from "../libs/api/types";
 import { INotificationsVM } from "../view/viewModels/types";
-import { IUserService } from "../data/User/service/types";
-import { IUserRepository } from "../data/User/repository/types";
-import { IUserVM } from "../view/viewModels/User/types";
+import { IAdminService } from "../data/Admin/service/types";
+import { IAdminRepository } from "../data/Admin/repository/types";
+import { IAdminVM } from "../view/viewModels/Admin/types";
 import { IOrderVM } from "../view/viewModels/Order/types";
 import { IOrderService } from "../data/Order/service/types";
 import { IOrderRepository } from "../data/Order/repository/types";
@@ -21,7 +21,7 @@ export type IStoreLibs = Required<ILibs>;
 
 export interface IRepositories {
   agency?: IAgencyRepository;
-  user?: IUserRepository;
+  admin?: IAdminRepository;
   order?: IOrderRepository;
   locality?: ILocalityRepository;
 }
@@ -30,7 +30,7 @@ export type IStoreRepositories = Required<IRepositories>;
 
 export interface IServices {
   agency?: IAgencyService;
-  user?: IUserService;
+  admin?: IAdminService;
   order?: IOrderService;
   locality?: ILocalityService;
 }
@@ -40,7 +40,7 @@ export type IStoreServices = Required<IServices>;
 export interface IViewModels {
   agency?: IAgencyVM;
   notifications?: INotificationsVM;
-  user?: IUserVM;
+  admin?: IAdminVM;
   order?: IOrderVM;
   locality?: ILocalityVM;
   app?: IAppVM;

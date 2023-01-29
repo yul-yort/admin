@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite";
 
 import { LoadingScreen, Header, SideBar, Body } from "./components/common";
 import { useViewModel, useTitle } from "./hooks";
-import { IUserVM } from "../viewModels/User/types";
+import { IAdminVM } from "../viewModels/Admin/types";
 import { IAppVM } from "../viewModels/App/types";
 
 const NotFoundPage = lazy(() => import("./pages/notFound"));
@@ -28,7 +28,7 @@ export const AuthorizedApp: FC = observer(() => {
   const [open, setOpen] = useState<boolean>(false);
 
   const { title } = useTitle();
-  const userVM = useViewModel<IUserVM>("user");
+  const adminVM = useViewModel<IAdminVM>("admin");
   const appVM = useViewModel<IAppVM>("app");
 
   const {
@@ -41,7 +41,7 @@ export const AuthorizedApp: FC = observer(() => {
   };
 
   const logout = async () => {
-    await userVM.logout();
+    await adminVM.logout();
 
     navigate("login", { redirectName: name, redirectParams: params });
   };
@@ -51,7 +51,7 @@ export const AuthorizedApp: FC = observer(() => {
       <Header
         openDrawer={handleOpenCloseSidebar}
         title={title}
-        user={userVM.user}
+        admin={adminVM.admin}
       />
 
       <Body theme={appVM.theme}>
@@ -61,7 +61,7 @@ export const AuthorizedApp: FC = observer(() => {
           open={open}
           onClose={handleOpenCloseSidebar}
           onLogout={logout}
-          loading={userVM.loading}
+          loading={adminVM.loading}
         />
 
         <Suspense fallback={<LoadingScreen />}>

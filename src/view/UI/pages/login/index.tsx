@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useRoute } from "react-router5";
 import { observer } from "mobx-react-lite";
 
-import { IUserVM } from "../../../viewModels/User/types";
+import { IAdminVM } from "../../../viewModels/Admin/types";
 import { useViewModel } from "../../hooks";
 import { CONSTANTS } from "../../../../constants";
 import { IFormValues } from "./types";
@@ -19,7 +19,7 @@ const LoginPage: FC = observer(() => {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<IFormValues>();
-  const user = useViewModel<IUserVM>("user");
+  const adminVM = useViewModel<IAdminVM>("admin");
 
   const {
     route: { params },
@@ -28,7 +28,7 @@ const LoginPage: FC = observer(() => {
   const { redirectName = CONSTANTS.defaultRoute, redirectParams = {} } = params;
 
   const onSubmit: SubmitHandler<IFormValues> = async (data: IFormValues) => {
-    await user.login(data);
+    await adminVM.login(data);
     navigate(redirectName, redirectParams);
   };
 
@@ -58,7 +58,7 @@ const LoginPage: FC = observer(() => {
         </div>
 
         <div className={css.page__formItem}>
-          <FormButton loading={user.loading} disabled={isSubmitting} />
+          <FormButton loading={adminVM.loading} disabled={isSubmitting} />
         </div>
       </form>
     </div>

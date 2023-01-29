@@ -1,29 +1,29 @@
 import { BaseVM } from "../BaseVM";
 import { makeObservable, observable } from "mobx";
 
-import { IUserEntity } from "../../../data/User/entity/types";
-import { IUserService } from "../../../data/User/service/types";
-import { IUserVM } from "./types";
+import { IAdminEntity } from "../../../data/Admin/entity/types";
+import { IAdminService } from "../../../data/Admin/service/types";
+import { IAdminVM } from "./types";
 import { INotificationsVM } from "../types";
 import { IFormValues } from "src/view/UI/pages/login/types";
 import Cookies from "js-cookie";
 import { CONSTANTS } from "src/constants";
-import { User } from "../../../data/User/entity";
+import { Admin } from "../../../data/Admin/entity";
 
-export class UserVM extends BaseVM implements IUserVM {
-  user: IUserEntity | null = null;
+export class AdminVM extends BaseVM implements IAdminVM {
+  admin: IAdminEntity | null = null;
   get authorized(): boolean {
     return !!Cookies.get(CONSTANTS.tokenCookieKey);
   }
 
   constructor(
     notificationsVM: INotificationsVM,
-    private service: IUserService
+    private service: IAdminService
   ) {
     super(notificationsVM);
-    this.user = new User({ id: 0 });
+    this.admin = new Admin({ id: 0 });
     makeObservable(this, {
-      user: observable,
+      admin: observable,
     });
   }
 

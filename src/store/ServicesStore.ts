@@ -2,9 +2,9 @@ import { IServices, IStoreRepositories, IStoreServices } from "./types";
 import { AgencyService } from "../data/Agency/service";
 import { OrderService } from "../data/Order/service";
 import { LocalityService } from "../data/Locality/service";
-import { UserService } from "../data/User/service";
+import { AdminService } from "../data/Admin/service";
 import { IAgencyService } from "../data/Agency/service/types";
-import { IUserService } from "../data/User/service/types";
+import { IAdminService } from "../data/Admin/service/types";
 import { IOrderService } from "../data/Order/service/types";
 import { ILocalityService } from "../data/Locality/service/types";
 
@@ -19,12 +19,12 @@ export class ServicesStore implements IStoreServices {
     return this.services.agency;
   }
 
-  get user(): IUserService {
-    if (!this.services.user) {
-      this.services.user = new UserService(this.repositories.user);
+  get admin(): IAdminService {
+    if (!this.services.admin) {
+      this.services.admin = new AdminService(this.repositories.admin);
     }
 
-    return this.services.user;
+    return this.services.admin;
   }
 
   get order(): IOrderService {

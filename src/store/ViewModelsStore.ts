@@ -1,12 +1,12 @@
 import { IStoreServices, IStoreViewModels, IViewModels } from "./types";
 import { AgencyVM } from "../view/viewModels/Agency";
-import { UserVM } from "../view/viewModels/User";
+import { AdminVM } from "../view/viewModels/Admin";
 import { NotificationsVM } from "../view/viewModels/NotificationsVM";
 import { OrderVM } from "../view/viewModels/Order";
 import { LocalityVM } from "../view/viewModels/Locality";
 import { IAgencyVM } from "../view/viewModels/Agency/types";
 import { INotificationsVM } from "../view/viewModels/types";
-import { IUserVM } from "../view/viewModels/User/types";
+import { IAdminVM } from "../view/viewModels/Admin/types";
 import { IOrderVM } from "../view/viewModels/Order/types";
 import { ILocalityVM } from "../view/viewModels/Locality/types";
 import { IAppVM } from "../view/viewModels/App/types";
@@ -34,12 +34,12 @@ export class ViewModelsStore implements IStoreViewModels {
     return this.store.agency;
   }
 
-  get user(): IUserVM {
-    if (!this.store.user) {
-      this.store.user = new UserVM(this.notifications, this.services.user);
+  get admin(): IAdminVM {
+    if (!this.store.admin) {
+      this.store.admin = new AdminVM(this.notifications, this.services.admin);
     }
 
-    return this.store.user;
+    return this.store.admin;
   }
 
   get order(): IOrderVM {
