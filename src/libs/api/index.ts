@@ -32,7 +32,13 @@ export class Api implements IApi {
 
     if (responseObj.statusCode === 401 || responseObj.status === 401) {
       this.removeToken();
-      this.router.navigate("login", {}, { force: true });
+
+      const routerState = this.router.getState();
+
+      this.router.navigate("login", {
+        redirectName: routerState.name,
+        redirectParams: routerState.params,
+      });
     }
 
     throw Error(response);
