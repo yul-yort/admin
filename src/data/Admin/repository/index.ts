@@ -20,6 +20,7 @@ export class AdminRepository
 
   async logout(): Promise<void> {
     await this.api.post({ endpoint: EEndpoints.LOGOUT });
+    localStorage.removeItem(CONSTANTS.tokenKey);
   }
 
   getAdmin(): Promise<IAdminResponseDTO> {

@@ -95,7 +95,11 @@
             greetingWords = "Добрый вечер";
           }
 
-          greetingsEl.innerHTML = `${greetingWords}, ${user.firstName}`;
+          if (user.firstName) {
+            greetingWords += `, ${user.firstName}`;
+          }
+
+          greetingsEl.innerHTML = `${greetingWords}!`;
           loadingNode.append(greetingsEl);
         }
       }
