@@ -29,7 +29,7 @@ const routes: IRoutes = [
       if (!props) return;
 
       const { store } = props;
-      await store.agency.getList();
+      store.agency.getList();
     },
     children: [
       {
@@ -44,9 +44,9 @@ const routes: IRoutes = [
 
           const { store, params } = props;
 
-          await store.agency.getAgency(params);
-          setDocumentTitle(store.agency.agency?.name);
-
+          store.agency.getAgency(params).then(() => {
+            setDocumentTitle(store.agency.agency?.name);
+          });
           store.order.getListByAgencyId(params.id);
         },
       },
@@ -66,7 +66,7 @@ const routes: IRoutes = [
 
       const { store, params } = props;
 
-      await store.order.getList(params);
+      store.order.getList(params);
     },
   },
   {
@@ -81,7 +81,7 @@ const routes: IRoutes = [
 
       const { store } = props;
 
-      await store.locality.getList();
+      store.locality.getList();
     },
   },
 ];

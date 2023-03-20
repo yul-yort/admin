@@ -1,13 +1,12 @@
 import { BaseVM } from "../BaseVM";
 import { action, makeObservable, observable } from "mobx";
-import jwtDecode from "jwt-decode";
 
 import { IAdminEntity } from "../../../data/Admin/entity/types";
 import { IAdminService } from "../../../data/Admin/service/types";
-import { IAdminVM, IToken } from "./types";
+import { IAdminVM } from "./types";
 import { INotificationsVM } from "../types";
 import { IFormValues } from "src/view/UI/pages/login/types";
-import { CONSTANTS } from "src/constants";
+import { CONSTANTS } from "../../../constants";
 
 export class AdminVM extends BaseVM implements IAdminVM {
   admin: IAdminEntity | null = null;
@@ -53,24 +52,21 @@ export class AdminVM extends BaseVM implements IAdminVM {
     }
   };
 
-  isAuthorized(): boolean {
-    const token = localStorage.getItem(CONSTANTS.tokenKey);
-    if (!token) {
-      return false;
-    }
-
-    const decodedToken = jwtDecode<IToken>(token);
-    const currentTime = Date.now() / 1000;
-
-    return decodedToken.exp - currentTime > 0;
-  }
-
   getAdmin = async (): Promise<void> => {
     this.setLoading();
     this.unsetError();
 
     try {
       this.admin = await this.service.getAdmin();
+      const adminPublicData = {
+        firstName: this.admin.firstName,
+        lastName: this.admin.lastName,
+      };
+
+      localStorage.setItem(
+        CONSTANTS.publicAdminInfoKey,
+        JSON.stringify(adminPublicData)
+      );
     } catch (err) {
       this.setError(err);
     } finally {

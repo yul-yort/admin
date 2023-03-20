@@ -4,12 +4,9 @@ import { Router } from "router5/dist/types/router";
 import { IDependencies } from "../../router/types";
 
 export class Api implements IApi {
-  private getToken() {
-    return localStorage.getItem(CONSTANTS.tokenKey);
-  }
-
   private removeToken() {
-    return localStorage.removeItem(CONSTANTS.tokenKey);
+    //TODO выносить все это в Auth модуль?
+    localStorage.removeItem(CONSTANTS.publicAdminInfoKey);
   }
 
   private getHeaders() {
@@ -17,12 +14,6 @@ export class Api implements IApi {
       "Content-Type": "application/json",
       "Access-Control-Allow-Credentials": "true",
     };
-
-    const token = this.getToken();
-
-    if (token) {
-      headers["Authorization"] = `Bearer ${token}`;
-    }
 
     return headers;
   }
