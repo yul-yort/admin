@@ -4,7 +4,7 @@ import jwtDecode from "jwt-decode";
 
 import { IAdminEntity } from "../../../data/Admin/entity/types";
 import { IAdminService } from "../../../data/Admin/service/types";
-import { IAdminVM } from "./types";
+import { IAdminVM, IToken } from "./types";
 import { INotificationsVM } from "../types";
 import { IFormValues } from "src/view/UI/pages/login/types";
 import { CONSTANTS } from "src/constants";
@@ -59,7 +59,7 @@ export class AdminVM extends BaseVM implements IAdminVM {
       return false;
     }
 
-    const decodedToken = jwtDecode<any>(token);
+    const decodedToken = jwtDecode<IToken>(token);
     const currentTime = Date.now() / 1000;
 
     return decodedToken.exp - currentTime > 0;

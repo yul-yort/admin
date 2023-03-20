@@ -9,10 +9,11 @@ export class AdminRepository
   implements IAdminRepository
 {
   async login(data: IFormValues): Promise<void> {
-    const result: any = await this.api.post({
-      endpoint: EEndpoints.LOGIN,
-      body: { email: data.login, password: data.password },
-    });
+    const result: { access_token: string; admin: IAdminResponseDTO } =
+      await this.api.post({
+        endpoint: EEndpoints.LOGIN,
+        body: { email: data.login, password: data.password },
+      });
 
     localStorage.setItem(CONSTANTS.tokenKey, result.access_token);
   }

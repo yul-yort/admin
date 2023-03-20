@@ -3,6 +3,13 @@ import { IFormValues } from "src/view/UI/pages/login/types";
 
 import { IAdminEntity } from "../../../data/Admin/entity/types";
 
+export interface IToken {
+  user: IAdminEntity;
+  origin: "yy-admin";
+  iat: number;
+  exp: number;
+}
+
 export interface IAdminVM extends IBaseVM {
   admin: IAdminEntity | null;
 
