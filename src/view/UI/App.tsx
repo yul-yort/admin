@@ -2,15 +2,18 @@ import { FC, lazy, Suspense } from "react";
 import { observer } from "mobx-react-lite";
 
 import { LoadingScreen, Notify } from "./components/common";
-import { useNotification, useViewModel } from "./hooks";
-import { IAdminVM } from "../viewModels/Admin/types";
+import { useNotification } from "./hooks";
+import { useRoute } from "react-router5";
+import { ERouteNames } from "../../router/types";
 
 const UnauthorizedApp = lazy(() => import("./UnauthorizedApp"));
 const AuthorizedApp = lazy(() => import("./AuthorizedApp"));
 
 export const App: FC = observer(() => {
+  const {
+    route: { name: routeName },
+  } = useRoute();
   const { notification, removeNotification } = useNotification();
-  const adminVM = useViewModel<IAdminVM>("admin");
 
   return (
     <>
@@ -22,7 +25,11 @@ export const App: FC = observer(() => {
       />
 
       <Suspense fallback={<LoadingScreen />}>
-        {adminVM.authorized ? <AuthorizedApp /> : <UnauthorizedApp />}
+        {routeName !== ERouteNames.LOGIN ? (
+          <AuthorizedApp />
+        ) : (
+          <UnauthorizedApp />
+        )}
       </Suspense>
     </>
   );

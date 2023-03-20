@@ -15,7 +15,6 @@ import { ErrorBoundary } from "./pages/errorBoundaryPage";
 import App from "./App";
 import { observer } from "mobx-react-lite";
 import { useViewModel } from "./hooks";
-import { IAppVM } from "../viewModels/App/types";
 
 type IAppInitConfig = {
   router: Router<IDependencies>;
@@ -24,7 +23,7 @@ type IAppInitConfig = {
 
 const AppRoot: FC<{ themes: IAppInitConfig["themes"] }> = observer(
   ({ themes: [lightTheme, darkTheme] }) => {
-    const appVM = useViewModel<IAppVM>("app");
+    const appVM = useViewModel("app");
 
     return (
       <StrictMode>

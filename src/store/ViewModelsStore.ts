@@ -61,8 +61,6 @@ export class ViewModelsStore implements IStoreViewModels {
     return this.store.locality;
   }
 
-  constructor(private services: IStoreServices) {}
-
   get app(): IAppVM {
     if (!this.store.app) {
       this.store.app = new AppVM(this.notifications);
@@ -70,4 +68,6 @@ export class ViewModelsStore implements IStoreViewModels {
 
     return this.store.app;
   }
+
+  constructor(private services: IStoreServices) {}
 }

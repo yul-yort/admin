@@ -1,23 +1,27 @@
-import { IOnActivateArgs, IOnActivateArgsWithParams, IRoutes } from "./types";
-import { CONSTANTS } from "../constants";
+import {
+  ERouteNames,
+  IOnActivateArgs,
+  IOnActivateArgsWithParams,
+  IRoutes,
+} from "./types";
 import { setDocumentTitle } from "../libs/utils";
 import { IAgencyRequestParams } from "../data/Agency/entity/types";
 import { IOrderItemRequestParams } from "../data/Order/entity/types";
 
 const routes: IRoutes = [
   {
-    name: "login",
+    name: ERouteNames.LOGIN,
     path: "/login",
     title: "Авторизация",
   },
   {
-    name: CONSTANTS.defaultRoute,
+    name: ERouteNames.DASHBOARD,
     path: "/",
     title: "Dashboard",
     auth: true,
   },
   {
-    name: "agencies",
+    name: ERouteNames.AGENCIES,
     path: "/agencies",
     title: "Список агентств",
     auth: true,
@@ -29,7 +33,7 @@ const routes: IRoutes = [
     },
     children: [
       {
-        name: "agency",
+        name: ERouteNames.AGENCY,
         path: "/:id",
         title: "Агенство",
         auth: true,
@@ -49,7 +53,7 @@ const routes: IRoutes = [
     ],
   },
   {
-    name: "orders",
+    name: ERouteNames.ORDERS,
     path: "/orders",
     title: "Поездки",
     auth: true,
@@ -66,7 +70,7 @@ const routes: IRoutes = [
     },
   },
   {
-    name: "localities",
+    name: ERouteNames.LOCALITIES,
     path: "/localities",
     title: "Населенные пункты",
     auth: true,

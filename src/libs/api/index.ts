@@ -1,17 +1,38 @@
-import { baseUrl } from "../../constants";
+import { baseUrl, CONSTANTS } from "../../constants";
 import { IApi, IMethodArgs } from "./types";
 import { Router } from "router5/dist/types/router";
 import { IDependencies } from "../../router/types";
 
 export class Api implements IApi {
-  private _headers = {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Credentials": "true",
-  };
+  private getToken() {
+    return localStorage.getItem(CONSTANTS.tokenKey);
+  }
+
+  private removeToken() {
+    return localStorage.removeItem(CONSTANTS.tokenKey);
+  }
+
+  private getHeaders() {
+    const headers: HeadersInit = {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Credentials": "true",
+    };
+
+    const token = this.getToken();
+
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
+
+    return headers;
+  }
 
   private errorHandler(response: string): void {
-    if (JSON.parse(response).statusCode === 401) {
-      this.router.navigate("login");
+    const responseObj = JSON.parse(response);
+
+    if (responseObj.statusCode === 401 || responseObj.status === 401) {
+      this.removeToken();
+      this.router.navigate("login", {}, { force: true });
     }
 
     throw Error(response);
@@ -35,6 +56,7 @@ export class Api implements IApi {
 
     const response = await fetch(url, {
       credentials: "include",
+      headers: this.getHeaders(),
     });
 
     if (!response.ok) {
@@ -49,7 +71,7 @@ export class Api implements IApi {
 
     const response = await fetch(url, {
       method: "POST",
-      headers: this._headers,
+      headers: this.getHeaders(),
       credentials: "include",
       body: JSON.stringify(body),
     });
@@ -68,7 +90,7 @@ export class Api implements IApi {
 
     const response = await fetch(url, {
       method: "PATCH",
-      headers: this._headers,
+      headers: this.getHeaders(),
       credentials: "include",
       body: JSON.stringify(body),
     });
@@ -85,7 +107,7 @@ export class Api implements IApi {
 
     const response = await fetch(url, {
       method: "DELETE",
-      headers: this._headers,
+      headers: this.getHeaders(),
     });
 
     if (!response.ok) {

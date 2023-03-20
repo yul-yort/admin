@@ -3,7 +3,6 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useRoute } from "react-router5";
 import { observer } from "mobx-react-lite";
 
-import { IAdminVM } from "../../../viewModels/Admin/types";
 import { useViewModel } from "../../hooks";
 import { CONSTANTS } from "../../../../constants";
 import { IFormValues } from "./types";
@@ -19,7 +18,7 @@ const LoginPage: FC = observer(() => {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<IFormValues>();
-  const adminVM = useViewModel<IAdminVM>("admin");
+  const adminVM = useViewModel("admin");
 
   const {
     route: { params },

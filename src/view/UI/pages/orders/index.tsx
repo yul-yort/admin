@@ -4,14 +4,12 @@ import { observer } from "mobx-react-lite";
 import { useViewModel } from "../../hooks";
 import TableContainer from "./components/TableContainer";
 import css from "./styles.module.scss";
-import { IOrderVM } from "../../../viewModels/Order/types";
 import Error from "../../components/shared/Error";
 import Loading from "../../components/common/Loading";
-import { ILocalityVM } from "src/view/viewModels/Locality/types";
 
 const Orders: FC = observer(() => {
-  const orderVM = useViewModel<IOrderVM>("order");
-  const localityVM = useViewModel<ILocalityVM>("locality");
+  const orderVM = useViewModel("order");
+  const localityVM = useViewModel("locality");
 
   return (
     <div className={css.page}>

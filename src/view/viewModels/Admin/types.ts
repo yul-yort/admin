@@ -5,8 +5,9 @@ import { IAdminEntity } from "../../../data/Admin/entity/types";
 
 export interface IAdminVM extends IBaseVM {
   admin: IAdminEntity | null;
-  authorized: boolean;
 
+  isAuthorized: () => boolean;
   login: (data: IFormValues) => Promise<void>;
+  getAdmin: () => Promise<void>;
   logout: () => Promise<void>;
 }
