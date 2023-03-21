@@ -1,8 +1,8 @@
 export interface IAdminEntity {
-  id: number;
+  readonly id: number;
   email: string;
   lastName: string;
   firstName: string;
 }
 
-export type IAdminResponseDTO = Pick<IAdminEntity, "id">;
+export interface IAdminResponseDTO extends IAdminEntity {}

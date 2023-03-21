@@ -3,6 +3,15 @@ import { IStoreViewModels } from "../store/types";
 import { IAgencyRequestParams } from "../data/Agency/entity/types";
 import { IOrderItemRequestParams } from "../data/Order/entity/types";
 
+export enum ERouteNames {
+  LOGIN = "login",
+  DASHBOARD = "dashboard",
+  AGENCY = "agency",
+  AGENCIES = "agencies",
+  ORDERS = "orders",
+  LOCALITIES = "localities",
+}
+
 export type IRoutes = [
   ILoginRoute,
   IDashboardRoute,
@@ -17,6 +26,7 @@ export interface IDependencies extends DefaultDependencies {
 }
 
 export interface IRoute extends Route<IDependencies> {
+  name: ERouteNames;
   title: string;
   onActivate?: (args?: IOnActivateArgs) => Promise<void>;
   auth?: boolean;

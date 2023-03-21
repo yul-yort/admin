@@ -61,31 +61,24 @@
       </div>
       <!--    Конец-->
     </div>
-    <script src="./scripts/jwt-decode.js"></script>
     <script>
       // возвращает куки с указанным name,
       // или undefined, если ничего не найдено
-      function getCookie(name) {
-        let matches = document.cookie.match(
-          new RegExp(
-            "(?:^|; )" +
-              name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") +
-              "=([^;]*)"
-          )
-        );
-        return matches ? decodeURIComponent(matches[1]) : undefined;
+      function getPublicAdminData(name) {
+        return localStorage.getItem(name);
       }
 
       // Получаем имя пользователя и пишем приветственные слова.
-      const token = getCookie("yy-access-token");
-      const currentDate = new Date();
-      const hour = currentDate.getHours();
+      const data = getPublicAdminData("yy-public-admin-info");
 
-      if (token) {
-        const obj = jwt_decode(token);
+      if (data) {
+        const parsedData = JSON.parse(data);
         const loadingNode = document.getElementById("loading-dots");
 
-        if (loadingNode && obj) {
+        if (loadingNode && parsedData) {
+          const currentDate = new Date();
+          const hour = currentDate.getHours();
+
           let greetingsEl = document.createElement("div");
           greetingsEl.classList.add("greetings-node");
           let greetingWords;
@@ -100,7 +93,11 @@
             greetingWords = "Добрый вечер";
           }
 
-          greetingsEl.innerHTML = `${greetingWords}, ${obj.firstName}`;
+          if (parsedData.firstName) {
+            greetingWords += `, ${parsedData.firstName}`;
+          }
+
+          greetingsEl.innerHTML = `${greetingWords}!`;
           loadingNode.append(greetingsEl);
         }
       }

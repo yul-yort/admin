@@ -5,14 +5,11 @@ import { useViewModel } from "../../hooks";
 import { Detail } from "./components/Detail";
 import Error from "../../components/shared/Error";
 import Loading from "../../components/common/Loading";
-import { IAgencyVM } from "../../../viewModels/Agency/types";
-import { ILocalityVM } from "src/view/viewModels/Locality/types";
-import { IOrderVM } from "../../../viewModels/Order/types";
 
 const Agency: FC = observer(() => {
-  const agencyVM = useViewModel<IAgencyVM>("agency");
-  const orderVM = useViewModel<IOrderVM>("order");
-  const localityVM = useViewModel<ILocalityVM>("locality");
+  const agencyVM = useViewModel("agency");
+  const orderVM = useViewModel("order");
+  const localityVM = useViewModel("locality");
 
   return (
     <div>

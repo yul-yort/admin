@@ -1,17 +1,35 @@
-import { baseUrl } from "../../constants";
+import { baseUrl, CONSTANTS } from "../../constants";
 import { IApi, IMethodArgs } from "./types";
 import { Router } from "router5/dist/types/router";
 import { IDependencies } from "../../router/types";
 
 export class Api implements IApi {
-  private _headers = {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Credentials": "true",
-  };
+  private removeToken() {
+    //TODO выносить все это в Auth модуль?
+    localStorage.removeItem(CONSTANTS.publicAdminInfoKey);
+  }
+
+  private getHeaders() {
+    const headers: HeadersInit = {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Credentials": "true",
+    };
+
+    return headers;
+  }
 
   private errorHandler(response: string): void {
-    if (JSON.parse(response).statusCode === 401) {
-      this.router.navigate("login");
+    const responseObj = JSON.parse(response);
+
+    if (responseObj.statusCode === 401 || responseObj.status === 401) {
+      this.removeToken();
+
+      const routerState = this.router.getState();
+
+      this.router.navigate("login", {
+        redirectName: routerState.name,
+        redirectParams: routerState.params,
+      });
     }
 
     throw Error(response);
@@ -35,6 +53,7 @@ export class Api implements IApi {
 
     const response = await fetch(url, {
       credentials: "include",
+      headers: this.getHeaders(),
     });
 
     if (!response.ok) {
@@ -49,7 +68,7 @@ export class Api implements IApi {
 
     const response = await fetch(url, {
       method: "POST",
-      headers: this._headers,
+      headers: this.getHeaders(),
       credentials: "include",
       body: JSON.stringify(body),
     });
@@ -68,7 +87,7 @@ export class Api implements IApi {
 
     const response = await fetch(url, {
       method: "PATCH",
-      headers: this._headers,
+      headers: this.getHeaders(),
       credentials: "include",
       body: JSON.stringify(body),
     });
@@ -85,7 +104,7 @@ export class Api implements IApi {
 
     const response = await fetch(url, {
       method: "DELETE",
-      headers: this._headers,
+      headers: this.getHeaders(),
     });
 
     if (!response.ok) {

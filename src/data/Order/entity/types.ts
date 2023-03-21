@@ -4,7 +4,7 @@ import { ILocalityDTO } from "../../Locality/entity";
 import { IRouteEntity } from "../../Route/entity/types";
 
 export interface IOrderItemEntity {
-  id: number;
+  readonly id: number;
   agency: IAgencyEntity;
   route: IRouteEntity;
   price: Nullable<number>;

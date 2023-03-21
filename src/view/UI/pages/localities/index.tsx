@@ -1,7 +1,6 @@
 import { FC, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { useViewModel } from "../../hooks";
-import { ILocalityVM } from "src/view/viewModels/Locality/types";
 import LocalityList from "./components/LocalityList";
 import LocalitiesHeader from "./components/Header";
 import Error from "../../components/shared/Error";
@@ -15,7 +14,7 @@ import {
 import { ILocalityEntity } from "src/data/Locality/entity";
 
 const Localities: FC = observer(() => {
-  const localityVM = useViewModel<ILocalityVM>("locality");
+  const localityVM = useViewModel("locality");
   const [modalType, setModalType] = useState<"" | "create" | "edit">("");
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedLocality, setSelectedLocality] =

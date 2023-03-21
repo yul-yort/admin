@@ -1,12 +1,10 @@
-import { FC, lazy, Suspense, useState } from "react";
+import { FC, lazy, Suspense, useEffect, useState } from "react";
 import { constants } from "router5";
 import { useRoute } from "react-router5";
 import { observer } from "mobx-react-lite";
 
 import { LoadingScreen, Header, SideBar, Body } from "./components/common";
 import { useViewModel, useTitle } from "./hooks";
-import { IAdminVM } from "../viewModels/Admin/types";
-import { IAppVM } from "../viewModels/App/types";
 
 const NotFoundPage = lazy(() => import("./pages/notFound"));
 const AgencyPage = lazy(() => import("./pages/agency"));
@@ -28,13 +26,17 @@ export const AuthorizedApp: FC = observer(() => {
   const [open, setOpen] = useState<boolean>(false);
 
   const { title } = useTitle();
-  const adminVM = useViewModel<IAdminVM>("admin");
-  const appVM = useViewModel<IAppVM>("app");
+  const adminVM = useViewModel("admin");
+  const appVM = useViewModel("app");
 
   const {
     route: { name, params },
     router: { navigate },
   } = useRoute();
+
+  useEffect(() => {
+    adminVM.getAdmin();
+  }, []);
 
   const handleOpenCloseSidebar = () => {
     setOpen(!open);
