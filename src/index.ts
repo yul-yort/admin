@@ -3,12 +3,20 @@ import { ViewModelsInitializer } from "./store";
 import { initApp } from "./view/UI";
 import { initErrorApp } from "./view/UI/InitErrorApp";
 import routes from "./router/routes";
-import { onActivate } from "./router/middlewaries";
-import { documentTitle } from "./router/middlewaries/documentTitle";
+import {
+  checkAuthorization,
+  onActivate,
+  documentTitle,
+} from "./router/middlewaries";
 import { darkTheme, lightTheme } from "./view/UI/theme";
 
 try {
-  const router = createAppRouter(routes, [onActivate, documentTitle]);
+  const router = createAppRouter(routes, [
+    onActivate,
+    documentTitle,
+    checkAuthorization,
+  ]);
+
   const viewModels = new ViewModelsInitializer(router).viewModels;
 
   router.setDependencies({ store: viewModels, routes });

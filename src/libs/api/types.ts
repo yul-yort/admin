@@ -7,6 +7,11 @@ export interface IMethodArgs<Q> {
   body?: Q;
 }
 
+export interface IDefaultConfig {
+  credentials: RequestCredentials;
+  headers: HeadersInit;
+}
+
 export interface IApi {
   /**
    * Метод для получения данных.
@@ -24,4 +29,11 @@ export interface IApi {
    * Метод для удаления данных.
    */
   delete<Q>(args: IMethodArgs<Q>): Promise<void>;
+}
+
+export enum EHttpMethod {
+  GET = "GET",
+  POST = "POST",
+  PATCH = "PATCH",
+  DELETE = "DELETE",
 }

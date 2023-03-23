@@ -1,77 +1,78 @@
-import { baseUrl, CONSTANTS } from "../../constants";
-import { IApi, IMethodArgs } from "./types";
+import urlJoin from "url-join";
+import queryString from "query-string";
 import { Router } from "router5/dist/types/router";
+
+import { baseUrl, CONSTANTS } from "../../constants";
+import { EHttpMethod, IApi, IDefaultConfig, IMethodArgs } from "./types";
 import { IDependencies } from "../../router/types";
 
 export class Api implements IApi {
-  private removeToken() {
-    //TODO выносить все это в Auth модуль?
+  private get defaultConfig(): IDefaultConfig {
+    return {
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": "true",
+      },
+    };
+  }
+
+  private removeAdminDateFromLocalStorage(): void {
     localStorage.removeItem(CONSTANTS.publicAdminInfoKey);
   }
 
-  private getHeaders() {
-    const headers: HeadersInit = {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Credentials": "true",
-    };
-
-    return headers;
-  }
-
-  private errorHandler(response: string): void {
+  private errorHandler(response: string): never {
     const responseObj = JSON.parse(response);
 
-    if (responseObj.statusCode === 401 || responseObj.status === 401) {
-      this.removeToken();
+    if (
+      responseObj &&
+      (responseObj.statusCode === 401 || responseObj.status === 401)
+    ) {
+      this.removeAdminDateFromLocalStorage();
 
       const routerState = this.router.getState();
 
       this.router.navigate("login", {
         redirectName: routerState.name,
-        redirectParams: routerState.params,
+        redirectParams: JSON.stringify(routerState.params),
       });
     }
 
-    throw Error(response);
+    throw new Error(response);
   }
 
   private getUrl<Q>(args: IMethodArgs<Q>): string {
     const { endpoint, query, param = "" } = args;
-    const url = new URL(endpoint + "/" + param, baseUrl);
+    const url = urlJoin(baseUrl, endpoint, param.toString());
 
     if (query) {
-      url.search = new URLSearchParams(query).toString();
+      return `${url}?${queryString.stringify(query)}`;
     }
 
-    return url.toString();
+    return url;
   }
 
   constructor(private router: Router<IDependencies>) {}
 
-  async get<R, Q = undefined>(args: IMethodArgs<Q>): Promise<R> {
+  private async request<R, Q = undefined>(
+    method: EHttpMethod,
+    { body, ...args }: IMethodArgs<Q>
+  ): Promise<R> {
     const url = this.getUrl<Q>(args);
+    const controller = new AbortController();
+
+    const timeout = setTimeout(() => {
+      controller.abort();
+    }, 30000); // 30 seconds timeout
 
     const response = await fetch(url, {
-      credentials: "include",
-      headers: this.getHeaders(),
+      ...this.defaultConfig,
+      method,
+      body: body ? JSON.stringify(body) : undefined,
+      signal: controller.signal,
     });
 
-    if (!response.ok) {
-      this.errorHandler(await response.text());
-    }
-
-    return await response.json();
-  }
-
-  async post<R, Q>({ body, ...args }: IMethodArgs<Q>): Promise<R> {
-    const url = this.getUrl<Q>(args);
-
-    const response = await fetch(url, {
-      method: "POST",
-      headers: this.getHeaders(),
-      credentials: "include",
-      body: JSON.stringify(body),
-    });
+    clearTimeout(timeout);
 
     if (!response.ok) {
       this.errorHandler(await response.text());
@@ -82,33 +83,19 @@ export class Api implements IApi {
     return JSON.parse(responseText);
   }
 
-  async patch<R, Q>({ body, ...args }: IMethodArgs<Q>): Promise<R> {
-    const url = this.getUrl<Q>(args);
-
-    const response = await fetch(url, {
-      method: "PATCH",
-      headers: this.getHeaders(),
-      credentials: "include",
-      body: JSON.stringify(body),
-    });
-
-    if (!response.ok) {
-      this.errorHandler(await response.text());
-    }
-
-    return await response.json();
+  async get<R, Q = undefined>(args: IMethodArgs<Q>): Promise<R> {
+    return this.request<R, Q>(EHttpMethod.GET, args);
   }
 
-  async delete<Q>(args: IMethodArgs<Q>): Promise<void> {
-    const url = this.getUrl<Q>(args);
+  async post<R, Q = undefined>(args: IMethodArgs<Q>): Promise<R> {
+    return this.request<R, Q>(EHttpMethod.POST, args);
+  }
 
-    const response = await fetch(url, {
-      method: "DELETE",
-      headers: this.getHeaders(),
-    });
+  async patch<R, Q = undefined>(args: IMethodArgs<Q>): Promise<R> {
+    return this.request<R, Q>(EHttpMethod.PATCH, args);
+  }
 
-    if (!response.ok) {
-      this.errorHandler(await response.text());
-    }
+  async delete<R, Q = undefined>(args: IMethodArgs<Q>): Promise<R> {
+    return this.request<R, Q>(EHttpMethod.DELETE, args);
   }
 }

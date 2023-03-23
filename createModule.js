@@ -15,9 +15,8 @@ if (!moduleNameArg) {
  * @param {string} name - строка.
  * @returns {string}
  */
-function capitalizeFirstLetter(name) {
-  return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-}
+const capitalizeFirstLetter = (name) =>
+  `${name.charAt(0).toUpperCase()}${name.slice(1).toLowerCase()}`;
 
 /**
  * Обработчик ошибок.
@@ -199,3 +198,93 @@ types.forEach((type) => {
 });
 
 console.log(`The module ${moduleName} was created!`);
+
+//советы от GPT, подумать на досуге!!!
+
+//Первое, что мне бросается в глаза - это то, что у вас есть несколько повторяющихся функций в объекте builder. Это может быть улучшено, объединив эти функции в одну общую функцию с параметрами.
+//
+// Например, вы можете определить общую функцию generateFiles, которая принимает в качестве параметров тип, имя модуля и содержимое шаблона, а затем генерирует соответствующие файлы.
+//
+// Вот так это может выглядеть:
+// function generateFiles(type, name, classTemplate, typeTemplate) {
+//   const dirPath = builder[type].getDirectoryPath(name);
+//   const classFilePath = builder[type].getClassFilePath(name);
+//   const typeFilePath = builder[type].getTypeFilePath(name);
+//
+//   fs.mkdirSync(dirPath, { recursive: true });
+//
+//   fs.writeFile(classFilePath, classTemplate(name), errorCallback);
+//   fs.writeFile(typeFilePath, typeTemplate(name), errorCallback);
+// }
+//
+// types.forEach((type) => {
+//   generateFiles(
+//     type,
+//     moduleName,
+//     builder[type].getClassTemplate,
+//     builder
+
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+// был еще такой вариант
+// const fs = require('fs');
+// const { capitalize } = require('lodash/string');
+//
+// const DIRECTORY_TEMPLATE = './src/data/{name}/{type}';
+// const FILE_TEMPLATE = './src/data/{name}/{type}/index.ts';
+// const TYPE_TEMPLATE = './src/data/{name}/{type}/types.ts';
+//
+// function createDirectory(name, type) {
+//   const directoryPath = DIRECTORY_TEMPLATE.replace('{name}', name).replace('{type}', type);
+//   fs.mkdirSync(directoryPath, { recursive: true });
+// }
+//
+// function writeFile(name, type, content) {
+//   const filePath = FILE_TEMPLATE.replace('{name}', name).replace('{type}', type);
+//   fs.writeFileSync(filePath, content);
+// }
+//
+// function createModule(moduleName) {
+//   const types = ['entity', 'repository', 'service', 'VM'];
+//
+//   types.forEach((type) => {
+//     createDirectory(moduleName, type);
+//
+//     const className = capitalize(moduleName) + capitalize(type);
+//     const typeName = `I${className}`;
+//
+//     const classContent = `
+//       import { ${typeName} } from "./types";
+//
+//       export class ${className} implements ${typeName} {}
+//     `;
+//
+//     const typeContent = `
+//       export interface ${typeName} {}
+//     `;
+//
+//     writeFile(moduleName, type, typeContent);
+//     writeFile(moduleName, type, classContent);
+//   });
+//
+//   const indexContent = `
+//     export * from './entity';
+//     export * from './repository';
+//     export * from './service';
+//
+//     export * from './entity/types';
+//     export * from './repository/types';
+//     export * from './service/types';
+//   `;
+//
+//   writeFile(moduleName, 'index', indexContent);
+// }
+//
+// const moduleName = process.argv[2];
+//
+// if (!moduleName) {
+//   console.error('Укажите название модуля! Н-р: npm run module test');
+//   throw new Error('Укажите название модуля! Н-р: npm run module test');
+// }
+//
+// createModule(moduleName);

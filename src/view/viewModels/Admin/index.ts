@@ -6,7 +6,6 @@ import { IAdminService } from "../../../data/Admin/service/types";
 import { IAdminVM } from "./types";
 import { INotificationsVM } from "../types";
 import { IFormValues } from "src/view/UI/pages/login/types";
-import { CONSTANTS } from "../../../constants";
 
 export class AdminVM extends BaseVM implements IAdminVM {
   admin: IAdminEntity | null = null;
@@ -58,15 +57,6 @@ export class AdminVM extends BaseVM implements IAdminVM {
 
     try {
       this.admin = await this.service.getAdmin();
-      const adminPublicData = {
-        firstName: this.admin.firstName,
-        lastName: this.admin.lastName,
-      };
-
-      localStorage.setItem(
-        CONSTANTS.publicAdminInfoKey,
-        JSON.stringify(adminPublicData)
-      );
     } catch (err) {
       this.setError(err);
     } finally {

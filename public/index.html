@@ -61,46 +61,7 @@
       </div>
       <!--    Конец-->
     </div>
-    <script>
-      // возвращает куки с указанным name,
-      // или undefined, если ничего не найдено
-      function getPublicAdminData(name) {
-        return localStorage.getItem(name);
-      }
 
-      // Получаем имя пользователя и пишем приветственные слова.
-      const data = getPublicAdminData("yy-public-admin-info");
-
-      if (data) {
-        const parsedData = JSON.parse(data);
-        const loadingNode = document.getElementById("loading-dots");
-
-        if (loadingNode && parsedData) {
-          const currentDate = new Date();
-          const hour = currentDate.getHours();
-
-          let greetingsEl = document.createElement("div");
-          greetingsEl.classList.add("greetings-node");
-          let greetingWords;
-
-          if (hour < 5) {
-            greetingWords = "Доброй ночи";
-          } else if (hour < 12) {
-            greetingWords = "Доброе утро";
-          } else if (hour < 17) {
-            greetingWords = "Добрый день";
-          } else {
-            greetingWords = "Добрый вечер";
-          }
-
-          if (parsedData.firstName) {
-            greetingWords += `, ${parsedData.firstName}`;
-          }
-
-          greetingsEl.innerHTML = `${greetingWords}!`;
-          loadingNode.append(greetingsEl);
-        }
-      }
-    </script>
+    <script src="./scripts/hello-script.js"></script>
   </body>
 </html>

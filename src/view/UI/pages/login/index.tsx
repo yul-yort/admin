@@ -24,11 +24,12 @@ const LoginPage: FC = observer(() => {
     route: { params },
     router: { navigate },
   } = useRoute();
-  const { redirectName = CONSTANTS.defaultRoute, redirectParams = {} } = params;
+  const { redirectName = CONSTANTS.defaultRoute, redirectParams = "{}" } =
+    params;
 
   const onSubmit: SubmitHandler<IFormValues> = async (data: IFormValues) => {
     await adminVM.login(data);
-    navigate(redirectName, redirectParams);
+    navigate(redirectName, JSON.parse(redirectParams));
   };
 
   return (

@@ -45,7 +45,10 @@ export const AuthorizedApp: FC = observer(() => {
   const logout = async () => {
     await adminVM.logout();
 
-    navigate("login", { redirectName: name, redirectParams: params });
+    navigate("login", {
+      redirectName: name,
+      redirectParams: JSON.stringify(params),
+    });
   };
 
   return (
