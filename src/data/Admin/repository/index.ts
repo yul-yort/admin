@@ -36,10 +36,4 @@ export class AdminRepository
       endpoint: EEndpoints.ADMINS_PROFILE,
     });
   }
-
-  getAdmin(): Promise<IAdminResponseDTO> {
-    return this.api.get<IAdminResponseDTO>({
-      endpoint: EEndpoints.ADMINS_PROFILE,
-    });
-  }
 }
