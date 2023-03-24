@@ -4,7 +4,7 @@ import { useRoute } from "react-router5";
 import { observer } from "mobx-react-lite";
 
 import { useViewModel } from "../../hooks";
-import { CONSTANTS } from "../../../../constants";
+import { CONSTANTS } from "../../../../common";
 import { IFormValues } from "./types";
 import css from "./styles.module.scss";
 

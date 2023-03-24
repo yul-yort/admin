@@ -5,7 +5,7 @@ import {
   IAgencyRequestParams,
   IAgencyResponseDTO,
 } from "../entity/types";
-import { EEndpoints } from "../../../constants";
+import { EEndpoints } from "../../../common";
 import { BaseRepository } from "../../BaseRepository";
 
 export class AgencyRepository
@@ -13,43 +13,46 @@ export class AgencyRepository
   implements IAgencyRepository
 {
   async getAgency(params: IAgencyRequestParams): Promise<IAgencyResponseDTO> {
-    return await this.api.get<IAgencyResponseDTO, IAgencyRequestParams>({
-      endpoint: EEndpoints.AGENCIES,
-      param: params.id,
-    });
+    return await this.execute<IAgencyResponseDTO, IAgencyRequestParams>(
+      "get",
+      EEndpoints.AGENCIES,
+      {
+        param: params.id,
+      }
+    );
   }
 
   async editAgency(
     params: IAgencyRequestEditParams
   ): Promise<IAgencyResponseDTO> {
-    return await this.api.patch<IAgencyResponseDTO, IAgencyRequestEditParams>({
-      endpoint: EEndpoints.AGENCIES,
-      body: params,
-    });
+    return await this.execute<IAgencyResponseDTO, IAgencyRequestEditParams>(
+      "patch",
+      EEndpoints.AGENCIES,
+      {
+        body: params,
+      }
+    );
   }
 
   async deleteAgency(
     //TODO param - number
     params: IAgencyRequestDeleteParams
   ): Promise<void> {
-    await this.api.delete({
-      endpoint: EEndpoints.AGENCIES,
+    await this.execute("delete", EEndpoints.AGENCIES, {
       param: params.id,
     });
   }
 
   async getList(): Promise<IAgencyResponseDTO[]> {
-    return await this.api.get<IAgencyResponseDTO[]>({
-      endpoint: EEndpoints.AGENCIES,
-    });
+    return await this.execute<IAgencyResponseDTO[]>("get", EEndpoints.AGENCIES);
   }
 
   async createAgency(
     params: IAgencyRequestCreateOrEditParams
   ): Promise<IAgencyResponseDTO> {
-    return await this.api.post<
+    return await this.execute<
       IAgencyResponseDTO,
       IAgencyRequestCreateOrEditParams
-    >({ endpoint: EEndpoints.AGENCIES, body: params });
+    >("post", EEndpoints.AGENCIES, { body: params });
   }
 }

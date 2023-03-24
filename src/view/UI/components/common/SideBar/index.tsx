@@ -18,7 +18,7 @@ import { ISideBar } from "./types";
 import css from "./styles.module.scss";
 import routes from "../../../../../router/routes";
 import { icons } from "./icons";
-import { CONSTANTS } from "../../../../../constants";
+import { CONSTANTS } from "../../../../../common";
 import LightModeRoundedIcon from "@mui/icons-material/LightModeRounded";
 import NightsStayRoundedIcon from "@mui/icons-material/NightsStayRounded";
 

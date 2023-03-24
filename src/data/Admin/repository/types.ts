@@ -8,6 +8,6 @@ export interface IToken {
 
 export interface IAdminRepository {
   getAdmin: () => Promise<IAdminEntity>;
-  login: (data: IFormValues) => Promise<void>;
+  login: (data: IFormValues) => Promise<IToken>;
   logout: () => Promise<void>;
 }

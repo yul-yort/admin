@@ -14,9 +14,12 @@ import { IDependencies } from "../router/types";
 export class ViewModelsInitializer {
   viewModels: IStoreViewModels;
 
-  constructor(router: Router<IDependencies>) {
-    const libs: IStoreLibs = new LibsStore(router);
-    const repositories: IStoreRepositories = new RepositoriesStore(libs);
+  constructor(private router: Router<IDependencies>) {
+    const libs: IStoreLibs = new LibsStore();
+    const repositories: IStoreRepositories = new RepositoriesStore(
+      libs,
+      this.router
+    );
     const services: IStoreServices = new ServicesStore(repositories);
 
     this.viewModels = new ViewModelsStore(services);

@@ -1,10 +1,9 @@
 import urlJoin from "url-join";
 import queryString from "query-string";
-import { Router } from "router5/dist/types/router";
 
-import { baseUrl, CONSTANTS } from "../../constants";
+import { baseUrl, EEndpoints, HTTPRequestError } from "../../common";
 import { EHttpMethod, IApi, IDefaultConfig, IMethodArgs } from "./types";
-import { IDependencies } from "../../router/types";
+import { IResponseError } from "../../common/exeptions/types";
 
 export class Api implements IApi {
   private get defaultConfig(): IDefaultConfig {
@@ -17,32 +16,15 @@ export class Api implements IApi {
     };
   }
 
-  private removeAdminDateFromLocalStorage(): void {
-    localStorage.removeItem(CONSTANTS.publicAdminInfoKey);
+  private async errorHandler(response: Response): Promise<never> {
+    const responseJSON = await response.text();
+    const responseObj: IResponseError = JSON.parse(responseJSON);
+
+    throw new HTTPRequestError(responseObj);
   }
 
-  private errorHandler(response: string): never {
-    const responseObj = JSON.parse(response);
-
-    if (
-      responseObj &&
-      (responseObj.statusCode === 401 || responseObj.status === 401)
-    ) {
-      this.removeAdminDateFromLocalStorage();
-
-      const routerState = this.router.getState();
-
-      this.router.navigate("login", {
-        redirectName: routerState.name,
-        redirectParams: JSON.stringify(routerState.params),
-      });
-    }
-
-    throw new Error(response);
-  }
-
-  private getUrl<Q>(args: IMethodArgs<Q>): string {
-    const { endpoint, query, param = "" } = args;
+  private getUrl<Q>(endpoint: EEndpoints, args: IMethodArgs<Q>): string {
+    const { query, param = "" } = args;
     const url = urlJoin(baseUrl, endpoint, param.toString());
 
     if (query) {
@@ -52,13 +34,12 @@ export class Api implements IApi {
     return url;
   }
 
-  constructor(private router: Router<IDependencies>) {}
-
   private async request<R, Q = undefined>(
     method: EHttpMethod,
+    endpoint: EEndpoints,
     { body, ...args }: IMethodArgs<Q>
   ): Promise<R> {
-    const url = this.getUrl<Q>(args);
+    const url = this.getUrl<Q>(endpoint, args);
     const controller = new AbortController();
 
     const timeout = setTimeout(() => {
@@ -75,7 +56,7 @@ export class Api implements IApi {
     clearTimeout(timeout);
 
     if (!response.ok) {
-      this.errorHandler(await response.text());
+      await this.errorHandler(response);
     }
 
     const responseText = (await response.text()) || "{}";
@@ -83,19 +64,31 @@ export class Api implements IApi {
     return JSON.parse(responseText);
   }
 
-  async get<R, Q = undefined>(args: IMethodArgs<Q>): Promise<R> {
-    return this.request<R, Q>(EHttpMethod.GET, args);
+  async get<R, Q = undefined>(
+    endpoint: EEndpoints,
+    args: IMethodArgs<Q>
+  ): Promise<R> {
+    return this.request<R, Q>(EHttpMethod.GET, endpoint, args);
   }
 
-  async post<R, Q = undefined>(args: IMethodArgs<Q>): Promise<R> {
-    return this.request<R, Q>(EHttpMethod.POST, args);
+  async post<R, Q = undefined>(
+    endpoint: EEndpoints,
+    args: IMethodArgs<Q>
+  ): Promise<R> {
+    return this.request<R, Q>(EHttpMethod.POST, endpoint, args);
   }
 
-  async patch<R, Q = undefined>(args: IMethodArgs<Q>): Promise<R> {
-    return this.request<R, Q>(EHttpMethod.PATCH, args);
+  async patch<R, Q = undefined>(
+    endpoint: EEndpoints,
+    args: IMethodArgs<Q>
+  ): Promise<R> {
+    return this.request<R, Q>(EHttpMethod.PATCH, endpoint, args);
   }
 
-  async delete<R, Q = undefined>(args: IMethodArgs<Q>): Promise<R> {
-    return this.request<R, Q>(EHttpMethod.DELETE, args);
+  async delete<R, Q = undefined>(
+    endpoint: EEndpoints,
+    args: IMethodArgs<Q>
+  ): Promise<R> {
+    return this.request<R, Q>(EHttpMethod.DELETE, endpoint, args);
   }
 }

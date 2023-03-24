@@ -5,7 +5,7 @@ import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { Link } from "react-router5";
 
-import { CONSTANTS } from "src/constants/globalConstants";
+import { CONSTANTS } from "src/common/globalConstants";
 
 import css from "./styles.module.scss";
 import { IErrorInfo } from "./types";
