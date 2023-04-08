@@ -17,7 +17,7 @@ try {
     checkAuthorization,
   ]);
 
-  const viewModels = new ViewModelsInitializer(router).viewModels;
+  const viewModels = new ViewModelsInitializer().viewModels;
 
   router.setDependencies({ store: viewModels, routes });
   router.start();

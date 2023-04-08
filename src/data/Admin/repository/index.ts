@@ -1,5 +1,5 @@
-import { IAdminRepository, IToken } from "./types";
-import { CONSTANTS, EEndpoints } from "src/common";
+import { IAdminRepository } from "./types";
+import { EEndpoints } from "src/common";
 import { BaseRepository } from "src/data/BaseRepository";
 import { IFormValues } from "src/view/UI/pages/login/types";
 import { IAdminResponseDTO } from "../entity/types";
@@ -8,36 +8,17 @@ export class AdminRepository
   extends BaseRepository
   implements IAdminRepository
 {
-  async login(data: IFormValues): Promise<IToken> {
-    const tokenData: IToken = await this.execute("post", EEndpoints.LOGIN, {
+  async login(data: IFormValues): Promise<void> {
+    await this.api.post(EEndpoints.LOGIN, {
       body: { email: data.login, password: data.password },
     });
-
-    const { admin } = tokenData;
-
-    const adminPublicData = {
-      id: admin.id,
-      firstName: admin.firstName,
-      lastName: admin.lastName,
-    };
-
-    localStorage.setItem(
-      CONSTANTS.publicAdminInfoKey,
-      JSON.stringify(adminPublicData)
-    );
-
-    return tokenData;
   }
 
   async logout(): Promise<void> {
-    await this.execute("post", EEndpoints.LOGOUT);
-    localStorage.removeItem(CONSTANTS.publicAdminInfoKey);
+    await this.api.post(EEndpoints.LOGOUT);
   }
 
   async getAdmin(): Promise<IAdminResponseDTO> {
-    return await this.execute<IAdminResponseDTO>(
-      "get",
-      EEndpoints.ADMINS_PROFILE
-    );
+    return await this.api.get<IAdminResponseDTO>(EEndpoints.ADMINS_PROFILE);
   }
 }

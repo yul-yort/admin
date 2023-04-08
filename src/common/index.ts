@@ -1,3 +1,3 @@
 export * from "./endpoints";
-export * from "./exeptions/exeptions";
+export * from "./exeptions";
 export * from "./globalConstants";

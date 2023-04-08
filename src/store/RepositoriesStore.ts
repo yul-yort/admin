@@ -7,18 +7,13 @@ import { ILocalityRepository } from "../data/Locality/repository/types";
 import { IOrderRepository } from "../data/Order/repository/types";
 import { IAdminRepository } from "../data/Admin/repository/types";
 import { IAgencyRepository } from "../data/Agency/repository/types";
-import { Router } from "router5/dist/types/router";
-import { IDependencies } from "../router/types";
 
 export class RepositoriesStore implements IStoreRepositories {
   private repositories: IRepositories = {};
 
   get agency(): IAgencyRepository {
     if (!this.repositories.agency) {
-      this.repositories.agency = new AgencyRepository(
-        this.libs.api,
-        this.router
-      );
+      this.repositories.agency = new AgencyRepository(this.libs.api);
     }
 
     return this.repositories.agency;
@@ -26,7 +21,7 @@ export class RepositoriesStore implements IStoreRepositories {
 
   get admin(): IAdminRepository {
     if (!this.repositories.admin) {
-      this.repositories.admin = new AdminRepository(this.libs.api, this.router);
+      this.repositories.admin = new AdminRepository(this.libs.api);
     }
 
     return this.repositories.admin;
@@ -34,7 +29,7 @@ export class RepositoriesStore implements IStoreRepositories {
 
   get order(): IOrderRepository {
     if (!this.repositories.order) {
-      this.repositories.order = new OrderRepository(this.libs.api, this.router);
+      this.repositories.order = new OrderRepository(this.libs.api);
     }
 
     return this.repositories.order;
@@ -42,17 +37,11 @@ export class RepositoriesStore implements IStoreRepositories {
 
   get locality(): ILocalityRepository {
     if (!this.repositories.locality) {
-      this.repositories.locality = new LocalityRepository(
-        this.libs.api,
-        this.router
-      );
+      this.repositories.locality = new LocalityRepository(this.libs.api);
     }
 
     return this.repositories.locality;
   }
 
-  constructor(
-    private libs: IStoreLibs,
-    private router: Router<IDependencies>
-  ) {}
+  constructor(private libs: IStoreLibs) {}
 }

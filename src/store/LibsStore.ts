@@ -1,6 +1,6 @@
 import { ILibs, IStoreLibs } from "./types";
-import { Api } from "../libs/api";
-import { IApi } from "../libs/api/types";
+import { IApi, Fetcher } from "../libs/api";
+import { baseUrl } from "../common";
 
 export class LibsStore implements IStoreLibs {
   private libs: ILibs = {};
@@ -10,7 +10,7 @@ export class LibsStore implements IStoreLibs {
       return this.libs.api;
     }
 
-    this.libs.api = new Api();
+    this.libs.api = new Fetcher(baseUrl);
 
     return this.libs.api;
   }
