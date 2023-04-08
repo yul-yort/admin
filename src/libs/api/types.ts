@@ -89,7 +89,7 @@ export type TErrorHook = <E = unknown>({
   url,
 }: IErrorHookArgs<E>) => void;
 
-export type TResponseHook<R = unknown> = ({
+export type TResponseHook<R = any> = ({
   response,
   url,
 }: IResponseHookArgs<R>) => void;
