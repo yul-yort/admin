@@ -1,8 +1,8 @@
 import { MiddlewareFactory } from "router5/dist/types/router";
 import { IDependencies, IRoute } from "../types";
-import { CONSTANTS } from "../../common";
+import { CONSTANTS } from "../../../common";
 import { getRouteByToStateName } from "./utils";
-import { setDocumentTitle } from "../../libs/utils";
+import { setDocumentTitle } from "../../utils";
 
 /**
  * Плагин синхронно меняет заголовок документа.

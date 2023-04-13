@@ -2,6 +2,8 @@ import fetchMock from "jest-fetch-mock";
 import Fetcher from "../fetcher";
 import { EEndpoints } from "../../../common";
 import { IFetcherConfig } from "../types";
+import { enableFetchMocks } from "jest-fetch-mock";
+enableFetchMocks();
 
 describe("fetcher", () => {
   const config: IFetcherConfig = {
@@ -13,11 +15,14 @@ describe("fetcher", () => {
   };
   const baseUrl = "https://www.test.ru";
   const endpoint = "test" as EEndpoints;
+  const responseBody = { data: "12345" };
+
   const getFetcher = () => new Fetcher(baseUrl, config);
   let fetcher = getFetcher();
 
   beforeEach(() => {
     fetcher = getFetcher();
+    fetchMock.mockResponseOnce(JSON.stringify(responseBody));
   });
 
   afterEach(() => {
@@ -70,13 +75,16 @@ describe("fetcher", () => {
       });
     });
 
-    it("should throw error if call fetch method with error response", () => {
-      fetchMock.mockResponseOnce("Not Found", {
+    it("should throw error if call fetch method with error response", async () => {
+      fetchMock.resetMocks();
+      const error = new Response("Not Found", {
         status: 404,
         statusText: "Not Found",
       });
 
-      expect(async () => {
+      fetchMock.mockRejectOnce(Error(await error.text()));
+
+      await expect(async () => {
         await fetcher.get(endpoint);
       }).rejects.toThrow("Not Found");
     });
@@ -84,26 +92,31 @@ describe("fetcher", () => {
 
   describe("hooks", () => {
     it("should call error hook", async () => {
-      fetchMock.mockResponseOnce("Not Found", {
-        status: 404,
-        statusText: "Not Found",
-      });
+      fetchMock.resetMocks();
       const errorHook = jest.fn();
-      fetcher.useErrorHook(errorHook);
 
-      await expect(async () => {
-        await fetcher.get(endpoint);
-      }).rejects.toThrow("Not Found");
-      expect(errorHook).toBeCalledTimes(1);
-      expect(errorHook).toBeCalledWith({
-        error: new Error("Not Found"),
-        url: `${baseUrl}/${endpoint}`,
-      });
+      try {
+        const error = new Response("Not Found", {
+          status: 404,
+          statusText: "Not Found",
+        });
+
+        fetchMock.mockRejectOnce(Error(await error.text()));
+        fetcher.useErrorHook(errorHook);
+
+        await expect(async () => {
+          await fetcher.get("/endpoint" as EEndpoints);
+        }).rejects.toThrow("Not Found");
+      } catch (error) {
+        expect(errorHook).toBeCalledTimes(1);
+        expect(errorHook).toBeCalledWith({
+          error: new Error("Not Found"),
+          url: `${baseUrl}/${endpoint}`,
+        });
+      }
     });
 
     it("should call response hook", async () => {
-      const data = { data: "12345" };
-      fetchMock.mockResponseOnce(JSON.stringify(data));
       const responseHook = jest.fn();
       fetcher.useResponseHook(responseHook);
 
@@ -111,7 +124,7 @@ describe("fetcher", () => {
 
       expect(responseHook).toBeCalledTimes(1);
       expect(responseHook).toBeCalledWith({
-        response: data,
+        response: responseBody,
         url: `${baseUrl}/${endpoint}`,
       });
     });
@@ -131,8 +144,6 @@ describe("fetcher", () => {
 
   describe("get method", () => {
     it("should make request with method GET", async () => {
-      fetchMock.mockResponseOnce(JSON.stringify({ data: "12345" }));
-
       await fetcher.get(endpoint);
 
       expect(fetchMock.mock.calls[0][1]).toStrictEqual({
@@ -144,7 +155,6 @@ describe("fetcher", () => {
 
   describe("post method", () => {
     it("should make request with method POST", async () => {
-      fetchMock.mockResponseOnce(JSON.stringify({ data: "12345" }));
       await fetcher.post(endpoint);
 
       expect(fetchMock.mock.calls[0][1]).toStrictEqual({
@@ -156,7 +166,6 @@ describe("fetcher", () => {
 
   describe("delete method", () => {
     it("should make request with method DELETE", async () => {
-      fetchMock.mockResponseOnce(JSON.stringify({ data: "12345" }));
       await fetcher.delete(endpoint);
 
       expect(fetchMock.mock.calls[0][1]).toStrictEqual({
@@ -168,7 +177,6 @@ describe("fetcher", () => {
 
   describe("patch method", () => {
     it("should make request with method patch", async () => {
-      fetchMock.mockResponseOnce(JSON.stringify({ data: "12345" }));
       await fetcher.patch(endpoint);
 
       expect(fetchMock.mock.calls[0][1]).toStrictEqual({

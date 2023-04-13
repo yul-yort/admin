@@ -13,7 +13,7 @@ export class AgencyRepository
   implements IAgencyRepository
 {
   async getAgency(params: IAgencyRequestParams): Promise<IAgencyResponseDTO> {
-    return await this.api.get<IAgencyResponseDTO, IAgencyRequestParams>(
+    return await this.fetcher.get<IAgencyResponseDTO, IAgencyRequestParams>(
       EEndpoints.AGENCIES,
       {
         param: params.id,
@@ -24,31 +24,31 @@ export class AgencyRepository
   async editAgency(
     params: IAgencyRequestEditParams
   ): Promise<IAgencyResponseDTO> {
-    return await this.api.patch<IAgencyResponseDTO, IAgencyRequestEditParams>(
-      EEndpoints.AGENCIES,
-      {
-        body: params,
-      }
-    );
+    return await this.fetcher.patch<
+      IAgencyResponseDTO,
+      IAgencyRequestEditParams
+    >(EEndpoints.AGENCIES, {
+      body: params,
+    });
   }
 
   async deleteAgency(
     //TODO param - number
     params: IAgencyRequestDeleteParams
   ): Promise<void> {
-    await this.api.delete(EEndpoints.AGENCIES, {
+    await this.fetcher.delete(EEndpoints.AGENCIES, {
       param: params.id,
     });
   }
 
   async getList(): Promise<IAgencyResponseDTO[]> {
-    return await this.api.get<IAgencyResponseDTO[]>(EEndpoints.AGENCIES);
+    return await this.fetcher.get<IAgencyResponseDTO[]>(EEndpoints.AGENCIES);
   }
 
   async createAgency(
     params: IAgencyRequestCreateOrEditParams
   ): Promise<IAgencyResponseDTO> {
-    return await this.api.post<
+    return await this.fetcher.post<
       IAgencyResponseDTO,
       IAgencyRequestCreateOrEditParams
     >(EEndpoints.AGENCIES, { body: params });

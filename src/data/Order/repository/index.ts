@@ -16,21 +16,21 @@ export class OrderRepository
   async getList(
     query?: IOrderItemRequestParams
   ): Promise<IOrderItemResponseDTO[]> {
-    return await this.api.get<IOrderItemResponseDTO[], IOrderItemRequestParams>(
-      EEndpoints.ORDERS,
-      { query }
-    );
+    return await this.fetcher.get<
+      IOrderItemResponseDTO[],
+      IOrderItemRequestParams
+    >(EEndpoints.ORDERS, { query });
   }
 
   //TODO param - number
   async deleteOrder(params: IOrderDeleteParamsReq): Promise<void> {
-    await this.api.delete<IOrderDeleteParamsReq>(EEndpoints.ORDERS, {
+    await this.fetcher.delete<IOrderDeleteParamsReq>(EEndpoints.ORDERS, {
       param: params.id,
     });
   }
 
   async createOrder(fields: IDataCreateOrder): Promise<IOrderItemResponseDTO> {
-    return await this.api.post(EEndpoints.ORDERS, {
+    return await this.fetcher.post(EEndpoints.ORDERS, {
       body: fields,
     });
   }
@@ -38,11 +38,11 @@ export class OrderRepository
   async editOrder(
     fields: IOrderEditFormFields
   ): Promise<IOrderItemResponseDTO> {
-    return await this.api.patch<IOrderItemResponseDTO, IOrderEditFormFields>(
-      EEndpoints.ORDERS,
-      {
-        body: fields,
-      }
-    );
+    return await this.fetcher.patch<
+      IOrderItemResponseDTO,
+      IOrderEditFormFields
+    >(EEndpoints.ORDERS, {
+      body: fields,
+    });
   }
 }

@@ -1,11 +1,11 @@
 import { ILocalityService } from "./types";
 import { ILocalityRepository } from "../repository/types";
 import {
+  Locality,
   ILocalityCreateParamsReq,
   ILocalityEditParamsReq,
   ILocalityEntity,
 } from "../entity";
-import { Locality } from "../entity";
 
 export class LocalityService implements ILocalityService {
   constructor(private repository: ILocalityRepository) {}

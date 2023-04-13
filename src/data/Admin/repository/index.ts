@@ -9,16 +9,16 @@ export class AdminRepository
   implements IAdminRepository
 {
   async login(data: IFormValues): Promise<void> {
-    await this.api.post(EEndpoints.LOGIN, {
+    await this.fetcher.post(EEndpoints.LOGIN, {
       body: { email: data.login, password: data.password },
     });
   }
 
   async logout(): Promise<void> {
-    await this.api.post(EEndpoints.LOGOUT);
+    await this.fetcher.post(EEndpoints.LOGOUT);
   }
 
   async getAdmin(): Promise<IAdminResponseDTO> {
-    return await this.api.get<IAdminResponseDTO>(EEndpoints.ADMINS_PROFILE);
+    return await this.fetcher.get<IAdminResponseDTO>(EEndpoints.ADMINS_PROFILE);
   }
 }

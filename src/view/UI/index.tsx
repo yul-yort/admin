@@ -1,4 +1,4 @@
-import { FC, StrictMode } from "react";
+import { FC, StrictMode, useEffect } from "react";
 import ReactDOM from "react-dom";
 import reportWebVitals from "../../reportWebVitals";
 import * as serviceWorkerRegistration from "../../serviceWorkerRegistration";
@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { RouterProvider } from "react-router5";
 import { Router } from "router5/dist/types/router";
-import { IDependencies } from "../../router/types";
+import { IDependencies } from "../../libs/router/types";
 import { Theme } from "@mui/material/styles/createTheme";
 import { ErrorBoundary } from "./pages/errorBoundaryPage";
 import App from "./App";
@@ -19,10 +19,17 @@ import { useViewModel } from "./hooks";
 type IAppInitConfig = {
   router: Router<IDependencies>;
   themes: [lightTheme: Theme, darkTheme: Theme];
+  onDestroy: () => void;
 };
 
-const AppRoot: FC<{ themes: IAppInitConfig["themes"] }> = observer(
-  ({ themes: [lightTheme, darkTheme] }) => {
+const AppRoot: FC<Pick<IAppInitConfig, "themes" | "onDestroy">> = observer(
+  ({ themes: [lightTheme, darkTheme], onDestroy }) => {
+    useEffect(() => {
+      return () => {
+        onDestroy();
+      };
+    }, [onDestroy]);
+
     const appVM = useViewModel("app");
 
     return (
@@ -40,12 +47,16 @@ const AppRoot: FC<{ themes: IAppInitConfig["themes"] }> = observer(
   }
 );
 
-export const initApp = ({ router, themes }: IAppInitConfig): void => {
+export const initApp = ({
+  router,
+  themes,
+  onDestroy,
+}: IAppInitConfig): void => {
   ReactDOM.render(
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     <RouterProvider router={router}>
-      <AppRoot themes={themes} />
+      <AppRoot themes={themes} onDestroy={onDestroy} />
     </RouterProvider>,
     document.getElementById("root")
   );

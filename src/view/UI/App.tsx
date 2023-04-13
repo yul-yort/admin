@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite";
 import { LoadingScreen, Notify } from "./components/common";
 import { useNotification } from "./hooks";
 import { useRoute } from "react-router5";
-import { ERouteNames } from "../../router/types";
+import { ERouteNames } from "../../libs/router/types";
 
 const UnauthorizedApp = lazy(() => import("./UnauthorizedApp"));
 const AuthorizedApp = lazy(() => import("./AuthorizedApp"));

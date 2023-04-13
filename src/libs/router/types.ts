@@ -1,7 +1,7 @@
 import { DefaultDependencies, Route, Router } from "router5/dist/types/router";
-import { IStoreViewModels } from "../store/types";
-import { IAgencyRequestParams } from "../data/Agency/entity/types";
-import { IOrderItemRequestParams } from "../data/Order/entity/types";
+import { IViewModelsContainer } from "../../containers";
+import { IAgencyRequestParams } from "../../data/Agency/entity/types";
+import { IOrderItemRequestParams } from "../../data/Order/entity/types";
 
 export enum ERouteNames {
   LOGIN = "login",
@@ -21,7 +21,7 @@ export type IRoutes = [
 ];
 
 export interface IDependencies extends DefaultDependencies {
-  store: IStoreViewModels;
+  store: IViewModelsContainer;
   routes: IRoutes;
 }
 
@@ -38,7 +38,7 @@ export interface IRouteWithParams<P = Record<string, unknown>> extends IRoute {
 }
 
 export interface IOnActivateArgs {
-  store: IStoreViewModels;
+  store: IViewModelsContainer;
   router: Router;
 }
 

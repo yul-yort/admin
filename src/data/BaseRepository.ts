@@ -1,5 +1,5 @@
-import { IApi } from "../libs/api";
+import { IFetcher } from "../libs/fetcher";
 
 export class BaseRepository {
-  constructor(protected api: IApi) {}
+  constructor(protected fetcher: IFetcher) {}
 }

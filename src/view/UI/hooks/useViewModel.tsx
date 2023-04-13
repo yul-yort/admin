@@ -1,12 +1,12 @@
-import { IStoreViewModels } from "../../../store/types";
+import { IViewModelsContainer } from "../../../containers";
 import { useStore } from "./useStore";
 
 /**
  * Возвращает запрошенную ViewModel из хранилища.
  *
- * @param {keyof IStoreViewModels} key - ключ ViewModel-и в хранилище.
+ * @param {keyof IViewModelsContainer} key - ключ ViewModel-и в хранилище.
  */
-export const useViewModel = <T extends keyof IStoreViewModels>(key: T) => {
+export const useViewModel = <T extends keyof IViewModelsContainer>(key: T) => {
   const store = useStore();
 
   return store[key];

@@ -5,6 +5,7 @@ import { observer } from "mobx-react-lite";
 
 import { LoadingScreen, Header, SideBar, Body } from "./components/common";
 import { useViewModel, useTitle } from "./hooks";
+import { ERouteNames } from "../../libs/router/types";
 
 const NotFoundPage = lazy(() => import("./pages/notFound"));
 const AgencyPage = lazy(() => import("./pages/agency"));
@@ -45,7 +46,7 @@ export const AuthorizedApp: FC = observer(() => {
   const logout = async () => {
     await adminVM.logout();
 
-    navigate("login", {
+    navigate(ERouteNames.LOGIN, {
       redirectName: name,
       redirectParams: JSON.stringify(params),
     });

@@ -3,7 +3,7 @@ import { Middleware, MiddlewareFactory } from "router5/dist/types/router";
 
 import { getRouteByToStateName } from "./utils";
 import { IDependencies, IRoute } from "../types";
-import { CONSTANTS } from "../../common";
+import { CONSTANTS } from "../../../common";
 
 /**
  * Плагин проверяет авторизацию.

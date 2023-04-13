@@ -1,7 +1,7 @@
 import { IAgencyService } from "../data/Agency/service/types";
 import { IAgencyRepository } from "../data/Agency/repository/types";
 import { IAgencyVM } from "../view/viewModels/Agency/types";
-import { IApi } from "../libs/api/types";
+import { IFetcher } from "../libs/fetcher";
 import { INotificationsVM } from "../view/viewModels/types";
 import { IAdminService } from "../data/Admin/service/types";
 import { IAdminRepository } from "../data/Admin/repository/types";
@@ -13,11 +13,14 @@ import { ILocalityRepository } from "../data/Locality/repository/types";
 import { ILocalityService } from "../data/Locality/service/types";
 import { ILocalityVM } from "../view/viewModels/Locality/types";
 import { IAppVM } from "../view/viewModels/App/types";
+import { Router } from "router5";
+import { IDependencies } from "../libs/router/types";
 
 export interface ILibs {
-  api?: IApi;
+  fetcher?: IFetcher;
+  router?: Router<IDependencies>;
 }
-export type IStoreLibs = Required<ILibs>;
+export type ILibsContainer = Required<ILibs>;
 
 export interface IRepositories {
   agency?: IAgencyRepository;
@@ -26,7 +29,7 @@ export interface IRepositories {
   locality?: ILocalityRepository;
 }
 
-export type IStoreRepositories = Required<IRepositories>;
+export type IRepositoriesContainer = Required<IRepositories>;
 
 export interface IServices {
   agency?: IAgencyService;
@@ -35,7 +38,7 @@ export interface IServices {
   locality?: ILocalityService;
 }
 
-export type IStoreServices = Required<IServices>;
+export type IServicesContainer = Required<IServices>;
 
 export interface IViewModels {
   agency?: IAgencyVM;
@@ -46,4 +49,4 @@ export interface IViewModels {
   app?: IAppVM;
 }
 
-export type IStoreViewModels = Required<IViewModels>;
+export type IViewModelsContainer = Required<IViewModels>;

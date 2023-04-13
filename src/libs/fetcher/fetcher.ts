@@ -3,13 +3,14 @@ import urlJoin from "url-join";
 
 import {
   EHttpMethod,
-  IApi,
+  IFetcher,
   IFetcherConfig,
   IMethodArgs,
+  IRequestMeta,
   TErrorHook,
   TResponseHook,
 } from "./types";
-import { EEndpoints } from "../../common";
+import { EEndpoints, HTTPError } from "../../common";
 
 const defaultConfig: IFetcherConfig = {
   credentials: "include",
@@ -19,7 +20,7 @@ const defaultConfig: IFetcherConfig = {
   },
 };
 
-class Fetcher implements IApi {
+class Fetcher implements IFetcher {
   private _errorHooks: TErrorHook[] = [];
   private _responseHooks: TResponseHook[] = [];
   private _getUrl<Q>(endpoint: EEndpoints, args?: IMethodArgs<Q>): string {
@@ -34,19 +35,23 @@ class Fetcher implements IApi {
     return url;
   }
 
-  private _errorHandler = (error: unknown, url: string) => {
+  private _errorHandler = <Q>(
+    error: HTTPError,
+    url: string,
+    params: IRequestMeta<Q>
+  ) => {
     for (const hook of this._errorHooks) {
-      hook({ error, url });
+      hook({ error, url, params });
     }
 
     throw error;
   };
 
-  private async _request<R, Q = undefined>(
-    method: EHttpMethod,
-    endpoint: EEndpoints,
-    args?: IMethodArgs<Q>
-  ): Promise<R> {
+  private async _request<R, Q = undefined>({
+    method,
+    endpoint,
+    args,
+  }: IRequestMeta<Q>): Promise<R> {
     // try catch?
     const body = args?.body;
     const url = this._getUrl<Q>(endpoint, args);
@@ -61,20 +66,25 @@ class Fetcher implements IApi {
     }
 
     const response = await fetch(url, requestConfig);
-
-    const responseJSON = (await response.text()) || "{}";
+    const responseObj = await response.json();
 
     if (!response.ok) {
-      this._errorHandler(new Error(responseJSON), url);
+      this._errorHandler<Q>(
+        new HTTPError(responseObj.statusCode, responseObj.message),
+        url,
+        {
+          method,
+          endpoint,
+          args,
+        }
+      );
     }
-
-    const parsedResponse = JSON.parse(responseJSON);
 
     for (const hook of this._responseHooks) {
-      hook({ response: parsedResponse, url });
+      hook({ response: responseObj, url });
     }
 
-    return parsedResponse;
+    return responseObj;
   }
 
   constructor(
@@ -86,35 +96,51 @@ class Fetcher implements IApi {
     endpoint: EEndpoints,
     args?: IMethodArgs<Q>
   ): Promise<R> {
-    return await this._request<R, Q>(EHttpMethod.POST, endpoint, args);
+    return await this._request<R, Q>({
+      method: EHttpMethod.POST,
+      endpoint,
+      args,
+    });
   }
 
   async get<R, Q = undefined>(
     endpoint: EEndpoints,
     args?: IMethodArgs<Q>
   ): Promise<R> {
-    return await this._request<R, Q>(EHttpMethod.GET, endpoint, args);
+    return await this._request<R, Q>({
+      method: EHttpMethod.GET,
+      endpoint,
+      args,
+    });
   }
 
   async delete<R, Q = undefined>(
     endpoint: EEndpoints,
     args?: IMethodArgs<Q>
   ): Promise<R> {
-    return await this._request<R, Q>(EHttpMethod.DELETE, endpoint, args);
+    return await this._request<R, Q>({
+      method: EHttpMethod.DELETE,
+      endpoint,
+      args,
+    });
   }
 
   async patch<R, Q = undefined>(
     endpoint: EEndpoints,
     args?: IMethodArgs<Q>
   ): Promise<R> {
-    return await this._request<R, Q>(EHttpMethod.PATCH, endpoint, args);
+    return await this._request<R, Q>({
+      method: EHttpMethod.PATCH,
+      endpoint,
+      args,
+    });
   }
 
   useErrorHook(hook: TErrorHook): void {
     this._errorHooks.push(hook);
   }
 
-  useResponseHook<R>(hook: TResponseHook<R>): void {
+  useResponseHook(hook: TResponseHook): void {
     this._responseHooks.push(hook);
   }
 

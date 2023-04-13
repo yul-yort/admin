@@ -1,6 +1,6 @@
-import { EEndpoints } from "../../common";
+import { EEndpoints, HTTPError } from "../../common";
 
-export interface IApi {
+export interface IFetcher {
   /**
    * Метод для получения данных.
    */
@@ -54,7 +54,7 @@ export enum EHttpMethod {
   DELETE = "DELETE",
 }
 
-export interface IErrorHandlerRequestMeta<Q> {
+export interface IRequestMeta<Q> {
   method: EHttpMethod;
   endpoint: EEndpoints;
   args?: IMethodArgs<Q>;
@@ -71,27 +71,20 @@ type TRequestMethod = <R, Q = undefined>(
 /**
  * Интерфейс аргументов хука обработки ошибок.
  */
-interface IErrorHookArgs<E> {
-  error?: E;
-  url?: string;
+interface IErrorHookArgs<Q> {
+  error: HTTPError;
+  url: string;
+  params: IRequestMeta<Q>;
 }
 
 /**
  * Интерфейс аргументов хука обработки ответа.
  */
 interface IResponseHookArgs<R> {
-  response?: R;
-  url?: string;
+  response: R;
+  url: string;
 }
 
-export type TErrorHook = <E = unknown>({
-  error,
-  url,
-}: IErrorHookArgs<E>) => void;
+export type TErrorHook = <Q>(args: IErrorHookArgs<Q>) => void;
 
-export type TResponseHook<R = any> = ({
-  response,
-  url,
-}: IResponseHookArgs<R>) => void;
-
-export type TRequestHook = <R = void>(response: R, endpoint?: EEndpoints) => R;
+export type TResponseHook<R = any> = (args: IResponseHookArgs<R>) => void;

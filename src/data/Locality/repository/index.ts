@@ -13,13 +13,13 @@ export class LocalityRepository
   implements ILocalityRepository
 {
   async getList(): Promise<ILocalityDTO[]> {
-    return await this.api.get<ILocalityDTO[]>(EEndpoints.LOCALITIES);
+    return await this.fetcher.get<ILocalityDTO[]>(EEndpoints.LOCALITIES);
   }
 
   async createLocality(
     params: ILocalityCreateParamsReq
   ): Promise<ILocalityDTO> {
-    return await this.api.post<ILocalityDTO, ILocalityCreateParamsReq>(
+    return await this.fetcher.post<ILocalityDTO, ILocalityCreateParamsReq>(
       EEndpoints.LOCALITIES,
       {
         body: params,
@@ -28,7 +28,7 @@ export class LocalityRepository
   }
 
   async editLocality(params: ILocalityEditParamsReq): Promise<ILocalityDTO> {
-    return await this.api.patch<ILocalityDTO, ILocalityEditParamsReq>(
+    return await this.fetcher.patch<ILocalityDTO, ILocalityEditParamsReq>(
       EEndpoints.LOCALITIES,
       {
         body: params,
@@ -40,7 +40,7 @@ export class LocalityRepository
     //TODO param - number
     params: ILocalityDeleteParamsReq
   ): Promise<void> {
-    await this.api.delete(EEndpoints.LOCALITIES, {
+    await this.fetcher.delete(EEndpoints.LOCALITIES, {
       param: params.id,
     });
   }
