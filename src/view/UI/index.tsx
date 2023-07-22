@@ -1,5 +1,5 @@
 import { FC, StrictMode, useEffect } from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import reportWebVitals from "../../reportWebVitals";
 import * as serviceWorkerRegistration from "../../serviceWorkerRegistration";
 import {
@@ -52,14 +52,18 @@ export const initApp = ({
   themes,
   onDestroy,
 }: IAppInitConfig): void => {
-  ReactDOM.render(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    <RouterProvider router={router}>
-      <AppRoot themes={themes} onDestroy={onDestroy} />
-    </RouterProvider>,
-    document.getElementById("root")
-  );
+  const container = document.getElementById("root");
+
+  if (container) {
+    const root = createRoot(container); // createRoot(container!) if you use TypeScript
+    root.render(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      <RouterProvider router={router}>
+        <AppRoot themes={themes} onDestroy={onDestroy} />
+      </RouterProvider>
+    );
+  }
 };
 
 // If you want your app to work offline and load faster, you can change

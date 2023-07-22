@@ -66,7 +66,14 @@ class Fetcher implements IFetcher {
     }
 
     const response = await fetch(url, requestConfig);
-    const responseObj = await response.json();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let responseObj: any;
+
+    const textResponse = await response.text();
+
+    if (textResponse.length) {
+      responseObj = JSON.parse(textResponse);
+    }
 
     if (!response.ok) {
       this._errorHandler<Q>(
@@ -84,7 +91,7 @@ class Fetcher implements IFetcher {
       hook({ response: responseObj, url });
     }
 
-    return responseObj;
+    return responseObj as R;
   }
 
   constructor(
@@ -148,6 +155,7 @@ class Fetcher implements IFetcher {
     this._baseUrl = "";
     this._config = {};
     this._errorHooks = [];
+    this._responseHooks = [];
   }
 }
 
