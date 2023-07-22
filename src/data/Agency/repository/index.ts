@@ -5,7 +5,7 @@ import {
   IAgencyRequestParams,
   IAgencyResponseDTO,
 } from "../entity/types";
-import { EEndpoints } from "../../../constants";
+import { EEndpoints } from "../../../common";
 import { BaseRepository } from "../../BaseRepository";
 
 export class AgencyRepository
@@ -13,17 +13,21 @@ export class AgencyRepository
   implements IAgencyRepository
 {
   async getAgency(params: IAgencyRequestParams): Promise<IAgencyResponseDTO> {
-    return await this.api.get<IAgencyResponseDTO, IAgencyRequestParams>({
-      endpoint: EEndpoints.AGENCIES,
-      param: params.id,
-    });
+    return await this.fetcher.get<IAgencyResponseDTO, IAgencyRequestParams>(
+      EEndpoints.AGENCIES,
+      {
+        param: params.id,
+      }
+    );
   }
 
   async editAgency(
     params: IAgencyRequestEditParams
   ): Promise<IAgencyResponseDTO> {
-    return await this.api.patch<IAgencyResponseDTO, IAgencyRequestEditParams>({
-      endpoint: EEndpoints.AGENCIES,
+    return await this.fetcher.patch<
+      IAgencyResponseDTO,
+      IAgencyRequestEditParams
+    >(EEndpoints.AGENCIES, {
       body: params,
     });
   }
@@ -32,24 +36,21 @@ export class AgencyRepository
     //TODO param - number
     params: IAgencyRequestDeleteParams
   ): Promise<void> {
-    await this.api.delete({
-      endpoint: EEndpoints.AGENCIES,
+    await this.fetcher.delete(EEndpoints.AGENCIES, {
       param: params.id,
     });
   }
 
   async getList(): Promise<IAgencyResponseDTO[]> {
-    return await this.api.get<IAgencyResponseDTO[]>({
-      endpoint: EEndpoints.AGENCIES,
-    });
+    return await this.fetcher.get<IAgencyResponseDTO[]>(EEndpoints.AGENCIES);
   }
 
   async createAgency(
     params: IAgencyRequestCreateOrEditParams
   ): Promise<IAgencyResponseDTO> {
-    return await this.api.post<
+    return await this.fetcher.post<
       IAgencyResponseDTO,
       IAgencyRequestCreateOrEditParams
-    >({ endpoint: EEndpoints.AGENCIES, body: params });
+    >(EEndpoints.AGENCIES, { body: params });
   }
 }

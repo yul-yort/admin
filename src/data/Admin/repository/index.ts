@@ -1,5 +1,5 @@
 import { IAdminRepository } from "./types";
-import { EEndpoints } from "src/constants";
+import { EEndpoints } from "src/common";
 import { BaseRepository } from "src/data/BaseRepository";
 import { IFormValues } from "src/view/UI/pages/login/types";
 import { IAdminResponseDTO } from "../entity/types";
@@ -9,19 +9,16 @@ export class AdminRepository
   implements IAdminRepository
 {
   async login(data: IFormValues): Promise<void> {
-    await this.api.post({
-      endpoint: EEndpoints.LOGIN,
+    await this.fetcher.post(EEndpoints.LOGIN, {
       body: { email: data.login, password: data.password },
     });
   }
 
   async logout(): Promise<void> {
-    await this.api.post({ endpoint: EEndpoints.LOGOUT });
+    await this.fetcher.post(EEndpoints.LOGOUT);
   }
 
-  getAdmin(): Promise<IAdminResponseDTO> {
-    return this.api.get<IAdminResponseDTO>({
-      endpoint: EEndpoints.ADMINS_PROFILE,
-    });
+  async getAdmin(): Promise<IAdminResponseDTO> {
+    return await this.fetcher.get<IAdminResponseDTO>(EEndpoints.ADMINS_PROFILE);
   }
 }

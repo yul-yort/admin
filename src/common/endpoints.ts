@@ -5,6 +5,7 @@ export const baseUrl = CONSTANTS.isDev
   : window.location.origin;
 
 export enum EEndpoints {
+  REFRESH = "/api/auth/refresh",
   LOGIN = "/api/auth/login",
   LOGOUT = "/api/auth/logout",
   ADMINS = "/api/admins",

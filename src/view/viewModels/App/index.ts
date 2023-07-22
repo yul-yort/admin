@@ -1,6 +1,6 @@
 import { BaseVM } from "../BaseVM";
 import { IAppVM, TTheme } from "./types";
-import { CONSTANTS } from "../../../constants";
+import { CONSTANTS } from "../../../common";
 import { action, makeObservable, observable } from "mobx";
 import { INotificationsVM } from "../types";
 

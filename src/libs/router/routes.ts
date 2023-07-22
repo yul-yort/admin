@@ -4,9 +4,9 @@ import {
   IOnActivateArgsWithParams,
   IRoutes,
 } from "./types";
-import { setDocumentTitle } from "../libs/utils";
-import { IAgencyRequestParams } from "../data/Agency/entity/types";
-import { IOrderItemRequestParams } from "../data/Order/entity/types";
+import { setDocumentTitle } from "../utils";
+import { IAgencyRequestParams } from "../../data/Agency/entity/types";
+import { IOrderItemRequestParams } from "../../data/Order/entity/types";
 
 const routes: IRoutes = [
   {

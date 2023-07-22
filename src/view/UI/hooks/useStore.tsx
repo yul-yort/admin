@@ -1,9 +1,9 @@
-import { IStoreViewModels } from "../../../store/types";
+import { IViewModelsContainer } from "../../../containers";
 import { useRouter } from "react-router5";
 
 /**
  * Возвращает хранилище целиком.
  */
-export const useStore = (): IStoreViewModels => {
+export const useStore = (): IViewModelsContainer => {
   return useRouter().getDependencies().store;
 };

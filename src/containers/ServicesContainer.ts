@@ -1,4 +1,4 @@
-import { IServices, IStoreRepositories, IStoreServices } from "./types";
+import { IServices, IRepositoriesContainer, IServicesContainer } from "./types";
 import { AgencyService } from "../data/Agency/service";
 import { OrderService } from "../data/Order/service";
 import { LocalityService } from "../data/Locality/service";
@@ -8,8 +8,11 @@ import { IAdminService } from "../data/Admin/service/types";
 import { IOrderService } from "../data/Order/service/types";
 import { ILocalityService } from "../data/Locality/service/types";
 
-export class ServicesStore implements IStoreServices {
+export class ServicesContainer implements IServicesContainer {
   private services: IServices = {};
+  destroy() {
+    this.services = {};
+  }
 
   get agency(): IAgencyService {
     if (!this.services.agency) {
@@ -43,5 +46,5 @@ export class ServicesStore implements IStoreServices {
     return this.services.locality;
   }
 
-  constructor(private repositories: IStoreRepositories) {}
+  constructor(private repositories: IRepositoriesContainer) {}
 }

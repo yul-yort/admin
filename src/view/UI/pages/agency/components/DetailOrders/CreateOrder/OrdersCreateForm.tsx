@@ -3,7 +3,7 @@ import { TextField, Button } from "@mui/material";
 import { Controller, useFormContext } from "react-hook-form";
 import { IOrdersCreateForm, IOrdersCreateFormFields } from "./types";
 import { getErrorText } from "src/libs/utils";
-import { CONSTANTS } from "src/constants/globalConstants";
+import { CONSTANTS } from "src/common/globalConstants";
 import css from "./styles.module.scss";
 import Autocomplete from "@mui/material/Autocomplete";
 import { ILocalityEntity } from "../../../../../../../data/Locality/entity";
