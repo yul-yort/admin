@@ -1,3 +1,3 @@
 export * from "./loginOrRefreshHook";
 export * from "./logoutHook";
-export * from "./errorHook";
+export * from "./error401Hook";

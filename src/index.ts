@@ -8,7 +8,7 @@ import {
 } from "./libs/router/middlewaries";
 import { darkTheme, lightTheme } from "./view/UI/theme";
 import {
-  errorHook,
+  error401Hook,
   loginOrRefreshHook,
   logoutHook,
 } from "./libs/fetcher/hooks";
@@ -33,7 +33,7 @@ const bootstrap = () => {
       loginOrRefreshHook(router),
       logoutHook(router),
     ];
-    const fetcherErrorHooks = [errorHook(fetcher, router)];
+    const fetcherErrorHooks = [error401Hook(fetcher, router)];
 
     routerMiddlewares.forEach((middleware) => router.useMiddleware(middleware));
     fetcherResponseHooks.forEach((hook) => fetcher.useResponseHook(hook));
