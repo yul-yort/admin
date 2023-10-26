@@ -3,6 +3,7 @@ import {
   onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { useEffect, useMemo, useState } from "react";
 
@@ -36,6 +37,20 @@ const useAuth = () => {
     }
   };
 
+  const createUser = async ({ email, password }: any) => {
+    try {
+      const auth = getAuth();
+      createUserWithEmailAndPassword(auth, email, password).then(
+        (userCredential) => {
+          const user = userCredential.user;
+          console.log("user", user);
+        }
+      );
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
   const logOut = () => {
     auth
       .signOut()
@@ -53,6 +68,7 @@ const useAuth = () => {
     logOut,
     isAuthState,
     handleGoogleSignIn,
+    createUser,
   };
 };
 

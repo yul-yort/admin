@@ -11,7 +11,7 @@ export class AdminRepository
   async login(data: IFormValues): Promise<void> {
     await this.api.post({
       endpoint: EEndpoints.LOGIN,
-      body: { email: data.login, password: data.password },
+      body: { email: data.email, password: data.password },
     });
   }
 

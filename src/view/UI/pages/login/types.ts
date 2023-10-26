@@ -7,7 +7,7 @@ export interface IInput {
   register: UseFormRegister<IFormValues>;
 }
 export interface IFormValues {
-  login: string;
+  email: string;
   password: string;
 }
 

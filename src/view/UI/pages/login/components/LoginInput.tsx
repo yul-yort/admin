@@ -6,16 +6,16 @@ import { getErrorText } from "../../../../../libs/utils";
 const LoginInput: VFC<IInput> = ({ disabled, errors, register }) => {
   return (
     <TextField
-      id="login"
-      label="Login"
-      placeholder="Login"
+      id="email"
+      label="Email"
+      placeholder="Email"
       variant="outlined"
       autoComplete="on"
       fullWidth
-      error={!!getErrorText(errors, "login")}
+      error={!!getErrorText(errors, "email")}
       disabled={disabled}
-      helperText={getErrorText(errors, "login")}
-      {...register("login", {
+      helperText={getErrorText(errors, "email")}
+      {...register("email", {
         required: true,
       })}
     />
