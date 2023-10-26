@@ -4,6 +4,7 @@ import { useRoute } from "react-router5";
 
 import { LoadingScreen, Body } from "./components/common";
 import { useViewModel } from "./hooks";
+import LoginPage from "./pages/login";
 
 const NotFoundPage = lazy(() => import("./pages/notFound"));
 const RegistrationPage = lazy(() => import("./pages/login"));
@@ -16,15 +17,16 @@ const pages = {
 export const UnauthorizedApp: FC = () => {
   const appVM = useViewModel("app");
 
-  const {
-    route: { name },
-  } = useRoute();
+  // const {
+  //   route: { name },
+  // } = useRoute();
 
   return (
     <>
       <Body theme={appVM.theme}>
         <Suspense fallback={<LoadingScreen />}>
-          {pages[name] || pages[constants.UNKNOWN_ROUTE]}
+          {/* {pages[name] || pages[constants.UNKNOWN_ROUTE]} */}
+          <LoginPage />
         </Suspense>
       </Body>
     </>
