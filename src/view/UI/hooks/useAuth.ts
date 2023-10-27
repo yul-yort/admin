@@ -4,9 +4,11 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 import { useEffect, useMemo, useState } from "react";
 
+//TODO: вынести в глобальный hook
 const useAuth = () => {
   const googleAuthProvider = new GoogleAuthProvider();
   const auth = useMemo(() => getAuth(), []);
@@ -37,10 +39,22 @@ const useAuth = () => {
     }
   };
 
-  const createUser = async ({ email, password }: any) => {
+  const signUp = async ({ email, password }: any) => {
     try {
-      const auth = getAuth();
       createUserWithEmailAndPassword(auth, email, password).then(
+        (userCredential) => {
+          const user = userCredential.user;
+          console.log("user", user);
+        }
+      );
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+  const signIn = async ({ email, password }: any) => {
+    try {
+      signInWithEmailAndPassword(auth, email, password).then(
         (userCredential) => {
           const user = userCredential.user;
           console.log("user", user);
@@ -68,7 +82,8 @@ const useAuth = () => {
     logOut,
     isAuthState,
     handleGoogleSignIn,
-    createUser,
+    signUp,
+    signIn,
   };
 };
 

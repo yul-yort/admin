@@ -20,19 +20,10 @@ const LoginPage: FC = observer(() => {
     formState: { errors, isSubmitting },
   } = useForm<IFormValues>();
   const adminVM = useViewModel("admin");
-
-  // const {
-  //   route: { params },
-  //   router: { navigate },
-  // } = useRoute();
-  // const { redirectName = CONSTANTS.defaultRoute, redirectParams = {} } = params;
-  const { createUser } = useAuth();
+  const { signIn } = useAuth();
 
   const onSubmit: SubmitHandler<IFormValues> = async (data: IFormValues) => {
-    console.log("data", data);
-    createUser(data);
-    // await adminVM.login(data);
-    // navigate(redirectName, redirectParams);
+    signIn(data);
   };
 
   return (

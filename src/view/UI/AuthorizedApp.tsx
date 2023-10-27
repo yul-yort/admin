@@ -5,6 +5,7 @@ import { observer } from "mobx-react-lite";
 
 import { LoadingScreen, Header, SideBar, Body } from "./components/common";
 import { useViewModel, useTitle } from "./hooks";
+import { useAuth } from "./hooks/useAuth";
 
 const NotFoundPage = lazy(() => import("./pages/notFound"));
 const AgencyPage = lazy(() => import("./pages/agency"));
@@ -24,6 +25,7 @@ const pages = {
 
 export const AuthorizedApp: FC = observer(() => {
   const [open, setOpen] = useState<boolean>(false);
+  const { logOut } = useAuth();
 
   const { title } = useTitle();
   const adminVM = useViewModel("admin");
@@ -42,11 +44,11 @@ export const AuthorizedApp: FC = observer(() => {
     setOpen(!open);
   };
 
-  const logout = async () => {
-    await adminVM.logout();
+  // const logout = async () => {
+  //   await adminVM.logout();
 
-    navigate("login", { redirectName: name, redirectParams: params });
-  };
+  //   navigate("login", { redirectName: name, redirectParams: params });
+  // };
 
   return (
     <>
@@ -62,7 +64,7 @@ export const AuthorizedApp: FC = observer(() => {
           onSetTheme={appVM.setTheme}
           open={open}
           onClose={handleOpenCloseSidebar}
-          onLogout={logout}
+          onLogout={logOut}
           loading={adminVM.loading}
         />
 
