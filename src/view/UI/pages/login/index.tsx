@@ -1,17 +1,15 @@
 import { FC } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-// import { useRoute } from "react-router5";
 import { observer } from "mobx-react-lite";
 
 import { useViewModel } from "../../hooks";
-// import { CONSTANTS } from "../../../../constants";
 import { IFormValues } from "./types";
 import css from "./styles.module.scss";
 
 import LoginInput from "./components/LoginInput";
 import PasswordInput from "./components/PasswordInput";
 import FormButton from "./components/FormButton";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "src/libs/hooks/useAuth";
 
 const LoginPage: FC = observer(() => {
   const {

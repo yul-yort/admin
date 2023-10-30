@@ -2,6 +2,7 @@ import { baseUrl, CONSTANTS } from "../../constants";
 import { IApi, IMethodArgs } from "./types";
 import { Router } from "router5/dist/types/router";
 import { IDependencies } from "../../router/types";
+import { getAuth } from "firebase/auth";
 
 export class Api implements IApi {
   private removeToken() {
@@ -13,8 +14,8 @@ export class Api implements IApi {
     const headers: HeadersInit = {
       "Content-Type": "application/json",
       "Access-Control-Allow-Credentials": "true",
+      Authorization: `Bearer ${localStorage.getItem("idToken")}`,
     };
-
     return headers;
   }
 
@@ -52,7 +53,7 @@ export class Api implements IApi {
     const url = this.getUrl<Q>(args);
 
     const response = await fetch(url, {
-      credentials: "include",
+      // credentials: "include",
       headers: this.getHeaders(),
     });
 
@@ -69,7 +70,7 @@ export class Api implements IApi {
     const response = await fetch(url, {
       method: "POST",
       headers: this.getHeaders(),
-      credentials: "include",
+      // credentials: "include",
       body: JSON.stringify(body),
     });
 
@@ -88,7 +89,7 @@ export class Api implements IApi {
     const response = await fetch(url, {
       method: "PATCH",
       headers: this.getHeaders(),
-      credentials: "include",
+      // credentials: "include",
       body: JSON.stringify(body),
     });
 

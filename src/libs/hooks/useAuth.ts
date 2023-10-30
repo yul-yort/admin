@@ -1,16 +1,13 @@
 import {
   getAuth,
   onAuthStateChanged,
-  GoogleAuthProvider,
-  signInWithPopup,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { useEffect, useMemo, useState } from "react";
+import { IFormValues } from "src/view/UI/pages/login/types";
 
-//TODO: вынести в глобальный hook
 const useAuth = () => {
-  const googleAuthProvider = new GoogleAuthProvider();
   const auth = useMemo(() => getAuth(), []);
 
   const [isAuthState, setIsAuthState] = useState<boolean | null>(null);
@@ -23,28 +20,24 @@ const useAuth = () => {
         console.log("Пользовательне не зарегистрирован");
       }
     });
+
+    //TODO: получаем token и записываем в localStorage
+    if (!auth?.currentUser) return;
+    auth?.currentUser
+      .getIdToken(/* forceRefresh */ true)
+      .then(function (idToken) {
+        localStorage.setItem("idToken", idToken);
+      })
+      .catch(function (error) {
+        console.log("error", error);
+      });
   }, [auth]);
 
-  const handleGoogleSignIn = async () => {
-    try {
-      // Откройте окно аутентификации Google
-      const result = await signInWithPopup(auth, googleAuthProvider);
-
-      // Пользователь успешно аутентифицирован через Google
-      const user = result.user;
-      console.log("Пользователь успешно аутентифицирован через Google:", user);
-    } catch (error) {
-      // Обработка ошибок аутентификации через Google
-      console.error("Ошибка аутентификации через Google:", error);
-    }
-  };
-
-  const signUp = async ({ email, password }: any) => {
+  const signUp = async ({ email, password }: IFormValues) => {
     try {
       createUserWithEmailAndPassword(auth, email, password).then(
         (userCredential) => {
           const user = userCredential.user;
-          console.log("user", user);
         }
       );
     } catch (error) {
@@ -52,12 +45,11 @@ const useAuth = () => {
     }
   };
 
-  const signIn = async ({ email, password }: any) => {
+  const signIn = async ({ email, password }: IFormValues) => {
     try {
       signInWithEmailAndPassword(auth, email, password).then(
         (userCredential) => {
           const user = userCredential.user;
-          console.log("user", user);
         }
       );
     } catch (error) {
@@ -72,7 +64,6 @@ const useAuth = () => {
         // Пользователь успешно разлогинился
       })
       .catch((error) => {
-        // Обработка ошибки разлогинивания
         console.error("Ошибка разлогинивания:", error);
       });
   };
@@ -81,7 +72,6 @@ const useAuth = () => {
   return {
     logOut,
     isAuthState,
-    handleGoogleSignIn,
     signUp,
     signIn,
   };
