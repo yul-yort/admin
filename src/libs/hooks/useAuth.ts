@@ -35,11 +35,7 @@ const useAuth = () => {
 
   const signUp = async ({ email, password }: IFormValues) => {
     try {
-      createUserWithEmailAndPassword(auth, email, password).then(
-        (userCredential) => {
-          const user = userCredential.user;
-        }
-      );
+      createUserWithEmailAndPassword(auth, email, password);
     } catch (error) {
       console.log("error", error);
     }
@@ -47,11 +43,7 @@ const useAuth = () => {
 
   const signIn = async ({ email, password }: IFormValues) => {
     try {
-      signInWithEmailAndPassword(auth, email, password).then(
-        (userCredential) => {
-          const user = userCredential.user;
-        }
-      );
+      signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
       console.log("error", error);
     }
