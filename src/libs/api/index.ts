@@ -2,7 +2,6 @@ import { baseUrl, CONSTANTS } from "../../constants";
 import { IApi, IMethodArgs } from "./types";
 import { Router } from "router5/dist/types/router";
 import { IDependencies } from "../../router/types";
-import { getAuth } from "firebase/auth";
 
 export class Api implements IApi {
   private removeToken() {
