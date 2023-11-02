@@ -6,6 +6,7 @@ import routes from "./router/routes";
 import { onActivate } from "./router/middlewaries";
 import { documentTitle } from "./router/middlewaries/documentTitle";
 import { darkTheme, lightTheme } from "./view/UI/theme";
+import "./firebase";
 
 try {
   const router = createAppRouter(routes, [onActivate, documentTitle]);

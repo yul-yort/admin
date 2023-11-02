@@ -2,7 +2,7 @@ import { TTheme } from "../../../../viewModels/App/types";
 
 export interface ISideBar {
   onClose: () => void;
-  onLogout: () => Promise<void>;
+  onLogout: () => void;
   open: boolean;
   loading: boolean;
   theme: TTheme;

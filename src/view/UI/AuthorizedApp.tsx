@@ -1,10 +1,11 @@
-import { FC, lazy, Suspense, useEffect, useState } from "react";
+import { FC, lazy, Suspense, useState } from "react";
 import { constants } from "router5";
 import { useRoute } from "react-router5";
 import { observer } from "mobx-react-lite";
 
 import { LoadingScreen, Header, SideBar, Body } from "./components/common";
 import { useViewModel, useTitle } from "./hooks";
+import { useAuth } from "src/libs/hooks/useAuth";
 
 const NotFoundPage = lazy(() => import("./pages/notFound"));
 const AgencyPage = lazy(() => import("./pages/agency"));
@@ -24,28 +25,18 @@ const pages = {
 
 export const AuthorizedApp: FC = observer(() => {
   const [open, setOpen] = useState<boolean>(false);
+  const { logOut } = useAuth();
 
   const { title } = useTitle();
   const adminVM = useViewModel("admin");
   const appVM = useViewModel("app");
 
   const {
-    route: { name, params },
-    router: { navigate },
+    route: { name },
   } = useRoute();
-
-  useEffect(() => {
-    adminVM.getAdmin();
-  }, []);
 
   const handleOpenCloseSidebar = () => {
     setOpen(!open);
-  };
-
-  const logout = async () => {
-    await adminVM.logout();
-
-    navigate("login", { redirectName: name, redirectParams: params });
   };
 
   return (
@@ -62,7 +53,7 @@ export const AuthorizedApp: FC = observer(() => {
           onSetTheme={appVM.setTheme}
           open={open}
           onClose={handleOpenCloseSidebar}
-          onLogout={logout}
+          onLogout={logOut}
           loading={adminVM.loading}
         />
 
