@@ -7,22 +7,23 @@ import {
 import { setDocumentTitle } from "../libs/utils";
 import { IAgencyRequestParams } from "../data/Agency/entity/types";
 import { IOrderItemRequestParams } from "../data/Order/entity/types";
+import { CONSTANTS } from "src/constants";
 
 const routes: IRoutes = [
   {
     name: ERouteNames.LOGIN,
-    path: "/login",
+    path: `${CONSTANTS.publicUrl}/login`,
     title: "Авторизация",
   },
   {
     name: ERouteNames.DASHBOARD,
-    path: "/",
+    path: `${CONSTANTS.publicUrl}`,
     title: "Dashboard",
     auth: true,
   },
   {
     name: ERouteNames.AGENCIES,
-    path: "/agencies",
+    path: `${CONSTANTS.publicUrl}/agencies`,
     title: "Список агентств",
     auth: true,
     onActivate: async (props?: IOnActivateArgs): Promise<void> => {
@@ -34,7 +35,7 @@ const routes: IRoutes = [
     children: [
       {
         name: ERouteNames.AGENCY,
-        path: "/:id",
+        path: `${CONSTANTS.publicUrl}/:id`,
         title: "Агенство",
         auth: true,
         onActivate: async (
@@ -54,7 +55,7 @@ const routes: IRoutes = [
   },
   {
     name: ERouteNames.ORDERS,
-    path: "/orders",
+    path: `${CONSTANTS.publicUrl}/orders`,
     title: "Поездки",
     auth: true,
     onActivate: async (
@@ -71,7 +72,7 @@ const routes: IRoutes = [
   },
   {
     name: ERouteNames.LOCALITIES,
-    path: "/localities",
+    path: `${CONSTANTS.publicUrl}/localities`,
     title: "Населенные пункты",
     auth: true,
     onActivate: async (props?: IOnActivateArgs): Promise<void> => {

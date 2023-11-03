@@ -1,0 +1,11 @@
+*~
+.DS_Store
+.svn
+.hg
+.git
+node_modules
+Dockerfile
+Dockerfile.production
+build
+.vscode
+.idea

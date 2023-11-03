@@ -1,8 +1,8 @@
 import { CONSTANTS } from "./globalConstants";
 
 export const baseUrl = CONSTANTS.isDev
-  ? "http://localhost:9000/"
-  : window.location.origin;
+  ? CONSTANTS.devBaseUrl
+  : CONSTANTS.prodBaseUrl;
 
 export enum EEndpoints {
   LOGIN = "/api/auth/login",
