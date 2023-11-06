@@ -17,7 +17,7 @@ const routes: IRoutes = [
   },
   {
     name: ERouteNames.DASHBOARD,
-    path: `${CONSTANTS.publicUrl}`,
+    path: CONSTANTS.publicUrl || "/",
     title: "Dashboard",
     auth: true,
   },
