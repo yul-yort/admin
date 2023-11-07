@@ -7,6 +7,11 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 import { getErrorText } from "src/libs/utils";
 import css from "./styles.module.scss";
 import { IAgencyCreateEditForm, ICreateOrEditAgencyFormFields } from "./types";
+import { isValidPhoneNumber } from "react-phone-number-input";
+import "react-phone-number-input/style.css";
+import PhoneInputWithCountry from "react-phone-number-input/react-hook-form";
+
+type PhoneFieldName = `phones.${number}.value`;
 
 export const AgencyCreateEditForm: FC<IAgencyCreateEditForm> = ({
   onSave,
@@ -24,8 +29,12 @@ export const AgencyCreateEditForm: FC<IAgencyCreateEditForm> = ({
     name: "phones",
   });
 
+  const test = (data: any) => {
+    console.log("data", data);
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSave)}>
+    <form onSubmit={handleSubmit(test)}>
       <div className={css.row}>
         <TextField
           id="name"
@@ -47,19 +56,20 @@ export const AgencyCreateEditForm: FC<IAgencyCreateEditForm> = ({
       {fields.map((field, index) => {
         return (
           <div key={field.id} className={css.row}>
-            <TextField
-              id="phone"
-              label="Телефон"
+            <PhoneInputWithCountry
+              name={`phones[${index}].value` as PhoneFieldName}
+              style={{
+                width: "100%",
+              }}
+              className={css.test}
+              defaultCountry="RU"
               placeholder="Телефон"
-              variant="outlined"
-              size="small"
-              fullWidth
-              error={!!getErrorText(errors, "phones", index)}
-              disabled={isSubmitting}
-              helperText={getErrorText(errors, "phones", index)}
-              {...register(`phones.${index}.value`, {
-                required: true,
-              })}
+              international
+              countryCallingCodeEditable={false}
+              control={control}
+              rules={{
+                validate: (value = "") => isValidPhoneNumber(value),
+              }}
             />
 
             <IconButton
