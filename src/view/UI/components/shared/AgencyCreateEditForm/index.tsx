@@ -7,6 +7,7 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 import { getErrorText } from "src/libs/utils";
 import css from "./styles.module.scss";
 import { IAgencyCreateEditForm, ICreateOrEditAgencyFormFields } from "./types";
+import { PhoneInputHF } from "../../common/hook-form";
 
 export const AgencyCreateEditForm: FC<IAgencyCreateEditForm> = ({
   onSave,
@@ -47,20 +48,7 @@ export const AgencyCreateEditForm: FC<IAgencyCreateEditForm> = ({
       {fields.map((field, index) => {
         return (
           <div key={field.id} className={css.row}>
-            <TextField
-              id="phone"
-              label="Телефон"
-              placeholder="Телефон"
-              variant="outlined"
-              size="small"
-              fullWidth
-              error={!!getErrorText(errors, "phones", index)}
-              disabled={isSubmitting}
-              helperText={getErrorText(errors, "phones", index)}
-              {...register(`phones.${index}.value`, {
-                required: true,
-              })}
-            />
+            <PhoneInputHF control={control} name={`phones[${index}].value`} />
 
             <IconButton
               disabled={isSubmitting}
