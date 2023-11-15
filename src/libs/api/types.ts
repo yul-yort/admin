@@ -2,7 +2,7 @@ import { EEndpoints } from "../../constants";
 
 export interface IMethodArgs<Q> {
   endpoint: EEndpoints;
-  params?: Record<string, string | number>;
+  param?: number | string;
   query?: Q;
   body?: Q;
 }

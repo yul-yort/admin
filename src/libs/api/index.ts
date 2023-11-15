@@ -2,7 +2,6 @@ import { baseUrl, CONSTANTS } from "../../constants";
 import { IApi, IMethodArgs } from "./types";
 import { Router } from "router5/dist/types/router";
 import { IDependencies } from "../../router/types";
-import { replacePlaceholders } from "./utils";
 
 export class Api implements IApi {
   private removeToken() {
@@ -37,12 +36,8 @@ export class Api implements IApi {
   }
 
   private getUrl<Q>(args: IMethodArgs<Q>): string {
-    const { endpoint, query, params } = args;
-    const fullEndpoint = params
-      ? replacePlaceholders(endpoint, params)
-      : endpoint;
-
-    const url = new URL(fullEndpoint, baseUrl);
+    const { endpoint, query, param = "" } = args;
+    const url = new URL(endpoint + "/" + param, baseUrl);
 
     if (query) {
       url.search = new URLSearchParams(query).toString();
