@@ -34,13 +34,10 @@ export class LocalityRepository
     });
   }
 
-  async deleteLocality(
-    //TODO param - number
-    params: ILocalityDeleteParamsReq
-  ): Promise<void> {
+  async deleteLocality({ id }: ILocalityDeleteParamsReq): Promise<void> {
     await this.api.delete({
-      endpoint: EEndpoints.LOCALITIES,
-      param: params.id,
+      endpoint: EEndpoints.LOCALITY,
+      params: { id },
     });
   }
 }

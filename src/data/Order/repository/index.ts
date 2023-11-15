@@ -21,11 +21,10 @@ export class OrderRepository
     );
   }
 
-  //TODO param - number
-  async deleteOrder(params: IOrderDeleteParamsReq): Promise<void> {
+  async deleteOrder({ id }: IOrderDeleteParamsReq): Promise<void> {
     await this.api.delete<IOrderDeleteParamsReq>({
-      endpoint: EEndpoints.ORDERS,
-      param: params.id,
+      endpoint: EEndpoints.ORDER,
+      params: { id },
     });
   }
 
