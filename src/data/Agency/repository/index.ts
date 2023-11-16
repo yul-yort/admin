@@ -12,10 +12,10 @@ export class AgencyRepository
   extends BaseRepository
   implements IAgencyRepository
 {
-  async getAgency(params: IAgencyRequestParams): Promise<IAgencyResponseDTO> {
+  async getAgency({ id }: IAgencyRequestParams): Promise<IAgencyResponseDTO> {
     return await this.api.get<IAgencyResponseDTO, IAgencyRequestParams>({
-      endpoint: EEndpoints.AGENCIES,
-      param: params.id,
+      endpoint: EEndpoints.AGENCY,
+      params: { id },
     });
   }
 
@@ -28,13 +28,10 @@ export class AgencyRepository
     });
   }
 
-  async deleteAgency(
-    //TODO param - number
-    params: IAgencyRequestDeleteParams
-  ): Promise<void> {
+  async deleteAgency({ id }: IAgencyRequestDeleteParams): Promise<void> {
     await this.api.delete({
-      endpoint: EEndpoints.AGENCIES,
-      param: params.id,
+      endpoint: EEndpoints.AGENCY,
+      params: { id },
     });
   }
 
