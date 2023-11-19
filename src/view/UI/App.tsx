@@ -2,8 +2,7 @@ import { FC, lazy, Suspense } from "react";
 import { observer } from "mobx-react-lite";
 
 import { LoadingScreen, Notify } from "./components/common";
-import { useNotification } from "./hooks";
-import { useAuth } from "src/libs/hooks/useAuth";
+import { useNotification, useViewModel } from "./hooks";
 import Loading from "./components/common/Loading";
 
 const UnauthorizedApp = lazy(() => import("./UnauthorizedApp"));
@@ -11,9 +10,10 @@ const AuthorizedApp = lazy(() => import("./AuthorizedApp"));
 
 export const App: FC = observer(() => {
   const { notification, removeNotification } = useNotification();
-  const { isAuthState } = useAuth();
+  const { isAuth } = useViewModel("auth");
 
-  if (isAuthState === null) {
+  //TODO: можем ли мы избавиться от этого loading???
+  if (isAuth === null) {
     return <Loading />;
   }
   return (
@@ -26,7 +26,7 @@ export const App: FC = observer(() => {
       />
 
       <Suspense fallback={<LoadingScreen />}>
-        {isAuthState ? <AuthorizedApp /> : <UnauthorizedApp />}
+        {isAuth ? <AuthorizedApp /> : <UnauthorizedApp />}
       </Suspense>
     </>
   );

@@ -7,6 +7,8 @@ import { IAgencyService } from "../data/Agency/service/types";
 import { IAdminService } from "../data/Admin/service/types";
 import { IOrderService } from "../data/Order/service/types";
 import { ILocalityService } from "../data/Locality/service/types";
+import { AuthService } from "src/data/Auth/service";
+import { IAuthService } from "src/data/Auth/service/types";
 
 export class ServicesStore implements IStoreServices {
   private services: IServices = {};
@@ -41,6 +43,14 @@ export class ServicesStore implements IStoreServices {
     }
 
     return this.services.locality;
+  }
+
+  get auth(): IAuthService {
+    if (!this.services.auth) {
+      this.services.auth = new AuthService(this.repositories.auth);
+    }
+
+    return this.services.auth;
   }
 
   constructor(private repositories: IStoreRepositories) {}

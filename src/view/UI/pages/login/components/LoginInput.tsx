@@ -17,6 +17,10 @@ const LoginInput: VFC<IInput> = ({ disabled, errors, register }) => {
       helperText={getErrorText(errors, "email")}
       {...register("email", {
         required: true,
+        pattern: {
+          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+          message: "Неверный формат email",
+        },
       })}
     />
   );
