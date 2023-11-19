@@ -4,11 +4,13 @@ import { INotificationsVM } from "../types";
 import { action, makeObservable, observable, runInAction } from "mobx";
 import { IFormValues } from "src/view/UI/pages/login/types";
 import { IAuthService } from "src/data/Auth/service/types";
+import { AUTH_NOTIFY } from "src/constants/notifyText";
 
 //TODO: вынести в service
 //signOut(), onAuthStateChanged(), getIdToken()
 export class AuthVM extends BaseVM {
   private _auth: Auth | null;
+  private localStorageNameToken = "idToken";
   public isAuth: boolean | null = null;
 
   constructor(
@@ -35,7 +37,7 @@ export class AuthVM extends BaseVM {
         });
       });
     } catch {
-      this.notify.errorNotification("Ошибка при проверке пользователя.");
+      this.notify.errorNotification(AUTH_NOTIFY.VerificationError);
     }
   };
 
@@ -48,9 +50,9 @@ export class AuthVM extends BaseVM {
       const idToken: string = await currentUser.getIdToken(
         /* forceRefresh */ true
       );
-      localStorage.setItem("idToken", idToken);
+      localStorage.setItem(this.localStorageNameToken, idToken);
     } catch {
-      this.notify.errorNotification("Ошибка записи tokena в Local storage");
+      this.notify.errorNotification(AUTH_NOTIFY.TokenError);
     }
   };
 
@@ -61,7 +63,7 @@ export class AuthVM extends BaseVM {
       await this.authService.singIn({ auth: this._auth, email, password });
       await this.userVerification();
     } catch (error) {
-      this.notify.errorNotification("Ошибка входа");
+      this.notify.errorNotification(AUTH_NOTIFY.SingInError);
     }
   };
 
@@ -70,7 +72,7 @@ export class AuthVM extends BaseVM {
       if (!this._auth) return;
       this._auth.signOut();
     } catch {
-      this.notify.errorNotification("Ошибка разлогинивания:");
+      this.notify.errorNotification(AUTH_NOTIFY.LogoutError);
     }
   };
 }
