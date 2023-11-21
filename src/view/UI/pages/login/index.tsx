@@ -9,7 +9,6 @@ import css from "./styles.module.scss";
 import LoginInput from "./components/LoginInput";
 import PasswordInput from "./components/PasswordInput";
 import FormButton from "./components/FormButton";
-import { useAuth } from "src/libs/hooks/useAuth";
 
 const LoginPage: FC = observer(() => {
   const {
@@ -18,10 +17,10 @@ const LoginPage: FC = observer(() => {
     formState: { errors, isSubmitting },
   } = useForm<IFormValues>();
   const adminVM = useViewModel("admin");
-  const { signIn } = useAuth();
+  const authVm = useViewModel("auth");
 
   const onSubmit: SubmitHandler<IFormValues> = async (data: IFormValues) => {
-    signIn(data);
+    authVm.signIn(data);
   };
 
   return (

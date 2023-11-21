@@ -11,6 +11,8 @@ import { IOrderVM } from "../view/viewModels/Order/types";
 import { ILocalityVM } from "../view/viewModels/Locality/types";
 import { IAppVM } from "../view/viewModels/App/types";
 import { AppVM } from "../view/viewModels/App";
+import { IAuthVM } from "src/view/viewModels/AuthVM/types";
+import { AuthVM } from "src/view/viewModels/AuthVM";
 
 export class ViewModelsStore implements IStoreViewModels {
   private store: IViewModels = {};
@@ -67,6 +69,14 @@ export class ViewModelsStore implements IStoreViewModels {
     }
 
     return this.store.app;
+  }
+
+  get auth(): IAuthVM {
+    if (!this.store.auth) {
+      this.store.auth = new AuthVM(this.notifications, this.services.auth);
+    }
+
+    return this.store.auth;
   }
 
   constructor(private services: IStoreServices) {}

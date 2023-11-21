@@ -13,6 +13,9 @@ import { ILocalityRepository } from "../data/Locality/repository/types";
 import { ILocalityService } from "../data/Locality/service/types";
 import { ILocalityVM } from "../view/viewModels/Locality/types";
 import { IAppVM } from "../view/viewModels/App/types";
+import { IAuthVM } from "src/view/viewModels/AuthVM/types";
+import { IAuthRepository } from "src/data/Auth/repository/types";
+import { IAuthService } from "src/data/Auth/service/types";
 
 export interface ILibs {
   api?: IApi;
@@ -24,6 +27,7 @@ export interface IRepositories {
   admin?: IAdminRepository;
   order?: IOrderRepository;
   locality?: ILocalityRepository;
+  auth?: IAuthRepository;
 }
 
 export type IStoreRepositories = Required<IRepositories>;
@@ -33,6 +37,7 @@ export interface IServices {
   admin?: IAdminService;
   order?: IOrderService;
   locality?: ILocalityService;
+  auth?: IAuthService;
 }
 
 export type IStoreServices = Required<IServices>;
@@ -44,6 +49,7 @@ export interface IViewModels {
   order?: IOrderVM;
   locality?: ILocalityVM;
   app?: IAppVM;
+  auth?: IAuthVM;
 }
 
 export type IStoreViewModels = Required<IViewModels>;
