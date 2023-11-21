@@ -1,8 +1,9 @@
-import { IFormValues } from "src/view/UI/pages/login/types";
 import { Auth } from "firebase/auth";
 
-export interface IAuthServiceParams extends IFormValues {
+export interface IAuthServiceParams {
   auth: Auth;
+  email: string;
+  password: string;
 }
 
 export interface IAuthService {

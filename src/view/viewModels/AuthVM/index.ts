@@ -67,7 +67,7 @@ export class AuthVM extends BaseVM {
     }
   };
 
-  logout = () => {
+  signOut = () => {
     try {
       if (!this._auth) return;
       this._auth.signOut();

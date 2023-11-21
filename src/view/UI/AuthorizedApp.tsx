@@ -24,7 +24,7 @@ const pages = {
 
 export const AuthorizedApp: FC = observer(() => {
   const [open, setOpen] = useState<boolean>(false);
-  const { logout } = useViewModel("auth");
+  const { signOut } = useViewModel("auth");
 
   const { title } = useTitle();
   const adminVM = useViewModel("admin");
@@ -52,7 +52,7 @@ export const AuthorizedApp: FC = observer(() => {
           onSetTheme={appVM.setTheme}
           open={open}
           onClose={handleOpenCloseSidebar}
-          onLogout={logout}
+          onLogout={signOut}
           loading={adminVM.loading}
         />
 

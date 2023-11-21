@@ -12,7 +12,7 @@ export const App: FC = observer(() => {
   const { notification, removeNotification } = useNotification();
   const { isAuth } = useViewModel("auth");
 
-  //TODO: можем ли мы избавиться от этого loading???
+  //TODO: можем ли мы избавиться от этого loading??? Будет исправлен в BOA-25
   if (isAuth === null) {
     return <Loading />;
   }

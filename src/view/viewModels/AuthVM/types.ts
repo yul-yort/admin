@@ -3,6 +3,6 @@ import { IBaseVM } from "../types";
 
 export interface IAuthVM extends IBaseVM {
   signIn: (data: IFormValues) => void;
-  logout: () => void;
+  signOut: () => void;
   isAuth: boolean | null;
 }
