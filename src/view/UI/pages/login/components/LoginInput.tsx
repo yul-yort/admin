@@ -2,6 +2,7 @@ import { VFC } from "react";
 import { TextField } from "@mui/material";
 import { IInput } from "../types";
 import { getErrorText } from "../../../../../libs/utils";
+import { regexEmail } from "src/constants/regex";
 
 const LoginInput: VFC<IInput> = ({ disabled, errors, register }) => {
   return (
@@ -18,7 +19,7 @@ const LoginInput: VFC<IInput> = ({ disabled, errors, register }) => {
       {...register("email", {
         required: true,
         pattern: {
-          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+          value: regexEmail,
           message: "Неверный формат email",
         },
       })}
